@@ -36,19 +36,16 @@ To view and edit the code locally:
    git clone https://github.com/CodeWithAsterixh/portfolio.git
 
 2. Navigate to the project directory:
-
-cd portfolio
-
+   ```bash
+   cd portfolio
 
 3. Install dependencies:
-
-npm install
-
+   ```bash
+   npm install
 
 4. Run the app:
-
-npm run dev
-
+   ```bash
+   npm run dev
 
 
 The portfolio will be running on localhost:3000.
