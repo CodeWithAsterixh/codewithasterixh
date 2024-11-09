@@ -17,7 +17,7 @@ interface SkillProps {
 
 const Skill: React.FC<SkillProps> = ({ skill }) => {
   return (
-    <li className="w-52 flex-grow basis-48 max-w-full min-[498px]:max-w-[50%] sm:max-w-56 cursor-pointer hover:scale-95 duration-200 h-fit bg-black/5 flex flex-col items-center justify-center gap-2 box-border p-2 shadow-sm border-[1px] border-black/50 rounded-md">
+    <li className="w-1/2 flex-grow basis-24 min-[498px]:basis-32 max-w-full min-[498px]:max-w-[50%] sm:max-w-56 cursor-pointer hover:scale-95 duration-200 h-fit bg-black/5 flex flex-col items-center justify-center gap-2 box-border p-2 shadow-sm border-[1px] border-black/50 rounded-md">
       <span className="text-3xl">{skill.icon}</span>
       <h4
         className={

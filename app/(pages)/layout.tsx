@@ -38,9 +38,9 @@ function GeneralLayout({ children }: Props) {
       <Image
         src={"/images/myImage1.jpg"}
         alt={"asterixh image as bg"}
-        width={100}
-        height={500}
-        loading="lazy"
+        width={800}
+        height={800}
+        priority
         className="size-full object-cover object-center fixed inset-0 -z-10 brightness-50 dark:brightness-[0.2]"
       />
       <NavBar />
