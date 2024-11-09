@@ -1,68 +1,77 @@
-'use client'
+"use client";
 
-import React, { useState } from "react";
-import { FaReact } from "react-icons/fa";
+import React from "react";
+import { FaGit, FaReact } from "react-icons/fa";
+import { RiNextjsLine } from "react-icons/ri";
+import { SiTypescript } from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
 
-type Props = {};
+type Props = object;
 interface SkillProps {
   skill: {
     icon: React.ReactNode;
     skill: string;
     duration?: string;
-    others?: string[];
   };
 }
 
 const Skill: React.FC<SkillProps> = ({ skill }) => {
-  const [hover, setHover] = useState(false);
-
-  const toggleSetHover = () => setHover(!hover);
-
   return (
-    <li
-      className="relative group flex-grow basis-[200px] min-[362px]:max-w-[300px] min-w-full min-[362px]:min-w-[50%] min-[498px]:min-w-24 flex flex-col mt-0"
-      onMouseEnter={toggleSetHover}
-      onMouseLeave={toggleSetHover}
-    >
-      <div className="relative py-2 flex items-center gap-2 border-l-2 border-t-2 group-hover:border-b-2 border-neutral-800 dark:border-neutral-200 pl-4">
-        <span className="w-5 h-5">{skill.icon}</span>
-        <b>{skill.skill}</b>
-      </div>
-      {hover && (
-        <ul className="flex flex-col gap-1 pl-8 mt-2 list-none text-base-black dark:text-base-white">
-          {skill.others && Array.isArray(skill.others) ? (
-            skill.others.map((item, index) => (
-              <li
-                key={index}
-                className="relative pl-4 border-l-2 border-neutral-800 dark:border-neutral-200"
-              >
-                <span className="absolute w-2.5 h-2.5 bg-neutral-800 dark:bg-bg-neutral-200 rounded-full -left-3 top-1/2 transform -translate-y-1/2" />
-                {item}
-              </li>
-            ))
-          ) : (
-            <li className="relative -mt-2.5 pl-4 border-l-2 border-neutral-800 dark:border-neutral-200">
-              <span className="absolute w-2.5 h-2.5 bg-neutral-800 dark:bg-neutral-200 rounded-full -left-[0.35rem] -top-1" />
-              {skill.duration}
-            </li>
-          )}
-        </ul>
-      )}
-      <div className="absolute top-0 left-0 w-2.5 h-2.5 transform rotate-45 -translate-y-1 -translate-x-1" />
+    <li className="w-52 flex-grow basis-48 max-w-full min-[498px]:max-w-[50%] sm:max-w-56 cursor-pointer hover:scale-95 duration-200 h-fit bg-black/5 flex flex-col items-center justify-center gap-2 box-border p-2 shadow-sm border-[1px] border-black/50 rounded-md">
+      <span className="text-3xl">{skill.icon}</span>
+      <h4
+        className={
+          "text-base min-[498px]:text-lg sm:text-xl font-mono after:w-10 relative flex items-center justify-center gap-2 flex-col " +
+          "after:content-[''] after:relative after:w-10 after:h-0.5 after:bg-red-500/50 after:rounded-full"
+        }
+      >
+        {skill.skill}
+        <span className="text-xs min-[498px]:text-sm sm:text-base">
+          {skill.duration}
+        </span>
+      </h4>
     </li>
   );
 };
 
-
-
 function Skills({}: Props) {
   return (
-    <ul>
-      <Skill  skill={{
-        icon: <FaReact/>,
-        skill: 'React',
-        duration: '2 years'
-      }} />
+    <ul className="w-full h-fit flex flex-wrap items-start justify-start gap-3">
+      <Skill
+        skill={{
+          icon: <FaReact />,
+          skill: "React",
+          duration: "2 years",
+        }}
+      />
+      <Skill
+        skill={{
+          icon: <RiNextjsLine />,
+          skill: "Next js",
+          duration: "2 years",
+        }}
+      />
+      <Skill
+        skill={{
+          icon: <SiTypescript />,
+          skill: "Typescript",
+          duration: "2 years",
+        }}
+      />
+      <Skill
+        skill={{
+          icon: <FaGit />,
+          skill: "Git flow",
+          duration: "2 years",
+        }}
+      />
+      <Skill
+        skill={{
+          icon: <VscVscode />,
+          skill: "Vscode",
+          duration: "2 years",
+        }}
+      />
     </ul>
   );
 }

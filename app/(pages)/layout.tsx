@@ -2,9 +2,9 @@
 
 import { setTheme } from "@/store/reducers/themeReducer";
 import { AppDispatch, RootState } from "@/store/store";
+import Footer from "@/ui/components/Footer/Footer";
 import NavBar from "@/ui/components/NavBar/NavBar";
-import Footer from "@/ui/components/Footer/Footer"
-import React, { Children, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 type Props = {
@@ -42,7 +42,7 @@ function GeneralLayout({ children }: Props) {
       <NavBar />
       <main className="w-full h-fit relative max-h-full overflow-y-auto flex flex-col gap-2 items-start justify-start">
         {children}
-        <Footer/>
+        <Footer />
       </main>
     </div>
   );

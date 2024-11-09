@@ -14,7 +14,7 @@ import { FaPhone } from "react-icons/fa6";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 
-type Props = {};
+type Props = object;
 type NavBarLinkProps = { path: string; text: string; icon?: React.ReactNode };
 
 function NavBarLink({ path, text, icon }: NavBarLinkProps) {
@@ -66,16 +66,24 @@ function NavBar({}: Props) {
   }, [mode]);
   return (
     <aside
-      className={clsx("fixed top-0 left-0 sm:relative z-10 sm:h-full duration-200 p-2", {
-        "w-[40vw] max-w-[300px] min-w-fit h-full": size === "full",
-        "w-16 h-fit": size === "small",
-      })}
+      className={clsx(
+        "fixed top-0 left-0 sm:relative z-10 sm:h-full duration-200 p-2",
+        {
+          "w-[40vw] max-w-[300px] min-w-fit h-full": size === "full",
+          "w-16 h-fit": size === "small",
+        }
+      )}
     >
       {/* sidebar content */}
-      <section className={clsx("w-full p-2 relative flex flex-col items-start justify-start gap-2 min-w-fit sm:h-full bg-white/40 dark:bg-black/40 backdrop-blur-md rounded-lg overflow-hidden", {
-        "h-fit": size === "small",
-        "h-full": size === "full"
-      })}>
+      <section
+        className={clsx(
+          "w-full p-2 relative flex flex-col items-start justify-start gap-2 min-w-fit sm:h-full bg-white/40 dark:bg-black/40 backdrop-blur-md rounded-lg overflow-hidden",
+          {
+            "h-fit": size === "small",
+            "h-full": size === "full",
+          }
+        )}
+      >
         {/* topbar of the  sidebar */}
         <div
           className={clsx(
@@ -140,7 +148,7 @@ function NavBar({}: Props) {
           >
             {size === "full" && (
               <strong className="size-full text-left text-sm min-[498px]:text-lg">
-                {mode==="dark"?"Light":"Dark"} Theme
+                {mode === "dark" ? "Light" : "Dark"} Theme
               </strong>
             )}
           </Button>
