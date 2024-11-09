@@ -1,16 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface themeMode {
+interface ThemeMode {
   mode: "dark" | "light";
   type: "dark" | "light" | "system";
 }
 
-const systemTheme = window && window.matchMedia("(prefers-color-scheme: dark)").matches
-  ? "dark"
-  : "light";
+// Function to get the system theme on the client side
+const getSystemTheme = () => {
+  if (typeof window !== "undefined" && window.matchMedia) {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+  return "light"; // default to light if window is not available (e.g., on the server)
+};
 
-const initialState: themeMode = {
-  mode: systemTheme,
+const initialState: ThemeMode = {
+  mode: "light", // default value, it will be updated to system theme on client side
   type: "system",
 };
 
@@ -29,7 +35,7 @@ const userThemeSlice = createSlice({
           state.type = "dark";
           break;
         case "auto":
-          state.mode = systemTheme;
+          state.mode = getSystemTheme();
           state.type = "system";
           break;
 
@@ -38,12 +44,11 @@ const userThemeSlice = createSlice({
       }
     },
     resetPreferences: (state) => {
-      state.mode = systemTheme;
+      state.mode = getSystemTheme();
       state.type = "system";
     },
   },
 });
 
 export const { setTheme, resetPreferences } = userThemeSlice.actions;
-
 export const UserThemePreferences = userThemeSlice.reducer;

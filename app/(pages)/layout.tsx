@@ -4,6 +4,7 @@ import { setTheme } from "@/store/reducers/themeReducer";
 import { AppDispatch, RootState } from "@/store/store";
 import Footer from "@/ui/components/Footer/Footer";
 import NavBar from "@/ui/components/NavBar/NavBar";
+import Image from "next/image";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -34,9 +35,12 @@ function GeneralLayout({ children }: Props) {
   }, [mode]);
   return (
     <div className="size-full overflow-y-auto relative isolate flex items-start justify-start gap-2 bg-base-white dark:bg-base-black">
-      <img
-        src="https://images.unsplash.com/photo-1668554245893-2430d0077217?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="image"
+      <Image
+        src={"/images/myImage1.jpg"}
+        alt={"asterixh image as bg"}
+        width={100}
+        height={500}
+        loading="lazy"
         className="size-full object-cover object-center fixed inset-0 -z-10 brightness-50 dark:brightness-[0.2]"
       />
       <NavBar />
