@@ -56,14 +56,14 @@ function NavBar({}: Props) {
     } else {
       dispatch(setSideBarSize("full"));
     }
-  }, [size]);
+  }, [dispatch, size]);
   const handleToggleTheme = useCallback(() => {
     if (mode === "dark") {
       dispatch(setTheme("light"));
     } else {
       dispatch(setTheme("dark"));
     }
-  }, [mode]);
+  }, [dispatch, mode]);
   return (
     <aside
       className={clsx(
@@ -115,10 +115,10 @@ function NavBar({}: Props) {
             }
           )}
         >
-          <NavBarLink path="#" text="Home" />
-          <NavBarLink path="#" icon={<AiFillCode />} text="Projects" />
-          <NavBarLink path="#" icon={<FaUserAlt />} text="About" />
-          <NavBarLink path="#" icon={<FaPhone />} text="Contact" />
+          <NavBarLink path="/" text="Home" />
+          <NavBarLink path="/projects" icon={<AiFillCode />} text="Projects" />
+          <NavBarLink path="/about" icon={<FaUserAlt />} text="About" />
+          <NavBarLink path="/contact" icon={<FaPhone />} text="Contact" />
         </nav>
 
         {/* theme changer */}
