@@ -11,16 +11,20 @@ function ProjectsLayout({ children }: Props) {
   return (
     <div className="size-full">
       <HeroSection
-        main="Welcome to Our Creative Space"
-        sub="Explore projects, blogs, and more."
-        cta={{ navto: "#", text: "Get in touch" }}
+        main="Discover the World of Asterixh"
+        sub="Dive into projects, insights, and creativity."
+        cta={{ navto: "#contact", text: "Connect with Me" }}
         extra1={
           <span className="w-full h-fit text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
-            We are:
+            My Focus:
             <Typewriter
-              spanClassName="!border-cyan-400"
-              className="!text-cyan-300"
-              texts={["Innovative", "Intuitive", "Creative"]}
+              spanClassName="!border-purple-400"
+              className="!text-purple-300"
+              texts={[
+                "Innovative Solutions",
+                "Seamless Experiences",
+                "Cutting-Edge Tech",
+              ]}
             />
           </span>
         }
@@ -31,17 +35,18 @@ function ProjectsLayout({ children }: Props) {
               "before:content-[''] before:absolute before:w-24 before:h-1 before:rounded-full before:top-0 before:left-1/2 before:-translate-x-1/2 before:bg-neutral-200 dark:before:bg-neutral-400"
             )}
           >
-            Bridging creativity and technology,{" "}
+            Blending creativity and technology,{" "}
             <span className="text-neutral-300 dark:text-neutral-400">
               CodeWithAsterixh
             </span>{" "}
-            delivers high-performance, user-centered solutions that elevate
-            digital experiences. From building robust interfaces to refining
-            complex systems, I’m committed to impactful, seamless, and
-            innovative development that drives results.
+            delivers intuitive, high-performance solutions that transform
+            digital experiences. From crafting interactive UIs to refining
+            complex systems, I&apos;m dedicated to seamless, innovative
+            development that makes an impact.
           </p>
         }
       />
+
       {children}
     </div>
   );

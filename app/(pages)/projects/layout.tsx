@@ -11,16 +11,20 @@ function ProjectsLayout({ children }: Props) {
   return (
     <div className="size-full">
       <HeroSection
-        main="Welcome to Our Creative Space"
-        sub="Explore projects, blogs, and more."
-        cta={{ navto: "#", text: "Get in touch" }}
+        main="Showcasing My Work"
+        sub="Explore a selection of projects built with passion and precision."
+        cta={{ navto: "#portfolio", text: "View My Projects" }}
         extra1={
           <span className="w-full h-fit text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
-            We are:
+            Project Highlights:
             <Typewriter
-              spanClassName="!border-cyan-400"
-              className="!text-cyan-300"
-              texts={["Innovative", "Intuitive", "Creative"]}
+              spanClassName="!border-indigo-400"
+              className="!text-indigo-300"
+              texts={[
+                "Innovative Designs",
+                "Optimized Performance",
+                "Scalable Solutions",
+              ]}
             />
           </span>
         }
@@ -31,17 +35,18 @@ function ProjectsLayout({ children }: Props) {
               "before:content-[''] before:absolute before:w-24 before:h-1 before:rounded-full before:top-0 before:left-1/2 before:-translate-x-1/2 before:bg-neutral-200 dark:before:bg-neutral-400"
             )}
           >
-            Bridging creativity and technology,{" "}
+            At{" "}
             <span className="text-neutral-300 dark:text-neutral-400">
               CodeWithAsterixh
-            </span>{" "}
-            delivers high-performance, user-centered solutions that elevate
-            digital experiences. From building robust interfaces to refining
-            complex systems, I’m committed to impactful, seamless, and
-            innovative development that drives results.
+            </span>
+            , each project embodies a blend of creativity and technical
+            expertise. From interactive UIs to performance-driven solutions,
+            these projects reflect my commitment to delivering impactful,
+            high-quality work that drives results.
           </p>
         }
       />
+
       {children}
     </div>
   );
