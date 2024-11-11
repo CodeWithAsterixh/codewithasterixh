@@ -18,7 +18,7 @@ function TimeLineContentCard({
   content: string;
 }) {
   return (
-    <div className="w-full h-fit bg-black/5 flex flex-col items-start justify-start gap-2 box-border p-2 shadow-sm border-[1px] border-black/50 rounded-md">
+    <div className="w-full text-black dark:text-white h-fit bg-black/5 dark:bg-white/5 flex flex-col items-start justify-start gap-2 box-border p-2 shadow-sm border-[1px] border-black/50 rounded-md">
       <Typography
         component="h4"
         className="text-base min-[498px]:text-lg sm:text-xl font-mono after:w-10 relative flex items-start justify-start gap-2 flex-col"
