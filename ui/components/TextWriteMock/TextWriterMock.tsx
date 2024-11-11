@@ -43,10 +43,10 @@ const Typewriter: React.FC<TypewriterProps> = ({ texts, className, spanClassName
   }, [currentText, isDeleting, currentIndex, texts]);
 
   return (
-    <h4 className={clsx("text-lg min-[498px]:text-xl sm:text-2xl font-bold text-gray-800", className)}>
+    <span className={clsx("text-lg min-[498px]:text-xl sm:text-2xl font-bold text-gray-800", className)}>
       {currentText}
       <span className={clsx("border-r-2 border-gray-800 animate-blink ml-1", spanClassName)} />
-    </h4>
+    </span>
   );
 };
 

@@ -8,7 +8,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import React, { useCallback } from "react";
 import { AiFillCode, AiFillHome } from "react-icons/ai";
-import { BsMoon, BsSun } from "react-icons/bs";
+import { BsMoon, BsPenFill, BsSun } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
@@ -116,9 +116,10 @@ function NavBar({}: Props) {
           )}
         >
           <NavBarLink path="/" text="Home" />
-          <NavBarLink path="/projects" icon={<AiFillCode />} text="Projects" />
-          <NavBarLink path="/about" icon={<FaUserAlt />} text="About" />
-          <NavBarLink path="/contact" icon={<FaPhone />} text="Contact" />
+          <NavBarLink path="/projects" icon={<AiFillCode />} text="My Projects" />
+          <NavBarLink path="/about" icon={<FaUserAlt />} text="About me" />
+          <NavBarLink path="/contact" icon={<FaPhone />} text="Contact me" />
+          <NavBarLink path="/bio" icon={<BsPenFill />} text="My Bio" />
         </nav>
 
         {/* theme changer */}

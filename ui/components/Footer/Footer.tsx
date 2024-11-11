@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React from "react";
+import Link from "next/link";
 import { BiArrowToRight, BiPhone } from "react-icons/bi";
 import { BsMailbox } from "react-icons/bs";
 import { PiGithubLogo, PiLinkedinLogo, PiXLogoBold } from "react-icons/pi";
@@ -16,12 +16,31 @@ function Footer({}: Props) {
 
         <ul>
           <li>
-            <Button
-              startIcon={<BiArrowToRight />}
-              className="!bg-transparent !text-current !flex !items-center"
-            >
-              Home
-            </Button>
+            <Link href={"/"}>
+              <Button
+                startIcon={<BiArrowToRight />}
+                className="!bg-transparent !text-current !flex !items-center"
+              >
+                Home
+              </Button>
+            </Link>
+            <Link href={"/about"}>
+              <Button
+                startIcon={<BiArrowToRight />}
+                className="!bg-transparent !text-current !flex !items-center"
+              >
+                About me
+              </Button>
+            </Link>
+            <Link href={"/projects"}>
+              <Button
+                startIcon={<BiArrowToRight />}
+                className="!bg-transparent !text-current !flex !items-center"
+              >
+                See my Projects
+              </Button>
+            </Link>
+            
           </li>
         </ul>
       </section>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Skeleton } from "@mui/material";
 import React from "react";
 import { FaGit, FaReact } from "react-icons/fa";
 import { RiNextjsLine } from "react-icons/ri";
@@ -14,6 +15,18 @@ interface SkillProps {
     duration?: string;
   };
 }
+
+
+export const SkillSkeleton: React.FC = () => {
+  return (
+    <div className="w-1/2 flex-grow basis-24 min-[498px]:basis-32 max-w-full min-[498px]:max-w-[50%] sm:max-w-56 cursor-pointer hover:scale-95 duration-200 h-fit bg-black/5 flex flex-col items-center justify-center gap-2 box-border p-2 shadow-sm border-[1px] border-black/50 rounded-md">
+      <Skeleton variant="circular" width={20} height={20} />
+      <Skeleton variant="text" width={10} sx={{ fontSize: '0.5rem' }} />
+      <Skeleton variant="text" width={5} sx={{ fontSize: '0.125rem' }} />
+    </div>
+  );
+};
+
 
 const Skill: React.FC<SkillProps> = ({ skill }) => {
   return (
