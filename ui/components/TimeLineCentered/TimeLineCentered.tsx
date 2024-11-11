@@ -1,14 +1,19 @@
+"use client";
+
+import { RootState } from "@/store/store";
 import {
   Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineDot,
   TimelineConnector,
   TimelineContent,
+  TimelineDot,
+  TimelineItem,
   TimelineOppositeContent,
+  TimelineSeparator,
 } from "@mui/lab";
 import { Box, Typography } from "@mui/material";
+import { useEffect } from "react";
 import { BiBookReader } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 function TimeLineContentCard({
   heading,
@@ -36,14 +41,53 @@ function TimeLineContentCard({
       >
         {heading}
       </Typography>
-      <Typography variant="body2" color="text.secondary">
-        {content}
-      </Typography>
+      <Typography variant="body2">{content}</Typography>
     </div>
   );
 }
 
 export const CenteredTimeline = () => {
+  const { mode } = useSelector((s: RootState) => s.ThemePreference);
+  const t_CF = mode === "light" ? "black" : "white";
+  useEffect(() => {
+    const observerLeft = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-slt-left");
+          } else {
+            entry.target.classList.remove("animate-slt-left");
+          }
+        });
+      },
+      { threshold: 0.8 } // Trigger when 50% of the item is visible
+    );
+    const observerRight = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-slt-right");
+          } else {
+            entry.target.classList.remove("animate-slt-right");
+          }
+        });
+      },
+      { threshold: 0.8 } // Trigger when 50% of the item is visible
+    );
+
+    document.querySelectorAll(".observingLeft").forEach((item) => {
+      if (item) observerLeft.observe(item);
+    });
+    document.querySelectorAll(".observingRight").forEach((item) => {
+      if (item) observerRight.observe(item);
+    });
+
+    return () => {
+      observerLeft.disconnect();
+      observerRight.disconnect();
+    };
+  }, []);
+
   return (
     <Box
       sx={{
@@ -80,21 +124,32 @@ export const CenteredTimeline = () => {
             content: "Working on ABC projects",
           },
         ].map((item, index) => (
-          <TimelineItem key={index} sx={{ width: "100%" }}>
+          <TimelineItem
+            className="before:!hidden !flex-col min-[500px]:!flex-row even:min-[500px]:!flex-row-reverse"
+            key={index}
+            sx={{ width: "100%" }}
+          >
             <TimelineOppositeContent
-              sx={{ m: "auto", textAlign: "center" }}
+              sx={{
+                m: "auto",
+                textAlign: "center",
+                opacity: 0,
+                transform: "translateY(-30px)", // Start with a slight vertical offset
+                transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+              }}
               variant="body2"
-              color="text.secondary"
+              className="observingLeft"
+              color={t_CF}
             >
               {item.date}
             </TimelineOppositeContent>
 
-            <TimelineSeparator>
-              <TimelineConnector />
+            <TimelineSeparator className="!items-center !justify-center !flex-row min-[500px]:!flex-col !text-center">
+              <TimelineConnector className="h-[2px] min-[500px]:h-fit w-fit min-[500px]:w-[2px]" />
               <TimelineDot>
-                <BiBookReader />
+                <BiBookReader className="!text-black" />
               </TimelineDot>
-              <TimelineConnector />
+              <TimelineConnector className="h-[2px] min-[500px]:h-fit w-fit min-[500px]:w-[2px]" />
             </TimelineSeparator>
 
             <TimelineContent
@@ -104,7 +159,11 @@ export const CenteredTimeline = () => {
                 display: "flex",
                 justifyContent: "center",
                 width: "100%",
+                opacity: 0,
+                transform: "translateY(30px)", // Start with a slight vertical offset
+                transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
               }}
+              className="observingRight"
             >
               <TimeLineContentCard
                 heading={item.heading}

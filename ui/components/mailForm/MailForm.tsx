@@ -1,11 +1,14 @@
 "use client";
 
+import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
 import React, { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { MdSend } from "react-icons/md";
+import { useSelector } from "react-redux";
 import { z } from "zod";
+import { __MAILER__ } from "./mailvar";
 
 type Props = object;
 
@@ -21,6 +24,7 @@ type responseFormData = z.infer<typeof responseFormSchema>;
 
 function MailForm({}: Props) {
   const responseForm = useRef<HTMLElement | null>(null);
+  const { mode } = useSelector((s: RootState) => s.ThemePreference);
   const {
     register,
     handleSubmit,
@@ -29,29 +33,33 @@ function MailForm({}: Props) {
     resolver: zodResolver(responseFormSchema),
   });
   const onSubmit: SubmitHandler<responseFormData> = (data) => {
-    const { email, name, textContent } = data;
-
-    const subject = `Message from ${name}`;
-    const body = `
-  Name: ${name}
-  Email: ${email}
-
-  Message:
-  ${textContent}
-
-  ---
-  Sent from the portfolio of Paul Peter - Web Developer
-`;
-    const mailtoLink = `mailto:peterpaultolulope@gmail.com?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailtoLink;
+    __MAILER__(data);
   };
+
+  const c = {
+    ".3": "0.3",
+    ".8": "0.8",
+    ".5": "0.05",
+  };
+  const c_op3 =
+    mode === "light"
+      ? `rgba(0, 0, 0, ${c[".3"]} )`
+      : `rgba(255, 255, 255, ${c[".3"]} )`;
+  const c_op8 =
+    mode === "light"
+      ? `rgba(0, 0, 0, ${c[".8"]} )`
+      : `rgba(255, 255, 255, ${c[".8"]} )`;
+  const c_op5 =
+    mode === "light"
+      ? `rgba(0, 0, 0, ${c[".5"]} )`
+      : `rgba(255, 255, 255, ${c[".5"]} )`;
+  const t_C = mode === "light" ? "grey" : "grey";
+  const t_CF = mode === "light" ? "black" : "white";
+
   return (
     <section
       ref={responseForm}
-      className="w-full h-full min-h-fit p-4 flex flex-col items-center justify-center gap-4 bg-black/10 text-center"
+      className="w-full h-full min-h-fit p-4 flex flex-col items-center justify-center gap-4 rounded-md bg-black/10 dark:bg-white/10 text-center"
     >
       <div
         className={
@@ -72,35 +80,44 @@ function MailForm({}: Props) {
         className="w-full max-w-screen-sm flex flex-wrap items-center justify-center gap-2"
       >
         <TextField
-          className="w-full min-[498px]:w-[calc(50%-0.25rem)] focus:!border-black/80 !outline-none"
+          className="w-full min-[498px]:w-[calc(50%-0.25rem)] !outline-none"
           label="Name"
           error={!!errors.name}
           helperText={errors.name ? errors.name.message : " "}
           sx={{
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
-                borderColor: errors.name ? "red" : "rgba(0, 0, 0, 0.3)",
+                borderColor: errors.name ? "red" : c_op3,
               },
               "&.Mui-focused fieldset": {
-                borderColor: errors.name ? "red" : "rgba(0, 0, 0, 0.8)",
+                borderColor: errors.name ? "red" : c_op8,
+                borderWidth: 1,
+              },
+            },
+            "& .MuiOutlinedInput-root.Mui-hovered": {
+              "& fieldset": {
+                borderColor: errors.name ? "red" : c_op3,
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: errors.name ? "red" : c_op8,
                 borderWidth: 1,
               },
             },
             "& .MuiOutlinedInput-input": {
-              backgroundColor: "rgba(0, 0, 0, 0.05)",
+              backgroundColor: c_op5,
             },
             "& .MuiInputLabel-root": {
-              color: errors.name ? "red" : "gray",
+              color: errors.name ? "red" : t_C,
             },
             "& .MuiInputLabel-root.Mui-focused": {
-              color: errors.name ? "red" : "black",
+              color: errors.name ? "red" : t_CF,
             },
           }}
           {...register("name")}
         />
 
         <TextField
-          className="w-full min-[498px]:w-[calc(50%-0.25rem)] focus:!border-black/80 !outline-none"
+          className="w-full min-[498px]:w-[calc(50%-0.25rem)] !outline-none"
           label="Response Email"
           type="email"
           error={!!errors.email}
@@ -108,35 +125,35 @@ function MailForm({}: Props) {
           sx={{
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
-                borderColor: errors.email ? "red" : "rgba(0, 0, 0, 0.3)",
+                borderColor: errors.email ? "red" : c_op3,
               },
               "&.Mui-focused fieldset": {
-                borderColor: errors.email ? "red" : "rgba(0, 0, 0, 0.8)",
+                borderColor: errors.email ? "red" : c_op8,
                 borderWidth: 1,
               },
             },
             "& .MuiOutlinedInput-input": {
-              backgroundColor: "rgba(0, 0, 0, 0.05)",
+              backgroundColor: c_op5,
             },
             "& .MuiInputLabel-root": {
-              color: errors.email ? "red" : "gray",
+              color: errors.email ? "red" : t_C,
             },
             "& .MuiInputLabel-root.Mui-focused": {
-              color: errors.email ? "red" : "black",
+              color: errors.email ? "red" : t_CF,
             },
           }}
           {...register("email")}
         />
 
         <textarea
-          className={`w-full h-36 p-2 rounded-md border-[1px] bg-black/5 
+          className={`w-full h-36 p-2 rounded-md border-[1px] bg-black/5 dark:bg-white/5
     ${
       errors.textContent
         ? "border-red-500 hover:border-red-500"
-        : "border-black/30 hover:border-black/80"
+        : "border-black/30 hover:border-black/80 dark:border-white/30 dark:hover:border-white/80"
     } 
-  focus:border-black/80 
-    outline-none resize-none placeholder:text-black/50`}
+  focus:border-black/80 dark:focus:border-white/80 
+    outline-none resize-none placeholder:text-black/50 dark:placeholder:text-white/50`}
           placeholder="How can we help you?"
           {...register("textContent")}
         />
@@ -146,9 +163,9 @@ function MailForm({}: Props) {
             control={
               <Checkbox
                 sx={{
-                  color: "black",
+                  color: t_CF,
                   "&.Mui-checked": {
-                    color: "black",
+                    color: t_CF,
                   },
                 }}
                 {...register("permission", {
@@ -159,7 +176,7 @@ function MailForm({}: Props) {
             label={`You give me permission to respond to you by email provided`}
             sx={{
               "& .MuiFormControlLabel-label": {
-                color: errors.permission ? "red" : "black",
+                color: errors.permission ? "red" : t_CF,
                 textAlign: "left",
               },
             }}
@@ -180,7 +197,7 @@ function MailForm({}: Props) {
         <div className="w-full flex items-start justify-start">
           <Button
             variant="contained"
-            className="w-full min-[498px]:w-fit !p-2 !px-4 !text-xs min-[498px]:!text-sm sm:!text-base !bg-black/90 hover:!bg-black/70 !text-white capitalize"
+            className="w-full min-[498px]:w-fit !p-2 !px-4 !text-xs min-[498px]:!text-sm sm:!text-base !bg-black/70 dark:!bg-white/70 !text-white dark:!text-black !backdrop-blur-md capitalize"
             startIcon={<MdSend />}
             disableElevation
             type="submit"

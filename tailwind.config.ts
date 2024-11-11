@@ -34,6 +34,8 @@ export default {
         "slide-down-reveal": "slideDownReveal 300ms linear forwards",
         "fade-in": "fadeIn 300ms linear forwards",
         "fade-out": "fadeOut 300ms linear forwards",
+        "slt-left": "SlideToLeftReveal 300ms linear forwards",
+        "slt-right": "SlideToRightReveal 300ms linear forwards",
       },
     },
   },

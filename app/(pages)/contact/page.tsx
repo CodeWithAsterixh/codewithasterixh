@@ -1,4 +1,5 @@
 import MailForm from "@/ui/components/mailForm/MailForm";
+import SocialsTimeline from "@/ui/components/TimeLineCentered/SocialsTimeline";
 
 type Props = object;
 
@@ -13,10 +14,10 @@ function ContactPage({}: Props) {
           }
         >
           <h2 className="text-xl min-[498px]:text-2xl sm:text-3xl">
-          Get through my socials
+            Get through my socials
           </h2>
-          
         </div>
+        <SocialsTimeline />
       </section>
 
       <div className="w-full h-screen flex items-center justify-center flex-col">

@@ -95,6 +95,32 @@ body {
     opacity: 1;
   }
 }
+/* SlideLeftReveal (Opacity transition with slide) */
+@keyframes SlideToLeftReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-30px); /* Start at the original position */
+
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0); /* Start at the original position */
+
+  }
+}
+/* Fade in (Opacity transition) */
+@keyframes SlideToRightReveal {
+  from {
+    opacity: 0;
+    transform: translateX(30px); /* Start at the original position */
+
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0); /* Start at the original position */
+
+  }
+}
 
 /* Fade out (Opacity transition) */
 @keyframes fadeOut {
