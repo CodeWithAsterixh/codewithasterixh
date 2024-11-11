@@ -15,13 +15,18 @@ import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 
 type Props = object;
-type NavBarLinkProps = { path: string; text: string; icon?: React.ReactNode };
+type NavBarLinkProps = {
+  path: string;
+  text: string;
+  icon?: React.ReactNode;
+  title?: string;
+};
 
-function NavBarLink({ path, text, icon }: NavBarLinkProps) {
+function NavBarLink({ path, text, icon, title }: NavBarLinkProps) {
   const { size } = useSelector((s: RootState) => s.SideBar);
 
   return (
-    <Link href={path} className={"w-full"}>
+    <Link href={path} className={"w-full"} title={title}>
       <Button
         className={clsx(
           "w-full !bg-black/20 dark:!bg-white/20 !text-base-black dark:!text-white",
@@ -115,11 +120,35 @@ function NavBar({}: Props) {
             }
           )}
         >
-          <NavBarLink path="/" text="Home" />
-          <NavBarLink path="/projects" icon={<AiFillCode />} text="My Projects" />
-          <NavBarLink path="/about" icon={<FaUserAlt />} text="About me" />
-          <NavBarLink path="/contact" icon={<FaPhone />} text="Contact me" />
-          <NavBarLink path="/bio" icon={<BsPenFill />} text="My Bio" />
+          <NavBarLink
+            path="/"
+            text="Home"
+            title="Home - Paul Peter's Portfolio | Front-End Developer"
+          />
+          <NavBarLink
+            path="/projects"
+            icon={<AiFillCode />}
+            text="My Projects"
+            title="Projects - Web Development, React, Next.js | Paul Peter"
+          />
+          <NavBarLink
+            path="/about"
+            icon={<FaUserAlt />}
+            text="About me"
+            title="About Paul Peter - Front-End Developer | CodeWithAsterixh"
+          />
+          <NavBarLink
+            path="/contact"
+            icon={<FaPhone />}
+            text="Contact me"
+            title="Contact Paul Peter - Get in Touch with a Front-End Developer"
+          />
+          <NavBarLink
+            path="/bio"
+            icon={<BsPenFill />}
+            text="My Bio"
+            title="Paul Peter Bio - Learn About the Developer Behind CodeWithAsterixh"
+          />
         </nav>
 
         {/* theme changer */}

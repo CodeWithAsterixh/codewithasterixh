@@ -3,6 +3,7 @@ import { ModalProvider } from "@/ui/components/Modal/Modal";
 import { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import DocumentHead from "@/ui/Document";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -18,7 +19,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Paul Peter - Front-End Developer | CodeWithAsterixh",
   description:
-    "Paul Peter's portfolio showcasing his expertise in front-end development with Next.js, TypeScript, React, Material UI, Tailwind CSS, and more. Explore his projects and skills.",
+    "Welcome to CodeWithAsterixh, Take a look at Asterixh's portfolio showcasing his expertise in front-end development with Next.js, TypeScript, React, Material UI, Tailwind CSS, and more. Explore his projects, skills and years of exp.",
   keywords:
     "Paul Peter, CodeWithAsterixh, Front-End Developer, Web Developer, Next.js, TypeScript, React Developer, Material UI, Tailwind CSS, JavaScript, Web Design, UI/UX Developer, Portfolio",
   openGraph: {
@@ -51,6 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <DocumentHead />
       <body
         className={`${geistSans.variable} ${geistMono.variable} w-screen h-screen relative antialiased`}
       >

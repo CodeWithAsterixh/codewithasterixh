@@ -8,7 +8,8 @@ type Props = {
   children: React.ReactNode;
 };
 export const metadata: Metadata = {
-  title: "Projects by Paul Peter | Front-End Developer | CodeWithAsterixh",
+  title:
+    "Projects by Paul Peter | Front-End Developer | CodeWithAsterixh | years of practical exp | project",
   description:
     "Explore the projects of Paul Peter, a front-end developer who builds high-performance web experiences using Next.js, TypeScript, React, and Tailwind CSS. Check out his latest work.",
   keywords:
@@ -46,7 +47,7 @@ function ProjectsLayout({ children }: Props) {
   return (
     <div className="size-full">
       <HeroSection
-        main="Showcasing My Work"
+        main="Project | Showcasing My Works"
         sub="Explore a selection of projects built with passion and precision."
         cta={{ navto: "#portfolio", text: "View My Projects" }}
         extra1={
