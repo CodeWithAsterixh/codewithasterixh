@@ -10,7 +10,7 @@ const AutoResetPagesScroll = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  return <AutoSidebarNewPage />;
+  return <AutoSidebarNewPage change={pathname} />;
 };
 
 export default AutoResetPagesScroll;

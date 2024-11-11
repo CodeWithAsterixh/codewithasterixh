@@ -5,7 +5,7 @@ import { AppDispatch } from "@/store/store";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-function AutoSidebarNewPage() {
+function AutoSidebarNewPage({ change }: { change: string }) {
   const dispatch = useDispatch<AppDispatch>();
   const [screenWidth, setScreenWidth] = useState<number>(0);
 
@@ -29,7 +29,7 @@ function AutoSidebarNewPage() {
     if (screenWidth < 500) {
       dispatch(setSideBarSize("small"));
     }
-  }, [dispatch, screenWidth]);
+  }, [dispatch, screenWidth, change]);
 
   return null;
 }
