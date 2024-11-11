@@ -20,7 +20,10 @@ function ContactPage({}: Props) {
         <SocialsTimeline />
       </section>
 
-      <div className="w-full h-screen flex items-center justify-center flex-col">
+      <div
+        id="contact-form"
+        className="w-full h-screen flex items-center justify-center flex-col"
+      >
         <MailForm />
       </div>
     </section>

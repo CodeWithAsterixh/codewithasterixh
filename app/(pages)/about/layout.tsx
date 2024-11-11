@@ -49,7 +49,7 @@ function ProjectsLayout({ children }: Props) {
       <HeroSection
         main="Discover the World of Asterixh"
         sub="Dive into projects, insights, and creativity."
-        cta={{ navto: "#contact", text: "Connect with Me" }}
+        cta={{ navto: "#about", text: "Know About Me" }}
         extra1={
           <span className="w-full h-fit text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
             My Focus:

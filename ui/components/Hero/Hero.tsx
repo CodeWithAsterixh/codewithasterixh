@@ -2,8 +2,8 @@
 
 import { Button } from "@mui/material";
 import Link from "next/link";
-import React, { useCallback } from "react";
-import { BiArrowToBottom, BiArrowToRight } from "react-icons/bi";
+import React from "react";
+import { BiArrowToRight } from "react-icons/bi";
 
 type Props = {
   main?: string | React.ReactNode;
@@ -17,18 +17,6 @@ type Props = {
 };
 
 function HeroSection({ extra1, extra2, main, sub, cta }: Props) {
-  const scroll = useCallback(() => {
-    const heroParent = document.getElementById("hero")?.parentElement;
-    const hero = document.getElementById("hero");
-    if (heroParent && hero) {
-      // Ensure heroParent is scrollable
-      // Scroll by the full height of `hero`
-      window.scrollTo({
-        top: hero.clientHeight,
-        behavior: "smooth", // Smooth scroll effect
-      });
-    }
-  }, []);
   return (
     <section
       id="hero"
@@ -53,14 +41,6 @@ function HeroSection({ extra1, extra2, main, sub, cta }: Props) {
           </div>
         )}
       </div>
-      <Button
-        onClick={scroll}
-        variant="contained"
-        disableElevation
-        className="!bg-transparent !p-0 !absolute !bottom-5 animate-bounce !text-base-white !left-0 !w-full !flex !items-center !justify-center !text-3xl"
-      >
-        <BiArrowToBottom />
-      </Button>
     </section>
   );
 }

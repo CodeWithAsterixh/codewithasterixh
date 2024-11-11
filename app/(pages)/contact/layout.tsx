@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   // Add more metadata as needed (favicon, etc.)
 };
 
-function ProjectsLayout({ children }: Props) {
+function ContactLayout({ children }: Props) {
   return (
     <div className="size-full">
       <HeroSection
@@ -88,4 +88,4 @@ function ProjectsLayout({ children }: Props) {
   );
 }
 
-export default ProjectsLayout;
+export default ContactLayout;
