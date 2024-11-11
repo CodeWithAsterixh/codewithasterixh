@@ -55,15 +55,15 @@ function MailForm({}: Props) {
     >
       <div
         className={
-          "w-full h-fit p-2 text-center relative flex items-center justify-center pb-[-10px] gap-2 flex-col *:font-medium " +
+          "w-full h-fit text-base-black dark:text-base-white p-2 text-center relative flex items-center justify-center pb-[-10px] gap-2 flex-col *:font-medium " +
           "after:content-[''] after:relative after:w-10 after:h-0.5 after:bg-red-500 after:rounded-full"
         }
       >
         <h2 className="text-xl min-[498px]:text-2xl sm:text-3xl">
-          Need Legal Advice?
+          Have a request
         </h2>
         <h2 className="text-lg min-[498px]:text-xl sm:text-2xl">
-          Book Consultation
+          Mail me now!
         </h2>
       </div>
 
