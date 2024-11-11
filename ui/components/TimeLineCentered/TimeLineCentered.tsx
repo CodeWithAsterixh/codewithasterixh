@@ -14,6 +14,7 @@ import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { BiBookReader } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import { threshold } from "./thres";
 
 function TimeLineContentCard({
   heading,
@@ -60,7 +61,7 @@ export const CenteredTimeline = () => {
           }
         });
       },
-      { threshold: 0.8 } // Trigger when 50% of the item is visible
+      { threshold } // Trigger when 50% of the item is visible
     );
     const observerRight = new IntersectionObserver(
       (entries) => {
@@ -72,7 +73,7 @@ export const CenteredTimeline = () => {
           }
         });
       },
-      { threshold: 0.8 } // Trigger when 50% of the item is visible
+      { threshold } // Trigger when 50% of the item is visible
     );
 
     document.querySelectorAll(".observingLeft").forEach((item) => {

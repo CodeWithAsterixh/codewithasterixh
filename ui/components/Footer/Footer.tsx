@@ -40,7 +40,6 @@ function Footer({}: Props) {
                 See my Projects
               </Button>
             </Link>
-            
           </li>
         </ul>
       </section>
@@ -54,6 +53,7 @@ function Footer({}: Props) {
         ++
         <a
           href="mailto:asterixhco@gmail.com"
+          target="_blank"
           className="flex items-center gap-2 text-gray-800 dark:text-gray-300 text-md"
         >
           <BsMailbox className="font-bold text-base-black dark:text-base-white" />{" "}
@@ -61,32 +61,36 @@ function Footer({}: Props) {
         </a>
         <a
           href="tel:+2348109080838"
+          target="_blank"
           className="flex items-center gap-2 text-gray-800 dark:text-gray-300 text-md"
         >
           <BiPhone />
           <span>Phone@&nbsp;</span> +234 810 908 0838
         </a>
-        <a
-          href="www.github.com/CodeWithAsterixh"
+        <Link
+          href="https://www.github.com/CodeWithAsterixh"
+          target="_blank"
           className="flex items-center gap-2 text-gray-800 dark:text-gray-300 text-md"
         >
           <PiGithubLogo />
           <span>Github@&nbsp;</span> CodeWithAsterixh
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://www.linkedin.com/in/paul-peter-eyinnaya?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+          target="_blank"
           className="flex items-center gap-2 text-gray-800 dark:text-gray-300 text-md"
         >
           <PiLinkedinLogo />
           <span>LinkedIn@&nbsp;</span> Peter Paul
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://x.com/AsterixhThanks?t=URfI8qwSIK1SbDijca99BA&s=09"
+          target="_blank"
           className="flex items-center gap-2 text-gray-800 dark:text-gray-300 text-md"
         >
           <PiXLogoBold />
-          <span>X@&nbsp;</span> Peter Paul
-        </a>
+          <span>X@&nbsp;</span> AsterixhThanks
+        </Link>
       </div>
 
       <p className="w-full h-fit pt-4 text-base-black/30 dark:text-base-white/30 text-center font-mono text-sm min-[498px]:text-base sm:text-xl border-t-2 border-t-base-black/20 dark:border-t-base-white/20">

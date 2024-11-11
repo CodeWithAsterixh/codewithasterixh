@@ -1,9 +1,9 @@
+import { ReduxProvider } from "@/store/provider";
+import DocumentHead from "@/ui/Document";
+import { ModalProvider } from "@/ui/components/Modal/Modal";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import DocumentHead from "@/ui/Document";
-import { ModalProvider } from "@/ui/components/Modal/Modal";
-import { ReduxProvider } from "@/store/provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

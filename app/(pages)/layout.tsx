@@ -2,6 +2,7 @@
 
 import { setTheme } from "@/store/reducers/themeReducer";
 import { AppDispatch, RootState } from "@/store/store";
+import AutoResetPagesScroll from "@/ui/components/AutoResetScroll/AutoResetScroll";
 import Footer from "@/ui/components/Footer/Footer";
 import NavBar from "@/ui/components/NavBar/NavBar";
 import Image from "next/image";
@@ -35,6 +36,8 @@ function GeneralLayout({ children }: Props) {
   }, [mode]);
   return (
     <div className="size-full overflow-y-auto relative isolate flex items-start justify-start gap-2 bg-base-white dark:bg-base-black">
+      <AutoResetPagesScroll />
+
       <Image
         src={"/images/myImage1.jpg"}
         alt={"asterixh image as bg"}

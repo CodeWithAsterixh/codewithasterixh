@@ -16,13 +16,16 @@ import { BiLinkAlt } from "react-icons/bi";
 import { GrGithub, GrLinkedin } from "react-icons/gr";
 import { PiXLogoBold } from "react-icons/pi";
 import { useSelector } from "react-redux";
+import { threshold } from "./thres";
 
 function SocialTimeLineContentCard({
   heading,
   content,
+  link,
 }: {
   heading: string;
   content: string;
+  link: string;
 }) {
   return (
     <div className="w-full text-black dark:text-white h-fit bg-black/5 dark:bg-white/5 flex flex-col items-center justify-start gap-2 box-border p-2 shadow-sm border-[1px] border-black/50 rounded-md">
@@ -44,7 +47,7 @@ function SocialTimeLineContentCard({
         {heading}
       </Typography>
       <Typography variant="body2">{content}</Typography>
-      <Link href={"https://www.www.com"}>
+      <Link href={`${link}`} target="_blank">
         <Button
           variant="contained"
           className="w-full min-[498px]:w-fit !p-2 !px-4 !text-xs min-[498px]:!text-sm sm:!text-base !bg-black/70 dark:!bg-white/70 !text-white dark:!text-black !backdrop-blur-md capitalize"
@@ -58,7 +61,6 @@ function SocialTimeLineContentCard({
     </div>
   );
 }
-
 function SocialsTimeline() {
   const { mode } = useSelector((s: RootState) => s.ThemePreference);
   const t_CF = mode === "light" ? "black" : "white";
@@ -73,7 +75,7 @@ function SocialsTimeline() {
           }
         });
       },
-      { threshold: 0.8 } // Trigger when 50% of the item is visible
+      { threshold } // Trigger when 50% of the item is visible
     );
     const observerRight = new IntersectionObserver(
       (entries) => {
@@ -85,7 +87,7 @@ function SocialsTimeline() {
           }
         });
       },
-      { threshold: 0.8 } // Trigger when 50% of the item is visible
+      { threshold } // Trigger when 50% of the item is visible
     );
 
     document.querySelectorAll(".observingLeft").forEach((item) => {
@@ -162,6 +164,7 @@ function SocialsTimeline() {
             <SocialTimeLineContentCard
               heading={"Github"}
               content={"CodeWithAsterixh"}
+              link="https://www.github.com/CodeWithAsterixh"
             />
           </TimelineContent>
         </TimelineItem>
@@ -208,6 +211,7 @@ function SocialsTimeline() {
             <SocialTimeLineContentCard
               heading={"X"}
               content={"AsterixhThanks"}
+              link="https://x.com/AsterixhThanks?t=URfI8qwSIK1SbDijca99BA&s=09"
             />
           </TimelineContent>
         </TimelineItem>
@@ -254,6 +258,7 @@ function SocialsTimeline() {
             <SocialTimeLineContentCard
               heading={"Linkedin"}
               content={"Peter Paul"}
+              link="https://www.linkedin.com/in/paul-peter-eyinnaya?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
             />
           </TimelineContent>
         </TimelineItem>

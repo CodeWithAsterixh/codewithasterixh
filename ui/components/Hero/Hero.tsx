@@ -1,6 +1,8 @@
+"use client";
+
 import { Button } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { useCallback } from "react";
 import { BiArrowToBottom, BiArrowToRight } from "react-icons/bi";
 
 type Props = {
@@ -15,8 +17,27 @@ type Props = {
 };
 
 function HeroSection({ extra1, extra2, main, sub, cta }: Props) {
+  const scroll = useCallback(() => {
+    const heroParent = document.getElementById("hero")?.parentElement;
+    const hero = document.getElementById("hero");
+    if (heroParent && hero) {
+      // Ensure heroParent is scrollable
+      heroParent.style.overflowY = "auto";
+
+      // Scroll by the full height of `hero`
+      heroParent.scrollTo({
+        top: hero.clientHeight,
+        behavior: "smooth", // Smooth scroll effect
+      });
+
+      console.log("Scroll position:", heroParent.scrollTop);
+    }
+  }, []);
   return (
-    <section className="p-4 isolate w-full relative h-screen min-h-fit flex items-center justify-center text-black dark:text-white">
+    <section
+      id="hero"
+      className="p-4 isolate w-full relative h-screen min-h-fit flex items-center justify-center text-black dark:text-white"
+    >
       <div className="w-fit text-center h-fit px-8 py-16 rounded-md flex items-center justify-center gap-8 flex-col relative !bg-white/30 dark:!bg-black/30 backdrop-blur-md">
         <h1 className="text-xl sm:text-3xl font-bold">{main}</h1>
         <b className="text-lg sm:text-2xl font-normal font-mono">{sub}</b>
@@ -36,7 +57,14 @@ function HeroSection({ extra1, extra2, main, sub, cta }: Props) {
           </div>
         )}
       </div>
-      <span className="absolute bottom-5 animate-bounce text-base-white left-0 w-full flex items-center justify-center text-3xl"><BiArrowToBottom/></span>
+      <Button
+        onClick={scroll}
+        variant="contained"
+        disableElevation
+        className="!bg-transparent !p-0 !absolute !bottom-5 animate-bounce !text-base-white !left-0 !w-full !flex !items-center !justify-center !text-3xl"
+      >
+        <BiArrowToBottom />
+      </Button>
     </section>
   );
 }
