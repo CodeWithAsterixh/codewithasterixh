@@ -50,7 +50,10 @@ function AboutPage({}: Props) {
             Jobs: My Working experience
           </h1>
         </div>
-        <CenteredTimeline datas={jobs} icon={<BsBriefcaseFill />} />
+        <CenteredTimeline
+          datas={jobs}
+          icon={<BsBriefcaseFill className="!text-black" />}
+        />
       </section>
     </section>
   );

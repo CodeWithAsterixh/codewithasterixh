@@ -4,7 +4,7 @@ import { ProjectSchema } from "@/public/files/projects";
 import HeroSection from "@/ui/components/Hero/Hero";
 import Skills from "@/ui/components/skills/Skills";
 import Typewriter from "@/ui/components/TextWriteMock/TextWriterMock";
-import WorkCard from "@/ui/components/Works/WorkCard";
+import WorkCard, { WorkCardSkeleton } from "@/ui/components/Works/WorkCard";
 import { Button } from "@mui/material";
 import axios from "axios";
 import clsx from "clsx";
@@ -14,7 +14,9 @@ import { BiArrowToRight } from "react-icons/bi";
 import { GrProjects } from "react-icons/gr";
 
 export default function Home() {
-  const [recentProjects, setRecentProjects] = useState<ProjectSchema[]>([]);
+  const [recentProjects, setRecentProjects] = useState<ProjectSchema[] | null>(
+    null
+  );
   useEffect(() => {
     async function getRecent() {
       const recent = await axios.get("/api/projects?amount=3");
@@ -94,18 +96,26 @@ export default function Home() {
           </div>
 
           <div className="w-full flex items-start justify-start gap-2 flex-wrap">
-            {recentProjects.map((re, id) => (
-              <WorkCard
-                key={id}
-                datas={{
-                  description: re.overview.description.split(".")[0],
-                  projectId: re.p_id,
-                  projectImage: re.thumbnail[0],
-                  projectName: re.name,
-                  projectUrl: re.url,
-                }}
-              />
-            ))}
+            {recentProjects ? (
+              recentProjects.map((re, id) => (
+                <WorkCard
+                  key={id}
+                  datas={{
+                    description: re.overview.description.split(".")[0],
+                    projectId: re.p_id,
+                    projectImage: re.thumbnail[0],
+                    projectName: re.name,
+                    projectUrl: re.url,
+                  }}
+                />
+              ))
+            ) : (
+              <>
+                <WorkCardSkeleton />
+                <WorkCardSkeleton />
+                <WorkCardSkeleton />
+              </>
+            )}
           </div>
           <Link
             href={`/projects`}

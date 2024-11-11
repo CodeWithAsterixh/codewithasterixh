@@ -1,14 +1,16 @@
 "use client";
 
 import { ProjectSchema } from "@/public/files/projects";
-import WorkCard from "@/ui/components/Works/WorkCard";
+import WorkCard, { WorkCardSkeleton } from "@/ui/components/Works/WorkCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 type Props = object;
 
 function ProjectsPage({}: Props) {
-  const [recentProjects, setRecentProjects] = useState<ProjectSchema[]>([]);
+  const [recentProjects, setRecentProjects] = useState<ProjectSchema[] | null>(
+    null
+  );
   useEffect(() => {
     async function getRecent() {
       const recent = await axios.get("/api/projects");
@@ -26,18 +28,26 @@ function ProjectsPage({}: Props) {
         </div>
 
         <div className="w-full flex items-start justify-start gap-2 flex-wrap">
-          {recentProjects.map((re, id) => (
-            <WorkCard
-              key={id}
-              datas={{
-                description: re.overview.description.split(".")[0],
-                projectId: re.p_id,
-                projectImage: re.thumbnail[0],
-                projectName: re.name,
-                projectUrl: re.url,
-              }}
-            />
-          ))}
+          {recentProjects ? (
+            recentProjects.map((re, id) => (
+              <WorkCard
+                key={id}
+                datas={{
+                  description: re.overview.description.split(".")[0],
+                  projectId: re.p_id,
+                  projectImage: re.thumbnail[0],
+                  projectName: re.name,
+                  projectUrl: re.url,
+                }}
+              />
+            ))
+          ) : (
+            <>
+              <WorkCardSkeleton />
+              <WorkCardSkeleton />
+              <WorkCardSkeleton />
+            </>
+          )}
         </div>
       </section>
     </section>

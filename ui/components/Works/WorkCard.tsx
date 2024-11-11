@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button, Skeleton } from "@mui/material";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +15,72 @@ type Props = {
   };
 };
 
+export function WorkCardSkeleton() {
+  return (
+    <Box className="group border-2 border-b-black/30 dark:border-b-white/30 w-full flex-grow basis-64 flex flex-col gap-2 rounded-md p-3 sm:w-52 md:w-72 bg-base-black/5 dark:bg-base-white/5 backdrop-blur-md">
+      {/* Image Skeleton */}
+      <Skeleton
+        variant="rectangular"
+        width="100%"
+        height={128}
+        animation="wave"
+        className="bg-fuchsia-700/10 rounded-md"
+      />
+
+      {/* Title Skeleton */}
+      <Skeleton
+        variant="text"
+        width="60%"
+        height={24}
+        animation="wave"
+        className="rounded-md mt-2"
+      />
+
+      {/* Description Skeleton */}
+      <Box className="w-full p-2 rounded-md bg-base-black/5 dark:bg-base-white/5 flex flex-col gap-2">
+        <Skeleton
+          variant="text"
+          width="40%"
+          height={20}
+          animation="wave"
+          className="rounded-md"
+        />
+        <Skeleton
+          variant="text"
+          width="80%"
+          height={16}
+          animation="wave"
+          className="rounded-md"
+        />
+        <Skeleton
+          variant="text"
+          width="100%"
+          height={16}
+          animation="wave"
+          className="rounded-md"
+        />
+      </Box>
+
+      {/* Buttons Skeleton */}
+      <Box className="w-full h-fit flex flex-wrap items-center justify-between gap-3 mt-2">
+        <Skeleton
+          variant="rectangular"
+          width="48%"
+          height={36}
+          animation="wave"
+          className="rounded-md"
+        />
+        <Skeleton
+          variant="rectangular"
+          width="48%"
+          height={36}
+          animation="wave"
+          className="rounded-md"
+        />
+      </Box>
+    </Box>
+  );
+}
 function WorkCard({ datas }: Props) {
   return (
     <div className="group border-2 border-b-black/30 dark:border-b-white/30 w-full flex-grow basis-64 flex flex-col gap-2 rounded-md p-3 sm:w-52 md:w-72 bg-base-black/5 dark:bg-base-white/5 backdrop-blur-md">
