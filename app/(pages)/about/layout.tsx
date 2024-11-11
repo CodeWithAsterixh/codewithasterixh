@@ -1,10 +1,46 @@
 import HeroSection from "@/ui/components/Hero/Hero";
 import Typewriter from "@/ui/components/TextWriteMock/TextWriterMock";
 import clsx from "clsx";
+import { Metadata } from "next";
 import React from "react";
 
 type Props = {
   children: React.ReactNode;
+};
+
+export const metadata: Metadata = {
+  title: "About Paul Peter | Front-End Developer | CodeWithAsterixh",
+  description:
+    "Learn more about Paul Peter, a passionate front-end developer with expertise in Next.js, TypeScript, React, and modern web technologies. Explore his background and journey in the world of coding.",
+  keywords:
+    "Paul Peter, About, Front-End Developer, Web Developer, Next.js, TypeScript, React, Web Design, UI/UX Developer, Coding Journey",
+  openGraph: {
+    title: "About Paul Peter | Front-End Developer | CodeWithAsterixh",
+    description:
+      "Learn more about Paul Peter, a passionate front-end developer with expertise in Next.js, TypeScript, React, and modern web technologies. Explore his background and journey in the world of coding.",
+    images: [
+      {
+        url: "https://codewithasterixh.vercel.app/images/myImage2.jpg", // Replace with your actual portfolio image
+        width: 800,
+        height: 600,
+      },
+    ],
+    url: "https://codewithasterixh.vercel.app/about",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Paul Peter | Front-End Developer | CodeWithAsterixh",
+    description:
+      "Learn more about Paul Peter, a passionate front-end developer with expertise in Next.js, TypeScript, React, and modern web technologies. Explore his background and journey in the world of coding.",
+    images: [
+      {
+        url: "https://codewithasterixh.vercel.app/images/myImage2.jpg", // Replace with your actual portfolio image
+        width: 800,
+        height: 600,
+      },
+    ],
+  },
 };
 
 function ProjectsLayout({ children }: Props) {

@@ -1,10 +1,47 @@
 import HeroSection from "@/ui/components/Hero/Hero";
 import Typewriter from "@/ui/components/TextWriteMock/TextWriterMock";
 import clsx from "clsx";
+import { Metadata } from "next";
 import React from "react";
 
 type Props = {
   children: React.ReactNode;
+};
+
+export const metadata: Metadata = {
+  title: "Contact Paul Peter | Front-End Developer | CodeWithAsterixh",
+  description:
+    "Get in touch with Paul Peter, a skilled front-end developer with expertise in building dynamic web experiences. Reach out for collaborations, job opportunities, or questions.",
+  keywords:
+    "Contact, Paul Peter, Front-End Developer, Web Developer, Get in touch, Collaborations, Job Opportunities",
+  openGraph: {
+    title: "Contact Paul Peter | Front-End Developer | CodeWithAsterixh",
+    description:
+      "Get in touch with Paul Peter, a skilled front-end developer with expertise in building dynamic web experiences. Reach out for collaborations, job opportunities, or questions.",
+    images: [
+      {
+        url: "https://codewithasterixh.vercel.app/images/myImage2.jpg", // Update with actual portfolio image
+        width: 800,
+        height: 600,
+      },
+    ],
+    url: "https://codewithasterixh.vercel.app/contact",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Paul Peter | Front-End Developer | CodeWithAsterixh",
+    description:
+      "Get in touch with Paul Peter, a skilled front-end developer with expertise in building dynamic web experiences. Reach out for collaborations, job opportunities, or questions.",
+    images: [
+      {
+        url: "https://codewithasterixh.vercel.app/images/myImage2.jpg", // Update with actual portfolio image
+        width: 800,
+        height: 600,
+      },
+    ],
+  },
+  // Add more metadata as needed (favicon, etc.)
 };
 
 function ProjectsLayout({ children }: Props) {

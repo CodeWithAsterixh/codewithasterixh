@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /images/
+Disallow: /files/
+Disallow: /files/
+Disallow: /svgs/
+
+# Host
+Host: https://codewithasterixh.vercel.app
+
+# Sitemaps
+Sitemap: https://codewithasterixh.vercel.app/sitemap.xml

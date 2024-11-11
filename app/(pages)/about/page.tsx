@@ -1,10 +1,27 @@
+"use client";
 import Skills from "@/ui/components/skills/Skills";
-import CenteredTimeline from "@/ui/components/TimeLineCentered/TimeLineCentered";
+import CenteredTimeline, {
+  cardDatas,
+} from "@/ui/components/TimeLineCentered/TimeLineCentered";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { BsBriefcaseFill } from "react-icons/bs";
 
 type Props = object;
 
-
 function AboutPage({}: Props) {
+  const [education, setEducation] = useState<cardDatas[]>();
+  const [jobs, setJobs] = useState<cardDatas[]>();
+  useEffect(() => {
+    async function getDatas() {
+      const educations = await axios.get("/api/education");
+      const jobs = await axios.get("/api/jobs");
+      setEducation(educations.data);
+      setJobs(jobs.data);
+    }
+    getDatas();
+  }, []);
+
   return (
     <section className="w-full h-fit flex flex-col items-start justify-start gap-5 p-4 bg-base-white dark:bg-base-black">
       <section className="group text-base-black dark:text-base-white w-full h-fit flex items-start justify-start gap-3 flex-col">
@@ -21,7 +38,7 @@ function AboutPage({}: Props) {
             Education: Learning Map
           </h1>
         </div>
-        <CenteredTimeline/>
+        <CenteredTimeline datas={education} />
       </section>
 
       <section className="group text-base-black dark:text-base-white w-full h-fit flex items-center justify-start gap-3 flex-col">
@@ -30,7 +47,7 @@ function AboutPage({}: Props) {
             Jobs: My Working experience
           </h1>
         </div>
-        <CenteredTimeline/>
+        <CenteredTimeline datas={jobs} icon={<BsBriefcaseFill />} />
       </section>
     </section>
   );

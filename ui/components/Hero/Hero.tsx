@@ -22,15 +22,11 @@ function HeroSection({ extra1, extra2, main, sub, cta }: Props) {
     const hero = document.getElementById("hero");
     if (heroParent && hero) {
       // Ensure heroParent is scrollable
-      heroParent.style.overflowY = "auto";
-
       // Scroll by the full height of `hero`
-      heroParent.scrollTo({
+      window.scrollTo({
         top: hero.clientHeight,
         behavior: "smooth", // Smooth scroll effect
       });
-
-      console.log("Scroll position:", heroParent.scrollTop);
     }
   }, []);
   return (

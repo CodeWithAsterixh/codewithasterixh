@@ -10,7 +10,7 @@ import {
   TimelineOppositeContent,
   TimelineSeparator,
 } from "@mui/lab";
-import { Box, Typography } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { BiBookReader } from "react-icons/bi";
 import { useSelector } from "react-redux";
@@ -40,14 +40,60 @@ function TimeLineContentCard({
           },
         }}
       >
-        {heading}
+        {heading.trim() !== "" ? (
+          heading
+        ) : (
+          <Skeleton
+            animation="wave"
+            variant="text"
+            sx={{ fontSize: "0.5rem" }}
+          />
+        )}
       </Typography>
-      <Typography variant="body2">{content}</Typography>
+
+      {content.trim() !== "" ? (
+        <Typography variant="body2">{content}</Typography>
+      ) : (
+        <Skeleton
+          animation="wave"
+          variant="text"
+          sx={{ fontSize: "0.25rem" }}
+        />
+      )}
     </div>
   );
 }
 
-export const CenteredTimeline = () => {
+export interface cardDatas {
+  subtitle: string;
+  heading: string;
+  content: string;
+}
+type TLProp = {
+  icon?: React.ReactNode;
+  datas?: cardDatas[];
+};
+const datasItems: cardDatas[] = [
+  {
+    subtitle: "",
+    heading: "",
+    content: "",
+  },
+  {
+    subtitle: "",
+    heading: "",
+    content: "",
+  },
+  {
+    subtitle: "",
+    heading: "",
+    content: "",
+  },
+];
+export const CenteredTimeline = ({
+  icon = <BiBookReader className="!text-black" />,
+  datas = datasItems,
+}: TLProp) => {
   const { mode } = useSelector((s: RootState) => s.ThemePreference);
   const t_CF = mode === "light" ? "black" : "white";
   useEffect(() => {
@@ -108,23 +154,7 @@ export const CenteredTimeline = () => {
           maxWidth: "600px",
         }}
       >
-        {[
-          {
-            date: "2021-2024",
-            heading: "@: School Name",
-            content: "Studied this and that",
-          },
-          {
-            date: "2024-2025",
-            heading: "@: University Name",
-            content: "Completed a degree in XYZ",
-          },
-          {
-            date: "2025-Present",
-            heading: "@: Job Title",
-            content: "Working on ABC projects",
-          },
-        ].map((item, index) => (
+        {datas.map((item, index) => (
           <TimelineItem
             className="before:!hidden !flex-col min-[500px]:!flex-row even:min-[500px]:!flex-row-reverse"
             key={index}
@@ -142,14 +172,20 @@ export const CenteredTimeline = () => {
               className="observingLeft"
               color={t_CF}
             >
-              {item.date}
+              {item.subtitle.trim() !== "" ? (
+                item.subtitle
+              ) : (
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  sx={{ fontSize: "0.25rem" }}
+                />
+              )}
             </TimelineOppositeContent>
 
             <TimelineSeparator className="!items-center !justify-center !flex-row min-[500px]:!flex-col !text-center">
               <TimelineConnector className="h-[2px] min-[500px]:h-fit w-fit min-[500px]:w-[2px]" />
-              <TimelineDot>
-                <BiBookReader className="!text-black" />
-              </TimelineDot>
+              <TimelineDot>{icon}</TimelineDot>
               <TimelineConnector className="h-[2px] min-[500px]:h-fit w-fit min-[500px]:w-[2px]" />
             </TimelineSeparator>
 
