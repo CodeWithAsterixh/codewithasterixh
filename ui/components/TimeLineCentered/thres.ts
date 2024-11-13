@@ -1,1 +1,1 @@
-export const threshold = 0.3;
+export const threshold = 0.2;

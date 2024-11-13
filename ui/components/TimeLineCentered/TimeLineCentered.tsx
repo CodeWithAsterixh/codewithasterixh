@@ -20,8 +20,8 @@ function TimeLineContentCard({
   heading,
   content,
 }: {
-  heading: string;
-  content: string;
+  heading?: string;
+  content?: string;
 }) {
   return (
     <div className="w-full text-black dark:text-white h-fit bg-black/5 dark:bg-white/5 flex flex-col items-start justify-start gap-2 box-border p-2 shadow-sm border-[1px] border-black/50 rounded-md">
@@ -40,7 +40,7 @@ function TimeLineContentCard({
           },
         }}
       >
-        {heading.trim() !== "" ? (
+        {heading ? (
           heading
         ) : (
           <Skeleton
@@ -51,7 +51,7 @@ function TimeLineContentCard({
         )}
       </Typography>
 
-      {content.trim() !== "" ? (
+      {content ? (
         <Typography variant="body2">{content}</Typography>
       ) : (
         <Skeleton

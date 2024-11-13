@@ -16,19 +16,28 @@ import { BiLinkAlt } from "react-icons/bi";
 import { GrGithub, GrLinkedin } from "react-icons/gr";
 import { PiXLogoBold } from "react-icons/pi";
 import { useSelector } from "react-redux";
+import Image from "../Image/Image";
 import { threshold } from "./thres";
 
 function SocialTimeLineContentCard({
   heading,
   content,
   link,
+  imgUrl,
 }: {
   heading: string;
   content: string;
   link: string;
+  imgUrl?: {
+    type: "external" | "internal";
+    url: string;
+  };
 }) {
   return (
-    <div className="w-full text-black dark:text-white h-fit bg-black/5 dark:bg-white/5 flex flex-col items-center justify-start gap-2 box-border p-2 shadow-sm border-[1px] border-black/50 rounded-md">
+    <div
+      title={`Social media card for ${content} @${heading}`}
+      className="w-full group text-black dark:text-white h-fit bg-black/5 dark:bg-white/5 flex gap-3 flex-col items-center justify-start box-border p-2 shadow-sm border-[1px] border-black/50 rounded-md"
+    >
       <Typography
         component="h4"
         className="text-base min-[498px]:text-lg sm:text-xl font-mono after:w-10 relative flex items-center justify-start gap-2 flex-col"
@@ -47,6 +56,15 @@ function SocialTimeLineContentCard({
         {heading}
       </Typography>
       <Typography variant="body2">{content}</Typography>
+
+      <span className="size-14 overflow-hidden rounded-full block m-auto bg-black/50 dark:bg-white/50">
+        <Image
+          alt={`Illustration of ${content}`}
+          content={content}
+          imgUrl={imgUrl}
+          className="group-hover:scale-110 duration-1000"
+        />
+      </span>
       <Link href={`${link}`} target="_blank">
         <Button
           variant="contained"
@@ -165,6 +183,10 @@ function SocialsTimeline() {
               heading={"Github"}
               content={"CodeWithAsterixh"}
               link="https://www.github.com/CodeWithAsterixh"
+              imgUrl={{
+                type: "external",
+                url: "https://avatars.githubusercontent.com/u/92242499?s=400&u=bc6684d6a20a1dcc1f2745b5676dff1978c10397&v=4",
+              }}
             />
           </TimelineContent>
         </TimelineItem>
@@ -212,6 +234,10 @@ function SocialsTimeline() {
               heading={"X"}
               content={"AsterixhThanks"}
               link="https://x.com/AsterixhThanks?t=URfI8qwSIK1SbDijca99BA&s=09"
+              imgUrl={{
+                type: "internal",
+                url: "/images/myImage1.jpg",
+              }}
             />
           </TimelineContent>
         </TimelineItem>
@@ -259,6 +285,10 @@ function SocialsTimeline() {
               heading={"Linkedin"}
               content={"Peter Paul"}
               link="https://www.linkedin.com/in/paul-peter-eyinnaya?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+              imgUrl={{
+                type: "internal",
+                url: "/images/myImage2.jpg",
+              }}
             />
           </TimelineContent>
         </TimelineItem>

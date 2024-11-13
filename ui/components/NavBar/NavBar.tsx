@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "@/store/store";
 import { Button } from "@mui/material";
 import clsx from "clsx";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useCallback } from "react";
 import { AiFillCode, AiFillHome } from "react-icons/ai";
 import { BsMoon, BsPenFill, BsSun } from "react-icons/bs";
@@ -24,17 +25,19 @@ type NavBarLinkProps = {
 
 function NavBarLink({ path, text, icon, title }: NavBarLinkProps) {
   const { size } = useSelector((s: RootState) => s.SideBar);
+  const pathUrl = usePathname();
 
   return (
     <Link href={path} className={"w-full"} title={title}>
       <Button
-        className={clsx(
-          "w-full !bg-black/20 dark:!bg-white/20 !text-base-black dark:!text-white",
-          {
-            "!px-0 !py-3 *:!m-0 !min-w-fit": size === "small",
-            "!p-2": size === "full",
-          }
-        )}
+        className={clsx("w-full  ", {
+          "!px-0 !py-3 *:!m-0 !min-w-fit": size === "small",
+          "!p-2": size === "full",
+          "!bg-black/70 dark:!bg-white/70 !text-base-white dark:!text-black":
+            path === pathUrl,
+          "!bg-black/20 dark:!bg-white/20 !text-base-black dark:!text-white":
+            path !== pathUrl,
+        })}
         startIcon={
           <i className="text-sm min-[498px]:text-lg sm:text-xl">
             {icon ? icon : <AiFillHome />}

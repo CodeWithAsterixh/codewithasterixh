@@ -83,7 +83,7 @@ export function WorkCardSkeleton() {
 }
 function WorkCard({ datas }: Props) {
   return (
-    <div className="group border-2 border-b-black/30 dark:border-b-white/30 w-full flex-grow basis-64 flex flex-col gap-2 rounded-md p-3 sm:w-52 md:w-72 bg-base-black/5 dark:bg-base-white/5 backdrop-blur-md">
+    <div className="border-2 border-b-black/30 dark:border-b-white/30 w-full flex-grow basis-64 flex flex-col gap-2 rounded-md p-3 sm:w-52 md:w-72 bg-base-black/5 dark:bg-base-white/5 backdrop-blur-md">
       <span
         className={clsx(
           "block w-full h-32 bg-fuchsia-700/10 rounded-md overflow-hidden",
@@ -99,7 +99,7 @@ function WorkCard({ datas }: Props) {
             width={500}
             height={500}
             loading="lazy"
-            className="size-full object-cover object-center group-hover:scale-125"
+            className="size-full object-cover object-center hover:scale-125 duration-1000"
           />
         )}
       </span>
