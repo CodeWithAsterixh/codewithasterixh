@@ -1,30 +1,28 @@
-import { ProjectSchema } from "@/public/files/projects";
+'use client'
+
+
 import Project from "@/ui/components/Project/Project";
-import axios, { AxiosResponse } from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-export async function generateStaticParams() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+export default function Page() {
+  const router = useRouter();
+  const { query } = router;
+  
+  const [projectId, setProjectId] = useState<string | null>(null);
 
-  const projects: AxiosResponse<ProjectSchema[]> = await axios.get(
-    `${baseUrl}/api/projects`
-  );
+  useEffect(() => {
+    if (typeof query.project === "string") {
+      setProjectId(query.project);
+    }
+  }, [query.project]);
 
-  return projects.data.map((project) => ({
-    project: project.p_id,
-  }));
-}
-
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ project: string }>;
-}) {
-  const { project } = await params;
-  // ...
+  // Optionally, show a loading state until `projectId` is ready
+  if (projectId === null) return <div>Loading...</div>;
 
   return (
     <div>
-      <Project p_id={project} />
+      <Project p_id={projectId} />
     </div>
   );
 }
