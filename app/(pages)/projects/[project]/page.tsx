@@ -1,28 +1,20 @@
-'use client'
+// app/projects/[project]/page.tsx
 
+"use client";
 
+import { usePathname} from "next/navigation"; // Import from next/navigation
 import Project from "@/ui/components/Project/Project";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
 export default function Page() {
-  const router = useRouter();
-  const { query } = router;
+  const pathname = usePathname();
+  const paths = pathname.split('/')
+  const currentPath = paths[paths.length-1]
   
-  const [projectId, setProjectId] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (typeof query.project === "string") {
-      setProjectId(query.project);
-    }
-  }, [query.project]);
-
-  // Optionally, show a loading state until `projectId` is ready
-  if (projectId === null) return <div>Loading...</div>;
 
   return (
     <div>
-      <Project p_id={projectId} />
+      {currentPath}
+      <Project p_id={currentPath} />
     </div>
   );
 }

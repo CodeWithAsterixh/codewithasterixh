@@ -4,8 +4,8 @@ import { ProjectSchema } from "@/public/files/projects";
 import axios, { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { Card, CardContent, Typography, Chip, Box, Skeleton } from "@mui/material";
-
+import { Card, CardContent, Typography, Chip, Box, Skeleton, Button } from "@mui/material";
+import Link from "next/link"; // Import Link from next/link
 
 type Props = {
   p_id: string;
@@ -18,15 +18,22 @@ function Project({ p_id }: Props) {
 
   useEffect(() => {
     async function getProjectWithId() {
-      const projectWithId: AxiosResponse<ProjectSchema> = await axios.get(
-        `/api/projects/${p_id}`
-      );
-      setProject(projectWithId.data);
-      setIsLoading(false);
+      try {
+        const projectWithId: AxiosResponse<ProjectSchema> = await axios.get(
+          `/api/projects?id=${p_id}`
+        );
+        setProject(projectWithId.data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false); // Stop loading on error
+        setProject(null); // If error, set project to null
+        return error
+      }
     }
     getProjectWithId();
   }, [p_id]);
 
+  // Loading skeleton
   if (isLoading) {
     return (
       <Card className="max-w-3xl mx-auto my-6 shadow-lg">
@@ -48,13 +55,29 @@ function Project({ p_id }: Props) {
     );
   }
 
+  // If project not found, show Not Found UI
   if (!project) {
-    return <div>Project not found.</div>;
+    return (
+      <div className="max-w-3xl mx-auto my-6 p-4">
+        <Typography variant="h5" className="font-semibold text-lg mb-2">
+          Project Not Found
+        </Typography>
+        <Typography variant="body1" color="text.secondary" className="mb-4">
+          Sorry, we couldn{`'`}t find the project with ID {p_id}.
+        </Typography>
+        <Link href="/projects">
+          <Button variant="contained" color="primary">
+            Go Back to Projects
+          </Button>
+        </Link>
+      </div>
+    );
   }
 
+  // If project is found, show the project details
   return (
     <Card className="max-w-3xl mx-auto my-6 shadow-lg">
-      <div className="relative w-full h-48">
+      <div className="relative w-full Min-h-fit h-48">
         {!imgError ? (
           <Image
             src={project.thumbnail[0]} // Assuming first thumbnail is the main image
