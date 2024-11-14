@@ -13,7 +13,7 @@ export default function Page() {
 
   return (
     <div>
-      {currentPath}
+      
       <Project p_id={currentPath} />
     </div>
   );
