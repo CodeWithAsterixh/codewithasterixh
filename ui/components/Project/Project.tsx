@@ -39,7 +39,7 @@ function Project({ p_id }: Props) {
 
   if (isLoading) {
     return (
-      <Card className="max-w-3xl mx-auto my-6 shadow-lg bg-gradient-to-r from-[#444D61] via-[#5689C0] to-[#75E2FF]">
+      <Card className="mx-auto my-6 shadow-lg bg-gradient-to-r from-[#444D61] via-[#5689C0] to-[#75E2FF]">
         <div className="relative w-full h-48">
           <Skeleton variant="rectangular" width="100%" height="100%" />
         </div>
@@ -82,7 +82,7 @@ function Project({ p_id }: Props) {
   }
 
   return (
-    <Card className="max-w-3xl mx-auto my-6 shadow-lg bg-gradient-to-r from-[#444D61] via-[#5689C0] to-[#75E2FF]">
+    <Card className="mx-auto my-6 shadow-lg bg-gradient-to-r from-[#444D61] via-[#5689C0] to-[#75E2FF]">
       <div className="relative w-full h-48">
         {!imgError ? (
           <Image

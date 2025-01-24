@@ -51,8 +51,8 @@ function ProjectsLayout({ children }: Props) {
         sub="Dive into projects, insights, and creativity."
         cta={{ navto: "#about", text: "Know About Me" }}
         extra1={
-          <span className="w-full h-fit text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
-            My Focus:
+          <span className="w-full h-fit flex-col text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
+            <strong>My Focus:</strong>
             <Typewriter
               spanClassName="!border-purple-400"
               className="!text-purple-300"

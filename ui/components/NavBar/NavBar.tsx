@@ -13,6 +13,7 @@ import { BsMoon, BsPenFill, BsSun } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
+import { RiAlbumFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 
 type Props = object;
@@ -75,13 +76,20 @@ function NavBar({}: Props) {
   return (
     <aside
       className={clsx(
-        "fixed top-0 left-0 sm:relative z-10 sm:h-full duration-200 p-2",
+        "fixed top-0 left-0 sm:relative z-10 sm:h-full duration-200 isolate p-2",
         {
           "w-[40vw] max-w-[300px] min-w-fit h-full": size === "full",
           "w-16 h-fit": size === "small",
         }
       )}
     >
+      {/* click out */}
+      
+      {
+            size==="full"&&<div onClick={handleToggleSideBarSize} className={clsx(
+              "h-screen w-screen sm:hidden bg-black/50 absolute inset-0 -z-10"
+            )}/>
+          }
       {/* sidebar content */}
       <section
         className={clsx(
@@ -139,6 +147,12 @@ function NavBar({}: Props) {
             icon={<FaUserAlt />}
             text="About me"
             title="About Paul Peter - Front-End Developer | CodeWithAsterixh"
+          />
+          <NavBarLink
+            path="/bio"
+            icon={<RiAlbumFill />}
+            text="My Resume"
+            title="Paul Peter Resume - see more about my experience"
           />
           <NavBarLink
             path="/contact"

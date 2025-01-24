@@ -4,12 +4,13 @@ import { ProjectSchema } from "@/public/files/projects";
 import WorkCard, { WorkCardSkeleton } from "@/ui/components/Works/WorkCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { WorkGrid } from "../../../ui/components/Works/WorkGrid";
 
 type Props = object;
 
 function ProjectsPage({}: Props) {
-  const [recentProjects, setRecentProjects] = useState<ProjectSchema[] | null>(
-    null
+  const [recentProjects, setRecentProjects] = useState<ProjectSchema[]>(
+    
   );
   useEffect(() => {
     async function getRecent() {
@@ -27,28 +28,7 @@ function ProjectsPage({}: Props) {
           </h1>
         </div>
 
-        <div className="w-full flex items-start justify-start gap-2 flex-wrap">
-          {recentProjects ? (
-            recentProjects.map((re, id) => (
-              <WorkCard
-                key={id}
-                datas={{
-                  description: re.overview.description.split(".")[0],
-                  projectId: re.p_id,
-                  projectImage: re.thumbnail[0],
-                  projectName: re.name,
-                  projectUrl: re.url,
-                }}
-              />
-            ))
-          ) : (
-            <>
-              <WorkCardSkeleton />
-              <WorkCardSkeleton />
-              <WorkCardSkeleton />
-            </>
-          )}
-        </div>
+        <WorkGrid works={recentProjects}/>
       </section>
     </section>
   );

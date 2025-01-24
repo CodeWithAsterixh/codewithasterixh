@@ -52,8 +52,8 @@ function ContactLayout({ children }: Props) {
         sub="I’m always open to discussing new projects, ideas, and collaborations."
         cta={{ navto: "#contact-form", text: "Reach Out" }}
         extra1={
-          <span className="w-full h-fit text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
-            Connect with Me:
+          <span className="w-full h-fit flex-col text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
+            <strong>Connect with Me:</strong>
             <Typewriter
               spanClassName="!border-teal-400"
               className="!text-teal-300"

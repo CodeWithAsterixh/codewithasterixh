@@ -51,8 +51,8 @@ function ProjectsLayout({ children }: Props) {
         sub="Exploring technology, innovation, and impactful solutions."
         cta={{ navto: "/contact", text: "Get in Touch" }}
         extra1={
-          <span className="w-full h-fit text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
-            Core Values:
+          <span className="w-full h-fit flex-col text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
+            <strong>Core Values:</strong>
             <Typewriter
               spanClassName="!border-teal-600 dark:!border-teal-400"
               className="!text-teal-700 dark:!text-teal-300"

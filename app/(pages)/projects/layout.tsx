@@ -51,8 +51,9 @@ function ProjectsLayout({ children }: Props) {
         sub="Explore a selection of projects built with passion and precision."
         cta={{ navto: "#portfolio", text: "View My Projects" }}
         extra1={
-          <span className="w-full h-fit text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
-            Project Highlights:
+          <span className="w-full h-fit flex-col text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
+            
+            <strong>Project Highlights:</strong>
             <Typewriter
               spanClassName="!border-indigo-400"
               className="!text-indigo-300"

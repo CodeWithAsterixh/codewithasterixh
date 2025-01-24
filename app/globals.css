@@ -144,6 +144,7 @@ body {
 }
 *{
   box-sizing: border-box;
+  transition-duration: 100ms;
 }
 *:focus{
  outline: none;

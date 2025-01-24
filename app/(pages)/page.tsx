@@ -4,7 +4,6 @@ import { ProjectSchema } from "@/public/files/projects";
 import HeroSection from "@/ui/components/Hero/Hero";
 import Skills from "@/ui/components/skills/Skills";
 import Typewriter from "@/ui/components/TextWriteMock/TextWriterMock";
-import WorkCard, { WorkCardSkeleton } from "@/ui/components/Works/WorkCard";
 import { Button } from "@mui/material";
 import axios from "axios";
 import clsx from "clsx";
@@ -12,11 +11,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BiArrowToRight } from "react-icons/bi";
 import { GrProjects } from "react-icons/gr";
+import { WorkGrid } from "../../ui/components/Works/WorkGrid";
 
 export default function Home() {
-  const [recentProjects, setRecentProjects] = useState<ProjectSchema[] | null>(
-    null
-  );
+  const [recentProjects, setRecentProjects] = useState<ProjectSchema[]>();
   useEffect(() => {
     async function getRecent() {
       const recent = await axios.get("/api/projects?amount=3");
@@ -32,8 +30,8 @@ export default function Home() {
         sub="Explore projects, blogs, and more."
         cta={{ navto: "#", text: "Get in touch" }}
         extra1={
-          <span className="w-full h-fit text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
-            We are:
+          <span className="w-full h-fit flex-col text-lg min-[498px]:text-xl sm:text-2xl flex items-center justify-center gap-2 font-mono">
+            <strong>We are:</strong>
             <Typewriter
               spanClassName="!border-cyan-400"
               className="!text-cyan-300"
@@ -95,28 +93,7 @@ export default function Home() {
             </span>
           </div>
 
-          <div className="w-full flex items-start justify-start gap-2 flex-wrap">
-            {recentProjects ? (
-              recentProjects.map((re, id) => (
-                <WorkCard
-                  key={id}
-                  datas={{
-                    description: re.overview.description.split(".")[0],
-                    projectId: re.p_id,
-                    projectImage: re.thumbnail[0],
-                    projectName: re.name,
-                    projectUrl: re.url,
-                  }}
-                />
-              ))
-            ) : (
-              <>
-                <WorkCardSkeleton />
-                <WorkCardSkeleton />
-                <WorkCardSkeleton />
-              </>
-            )}
-          </div>
+          <WorkGrid works={recentProjects} />
           <Link
             href={`/projects`}
             className="!w-full min-[498px]:!w-fit m-auto"
