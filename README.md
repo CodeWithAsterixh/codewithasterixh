@@ -46,7 +46,7 @@ Currently developing an engaging anime website to offer rich content and experie
 I'm always open to **collaborations, feedback, and innovative ideas**. Whether you want to discuss a project, exchange insights, or build something great together, feel free to reach out:
 
 - **Projects**: [Quizeen](https://quizeen.vercel.app) | [Archive](https://archive.anikii.vercel.app) | [Ongoing Anime Website](https://anikii.vercel.app)
-- **Connect**: [LinkedIn](https://www.linkedin.com/in/paul-peter-eyinnaya/) | [Email](mailto:paul.peter@example.com) | [Twitter](https://twitter.com/asterixh_dev)
+- **Connect**: [LinkedIn](https://www.linkedin.com/in/paul-peter-eyinnaya/) | [Email](mailto:peterpaultolulope@gmail.com)
 
 ## ⚙️ About Me
 
