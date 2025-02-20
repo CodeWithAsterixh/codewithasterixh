@@ -1,0 +1,78 @@
+{
+  "name": "Anikii",
+  "p_id": "anikii",
+  "startDate": "2024-10-01",
+  "finishDate": "Ongoing development with future features",
+  "technologies": [
+    "Next.js",
+    "React",
+    "Node.js",
+    "MongoDB",
+    "Tailwind CSS",
+    "GraphQL",
+    "Prisma",
+    "JWT",
+    "PWA"
+  ],
+  "currentVersion": "1.0",
+  "status": "Ongoing development with upcoming features planned.",
+  "overview": {
+    "description": "Anikii is a streaming platform tailored for anime lovers, offering a wide variety of anime content. The platform aims to enhance the viewing experience by providing easy access to anime episodes with minimal ads, smooth streaming, and a user-friendly interface. Anikii ensures that users can easily organize their watch time, making it a go-to platform for anime enthusiasts.",
+    "keyFeatures": [
+      "Minimal Ads: Focus on providing a smooth and uninterrupted viewing experience with fewer ads.",
+      "Anime Library: A vast library of anime shows and movies available for streaming.",
+      "User Profile: Personalized watch history and recommendations based on user preferences.",
+      "PWA Support: Offers a Progressive Web App experience for seamless mobile and desktop access.",
+      "Watch Time Management: Track and organize your anime watch history easily."
+    ]
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "2024-10-01",
+      "version": "1.0",
+      "updateFeatures": [
+        "Initial launch of Anikii with basic streaming functionality.",
+        "Set up user profiles with watch history tracking.",
+        "Integrated streaming with anime providers (GogoAnime and AniList).",
+        "Basic search functionality for anime titles."
+      ]
+    },
+    {
+      "id": 2,
+      "date": "2024-10-10",
+      "version": "1.1",
+      "updateFeatures": [
+        "Enhanced UI for smoother user experience.",
+        "Added custom watch lists and recommendations.",
+        "Improved video streaming quality.",
+        "Bug fixes and performance improvements."
+      ]
+    },
+    {
+      "id": 3,
+      "date": "2024-10-15",
+      "version": "1.2",
+      "updateFeatures": [
+        "Integrated support for anime episode tracking.",
+        "Improved search functionality for better accuracy.",
+        "Optimized mobile app performance.",
+        "Minor design and UI adjustments."
+      ]
+    }
+  ],
+  "futureGoals": [
+    "Add user-generated content features like ratings and reviews.",
+    "Implement shareable links for anime episodes.",
+    "Expand the anime database with more providers.",
+    "Enhance the recommendation engine with machine learning."
+  ],
+  "thumbnail": [
+    "/images/anikii/anikiiHome.jpg",
+    "/images/anikii/anikiiSearch.jpg"
+  ],
+  "url": "https://anikii.vercel.app/",
+  "source": "https://github.com/p34-pac/anikii",
+  "id": 0,
+  "type":"best"
+}

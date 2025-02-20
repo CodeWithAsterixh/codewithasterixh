@@ -1,0 +1,72 @@
+{
+  "name": "GeraldLaw",
+  "p_id": "geraldlaw",
+  "startDate": "2024-05-01",
+  "finishDate": "Ongoing development with future features",
+  "technologies": ["React ts", "Tailwind CSS", "Material ui"],
+  "currentVersion": "1.0",
+  "status": "Ongoing development with upcoming features planned.",
+  "overview": {
+    "description": "GeraldLaw is a platform designed for individuals and businesses seeking legal services. The platform connects clients with lawyers in various legal fields and offers resources for consultations, legal advice, and case management. By partnering with Movicx, the platform offers an intuitive, user-friendly interface that allows easy access to legal experts and services, empowering clients with knowledge and support throughout their legal journey.",
+    "keyFeatures": [
+      "Lawyer Profiles: Search and view detailed lawyer profiles with areas of expertise.",
+      "Consultation Booking: Easy scheduling of consultations with top-rated lawyers.",
+      "Legal Resources: Access to informative articles and legal advice.",
+      "Case Management: Tools for clients and lawyers to track and manage ongoing cases.",
+      "PWA Support: Progressive Web App for seamless mobile and desktop access.",
+      "Client Dashboard: Personalized dashboard to manage appointments, case updates, and legal documents."
+    ]
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "2024-05-01",
+      "version": "1.0",
+      "updateFeatures": [
+        "Initial launch of GeraldLaw with lawyer search and consultation booking.",
+        "Integrated case management tools for clients and lawyers.",
+        "First version of the lawyer profile system.",
+        "Basic legal resource section for clients."
+      ]
+    },
+    {
+      "id": 2,
+      "date": "2024-06-10",
+      "version": "1.1",
+      "updateFeatures": [
+        "Improved UI/UX for a more intuitive user experience.",
+        "Added ability to schedule consultations directly from lawyer profiles.",
+        "Expanded legal resource section with FAQs and how-to guides.",
+        "Fixed bugs and optimized mobile performance."
+      ]
+    },
+    {
+      "id": 3,
+      "date": "2024-07-15",
+      "version": "1.2",
+      "updateFeatures": [
+        "Added client document management tools for storing legal paperwork.",
+        "Enhanced case tracking for clients and lawyers.",
+        "Optimized search and filtering for lawyer profiles by location and expertise.",
+        "Minor bug fixes and stability improvements."
+      ]
+    }
+  ],
+  "futureGoals": [
+    "Implement live chat for real-time consultation support.",
+    "Add a rating and review system for lawyers.",
+    "Integrate additional legal fields like criminal and immigration law.",
+    "Expand the database of legal resources and articles for clients.",
+    "Improve AI-powered legal assistance for basic queries and document generation."
+  ],
+  "thumbnail": [
+    "/images/gerald/geraldHome.jpg",
+    "/images/gerald/geraldExpert.jpg",
+    "/images/gerald/geraldContact.jpg",
+    "/images/gerald/geraldAbout.jpg"
+  ],
+  "url": "https://moritz-one.vercel.app/",
+  "source": "https://github.com/CodeCraftersX/GeraldMoritz",
+  "id": 1,
+  "type":"best"
+}

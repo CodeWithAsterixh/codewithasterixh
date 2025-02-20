@@ -9,9 +9,8 @@ import { WorkGrid } from "../../../ui/components/Works/WorkGrid";
 type Props = object;
 
 function ProjectsPage({}: Props) {
-  const [recentProjects, setRecentProjects] = useState<ProjectSchema[]>(
-    
-  );
+  const [recentProjects, setRecentProjects] = useState<ProjectSchema[]>();
+  const [type, setType] = useState()
   useEffect(() => {
     async function getRecent() {
       const recent = await axios.get("/api/projects");
@@ -27,6 +26,9 @@ function ProjectsPage({}: Props) {
             My works
           </h1>
         </div>
+        <header className="w-full bg-green-300 p-2">
+          
+        </header>
 
         <WorkGrid works={recentProjects}/>
       </section>

@@ -1,0 +1,35 @@
+{
+  "name": "Weather App",
+  "p_id": "weatherapp",
+  "startDate": "2024-04-24",
+  "finishDate": "Completed",
+  "technologies": ["React", "HTML", "CSS", "JavaScript"],
+  "currentVersion": "1.0",
+  "status": "Complete",
+  "overview": {
+    "description": "The Weather App provides real-time weather data for a specified location, featuring temperature, humidity, and wind direction. Users can personalize the interface with a choice of 10 color themes.",
+    "keyFeatures": [
+      "Real-Time Weather: Displays current temperature in Celsius, humidity, and wind direction for the chosen location.",
+      "Color Theme Customization: Users can select from 10 different color themes for a personalized interface.",
+      "Responsive Design: Ensures a seamless experience across devices."
+    ]
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "2024-04-24",
+      "version": "1.0",
+      "updateFeatures": [
+        "Initial release with core weather display functionalities.",
+        "Added 10 color theme options for UI customization.",
+        "Responsive layout implemented with CSS and JavaScript."
+      ]
+    }
+  ],
+  "futureGoals": [],
+  "thumbnail": ["/images/weather/weather.jpg"],
+  "url": "https://weather-nine-lime.vercel.app/",
+  "source": "https://github.com/codewithasterixh/weather-app",
+  "id": 4,
+  "type":"others"
+}

@@ -1,0 +1,53 @@
+{
+  "name": "Seek",
+  "p_id": "seek",
+  "startDate": "2024-08-03",
+  "finishDate": "Future maintenance",
+  "technologies": ["React", "Context API", "TMDB API"],
+  "currentVersion": "2.1",
+  "status": "Ongoing development with future updates planned.",
+  "overview": {
+    "description": "Seek is a movie discovery web application that leverages the TMDB API to provide users with a seamless experience for searching movies, TV shows, and people. Users can watch trailers, add content to their collection, and create profiles. The application uses React with Context API for state management, ensuring a responsive and dynamic user interface. Future updates will address bugs in the collection feature and complete the user profile functionalities.",
+    "keyFeatures": [
+      "Search Functionality: Users can search for movies, TV shows, and people using the TMDB API.",
+      "Watch Trailers: The application allows users to watch trailers for their favorite movies and shows.",
+      "User Collections: Users can add movies and shows to their personal collection, although a bug fix is planned for future updates.",
+      "Profile Management: Users can create profiles, though further updates are required to complete this feature.",
+      "Dynamic UI: The application provides a responsive and user-friendly interface using React and Context API."
+    ]
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "2024-08-03",
+      "version": "1.0",
+      "updateFeatures": [
+        "Completed initial application creation.",
+        "Implemented search feature for movies, TV shows, and people.",
+        "Added watch trailer feature."
+      ]
+    },
+    {
+      "id": 2,
+      "date": "2024-08-04",
+      "version": "2.0",
+      "updateFeatures": ["Implemented user profile creation and saving."]
+    },
+    {
+      "id": 3,
+      "date": "2024-08-05",
+      "version": "2.1",
+      "updateFeatures": ["Added user collection feature."]
+    }
+  ],
+  "futureGoals": [
+    "Fix bugs in the user collection feature.",
+    "Complete user profile functionalities and information management.",
+    "Enhance search capabilities with more filters and sorting options."
+  ],
+  "thumbnail": [],
+  "url": "https://seek-red.vercel.app/",
+  "source": "https://github.com/p34-pac/Seek",
+  "id": 7,
+  "type":"others"
+}

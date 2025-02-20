@@ -1,0 +1,39 @@
+{
+  "name": "GitFinder",
+  "p_id": "gitfinder",
+  "startDate": "2022-12-26",
+  "finishDate": "Completed",
+  "technologies": ["HTML", "CSS", "JavaScript", "Bootstrap"],
+  "currentVersion": "1.0",
+  "status": "Complete",
+  "overview": {
+    "description": "GitFinder is a platform designed to search for GitHub profiles, providing detailed information about a user’s public repositories, followers, and other key profile data. The platform includes multiple UI styles for a customizable experience.",
+    "keyFeatures": [
+      "Profile Search: Quickly search for GitHub users by username.",
+      "Profile Overview: Displays profile picture, public repositories, gists, followers, and following count.",
+      "Company and Website: Shows company and blog/website information if available.",
+      "Location and Membership Info: Provides the location and membership start date of the user.",
+      "Latest Repositories: Lists the user's five most recent repositories.",
+      "UI Style Options: Choose between sketchy, morphy, and cyborg UI styles."
+    ]
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "2022-12-26",
+      "version": "1.0",
+      "updateFeatures": [
+        "Initial release with search functionality.",
+        "Basic user profile details displayed.",
+        "Integrated three UI styles: sketchy, morphy, and cyborg.",
+        "Styled with Bootstrap for responsive design."
+      ]
+    }
+  ],
+  "futureGoals": [],
+  "thumbnail": ["/images/gitfinder/gitfinder.jpg"],
+  "url": "https://CodeWithAsterixh.github.io/gitfinder.com/",
+  "source": "https://github.com/CodeWithAsterixh/gitfinder.com",
+  "id": 2,
+  "type":"others"
+}

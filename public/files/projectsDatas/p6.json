@@ -1,0 +1,36 @@
+{
+  "name": "E-commerce Home",
+  "p_id": "ecommercehome",
+  "startDate": "2023-10-16",
+  "finishDate": "Completed",
+  "technologies": ["React"],
+  "currentVersion": "1.0",
+  "status": "Complete",
+  "overview": {
+    "description": "E-commerce Home is a mock homepage of Amazon, designed to replicate the layout and appearance of a typical e-commerce platform’s homepage. It includes essential homepage elements for product showcase and navigation.",
+    "keyFeatures": [
+      "Homepage Design: Mimics Amazon’s homepage layout and design.",
+      "Product Showcase: Displays products with images and brief descriptions.",
+      "Navigation Links: Includes mock links to various product categories.",
+      "Responsive Design: Optimized for different screen sizes."
+    ]
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "2023-10-16",
+      "version": "1.0",
+      "updateFeatures": [
+        "Initial release with mock homepage layout.",
+        "Implemented basic product display and navigation links.",
+        "Responsive design using React and CSS."
+      ]
+    }
+  ],
+  "futureGoals": [],
+  "thumbnail": ["/images/ecommerce/ecommerce.jpg"],
+  "url": "https://codewithasterixh.github.io/E-commerce-Home",
+  "source": "https://github.com/codewithasterixh/ecommerce-home",
+  "id": 5,
+  "type":"others"
+}

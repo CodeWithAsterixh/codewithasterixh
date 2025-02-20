@@ -1,0 +1,70 @@
+{
+  "name": "FileNest",
+  "p_id": "filenest",
+  "startDate": "2024-08-19",
+  "finishDate": "Future maintenance",
+  "technologies": [
+    "React",
+    "Redux",
+    "IndexedDB",
+    "CryptoJS",
+    "Phosphor Icons",
+    "Toastify"
+  ],
+  "currentVersion": "2.2",
+  "status": "Ongoing development with future updates planned.",
+  "overview": {
+    "description": "FileNest is a web application designed for secure file storage, retrieval, and management directly in the browser. Leveraging technologies like IndexedDB for local storage and CryptoJS for encryption, FileNest provides a robust solution for handling sensitive files. The application ensures files are encrypted before storage, and only the correct password can decrypt them, adding an additional layer of security. It also offers features like file preview, renaming, and downloading, ensuring that users can manage their files seamlessly.",
+    "keyFeatures": [
+      "Secure Encryption: Files are encrypted with user-provided passwords before storage, ensuring that only authorized users can access the data.",
+      "File Upload & Preview: Users can upload files, and the application generates previews for supported file types (images, videos, etc.).",
+      "File Management: Users can rename files, delete them, and manage their collection with ease.",
+      "File Download: Files stored within FileNest can be downloaded and decrypted on the user's device.",
+      "Robust Error Handling: The app gracefully handles errors related to encryption, decryption, and file operations, ensuring a smooth user experience."
+    ]
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "2024-08-19",
+      "version": "1.0",
+      "updateFeatures": [
+        "Implemented basic file upload functionality.",
+        "Integrated encryption for file storage.",
+        "Basic UI development.",
+        "Initial encryption setup but lacked file reading capability."
+      ]
+    },
+    {
+      "id": 2,
+      "date": "2024-08-20",
+      "version": "2.0",
+      "updateFeatures": [
+        "Fixed file reading issues.",
+        "Improved encryption handling.",
+        "Enabled users to download and decrypt files.",
+        "Enhanced error handling for better user feedback."
+      ]
+    },
+    {
+      "id": 3,
+      "date": "2024-08-21",
+      "version": "2.2",
+      "updateFeatures": [
+        "Refined file renaming process.",
+        "Added additional validations for secure file operations.",
+        "UI improvements and bug fixes for a smoother user experience."
+      ]
+    }
+  ],
+  "futureGoals": [
+    "Continue improving file management capabilities.",
+    "Implement shareable links for files.",
+    "Expand support for various file types and enhance encryption algorithms."
+  ],
+  "thumbnail": [],
+  "url": "https://filenest.vercel.app/",
+  "source": "https://github.com/p34-pac/FileNest",
+  "id": 6,
+  "type":"others"
+}

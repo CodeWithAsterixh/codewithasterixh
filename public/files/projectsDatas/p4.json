@@ -1,0 +1,37 @@
+{
+  "name": "Photog",
+  "p_id": "photog",
+  "startDate": "2022-10-29",
+  "finishDate": "Completed",
+  "technologies": ["HTML", "CSS", "JavaScript", "Bootstrap"],
+  "currentVersion": "1.0",
+  "status": "Complete",
+  "overview": {
+    "description": "Photog is a portfolio platform designed for photographers to showcase their work, services, and contact information. It provides an elegant and responsive display for a photographer's portfolio, highlighting their style and approach.",
+    "keyFeatures": [
+      "Portfolio Gallery: Showcases a collection of the photographer’s works.",
+      "Services Overview: Details on the types of photography services offered.",
+      "Contact Page: Provides options to get in touch with the photographer.",
+      "About Section: Introduces the photographer, their background, and style.",
+      "Responsive Design: Optimized for various devices using Bootstrap."
+    ]
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "2022-10-29",
+      "version": "1.0",
+      "updateFeatures": [
+        "Initial release with portfolio and contact sections.",
+        "Integrated Bootstrap for responsive design.",
+        "Included services overview and about section."
+      ]
+    }
+  ],
+  "futureGoals": [],
+  "thumbnail": ["/images/photog/photogMain.jpg"],
+  "url": "https://codewithasterixh.github.io/photog",
+  "source": "https://github.com/codewithasterixh/photog",
+  "id": 3,
+  "type":"others"
+}
