@@ -1,7 +1,7 @@
 "use client";
 
 import { ProjectSchema } from "@/public/files/projects";
-import WorkCard, { WorkCardSkeleton } from "@/ui/components/Works/WorkCard";
+// import WorkCard, { WorkCardSkeleton } from "@/ui/components/Works/WorkCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { WorkGrid } from "../../../ui/components/Works/WorkGrid";
@@ -10,7 +10,7 @@ type Props = object;
 
 function ProjectsPage({}: Props) {
   const [recentProjects, setRecentProjects] = useState<ProjectSchema[]>();
-  const [type, setType] = useState()
+  // const [type, setType] = useState()
   useEffect(() => {
     async function getRecent() {
       const recent = await axios.get("/api/projects");
