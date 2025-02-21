@@ -12,7 +12,7 @@ export default function Page() {
   
 
   return (
-    <div>
+    <div id="project">
       
       <Project p_id={currentPath} />
     </div>

@@ -106,7 +106,7 @@ function WorkCard({ datas, index }: Props) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="w-full max-h-full border-2 border-base-black/50 dark:border-base-white/50 p-2 h-[17rem] min-[498px]:h-[18.5rem] sm:h-80 flex group flex-col gap-2 items-center relative isolate overflow-hidden rounded-md bg-black/20"
+      className="w-full border-2 border-base-black/50 dark:border-base-white/50 p-2 h-[17.5rem] min-[498px]:h-[19rem] sm:h-[20.5rem] flex group flex-col gap-2 items-center relative isolate overflow-hidden rounded-md bg-black/20"
     >
       <span className="w-fit h-fit p-2 rounded-br-md text-xs block absolute top-0 left-0 text-white bg-black/20 backdrop-blur-lg">
         {index}

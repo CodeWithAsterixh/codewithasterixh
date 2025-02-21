@@ -82,174 +82,153 @@ function Project({ p_id }: Props) {
   }
 
   return (
-    <Card className="mx-auto my-6 shadow-lg bg-gradient-to-r from-neutral-800 via-neutral-500 to-neutral-700">
-      <div className="relative w-full h-48">
-        {!imgError ? (
-          <Image
-            src={project.thumbnail[0]} // Assuming first thumbnail is the main image
-            alt={project.name}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-t-lg"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <Skeleton variant="rectangular" width="100%" height="100%" />
-        )}
+    <Card className="mx-auto my-6 shadow-none bg-transparent p-3 flex flex-col gap-3">
+      <div className="relative w-full grid  grid-cols-1 md:grid-cols-[20rem_1fr] gap-2">
+        <div className="w-full h-96 min-h-full bg-slate-700 relative overflow-hidden rounded-lg">
+          {!imgError ? (
+            <Image
+              src={project.thumbnail[0]} // Assuming first thumbnail is the main image
+              alt={project.name}
+              layout="fill"
+              objectFit="cover"
+              className="size-full"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <Skeleton variant="rectangular" width="100%" height="100%" />
+          )}
+        </div>
+        <div className="w-full h-96 min-h-fit bg-slate-300/20 rounded-lg backdrop-blur-lg flex flex-col gap-4 p-2">
+          <Typography
+            variant="h2"
+            className="font-semibold text-2xl text-white"
+          >
+            <FiZap className="inline-block mr-2 text-2xl" />
+            {project.name}
+          </Typography>
+
+          <Typography variant="body1" className="text-white">
+            <strong>Project ID:</strong> {project.p_id}
+          </Typography>
+
+          <Typography variant="body1" className="text-white">
+            <strong>Status:</strong> {project.status}
+          </Typography>
+
+          <Typography variant="body1" className=" text-white">
+            <strong>Current Version:</strong> {project.currentVersion}
+          </Typography>
+
+          <Typography variant="body1" className="text-white">
+            <strong>Start Date:</strong>{" "}
+            {new Date(project.startDate).toLocaleDateString()}
+          </Typography>
+
+          <Typography variant="body1" className="text-white">
+            <strong>Finish Date:</strong>{" "}
+            {new Date(project.finishDate).toLocaleDateString()}
+          </Typography>
+
+          <div className="flex flex-col gap-2">
+            <Typography variant="body1" className="text-white">
+              <strong>Technologies:</strong>
+            </Typography>
+            <Box className="flex flex-wrap gap-2">
+              {project.technologies.map((tech, index) => (
+                <Chip
+                  key={index}
+                  label={tech}
+                  variant="outlined"
+                  size="small"
+                  className="text-white border-white"
+                />
+              ))}
+            </Box>
+          </div>
+        </div>
       </div>
 
-      <CardContent>
-        <Typography
-          variant="h5"
-          className="font-semibold text-lg mb-2 text-white"
-        >
-          <FiZap className="inline-block mr-2 text-xl" />
-          {project.name}
-        </Typography>
-
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          className="mb-2 text-white"
-        >
-          <strong>Project ID:</strong> {project.p_id}
-        </Typography>
-
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          className="mb-2 text-white"
-        >
-          <strong>Status:</strong> {project.status}
-        </Typography>
-
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          className="mb-2 text-white"
-        >
-          <strong>Current Version:</strong> {project.currentVersion}
-        </Typography>
-
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          className="mb-4 text-white"
-        >
-          <strong>Start Date:</strong>{" "}
-          {new Date(project.startDate).toLocaleDateString()}
-        </Typography>
-
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          className="mb-4 text-white"
-        >
-          <strong>Finish Date:</strong>{" "}
-          {new Date(project.finishDate).toLocaleDateString()}
-        </Typography>
-
-        <div className="mb-4">
+      <CardContent className="flex flex-col gap-4 !p-0">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2">
           <Typography
-            variant="body2"
+            variant="body1"
             color="text.secondary"
-            className="mb-1 text-white"
+            className="p-3 text-white bg-neutral-300/20 hover:bg-neutral-700/20 rounded-lg backdrop-blur-lg"
           >
-            <strong>Technologies:</strong>
+            <strong>Description:</strong> {project.overview.description}
           </Typography>
-          <Box className="flex flex-wrap gap-2">
-            {project.technologies.map((tech, index) => (
-              <Chip
-                key={index}
-                label={tech}
-                variant="outlined"
-                size="small"
-                className="text-white border-white"
-              />
-            ))}
-          </Box>
-        </div>
 
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          className="mb-2 text-white"
-        >
-          <strong>Description:</strong> {project.overview.description}
-        </Typography>
-
-        <div className="mb-4">
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            className="mb-1 text-white"
-          >
-            <strong>Key Features:</strong>
-          </Typography>
-          <Box className="flex flex-wrap gap-2">
-            {project.overview.keyFeatures.map((feature, index) => (
-              <Chip
-                key={index}
-                label={feature}
-                variant="outlined"
-                size="small"
-                className="text-white border-white"
-              />
-            ))}
-          </Box>
-        </div>
-
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          className="mb-2 text-white"
-        >
-          <strong>Future Goals:</strong>{" "}
-          {project.futureGoals.length > 0
-            ? project.futureGoals.join(", ")
-            : "There's currently no future support as the project is currently not maintained."}
-        </Typography>
-
-        <div className="mb-4">
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            className="mb-1 text-white"
-          >
-            <strong>Updates:</strong>
-          </Typography>
-          {project.updates.map((update) => (
-            <Box key={update.id} className="border-t border-white pt-2">
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className="text-white"
-              >
-                <strong>Version:</strong> {update.version} -{" "}
-                <span className="italic">
-                  {new Date(update.date).toLocaleDateString()}
+          <div className="flex flex-col gap-2 bg-neutral-700/20 hover:bg-neutral-300/20 rounded-lg backdrop-blur-lg p-3">
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              className="text-white"
+            >
+              <strong>Key Features:</strong>
+            </Typography>
+            <Box className="flex flex-wrap gap-2">
+              {project.overview.keyFeatures.map((feature, index) => (
+                <span
+                  key={index}
+                  className="text-white border p-1 rounded-lg bg-neutral-900 border-white line-clamp-none h-fit break-words"
+                >
+                  {feature}
                 </span>
-              </Typography>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className="text-white"
-              >
-                <strong>Features:</strong> {update.updateFeatures.join(", ")}
-              </Typography>
+              ))}
             </Box>
-          ))}
+          </div>
+
+          <Typography
+            variant="body1"
+            className=" text-white bg-neutral-300/20  hover:bg-neutral-700/20 rounded-lg backdrop-blur-lg p-3"
+          >
+            <strong>Future Goals:</strong>{" "}
+            {project.futureGoals.length > 0
+              ? project.futureGoals.join(", ")
+              : "There's currently no future support as the project is currently not maintained."}
+          </Typography>
+
+          <div className="bg-neutral-300/20 hover:bg-neutral-700/20 rounded-lg backdrop-blur-lg p-3">
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              className="mb-1 text-white"
+            >
+              <strong>Updates:</strong>
+            </Typography>
+            {project.updates.map((update) => (
+              <Box key={update.id} className="border-t border-white pt-2">
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  className="text-white"
+                >
+                  <strong>Version:</strong> {update.version} -{" "}
+                  <span className="italic">
+                    {new Date(update.date).toLocaleDateString()}
+                  </span>
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  className="text-white"
+                >
+                  <strong>Features:</strong> {update.updateFeatures.join(", ")}
+                </Typography>
+              </Box>
+            ))}
+          </div>
         </div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap gap-2 *:grow *:basis-64 justify-between items-center">
           <Button
-            variant="outlined"
+            variant="contained"
             color="primary"
             href={project.url}
             target="_blank"
-            className="text-[#75E2FF] border-[#75E2FF] hover:bg-[#5689C0] py-2 px-4 rounded-lg"
+            className="text-neutral-100 hover:bg-neutral-700/30 backdrop-blur-lg bg-neutral-700 py-2 px-4 rounded-lg"
           >
-            <FiArrowRight className="mr-2" />
+            <FiArrowRight className="mr-2 text-xl" />
             View Project
           </Button>
           <Button
@@ -257,9 +236,9 @@ function Project({ p_id }: Props) {
             color="primary"
             href={project.source}
             target="_blank"
-            className="text-[#75E2FF] border-[#75E2FF] hover:bg-[#5689C0] py-2 px-4 rounded-lg"
+            className="text-neutral-100 border-neutral-700 hover:bg-neutral-700/30 backdrop-blur-lg py-2 px-4 rounded-lg"
           >
-            <DiGithub className="mr-2" />
+            <DiGithub className="mr-2 text-2xl" />
             View Source
           </Button>
         </div>
