@@ -140,7 +140,7 @@ function Project({ p_id }: Props) {
                   label={tech}
                   variant="outlined"
                   size="small"
-                  className="text-white border-white"
+                  className="!text-white !border-white"
                 />
               ))}
             </Box>
@@ -152,8 +152,7 @@ function Project({ p_id }: Props) {
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2">
           <Typography
             variant="body1"
-            color="text.secondary"
-            className="p-3 text-white bg-neutral-300/20 hover:bg-neutral-700/20 rounded-lg backdrop-blur-lg"
+            className="p-3 !text-white bg-neutral-300/20 hover:bg-neutral-700/20 rounded-lg backdrop-blur-lg"
           >
             <strong>Description:</strong> {project.overview.description}
           </Typography>
@@ -161,8 +160,7 @@ function Project({ p_id }: Props) {
           <div className="flex flex-col gap-2 bg-neutral-700/20 hover:bg-neutral-300/20 rounded-lg backdrop-blur-lg p-3">
             <Typography
               variant="body1"
-              color="text.secondary"
-              className="text-white"
+              className="!text-white"
             >
               <strong>Key Features:</strong>
             </Typography>
@@ -170,7 +168,7 @@ function Project({ p_id }: Props) {
               {project.overview.keyFeatures.map((feature, index) => (
                 <span
                   key={index}
-                  className="text-white border p-1 rounded-lg bg-neutral-900 border-white line-clamp-none h-fit break-words"
+                  className="!text-white border p-1 rounded-lg bg-neutral-900 border-white line-clamp-none h-fit break-words"
                 >
                   {feature}
                 </span>
@@ -180,7 +178,7 @@ function Project({ p_id }: Props) {
 
           <Typography
             variant="body1"
-            className=" text-white bg-neutral-300/20  hover:bg-neutral-700/20 rounded-lg backdrop-blur-lg p-3"
+            className=" !text-white bg-neutral-300/20  hover:bg-neutral-700/20 rounded-lg backdrop-blur-lg p-3"
           >
             <strong>Future Goals:</strong>{" "}
             {project.futureGoals.length > 0
@@ -191,8 +189,7 @@ function Project({ p_id }: Props) {
           <div className="bg-neutral-300/20 hover:bg-neutral-700/20 rounded-lg backdrop-blur-lg p-3">
             <Typography
               variant="body1"
-              color="text.secondary"
-              className="mb-1 text-white"
+              className="mb-1 !text-white"
             >
               <strong>Updates:</strong>
             </Typography>
@@ -200,8 +197,7 @@ function Project({ p_id }: Props) {
               <Box key={update.id} className="border-t border-white pt-2">
                 <Typography
                   variant="body1"
-                  color="text.secondary"
-                  className="text-white"
+                  className="!text-white"
                 >
                   <strong>Version:</strong> {update.version} -{" "}
                   <span className="italic">
@@ -210,8 +206,7 @@ function Project({ p_id }: Props) {
                 </Typography>
                 <Typography
                   variant="body1"
-                  color="text.secondary"
-                  className="text-white"
+                  className="!text-white"
                 >
                   <strong>Features:</strong> {update.updateFeatures.join(", ")}
                 </Typography>
