@@ -5,11 +5,11 @@ type Props = object;
 
 function ContactPage({}: Props) {
   return (
-    <section className="w-full h-fit flex flex-col items-start justify-start gap-5 p-4 bg-base-white dark:bg-base-black">
-      <section className="w-full p-4 flex flex-col items-center justify-center gap-4 bg-black/10 text-center">
+    <section className="w-full h-fit flex flex-col items-start justify-start gap-5 p-4 bg-transparent">
+      <section className="w-full p-4 flex flex-col items-center justify-center gap-4 bg-base-white/30 dark:bg-base-black/30 backdrop-blur-lg rounded-lg text-center">
         <div
           className={
-            "w-full h-fit text-base-black dark:text-base-white p-2 text-center relative flex items-center justify-center pb-[-10px] gap-2 flex-col *:font-medium " +
+            "w-full h-fit text-base-white p-2 text-center relative flex items-center justify-center pb-[-10px] gap-2 flex-col *:font-medium " +
             "after:content-[''] after:relative after:w-10 after:h-0.5 after:bg-red-500 after:rounded-full"
           }
         >

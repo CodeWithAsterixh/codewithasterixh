@@ -7,11 +7,12 @@ import {
   project6,
   project7,
   project8,
+  project9,
+  project10,
+  project11,
 } from "./projectsDatas";
 
-
-export type projectType = "best"|"others"
-
+export type projectType = "best" | "others";
 
 export interface ProjectSchema {
   name: string;
@@ -36,14 +37,19 @@ export interface ProjectSchema {
   url: string;
   source: string;
   id: number;
-  type:projectType|string;
+  type: projectType | string;
 }
 
-export const projectsData:ProjectSchema[] = [project1,
+export const projectsData: ProjectSchema[] = [
+  project1,
   project2,
   project3,
   project4,
   project5,
   project6,
   project7,
-  project8,];
+  project8,
+  project9,
+  project10,
+  project11,
+];

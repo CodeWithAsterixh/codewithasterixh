@@ -55,7 +55,7 @@ function ProjectsLayout({ children }: Props) {
             <strong>Core Values:</strong>
             <Typewriter
               spanClassName="!border-teal-600 dark:!border-teal-400"
-              className="!text-teal-700 dark:!text-teal-300"
+              className="!text-teal-400 dark:!text-teal-300"
               texts={[
                 "Creativity in Tech",
                 "Precision Engineering",

@@ -57,9 +57,9 @@ export default function Home() {
           </p>
         }
       />
-      <section className="w-full h-fit flex flex-col items-start justify-start gap-5 p-4 bg-base-white dark:bg-base-black">
-        <section className="group text-base-black dark:text-base-white w-full h-fit flex items-start justify-start gap-3 flex-col">
-          <h1 className="font-bold border-b-4 border-b-transparent group-hover:border-b-base-black duration-200 dark:group-hover:border-b-base-white text-xl min-[498px]:text-2xl sm:text-3xl">
+      <section className="w-full h-fit flex flex-col items-start justify-start gap-5 p-2">
+        <section className="group bg-base-white/30 backdrop-blur-md dark:bg-base-black/30 rounded-md p-2 text-base-white w-full h-fit flex items-start justify-start gap-3 flex-col">
+          <h1 className="font-bold border-b-4 border-b-transparent duration-200 group-hover:border-b-base-white text-xl min-[498px]:text-2xl sm:text-3xl">
             The true Asterixh
           </h1>
           <p className="text-sm min-[498px]:text-base sm:text-lg">
@@ -72,23 +72,23 @@ export default function Home() {
           </p>
         </section>
 
-        <section className="group text-base-black dark:text-base-white w-full h-fit flex items-start justify-start gap-3 flex-col">
+        <section className="group bg-base-white/30 backdrop-blur-md dark:bg-base-black/30 rounded-md p-2 text-base-white w-full h-fit flex items-start justify-start gap-3 flex-col">
           <div className="w-full h-fit flex items-end justify-between">
-            <h1 className="font-bold border-b-4 border-b-transparent group-hover:border-b-base-black duration-200 dark:group-hover:border-b-base-white text-xl min-[498px]:text-2xl sm:text-3xl">
+            <h1 className="font-bold border-b-4 border-b-transparent duration-200 group-hover:border-b-base-white text-xl min-[498px]:text-2xl sm:text-3xl">
               My Skills
             </h1>
-            <span className="flex items-center justify-center gap-2 font-bold cursor-pointer text-neutral-600 dark:text-neutral-400 border-b-2 border-b-transparent hover:border-b-base-black duration-200 dark:hover:border-b-base-white text-xs min-[498px]:text-sm sm:text-base">
+            <span className="flex items-center cursor-pointer text-neutral-300 justify-center gap-2 font-bold border-b-2 border-b-transparent  duration-200 hover:border-b-base-white text-xs min-[498px]:text-sm sm:text-base">
               See all <BiArrowToRight />
             </span>
           </div>
           <Skills />
         </section>
-        <section className="group text-base-black dark:text-base-white w-full h-fit flex items-start justify-start gap-3 flex-col">
+        <section className="group bg-base-white/30 backdrop-blur-md dark:bg-base-black/30 rounded-md p-2 text-base-white w-full h-fit flex items-start justify-start gap-3 flex-col">
           <div className="w-full h-fit flex items-end justify-between">
-            <h1 className="font-bold border-b-4 border-b-transparent group-hover:border-b-base-black duration-200 dark:group-hover:border-b-base-white text-xl min-[498px]:text-2xl sm:text-3xl">
+            <h1 className="font-bold border-b-4 border-b-transparent duration-200 group-hover:border-b-base-white text-xl min-[498px]:text-2xl sm:text-3xl">
               Recent works
             </h1>
-            <span className="flex items-center cursor-pointer text-neutral-600 dark:text-neutral-400 justify-center gap-2 font-bold border-b-2 border-b-transparent hover:border-b-base-black duration-200 dark:hover:border-b-base-white text-xs min-[498px]:text-sm sm:text-base">
+            <span className="flex items-center cursor-pointer text-neutral-300 justify-center gap-2 font-bold border-b-2 border-b-transparent  duration-200 hover:border-b-base-white text-xs min-[498px]:text-sm sm:text-base">
               See all <BiArrowToRight />
             </span>
           </div>

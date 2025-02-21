@@ -1,5 +1,4 @@
 "use client";
-import { RootState } from "@/store/store";
 import {
   Timeline,
   TimelineConnector,
@@ -15,7 +14,6 @@ import { useEffect } from "react";
 import { BiLinkAlt } from "react-icons/bi";
 import { GrGithub, GrLinkedin } from "react-icons/gr";
 import { PiXLogoBold } from "react-icons/pi";
-import { useSelector } from "react-redux";
 import Image from "../Image/Image";
 import { threshold } from "./thres";
 
@@ -36,7 +34,7 @@ function SocialTimeLineContentCard({
   return (
     <div
       title={`Social media card for ${content} @${heading}`}
-      className="w-full group text-black dark:text-white h-fit bg-black/5 dark:bg-white/5 flex gap-3 flex-col items-center justify-start box-border p-2 shadow-sm border-[1px] border-black/50 rounded-md"
+      className="w-full group !text-white h-fit !bg-white/5 flex gap-3 flex-col items-center justify-start box-border p-2 shadow-sm border-[1px] backdrop-blur-xl border-white/20 dark:border-black/20 rounded-md"
     >
       <Typography
         component="h4"
@@ -68,7 +66,7 @@ function SocialTimeLineContentCard({
       <Link href={`${link}`} target="_blank">
         <Button
           variant="contained"
-          className="w-full min-[498px]:w-fit !p-2 !px-4 !text-xs min-[498px]:!text-sm sm:!text-base !bg-black/70 dark:!bg-white/70 !text-white dark:!text-black !backdrop-blur-md capitalize"
+          className="w-full min-[498px]:w-fit !p-2 !px-4 !text-xs min-[498px]:!text-sm sm:!text-base !bg-white/30 dark:!bg-white/70 !text-black !backdrop-blur-sm capitalize"
           startIcon={<BiLinkAlt />}
           disableElevation
           type="submit"
@@ -80,8 +78,7 @@ function SocialTimeLineContentCard({
   );
 }
 function SocialsTimeline() {
-  const { mode } = useSelector((s: RootState) => s.ThemePreference);
-  const t_CF = mode === "light" ? "black" : "white";
+  const t_CF = "white";
   useEffect(() => {
     const observerLeft = new IntersectionObserver(
       (entries) => {

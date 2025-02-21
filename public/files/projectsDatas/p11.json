@@ -1,0 +1,42 @@
+{
+  "name": "Archive Anikii Dashboard",
+  "p_id": "archive-anikii-001",
+  "startDate": "2023-07-01",
+  "finishDate": "Present",
+  "technologies": ["Vue.js", "TypeScript", "Tailwind CSS"],
+  "currentVersion": "1.0.0",
+  "status": "Active",
+  "overview": {
+    "description": "The Archive Anikii Dashboard is a management interface designed for overseeing and organizing data from temporary folder storage and MongoDB. The platform features an intuitive folder-type structure visualizer for navigating data, a modal to inspect JSON code, and functionalities that allow users to download data with a custom name or store it directly in the database (admin only).",
+    "keyFeatures": [
+      "Visual folder structure for data management",
+      "Modal-based JSON code viewer for detailed data inspection",
+      "Customizable data download functionality",
+      "Admin-only data storage directly into MongoDB",
+      "Built using Vue.js, TypeScript, and styled with Tailwind CSS"
+    ]
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "2023-07-01",
+      "version": "1.0.0",
+      "updateFeatures": [
+        "Launched initial version of the Archive Anikii Dashboard",
+        "Implemented folder structure visualization and modal JSON viewer",
+        "Enabled custom data download options and admin storage capabilities"
+      ]
+    }
+  ],
+  "futureGoals": [
+    "Enhance user authentication and administrative controls",
+    "Improve error handling and logging mechanisms",
+    "Expand data visualization and filtering options",
+    "Optimize performance and responsiveness for a broader range of devices"
+  ],
+  "thumbnail": [],
+  "url": "http://archive-anikii.vercel.app",
+  "source": "https://github.com/codewithasterixh/admin.anikii",
+  "id": 10,
+  "type": "others"
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Quizeen",
+  "p_id": "qz001",
+  "startDate": "2024-01-01",
+  "finishDate": "2025-12-31",
+  "technologies": [
+    "Next.js",
+    "MongoDB",
+    "Tailwind CSS",
+    "ShadCN UI",
+    "Redux Toolkit",
+    "JWT"
+  ],
+  "currentVersion": "1.0.0",
+  "status": "active",
+  "overview": {
+    "description": "Quizeen is a modern quiz-taking platform that enables users to create, take, and track quizzes seamlessly.",
+    "keyFeatures": [
+      "User Authentication",
+      "Quiz Creation",
+      "Real-Time Results",
+      "Responsive Design"
+    ]
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "2025-02-21",
+      "version": "1.0.0",
+      "updateFeatures": [
+        "Initial release",
+        "Basic quiz functionality",
+        "User authentication"
+      ]
+    }
+  ],
+  "futureGoals": [
+    "Add social sharing",
+    "Improve analytics",
+    "Integrate AI for personalized quizzes"
+  ],
+  "thumbnail": [
+  ],
+  "url": "https://quizeen.vercel.app",
+  "source": "https://github.com/CodeWithAsterixh/quizeen",
+  "id": 9,
+  "type": "best"
+}

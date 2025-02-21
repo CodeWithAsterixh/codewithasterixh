@@ -41,29 +41,21 @@ function MailForm({}: Props) {
     ".8": "0.8",
     ".5": "0.05",
   };
-  const c_op3 =
-    mode === "light"
-      ? `rgba(0, 0, 0, ${c[".3"]} )`
-      : `rgba(255, 255, 255, ${c[".3"]} )`;
-  const c_op8 =
-    mode === "light"
-      ? `rgba(0, 0, 0, ${c[".8"]} )`
-      : `rgba(255, 255, 255, ${c[".8"]} )`;
+  const c_op3 =`rgba(255, 255, 255, ${c[".3"]} )`;
+  const c_op8 = `rgba(255, 255, 255, ${c[".8"]} )`;
   const c_op5 =
-    mode === "light"
-      ? `rgba(0, 0, 0, ${c[".5"]} )`
-      : `rgba(255, 255, 255, ${c[".5"]} )`;
-  const t_C = mode === "light" ? "grey" : "grey";
-  const t_CF = mode === "light" ? "black" : "white";
+      `rgba(255, 255, 255, ${c[".5"]} )`;
+  const t_C = "white";
+  const t_CF ="white";
 
   return (
     <section
       ref={responseForm}
-      className="w-full h-full min-h-fit p-4 flex flex-col items-center justify-center gap-4 rounded-md bg-black/10 dark:bg-white/10 text-center"
+      className="w-full h-full min-h-fit p-4 flex flex-col items-center justify-center gap-4 rounded-md bg-base-white/30 dark:bg-base-black/30 backdrop-blur-3xl text-center"
     >
       <div
         className={
-          "w-full h-fit text-base-black dark:text-base-white p-2 text-center relative flex items-center justify-center pb-[-10px] gap-2 flex-col *:font-medium " +
+          "w-full h-fit !text-base-white p-2 text-center relative flex items-center justify-center pb-[-10px] gap-2 flex-col *:font-medium " +
           "after:content-[''] after:relative after:w-10 after:h-0.5 after:bg-red-500 after:rounded-full"
         }
       >
@@ -80,7 +72,7 @@ function MailForm({}: Props) {
         className="w-full max-w-screen-sm flex flex-wrap items-center justify-center gap-2"
       >
         <TextField
-          className="w-full min-[498px]:w-[calc(50%-0.25rem)] !outline-none"
+          className="w-full min-[498px]:w-[calc(50%-0.25rem)] !outline-none "
           label="Name"
           error={!!errors.name}
           helperText={errors.name ? errors.name.message : " "}
@@ -105,6 +97,7 @@ function MailForm({}: Props) {
             },
             "& .MuiOutlinedInput-input": {
               backgroundColor: c_op5,
+              color:t_C
             },
             "& .MuiInputLabel-root": {
               color: errors.name ? "red" : t_C,
@@ -134,6 +127,8 @@ function MailForm({}: Props) {
             },
             "& .MuiOutlinedInput-input": {
               backgroundColor: c_op5,
+              color:t_C
+
             },
             "& .MuiInputLabel-root": {
               color: errors.email ? "red" : t_C,
@@ -150,10 +145,10 @@ function MailForm({}: Props) {
     ${
       errors.textContent
         ? "border-red-500 hover:border-red-500"
-        : "border-black/30 hover:border-black/80 dark:border-white/30 dark:hover:border-white/80"
+        : "!border-white/30 hover:!border-white/80"
     } 
-  focus:border-black/80 dark:focus:border-white/80 
-    outline-none resize-none placeholder:text-black/50 dark:placeholder:text-white/50`}
+  focus:border-black/80 !focus:border-white/80 
+    outline-none resize-none placeholder:!text-white/50`}
           placeholder="How can we help you?"
           {...register("textContent")}
         />
