@@ -80,7 +80,7 @@ function ProjectsPage({}: Props) {
           <Button
             variant="contained"
             className={clsx(
-              type === "all" ? "bg-neutral-900" : "bg-neutral-600"
+              type === "all" ? "!bg-neutral-900" : "!bg-neutral-600"
             )}
             onClick={() => handleSetType("all")}
           >
@@ -89,7 +89,7 @@ function ProjectsPage({}: Props) {
           <Button
             variant="contained"
             className={clsx(
-              type === "best" ? "bg-neutral-900" : "bg-neutral-600"
+              type === "best" ? "!bg-neutral-900" : "!bg-neutral-600"
             )}
             onClick={() => handleSetType("best")}
           >
@@ -98,7 +98,7 @@ function ProjectsPage({}: Props) {
           <Button
             variant="contained"
             className={clsx(
-              type === "others" ? "bg-neutral-900" : "bg-neutral-600"
+              type === "others" ? "!bg-neutral-900" : "!bg-neutral-600"
             )}
             onClick={() => handleSetType("others")}
           >
