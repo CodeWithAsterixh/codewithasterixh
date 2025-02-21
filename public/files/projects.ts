@@ -36,7 +36,7 @@ export interface ProjectSchema {
   url: string;
   source: string;
   id: number;
-  // type:projectType
+  type:projectType|string;
 }
 
 export const projectsData:ProjectSchema[] = [project1,
