@@ -82,7 +82,7 @@ function Project({ p_id }: Props) {
   }
 
   return (
-    <Card className="mx-auto my-6 shadow-none bg-transparent p-3 flex flex-col gap-3">
+    <Card className="mx-auto my-6 !shadow-none !bg-transparent p-3 flex flex-col gap-3">
       <div className="relative w-full grid  grid-cols-1 md:grid-cols-[20rem_1fr] gap-2">
         <div className="w-full h-96 min-h-full bg-slate-700 relative overflow-hidden rounded-lg">
           {project.thumbnail.length>0&&!imgError ? (
@@ -103,7 +103,7 @@ function Project({ p_id }: Props) {
             variant="h2"
             className="font-semibold text-2xl text-white"
           >
-            <FiZap className="inline-block mr-2 text-2xl" />
+            <FiZap className="inline-block mr-2 !text-2xl" />
             {project.name}
           </Typography>
 
