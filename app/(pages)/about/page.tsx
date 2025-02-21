@@ -27,7 +27,7 @@ function AboutPage({}: Props) {
       id="about"
       className="w-full h-fit flex flex-col items-start justify-start gap-5 p-2"
     >
-      <section className="group p-2 rounded-md bg-neutral-100/50 dark:bg-neutral-700/30 backdrop-blur-lg text-base-black dark:text-base-white w-full h-fit flex items-start justify-start gap-3 flex-col">
+      <section className="group p-2 rounded-md bg-neutral-100/50 dark:bg-neutral-700/30 backdrop-blur-lg text-black dark:text-base-white w-full h-fit flex items-start justify-start gap-3 flex-col">
         <div className="w-full h-fit flex items-end justify-between">
           <h1 className="font-bold border-b-4 border-b-transparent group-hover:border-b-base-black duration-200 dark:group-hover:border-b-base-white text-xl min-[498px]:text-2xl sm:text-3xl">
             My Skills
@@ -35,7 +35,7 @@ function AboutPage({}: Props) {
         </div>
         <Skills />
       </section>
-      <section className="group p-2 rounded-md bg-neutral-100/50 dark:bg-neutral-700/30 backdrop-blur-lg text-base-black dark:text-base-white w-full h-fit flex items-center justify-start gap-3 flex-col">
+      <section className="group p-2 rounded-md bg-neutral-100/50 dark:bg-neutral-700/30 backdrop-blur-lg text-black dark:text-base-white w-full h-fit flex items-center justify-start gap-3 flex-col">
         <div className="w-full h-fit flex items-end justify-between">
           <h1 className="font-bold border-b-4 border-b-transparent group-hover:border-b-base-black duration-200 dark:group-hover:border-b-base-white text-xl min-[498px]:text-2xl sm:text-3xl">
             Education: Learning Map
@@ -44,7 +44,7 @@ function AboutPage({}: Props) {
         <CenteredTimeline datas={education} />
       </section>
 
-      <section className="group p-2 rounded-md bg-neutral-100/50 dark:bg-neutral-700/30 backdrop-blur-lg text-base-black dark:text-base-white w-full h-fit flex items-center justify-start gap-3 flex-col">
+      <section className="group p-2 rounded-md bg-neutral-100/50 dark:bg-neutral-700/30 backdrop-blur-lg text-black dark:text-base-white w-full h-fit flex items-center justify-start gap-3 flex-col">
         <div className="w-full h-fit flex items-end justify-between">
           <h1 className="font-bold border-b-4 border-b-transparent group-hover:border-b-base-black duration-200 dark:group-hover:border-b-base-white text-xl min-[498px]:text-2xl sm:text-3xl">
             Jobs: My Working experience

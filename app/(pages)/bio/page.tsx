@@ -4,13 +4,13 @@ type Props = object;
 
 function AboutPage({}: Props) {
   return (
-    <section className="w-full h-fit flex flex-col items-start justify-start gap-5 p-4 bg-base-white dark:bg-base-black">
-      <section className="group text-base-black dark:text-base-white w-full h-fit flex items-start justify-start gap-3 flex-col">
+    <section className="w-full h-fit flex flex-col items-start justify-start gap-5 p-2">
+      <section className="group bg-white/30 dark:bg-black/30 backdrop-blur-md p-2 rounded-md text-black dark:text-white w-full h-fit flex items-start justify-start gap-3 flex-col">
         <h1 className="font-bold border-b-4 border-b-transparent group-hover:border-b-base-black duration-200 dark:group-hover:border-b-base-white text-xl min-[498px]:text-2xl sm:text-3xl">
           Tech Meets Creativity:{" "}
           <Typewriter
             spanClassName="!border-teal-600 dark:!border-teal-400"
-            className="!text-teal-700 dark:!text-teal-300"
+            className="!text-teal-400 dark:!text-teal-300"
             texts={[
               "Shaping the Future",
               "Pushing Boundaries",
@@ -49,12 +49,12 @@ function AboutPage({}: Props) {
           </p>
         </div>
       </section>
-      <section className="group text-base-black dark:text-base-white w-full h-fit flex items-start justify-start gap-3 flex-col">
+      <section className="group bg-white/30 dark:bg-black/30 backdrop-blur-md p-2 rounded-md text-black dark:text-white w-full h-fit flex items-start justify-start gap-3 flex-col">
         <h1 className="font-bold border-b-4 border-b-transparent group-hover:border-b-base-black duration-200 dark:group-hover:border-b-base-white text-xl min-[498px]:text-2xl sm:text-3xl">
           When I’m Not Coding:{" "}
           <Typewriter
             spanClassName="!border-teal-600 dark:!border-teal-400"
-            className="!text-teal-700 dark:!text-teal-300"
+            className="!text-teal-400 dark:!text-teal-300"
             texts={[
               "Exploring My Creative Side",
               "The Passions That Drive Me",

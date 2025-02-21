@@ -1,0 +1,43 @@
+{
+  "name": "API Anikii",
+  "p_id": "api-anikii-001",
+  "startDate": "2023-01-01",
+  "finishDate": "Present",
+  "technologies": ["Python", "FastAPI", "AniList API", "Docker"],
+  "currentVersion": "1.0.0",
+  "status": "Active",
+  "overview": {
+    "description": "API Anikii is the backend service powering the Anikii website. Developed in Python using FastAPI, it seamlessly integrates with the AniList API to fetch and deliver rich data to the frontend. Its design emphasizes performance, reliability, and scalability, ensuring that the user experience on the website remains smooth and responsive.",
+    "keyFeatures": [
+      "RESTful endpoints for efficient data retrieval",
+      "Integration with AniList API for up-to-date media data",
+      "Built with Python and FastAPI for rapid development",
+      "Containerized deployment using Docker for consistent environments",
+      "Optimized for performance and scalability"
+    ]
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "2023-01-01",
+      "version": "1.0.0",
+      "updateFeatures": [
+        "Launched initial version with core RESTful endpoints",
+        "Integrated AniList API for dynamic content sourcing"
+      ]
+    }
+  ],
+  "futureGoals": [
+    "Expand API endpoints to support additional features on the frontend",
+    "Implement advanced caching mechanisms to further improve performance",
+    "Enhance logging, monitoring, and automated testing",
+    "Explore integration with additional third-party data sources",
+    "Deploy CI/CD pipelines for streamlined updates and maintenance"
+  ],
+  "thumbnail": [
+  ],
+  "url": "http://api-anikii.onrender.com/",
+  "source": "https://github.com/codewithasterixh/api.anikii",
+  "id": 8,
+  "type": "best"
+}

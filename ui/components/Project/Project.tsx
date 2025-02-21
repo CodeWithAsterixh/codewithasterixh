@@ -85,7 +85,7 @@ function Project({ p_id }: Props) {
     <Card className="mx-auto my-6 shadow-none bg-transparent p-3 flex flex-col gap-3">
       <div className="relative w-full grid  grid-cols-1 md:grid-cols-[20rem_1fr] gap-2">
         <div className="w-full h-96 min-h-full bg-slate-700 relative overflow-hidden rounded-lg">
-          {!imgError ? (
+          {project.thumbnail.length>0&&!imgError ? (
             <Image
               src={project.thumbnail[0]} // Assuming first thumbnail is the main image
               alt={project.name}
