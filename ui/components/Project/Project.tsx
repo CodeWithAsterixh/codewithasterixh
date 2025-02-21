@@ -101,7 +101,7 @@ function Project({ p_id }: Props) {
         <div className="w-full h-96 min-h-fit bg-slate-300/20 rounded-lg backdrop-blur-lg flex flex-col gap-4 p-2">
           <Typography
             variant="h2"
-            className="font-semibold text-2xl text-white"
+            className="font-semibold !text-2xl text-white"
           >
             <FiZap className="inline-block mr-2 !text-2xl" />
             {project.name}
