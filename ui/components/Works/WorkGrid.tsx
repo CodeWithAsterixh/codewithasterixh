@@ -3,7 +3,7 @@ import WorkCard, { WorkCardSkeleton } from "./WorkCard";
 
 export function WorkGrid({works}:{works?:ProjectSchema[]}){
    return(
-    <div className="w-full grid grid-cols-[repeat(auto-fill,_minmax(180px,_1fr))] sm:grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] items-stretch justify-start gap-2 flex-wrap">
+    <div className="w-full grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] items-stretch justify-start gap-2 flex-wrap">
     {works ? (
       works.map((re, id) => (
         <WorkCard
