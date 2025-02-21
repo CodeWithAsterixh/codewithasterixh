@@ -221,7 +221,7 @@ function Project({ p_id }: Props) {
             color="primary"
             href={project.url}
             target="_blank"
-            className="text-neutral-100 hover:bg-neutral-700/30 backdrop-blur-lg bg-neutral-700 py-2 px-4 rounded-lg"
+            className="!text-neutral-100 hover:!bg-neutral-700/30 !backdrop-blur-lg !bg-neutral-700 py-2 px-4 rounded-lg"
           >
             <FiArrowRight className="mr-2 text-xl" />
             View Project
@@ -231,7 +231,7 @@ function Project({ p_id }: Props) {
             color="primary"
             href={project.source}
             target="_blank"
-            className="text-neutral-100 border-neutral-700 hover:bg-neutral-700/30 backdrop-blur-lg py-2 px-4 rounded-lg"
+            className="!text-neutral-100 !border-neutral-700 hover:!bg-neutral-700/30 !backdrop-blur-lg py-2 px-4 rounded-lg"
           >
             <DiGithub className="mr-2 text-2xl" />
             View Source
