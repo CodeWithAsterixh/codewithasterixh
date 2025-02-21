@@ -26,7 +26,7 @@ function ProjectsPage({}: Props) {
     (type: projectType | "all") => {
       setType(type);
     },
-    [type]
+    []
   );
 
   return (
