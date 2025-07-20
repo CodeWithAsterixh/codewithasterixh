@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Bitcount:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+  --font-bitcount: "Bitcount", sans-serif;
+  --font-bitcount-optical-sizing: auto;
+  --font-bitcount-variation: "wght" 400, "slnt" 0, "CRSV" 0.5, "ELSH" 0,
+    "ELXP" 0;
+
+  --font-poppins: "Poppins", sans-serif;
+  --font-poppins-w-100: 100;
+  --font-poppins-w-200: 200;
+  --font-poppins-w-300: 300;
+  --font-poppins-w-400: 400;
+  --font-poppins-w-500: 500;
+  --font-poppins-w-600: 600;
+  --font-poppins-w-700: 700;
+  --font-poppins-w-800: 800;
+  --font-poppins-w-900: 900;
+  --font-poppins-style-normal: normal;
+  --font-poppins-style-italic: italic;
+}
+
+@layer components {
+  .font-bitcount {
+    font-family: var(--font-bitcount);
+    font-optical-sizing: var(--font-bitcount-optical-sizing);
+    font-variation-settings: var(--font-bitcount-variation);
+  }
+  .font-poppins {
+    font-family: var(--font-poppins);
+    font-weight: var(--poppins-weight, var(--font-poppins-w-400));
+    font-style: var(--poppins-style, var(--font-poppins-style-normal));
+  }
+
+  .font-poppins-100 {
+    --poppins-weight: var(--font-poppins-w-100);
+  }
+  .font-poppins-200 {
+    --poppins-weight: var(--font-poppins-w-200);
+  }
+  .font-poppins-300 {
+    --poppins-weight: var(--font-poppins-w-300);
+  }
+  .font-poppins-400 {
+    --poppins-weight: var(--font-poppins-w-400);
+  }
+  .font-poppins-500 {
+    --poppins-weight: var(--font-poppins-w-500);
+  }
+  .font-poppins-600 {
+    --poppins-weight: var(--font-poppins-w-600);
+  }
+  .font-poppins-700 {
+    --poppins-weight: var(--font-poppins-w-700);
+  }
+  .font-poppins-800 {
+    --poppins-weight: var(--font-poppins-w-800);
+  }
+  .font-poppins-900 {
+    --poppins-weight: var(--font-poppins-w-900);
+  }
+
+  .font-poppins-normal {
+    --poppins-style: var(--font-poppins-style-normal);
+  }
+  .font-poppins-italic {
+    --poppins-style: var(--font-poppins-style-italic);
+  }
+}
