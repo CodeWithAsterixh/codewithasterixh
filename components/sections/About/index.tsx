@@ -24,7 +24,7 @@ const experiences = [
 export default function About() {
   return (
     <section id="about" className="w-full bg-base-100 py-20">
-      <main className="section_container p-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <main className="section_container p-4 grid grid-cols-1 gap-4 md:gap-10 md:grid-cols-2">
         <article className="w-full h-full relative">
           <span className="w-full relative min-h-full pointer-events-none block bg-primary-content aspect-square rounded-b-2xl rounded-t-[50%] honey_comb_bg overflow-hidden">
             <Image
@@ -65,7 +65,7 @@ export default function About() {
             </em>
           </span>
         </article>
-        <article className="w-full py-4 flex flex-col justify-center gap-4">
+        <article className="w-full py-4 flex flex-col justify-center gap-10">
           <div className="w-full">
             <Headline className="font-normal text-2xl w-fit">About Me</Headline>
             <Heading
@@ -107,35 +107,31 @@ export default function About() {
               variant={"secondary"}
               iconLeft={{
                 icon_name: "phone",
-                props:{
-                    
-                },
                 slot_props:{
-                    className:"bg-primary size-10 !text-base-300 box-border p-2 flex items-center justify-center rounded-full"
+                    className:"bg-primary !shrink-0 size-10 !text-base-300 box-border p-2 flex items-center justify-center rounded-full"
                 }
               }}
               as="a"
-              className="gap-2 !bg-base-200 !text-xs pr-3 !h-fit !text-accent-content !p-2 rounded-full"
+              text_class="max-w-[calc((100dvw/2)-4rem)] pr-2 md:max-w-[var(--text-width-md)] truncate text-ellipsis line-clamp-1 shrink"
+              className="w-fit gap-2 !bg-base-200 !text-xs !h-fit justify-start md:[--text-width-md:calc(((90dvw/2)/2)-5rem)] xl:[--text-width-md:calc(((72rem/2)/2)-5rem)]  !text-accent-content !p-2 rounded-full"
               href="tel:+2348109080838"
             >
-              <strong>+234 810 908 0838</strong>
+              +234 810 908 0838
             </Button2>
             <Button2
               variant={"secondary"}
               iconLeft={{
                 icon_name: "mail-open",
-                props:{
-                    
-                },
                 slot_props:{
-                    className:"bg-primary size-10 !text-base-300 box-border p-2 flex items-center justify-center rounded-full"
+                    className:"bg-primary !shrink-0 size-10 !text-base-300 box-border p-2 flex items-center justify-center rounded-full"
                 }
               }}
               as="a"
-              className="gap-2 !bg-base-200 pr-3 !text-xs !h-fit !text-accent-content !p-2 rounded-full"
+              text_class="max-w-[calc((90dvw/2)-5rem)] pr-2 md:max-w-[var(--text-width-md)] truncate text-ellipsis line-clamp-1 shrink"
+              className="w-fit gap-2 !bg-base-200 !text-xs md:[--text-width-md:calc(((90dvw/2)/2)-5rem)] xl:[--text-width-md:calc(((72rem/2)/2)-5rem)] !h-fit justify-start !text-accent-content !p-2 rounded-full"
               href="mailto:peterpaultolulope@gmail.com"
             >
-              <strong>contact mail</strong>
+              peterpaultolulope@gmail.com
             </Button2>
           </div>
         </article>

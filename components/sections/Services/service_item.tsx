@@ -29,7 +29,7 @@ export default function ServiceItem({ item_id, index, label, content }: Props) {
     >
       <AccordionTrigger
         addIcon={false}
-        className="flex justify-between data-[state=closed]:[--rotation:90deg] data-[state=open]:[--rotation:0deg]"
+        className="flex justify-between data-[state=closed]:[--rotation:90deg] data-[state=open]:[--rotation:-360deg]"
       >
         <strong className="font-bold w-[10%] text-xl sm:text-2xl sm:w-25 shrink-0">
           {indexing}

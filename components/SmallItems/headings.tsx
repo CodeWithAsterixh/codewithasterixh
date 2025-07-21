@@ -1,7 +1,6 @@
-import React, { Fragment } from "react";
-import { HoveredElement } from "../HoveredElement";
-import { PassThroughElement } from "../PassThroughElement";
 import { cn } from "d/lib/utils";
+import React, { Fragment } from "react";
+import { PassThroughElement } from "../PassThroughElement";
 import Cowlick, { cowlickProps } from "./cowlick";
 
 type Props = {
@@ -51,7 +50,7 @@ export function Heading({
       asChild={asChild}
       as={asSlot}
       className={cn(
-        "relative flex gap-4 items-center justify-center text-3xl font-bold",
+        "relative flex flex-wrap gap-4 items-center justify-center text-3xl font-bold",
         extendedClasses?.even,
         className
       )}
