@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+---
 
-## Getting Started
+# Welcome to CodeWithAsterixh! 👨‍💻
 
-First, run the development server:
+I'm **Paul Peter** (aka **Asterixh**), a dedicated front-end developer focused on crafting intuitive, high-performing web experiences. This profile is a hub for my projects, experiments, and insights. Whether you're here to connect, explore, or get inspired, I'm excited to share my journey with you.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌟 What You'll Find
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Innovative Projects**: Dive into my repositories built with modern web technologies like TypeScript, React, Next.js, and Vue.
+- **Optimized & Clean Code**: My work emphasizes readability, maintainability, and efficiency for seamless collaboration.
+- **Tutorials & Experiments**: I regularly experiment with new tech and share practical insights.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Latest Projects
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Quizeen – Quiz Taker 🎓  
+[quizeen.vercel.app](https://quizeen.vercel.app)  
+A dynamic quiz platform built with **Next.js**, **Tailwind CSS**, **TypeScript**, and **MongoDB**.  
+- **About**: An engaging quiz platform offering a variety of topics to make learning fun.  
+- **Developed By**: Paul (aka Asterixh)  
+- **Features**: Take quizzes, explore available quizzes, and manage account settings (theme & result saving).  
+  _Note: Some features require registration and opt-in for result saving._
 
-## Learn More
+### Archive – Anime Archive Manager 🎥  
+[archive.anikii.vercel.app](https://archive.anikii.vercel.app)  
+A sleek archive manager for anime, crafted with **Vue**, **Tailwind CSS**, **TypeScript**, and **MongoDB**.
 
-To learn more about Next.js, take a look at the following resources:
+### Ongoing: Anime Website 🎬  
+[anikii.vercel.app](https://anikii.vercel.app)  
+Currently developing an engaging anime website to offer rich content and experiences for enthusiasts.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔧 Tech Toolbox
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black)
+![Next.js](https://img.shields.io/badge/-Next.js-000000?logo=next.js&logoColor=white)
+![Vue](https://img.shields.io/badge/-Vue-4FC08D?logo=vue.js&logoColor=white)
+![Material UI](https://img.shields.io/badge/-Material%20UI-0081CB?logo=material-ui&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/-Tailwind%20CSS-38B2AC?logo=tailwind-css&logoColor=white)
+![Git](https://img.shields.io/badge/-Git-F05032?logo=git&logoColor=white)
+![Jest](https://img.shields.io/badge/-Jest-C21325?logo=jest&logoColor=white)
 
-## Deploy on Vercel
+## 🤝 Let's Collaborate
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+I'm always open to **collaborations, feedback, and innovative ideas**. Whether you want to discuss a project, exchange insights, or build something great together, feel free to reach out:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Projects**: [Quizeen](https://quizeen.vercel.app) | [Archive](https://archive.anikii.vercel.app) | [Ongoing Anime Website](https://anikii.vercel.app)
+- **Connect**: [LinkedIn](https://www.linkedin.com/in/paul-peter-eyinnaya/) | [Email](mailto:peterpaultolulope@gmail.com)
+
+## ⚙️ About Me
+
+- **Nickname**: Asterixh  
+- **Current Learning**: Japanese & React Native  
+- **Passion**: Developing bug-free, production-grade applications using modern web technologies
+
+---
+
+Thank you for visiting **CodeWithAsterixh**! Let's build exceptional digital experiences together.
