@@ -4,6 +4,7 @@ export const size = {
   height: 500,
 };
 export const contentType = "image/png";
+type weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
 export default async function Icon() {
   // 1. Fetch the Google Fonts CSS
   const cssRes = await fetch(
@@ -26,11 +27,17 @@ export default async function Icon() {
   );
 
   // 3. Build the fonts array
-  const fonts = fontsMeta.map((f, i) => ({
+  
+  const fonts:{
+    name: string;
+    data: ArrayBuffer;
+    weight: weight;
+    style: "normal";
+}[] = fontsMeta.map((f, i) => ({
     name: "Bitcount",
     data: buffers[i],
-    weight: f.weight as 100,
-    style: "normal" as "normal",
+    weight: f.weight as weight,
+    style: "normal",
   }));
 
   return new ImageResponse(
