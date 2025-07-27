@@ -3,6 +3,7 @@ import Cutout from "d/components/sections/Cutout";
 import Experience from "d/components/sections/Experience";
 import HeroSection from "d/components/sections/Hero";
 import MyTools from "d/components/sections/My_Tools";
+import Portfolio from "d/components/sections/Portfolio";
 import Services from "d/components/sections/Services";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <Cutout />
       <Experience />
       <Cutout />
+      <Portfolio/>
     </>
   );
 }

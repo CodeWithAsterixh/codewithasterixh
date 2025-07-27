@@ -23,18 +23,23 @@ const my_tools:{
   },
   {
     icon:"nuxtjs",
-    percentage:480,
+    percentage:80,
     tool:"Nuxt js"
   },
   {
     icon:"tailwindcss",
     percentage:98,
-    tool:"React & vue"
+    tool:"Tailwind css"
   },
   {
     icon:"shadcnui",
     percentage:90,
     tool:"Shadcn"
+  },
+  {
+    icon:"gsap",
+    percentage:70,
+    tool:"Gsap"
   }
 ]
 export default function MyTools() {
@@ -64,7 +69,7 @@ export default function MyTools() {
           />
         </div>
 
-        <ul className="justify-center w-full mx-auto grid grid-cols-[repeat(auto-fit,_minmax(8rem,_1fr))] gap-4">
+        <ul className="justify-center w-full mx-auto flex flex-wrap *:basis-30 *:grow gap-4">
           {
             my_tools.map((tool,idx)=><ToolItem key={idx} index={idx+1} {...tool}/>)
           }

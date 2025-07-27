@@ -10,7 +10,6 @@ export function useHash() {
 
   useEffect(() => {
     const updateHash = () => setHash(window.location.hash);
-    console.log(window)
     window.addEventListener("hashchange", updateHash);
     // Also listen for popstate (browser back/forward)
     window.addEventListener("popstate", updateHash);

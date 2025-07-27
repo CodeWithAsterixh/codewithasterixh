@@ -7,7 +7,7 @@ import ServiceItem from "./service_item";
 export default function Services() {
   return (
     <section id="services" className="w-full py-20">
-      <div className="section_container px-4 flex flex-col gap-10">
+      <main className="section_container px-4 flex flex-col gap-10">
         <header className="w-full grid sm:grid-cols-2 items-end">
           <div className="w-full">
             <Headline className="font-normal text-2xl w-fit">
@@ -116,7 +116,7 @@ export default function Services() {
             View All Services
           </Button2>
         </div>
-      </div>
+      </main>
     </section>
   );
 }

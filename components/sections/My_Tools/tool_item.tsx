@@ -12,14 +12,14 @@ type Props = {
 export default function ToolItem({ index, icon, percentage, tool }: Props) {
   const isEven = index % 2 === 0;
   return (
-    <li className="w-full flex flex-col gap-3 text-accent-content items-center even:[--position:]">
+    <li className="w-full not-last:![--tr:0] last:![--tr:calc(infinity_*_1px)] max-w-50 sm:max-w-30 flex flex-col gap-3 text-accent-content items-center even:[--position:]">
       {/* box */}
       <div
         className={cn(
           "w-full bg-base-100/50 border py-7 border-base-100 rounded-full flex flex-col items-center gap-3",
           {
             "!rounded-tl-none": isEven,
-            "!rounded-tr-none": !isEven,
+            "!rounded-tr-[var(--tr)]": !isEven,
           }
         )}
       >

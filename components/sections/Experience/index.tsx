@@ -31,9 +31,9 @@ export default function Experience() {
                 text: "Work Experience",
               },
             ]}
-            className="w-fit text-3xl sm:text-4xl"
+            className="w-fit max-w-fit text-3xl sm:text-4xl"
             cowlick={{
-              className: "scale-75 right-0 min-[498px]:-right-6.5 top-1",
+              className: "scale-75 right-0 sm:-right-6.5 top-1",
             }}
           />
         </div>

@@ -50,22 +50,37 @@ export function Heading({
       asChild={asChild}
       as={asSlot}
       className={cn(
-        "relative flex flex-wrap gap-4 items-center justify-center text-3xl font-bold",
-        extendedClasses?.even,
+        "relative inline-block text-wrap space-x-3 text-3xl font-bold",
         className
       )}
     >
-      {texts.map((item, index) => {
-        const isOdd = item.type === "odd";
-        if (isOdd)
-          return (
-            <em key={index} className={cn("text-primary not-italic mt-2 font-bitcount", extendedClasses?.odd)}>
-              {item.text}
-            </em>
-          );
-        return <Fragment key={index}>{item.text}</Fragment>;
-      })}
-      <Cowlick variant="three" {...cowlick} itemClassName={cn("!bg-base-content", cowlick?.itemClassName)} className={cn("absolute top-3 -right-10 rotate-45", cowlick?.className)}/>
+      {texts.map((item, i,arr) => (
+        <span
+          key={i}
+          className={cn(
+            "relative",
+            item.type === "odd"
+              ? "text-primary font-bitcount"
+              : "text-base-content",
+            item.type === "odd"
+              ? extendedClasses?.odd
+              : extendedClasses?.even
+          )}
+        >
+          {item.text}
+          {
+            arr.length-1===i&&<Cowlick
+        variant="three"
+        {...cowlick}
+        itemClassName={cn("!bg-base-content", cowlick?.itemClassName)}
+        className={cn("absolute top-3 -right-10 rotate-45", cowlick?.className)}
+      />
+          }
+        </span>
+      ))}
+
+      
     </PassThroughElement>
   );
 }
+
