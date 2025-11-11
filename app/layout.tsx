@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "d/components/sections/Header";
-import Footer from "d/components/sections/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,15 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased font-poppins`}>
-        <main className="w-full flex flex-col relative">
-          <Header />
-          {children}
-          <aside id="mobile-nav" className="w-full z-50 h-fit fixed bottom-0 isolate md:hidden pointer-events-none"></aside>
-          <Footer/>
-          
-        </main>
-      </body>
+      <body className={`antialiased font-poppins`}>{children}</body>
     </html>
   );
 }
