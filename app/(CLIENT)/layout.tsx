@@ -1,7 +1,7 @@
 import Footer from "d/components/sections/Footer";
 import Header from "d/components/sections/Header";
 
-export function LayoutClient({ children }: { children: React.ReactNode }) {
+export default function LayoutClient({ children }: { children: React.ReactNode }) {
   return (
     <main className="w-full flex flex-col relative">
       <Header />
