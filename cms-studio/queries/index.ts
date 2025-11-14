@@ -13,6 +13,10 @@ export const portfolioQuery = `*[_type == "portfolio"]{
       duration,
       label
     },
+    heading[]{
+      text,
+      type
+    },
     headline,
     image,
     phone,

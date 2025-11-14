@@ -19,16 +19,16 @@ export default async function Home() {
       <HeroSection data={homeData.hero} />
       <Cutout />
       <Services data={homeData.servicesSection} />
-      <About />
-      <MyTools />
+      <About data={homeData.about} />
+      <MyTools data={homeData.technologiesSection} />
       <Cutout />
-      <Experience />
+      <Experience data={homeData.educationWorkSection} />
       <Cutout />
-      <Portfolio />
-      <Pricing />
-      <Testimonials />
-      <Contact />
-      <Cutout />
+      <Portfolio data={homeData.portfolioSection} />
+      <Pricing data={homeData.pricingSection} />
+      <Testimonials data={homeData.testimonialsSection} />
+      <Contact data={homeData.contact} />
+      <Cutout/>
     </>
   );
 }

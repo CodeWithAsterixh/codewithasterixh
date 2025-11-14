@@ -6,7 +6,6 @@ import { ServicesSection } from "d/cms-studio/types";
 import imageUrlBuilder from "d/lib/imageUrlBuilder";
 
 export default function Services({ data }: { data: ServicesSection }) {
-  console.log("SERVICES DATA", data);
   return (
     <section id="services" className="w-full py-20">
       <main className="section_container px-4 flex flex-col gap-10">

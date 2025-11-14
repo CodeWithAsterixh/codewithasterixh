@@ -24,9 +24,9 @@ export type About = {
   email: string;
   experiences: Experience[];
   headline: string;
+  heading: Heading[];
   image: SanityImageRaw;
   phone: string;
-  title: string;
   topStatLabel: string;
   topStatValue: string;
 };
@@ -61,7 +61,7 @@ export type Work = {
 };
 
 export type EducationWorkSection = {
-  heading: HeroHeading[];
+  heading: Heading[];
   headline: string;
   education: Education[];
   work: Work[];
@@ -72,7 +72,7 @@ export type BadgeGroup = {
   items: string[];
 };
 
-export type HeroHeading = {
+export type Heading = {
   _key: string;
   text: string;
   type: "even" | "odd";
@@ -87,7 +87,7 @@ export type Social = {
 export type Hero = {
   badgesGroup: BadgeGroup[];
   followText: string;
-  heading: HeroHeading[];
+  heading: Heading[];
   headline: string;
   heroImage: SanityImageRaw;
   primaryCta: { href: string; label: string };
@@ -115,7 +115,7 @@ export type Project = {
 
 export type PortfolioSection = {
   description: string;
-  heading: HeroHeading[];
+  heading: Heading[];
   headline: string;
   projects: Project[];
 };
@@ -130,7 +130,7 @@ export type Plan = {
 };
 
 export type PricingSection = {
-  heading: HeroHeading[];
+  heading: Heading[];
   headline: string;
   plans: Plan[];
 };
@@ -145,7 +145,7 @@ export type ServiceItem = {
 };
 
 export type ServicesSection = {
-  heading: HeroHeading[];
+  heading: Heading[];
   headline: string;
   intro: string;
   items: ServiceItem[];
