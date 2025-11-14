@@ -2,8 +2,9 @@ import { Heading, Headline } from "d/components/SmallItems/headings";
 import Line from "d/components/ui/line";
 import { BriefcaseBusiness, GraduationCap } from "lucide-react";
 import ExperienceItem from "./experience_item";
+import { EducationWorkSection } from "d/cms-studio/types";
 
-export default function Experience() {
+export default function Experience({data}:{data:EducationWorkSection}) {
   return (
     <section id="my_tools" className="py-20">
       <main className="section_container flex flex-col gap-4 p-4 sm:p-0">

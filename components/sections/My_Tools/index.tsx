@@ -1,6 +1,7 @@
 import { Heading, Headline } from "d/components/SmallItems/headings";
 import { IconName } from "tech-stack-icons";
 import ToolItem from "./tool_item";
+import { TechnologiesSection } from "d/cms-studio/types";
 const my_tools:{
   tool:string;
   percentage:number;
@@ -42,26 +43,17 @@ const my_tools:{
     tool:"Gsap"
   }
 ]
-export default function MyTools() {
+export default function MyTools({data}:{data:TechnologiesSection}) {
   return (
     <section id="my_tools" className="py-20">
       <main className="section_container flex flex-col gap-4 p-4 sm:p-0">
         {/* header */}
         <div className="w-full flex gap-4 items-center flex-col">
           <Headline className="font-normal text-2xl w-fit">
-            My Favorite Technologies
+            {data.headline}
           </Headline>
           <Heading
-            texts={[
-              {
-                type: "even",
-                text: "Tools & Services That",
-              },
-              {
-                type: "odd",
-                text: "Power My Work",
-              },
-            ]}
+            texts={data.heading}
             className="w-fit text-3xl sm:text-4xl gap-2 flex-col sm:flex-row sm:gap-4"
             cowlick={{
               className: "scale-75 -right-6.5 top-1",
@@ -71,7 +63,7 @@ export default function MyTools() {
 
         <ul className="justify-center w-full mx-auto flex flex-wrap *:basis-30 *:grow gap-4">
           {
-            my_tools.map((tool,idx)=><ToolItem key={idx} index={idx+1} {...tool}/>)
+            data.items.map((tool,idx)=><ToolItem key={idx} index={idx+1} icon={typeof tool.icon === "string" ?tool.icon:undefined} tool={tool.name} percentage={tool.proficiency}/>)
           }
         </ul>
       </main>

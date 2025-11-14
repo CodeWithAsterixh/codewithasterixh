@@ -1,6 +1,7 @@
 import React from "react";
 import { Heading, Headline } from "d/components/SmallItems/headings";
 import { Quote } from "lucide-react";
+import { TestimonialsSection } from "d/cms-studio/types";
 
 const testimonials = [
   {
@@ -40,20 +41,17 @@ function NameAvatar({ name }: { name: string }) {
   );
 }
 
-export default function Testimonials() {
+export default function Testimonials({data}:{data:TestimonialsSection}) {
   return (
     <section id="testimonials" className="w-full bg-base-200 py-20">
       <main className="section_container px-4 flex flex-col items-center gap-12">
         {/* Section Header */}
         <div className="text-center">
           <Headline className="font-normal text-2xl w-fit mx-auto">
-            Client Feedback
+            {data.headline}
           </Headline>
           <Heading
-            texts={[
-              { type: "even", text: "What My" },
-              { type: "odd", text: "Clients Say" },
-            ]}
+            texts={data.heading}
             className="w-fit text-3xl sm:text-4xl mx-auto"
             cowlick={{
               className: "scale-75 -right-6 top-1",
@@ -63,7 +61,7 @@ export default function Testimonials() {
 
         {/* Testimonial Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-          {testimonials.map((t, idx) => (
+          {data.testimonials.map((t, idx) => (
             <article
               key={idx}
               className="relative flex flex-col bg-base-200 border border-base-300 rounded-2xl p-6 shadow-lg transition-all duration-300 hover:-translate-y-1"

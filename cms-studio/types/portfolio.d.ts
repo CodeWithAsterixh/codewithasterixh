@@ -153,13 +153,14 @@ export type ServicesSection = {
 
 export type Technology = {
   _key: string;
-  icon: SanityImageRaw;
+  icon: string;
   name: string;
   proficiency: number;
 };
 
 export type TechnologiesSection = {
-  heading: string;
+  heading: Heading[];
+  headline: string;
   items: Technology[];
 };
 
@@ -173,8 +174,8 @@ export type Testimonial = {
 };
 
 export type TestimonialsSection = {
-  heading: string;
-  subheading: string;
+  heading: Heading[];
+  headline: string;
   testimonials: Testimonial[];
 };
 

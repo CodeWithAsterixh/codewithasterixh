@@ -111,7 +111,11 @@ export const portfolioQuery = `*[_type == "portfolio"]{
     }
   },
   technologiesSection{
-    heading,
+    heading[]{
+      text,
+      type
+    },
+    headline,
     items[]{
       icon,
       name,
@@ -119,8 +123,11 @@ export const portfolioQuery = `*[_type == "portfolio"]{
     }
   },
   testimonialsSection{
-    heading,
-    subheading,
+    heading[]{
+      text,
+      type
+    },
+    headline,
     testimonials[]{
       avatar,
       feedback,

@@ -10,6 +10,7 @@ import { Textarea } from "d/components/ui/textarea";
 import { Button } from "d/components/ui/button";
 import { Toaster, toast } from "sonner";
 import { useMail } from "d/lib/hooks/useMail";
+import { Contact as ContactSection } from "d/cms-studio/types";
 
 const schema = z.object({
   name: z.string().min(2, "Enter your name"),
@@ -17,7 +18,7 @@ const schema = z.object({
   message: z.string().min(10, "Enter at least 10 characters"),
 });
 
-export default function Contact() {
+export default function Contact({data}:{data:ContactSection}) {
   const { sendMail, status } = useMail();
   const {
     register,
@@ -42,10 +43,10 @@ export default function Contact() {
       <Toaster />
       <main className="section_container px-4 flex flex-col gap-12 items-center">
         <div className="text-center">
-          <p className="text-primary text-sm font-medium">Let’s Talk</p>
-          <h2 className="text-3xl font-bold text-base-content">Contact Me</h2>
+          <p className="text-primary text-sm font-medium">{data.tagline}</p>
+          <h2 className="text-3xl font-bold text-base-content">{data.title}</h2>
           <p className="text-accent-content text-sm mt-2 max-w-lg mx-auto">
-            Send me a message, and I’ll respond within 24 hours.
+            {data.subtitle}
           </p>
         </div>
 
@@ -55,7 +56,7 @@ export default function Contact() {
         >
           <div>
             <Input
-              placeholder="Your Name"
+              placeholder={data.namePlaceholder}
               {...register("name")}
               disabled={status === "loading"}
             />
@@ -66,7 +67,7 @@ export default function Contact() {
 
           <div>
             <Input
-              placeholder="Your Email"
+              placeholder={data.emailPlaceholder}
               {...register("email")}
               disabled={status === "loading"}
             />
@@ -80,7 +81,7 @@ export default function Contact() {
           <div>
             <Textarea
               rows={5}
-              placeholder="Your Message"
+              placeholder={data.messagePlaceholder}
               {...register("message")}
               disabled={status === "loading"}
             />
@@ -96,7 +97,7 @@ export default function Contact() {
             disabled={status === "loading"}
             className="w-full bg-primary !text-base-300 hover:bg-primary/90 transition-all"
           >
-            {status === "loading" ? "Sending..." : "Send Message"}
+            {status === "loading" ? "Sending..." : data.submitLabel}
           </Button>
         </form>
       </main>

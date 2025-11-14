@@ -2,63 +2,61 @@ import React from "react";
 import { Heading, Headline } from "d/components/SmallItems/headings";
 import { Button2 } from "d/components/ui/button2";
 import { CheckCircle2, Zap } from "lucide-react";
+import { PricingSection } from "d/cms-studio/types";
 
-const plans = [
-  {
-    name: "Basic",
-    price: "$80",
-    duration: "per project",
-    features: [
-      "1-page website",
-      "Responsive layout",
-      "Basic SEO setup",
-      "1 week delivery",
-      "2 revisions",
-    ],
-    highlight: false,
-  },
-  {
-    name: "Weekly",
-    price: "$960",
-    duration: "per week",
-    features: [
-      "Up to 5 pages",
-      "CMS integration",
-      "Performance optimization",
-      "Priority support",
-      "Unlimited revisions",
-    ],
-    highlight: true,
-  },
-  {
-    name: "Extended",
-    price: "$2800",
-    duration: "per month",
-    features: [
-      "Full website redesign",
-      "Dashboard & API setup",
-      "SEO optimization",
-      "Dedicated support",
-      "3 months maintenance",
-    ],
-    highlight: false,
-  },
-];
+// const plans = [
+//   {
+//     name: "Basic",
+//     price: "$80",
+//     duration: "per project",
+//     features: [
+//       "1-page website",
+//       "Responsive layout",
+//       "Basic SEO setup",
+//       "1 week delivery",
+//       "2 revisions",
+//     ],
+//     highlight: false,
+//   },
+//   {
+//     name: "Weekly",
+//     price: "$960",
+//     duration: "per week",
+//     features: [
+//       "Up to 5 pages",
+//       "CMS integration",
+//       "Performance optimization",
+//       "Priority support",
+//       "Unlimited revisions",
+//     ],
+//     highlight: true,
+//   },
+//   {
+//     name: "Extended",
+//     price: "$2800",
+//     duration: "per month",
+//     features: [
+//       "Full website redesign",
+//       "Dashboard & API setup",
+//       "SEO optimization",
+//       "Dedicated support",
+//       "3 months maintenance",
+//     ],
+//     highlight: false,
+//   },
+// ];
 
-export default function Pricing() {
+export default function Pricing({data}:{data:PricingSection}) {
   return (
     <section id="pricing" className="w-full bg-base-100 py-20">
       <main className="section_container px-4 flex flex-col items-center gap-12">
         {/* Section Header */}
         <div className="text-center">
           <Headline className="font-normal text-2xl w-fit mx-auto">
-            My Pricing Model
+            {data.headline}
           </Headline>
           <Heading
-            texts={[
-              { type: "even", text: "Simple" },
-              { type: "odd", text: "Pricing Plans" },
-            ]}
+            texts={data.heading}
             className="w-fit text-3xl sm:text-4xl mx-auto"
             cowlick={{
               className: "scale-75 -right-7 top-1",
@@ -68,7 +66,7 @@ export default function Pricing() {
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-          {plans.map((plan, idx) => (
+          {data.plans.map((plan, idx) => (
             <article
               key={idx}
               className={`relative flex flex-col justify-between rounded-2xl border p-8 shadow-lg transition-all duration-300 ${

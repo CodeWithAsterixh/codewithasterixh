@@ -31,8 +31,8 @@ export const technologiesSection = defineField({
             }),
             defineField({
               name: "icon",
-              title: "Image",
-              type: "image",
+              title: "Icon - using technology name in lowercase (e.g nextjs, shadcn, react, etc...)",
+              type: "string",
             }),
             defineField({
               name: "proficiency",
