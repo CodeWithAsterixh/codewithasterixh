@@ -44,12 +44,6 @@ export const aboutSection = defineField({
       title: "Top Stat Value",
       type: "string",
     }),
-    defineField({
-      name: "title",
-      title: "Title",
-      type: "string",
-      validation: (Rule) => Rule.required(),
-    }),
 
     defineField({
       name: "content",
