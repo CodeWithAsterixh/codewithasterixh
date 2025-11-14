@@ -3,9 +3,9 @@ import { Accordion } from "d/components/ui/accordion";
 import { Button2 } from "d/components/ui/button2";
 import ServiceItem from "./service_item";
 import { ServicesSection } from "d/cms-studio/types";
+import imageUrlBuilder from "d/lib/imageUrlBuilder";
 
-
-export default function Services({data}:{data:ServicesSection}) {
+export default function Services({ data }: { data: ServicesSection }) {
   console.log("SERVICES DATA", data);
   return (
     <section id="services" className="w-full py-20">
@@ -13,19 +13,10 @@ export default function Services({data}:{data:ServicesSection}) {
         <header className="w-full grid sm:grid-cols-2 items-end">
           <div className="w-full">
             <Headline className="font-normal text-2xl w-fit">
-              My Specialization
+              {data.headline || "What I Offer"}
             </Headline>
             <Heading
-              texts={[
-                {
-                  type: "odd",
-                  text: "Services",
-                },
-                {
-                  type: "even",
-                  text: "I Provide",
-                },
-              ]}
+              texts={data.heading||[]}
               className="w-fit text-3xl sm:text-4xl"
               cowlick={{
                 itemClassName: "!bg-primary",
@@ -35,8 +26,8 @@ export default function Services({data}:{data:ServicesSection}) {
           </div>
           <article className="w-full flex items-center justify-end">
             <p className="max-w-sm leading-loose text-accent-content/70">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam
-              repellat vel nesciunt ullam possimus dignissimos! Consectetur
+              {data.intro ||
+                "Discover a range of services tailored to help your business thrive in the digital landscape."}
             </p>
           </article>
         </header>
@@ -46,7 +37,34 @@ export default function Services({data}:{data:ServicesSection}) {
             collapsible
             className="!flex !flex-col !gap-2"
           >
-            <ServiceItem
+            {
+              /* Render service items from data.items if available */
+              data.items && data.items.length > 0
+                ? data.items.map((item, index) => {
+                  console.log(item.image)
+                    const image = item.image&&item.image._type? imageUrlBuilder([item.image],{
+                      width: 300,
+                      height: 200,
+                      quality: 80,
+                    })[0]:undefined
+                    return (
+                      <ServiceItem
+                        key={index}
+                        index={index + 1}
+                        item_id={item._key}
+                        label={item.label}
+                        content={{
+                          description: item.description,
+                          tags: item.tags,
+                          image
+                        }}
+                      />
+                    );
+                  })
+                : null
+            }
+
+            {/* <ServiceItem
               index={1}
               item_id="item_1"
               label="Website Development"
@@ -95,7 +113,7 @@ export default function Services({data}:{data:ServicesSection}) {
                 ],
                 image: "/images/seo.jpg",
               }}
-            />
+            /> */}
           </Accordion>
         </main>
 

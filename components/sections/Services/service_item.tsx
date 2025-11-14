@@ -34,7 +34,9 @@ export default function ServiceItem({ item_id, index, label, content }: Props) {
         <strong className="font-bold w-[10%] text-xl sm:text-2xl sm:w-25 shrink-0">
           {indexing}
         </strong>
-        <em className="font-normal text-xl sm:text-2xl not-italic w-full">{label}</em>
+        <em className="font-normal text-xl sm:text-2xl not-italic w-full">
+          {label}
+        </em>
         <Button size={"icon"} as="span" className="rounded-full">
           <ArrowUpRight className="text-base-100 scale-110 rotate-[var(--rotation)] duration-300" />
         </Button>
@@ -55,12 +57,19 @@ export default function ServiceItem({ item_id, index, label, content }: Props) {
             </div>
           ))}
         </div>
-        <p className="max-w-md leading-loose">{content?.description}</p>
-        <span className="w-full sm:w-3/4 sm:max-w-2xl border-5 border-double border-background !border-b-0 overflow-hidden rounded-t-lg h-72">
-          {content?.image && (
-            <Image src={content.image} alt={`Image for ${label}`} width={1024} height={1440} className="size-full object-cover object-center" quality={100} />
-          )}
-        </span>
+        <p className="max-w-md leading-loose pb-3">{content?.description}</p>
+        {content?.image && (
+          <span className="w-full sm:w-3/4 sm:max-w-2xl border-5 border-double border-background !border-b-0 overflow-hidden rounded-t-lg h-72">
+            <Image
+              src={content.image}
+              alt={`Image for ${label}`}
+              width={1024}
+              height={1440}
+              className="size-full object-cover object-center"
+              quality={100}
+            />
+          </span>
+        )}
       </AccordionContent>
     </AccordionItem>
   );

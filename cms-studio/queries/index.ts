@@ -16,7 +16,6 @@ export const portfolioQuery = `*[_type == "portfolio"]{
     headline,
     image,
     phone,
-    title,
     topStatLabel,
     topStatValue
   },
@@ -30,10 +29,11 @@ export const portfolioQuery = `*[_type == "portfolio"]{
     title
   },
   educationWorkSection{
-    heading{
-      large,
-      small
+    heading[]{
+      text,
+      type
     },
+    headline,
     education[]{
       duration,
       name,
@@ -63,10 +63,11 @@ export const portfolioQuery = `*[_type == "portfolio"]{
   },
   portfolioSection{
     description,
-    heading{
-      large,
-      small
+    heading[]{
+      text,
+      type
     },
+    headline,
     projects[]{
       excerpt,
       tags,
@@ -77,10 +78,11 @@ export const portfolioQuery = `*[_type == "portfolio"]{
     }
   },
   pricingSection{
-    heading{
-      large,
-      small
+    heading[]{
+      text,
+      type
     },
+    headline,
     plans[]{
       duration,
       features,
@@ -90,10 +92,11 @@ export const portfolioQuery = `*[_type == "portfolio"]{
     }
   },
   servicesSection{
-    heading{
-      large,
-      small
+    heading[]{
+      text,
+      type
     },
+    headline,
     intro,
     items[]{
       description,
