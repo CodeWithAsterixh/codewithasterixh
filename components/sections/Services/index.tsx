@@ -2,9 +2,11 @@ import { Heading, Headline } from "d/components/SmallItems/headings";
 import { Accordion } from "d/components/ui/accordion";
 import { Button2 } from "d/components/ui/button2";
 import ServiceItem from "./service_item";
+import { ServicesSection } from "d/cms-studio/types";
 
 
-export default function Services() {
+export default function Services({data}:{data:ServicesSection}) {
+  console.log("SERVICES DATA", data);
   return (
     <section id="services" className="w-full py-20">
       <main className="section_container px-4 flex flex-col gap-10">

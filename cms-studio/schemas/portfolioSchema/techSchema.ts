@@ -1,4 +1,5 @@
 import { defineField } from "sanity";
+import { headingField } from "../fields/heading";
 
 export const technologiesSection = defineField({
   name: "technologiesSection",
@@ -6,11 +7,12 @@ export const technologiesSection = defineField({
   type: "object",
   fields: [
     defineField({
-      name: "heading",
-      title: "Heading",
+      name: "headline",
+      title: "Headline",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
+    headingField,
     defineField({
       name: "items",
       title: "Tool Items",

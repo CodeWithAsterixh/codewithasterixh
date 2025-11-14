@@ -18,7 +18,7 @@ export default async function Home() {
     <>
       <HeroSection data={homeData.hero} />
       <Cutout />
-      <Services />
+      <Services data={homeData.servicesSection} />
       <About />
       <MyTools />
       <Cutout />

@@ -1,19 +1,18 @@
 import { defineField } from "sanity";
+import { headingField } from "../fields/heading";
 
 export const pricingSection = defineField({
   name: "pricingSection",
   title: "Pricing Section",
   type: "object",
   fields: [
-    {
-      name: "heading",
-      title: "Section Heading",
-      type: "object",
-      fields: [
-        { name: "small", title: "Small Heading", type: "string" },
-        { name: "large", title: "Large Heading", type: "string" },
-      ],
-    },
+    defineField({
+      name: "headline",
+      title: "Headline",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    headingField,
 
     {
       name: "plans",
