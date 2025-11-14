@@ -103,6 +103,20 @@ export type Hero = {
   subtext: string;
 };
 
+export type ProjectMeta = {
+  title: string;
+  description: string;
+  keywords: string[];
+  canonicalUrl: string;
+  ogTitle: string;
+  ogDescription: string;
+  ogImage: SanityImageRaw;
+  twitterTitle: string;
+  twitterDescription: string;
+  twitterImage: SanityImageRaw;
+  structuredData: string;
+};
+
 export type Project = {
   _key: string;
   excerpt: string;
@@ -111,6 +125,7 @@ export type Project = {
   title: string;
   tools: string[];
   url: string;
+  meta: ProjectMeta;
 };
 
 export type PortfolioSection = {
@@ -179,6 +194,21 @@ export type TestimonialsSection = {
   testimonials: Testimonial[];
 };
 
+export type PortfolioMeta = {
+  title: string;
+  description: string;
+  keywords: string[];
+  canonicalUrl: string;
+  robots: string;
+  ogTitle: string;
+  ogDescription: string;
+  ogImage: SanityImageRaw;
+  twitterTitle: string;
+  twitterDescription: string;
+  twitterImage: SanityImageRaw;
+  structuredData: string;
+};
+
 export type Portfolio = {
   _id: string;
   _createdAt: string;
@@ -194,4 +224,5 @@ export type Portfolio = {
   servicesSection: ServicesSection;
   technologiesSection: TechnologiesSection;
   testimonialsSection: TestimonialsSection;
+  meta: PortfolioMeta;
 };

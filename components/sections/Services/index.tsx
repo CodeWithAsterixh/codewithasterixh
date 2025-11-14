@@ -40,7 +40,6 @@ export default function Services({ data }: { data: ServicesSection }) {
               /* Render service items from data.items if available */
               data.items && data.items.length > 0
                 ? data.items.map((item, index) => {
-                  console.log(item.image)
                     const image = item.image&&item.image._type? imageUrlBuilder([item.image],{
                       width: 300,
                       height: 200,

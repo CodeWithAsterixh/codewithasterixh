@@ -4,6 +4,20 @@ export const portfolioQuery = `*[_type == "portfolio"]{
   _updatedAt,
   _rev,
   _type,
+  meta{
+    title,
+    description,
+    keywords,
+    canonicalUrl,
+    robots,
+    ogTitle,
+    ogDescription,
+    ogImage,
+    twitterTitle,
+    twitterDescription,
+    twitterImage,
+    structuredData
+  },
   about{
     badgeIcon,
     badgeLabel,
@@ -78,7 +92,20 @@ export const portfolioQuery = `*[_type == "portfolio"]{
       thumbnail,
       title,
       tools,
-      url
+      url,
+      meta{
+        title,
+        description,
+        keywords,
+        canonicalUrl,
+        ogTitle,
+        ogDescription,
+        ogImage,
+        twitterTitle,
+        twitterDescription,
+        twitterImage,
+        structuredData
+      }
     }
   },
   pricingSection{
