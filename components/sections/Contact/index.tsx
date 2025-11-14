@@ -94,7 +94,7 @@ export default function Contact() {
           <Button
             type="submit"
             disabled={status === "loading"}
-            className="w-full bg-primary text-base-300 hover:bg-primary/90 text-base-300 transition-all"
+            className="w-full bg-primary !text-base-300 hover:bg-primary/90 transition-all"
           >
             {status === "loading" ? "Sending..." : "Send Message"}
           </Button>
