@@ -1,3 +1,6 @@
+import { getSanityQuery } from "d/cms-studio/lib/getSanityQuery";
+import { portfolioQuery } from "d/cms-studio/queries";
+import { Portfolio as PortfolioDataType } from "d/cms-studio/types";
 import About from "d/components/sections/About";
 import Contact from "d/components/sections/Contact";
 import Cutout from "d/components/sections/Cutout";
@@ -9,10 +12,11 @@ import Pricing from "d/components/sections/Pricing";
 import Services from "d/components/sections/Services";
 import Testimonials from "d/components/sections/Testimonials";
 
-export default function Home() {
+export default async function Home() {
+  const homeData:PortfolioDataType = (await getSanityQuery(portfolioQuery))[0];
   return (
     <>
-      <HeroSection />
+      <HeroSection data={homeData.hero} />
       <Cutout />
       <Services />
       <About />
@@ -20,10 +24,10 @@ export default function Home() {
       <Cutout />
       <Experience />
       <Cutout />
-      <Portfolio/>
-      <Pricing/>
-      <Testimonials/>
-      <Contact/>
+      <Portfolio />
+      <Pricing />
+      <Testimonials />
+      <Contact />
       <Cutout />
     </>
   );

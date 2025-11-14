@@ -29,7 +29,7 @@ const portfolioSchema = defineType({
   fields: schemaTypes,
   preview: {
     select: {
-      title: "hero.title",
+      title: "hero.headline",
     },
   },
 });

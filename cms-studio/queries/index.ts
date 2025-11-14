@@ -1,45 +1,127 @@
-/*
-queries/heroQuery.ts
-*/
-export const HERO_QUERY = `*[_type == "hero"][0]{
-title,
-subtitle,
-intro,
-avatar{asset->{_id, url}},
-badges,
-primaryCta,
-secondaryCta
-}`;
-
-/*
-queries/servicesQuery.ts
-*/
-export const SERVICES_QUERY = `*[_type == "servicesSection"][0]{
-heading,
-subheading,
-"items": items[]{index, title, description, "icon": icon.asset->{_id, url}}
-}`;
-
-/*
-queries/aboutQuery.ts
-*/
-export const ABOUT_QUERY = `*[_type == "aboutSection"][0]{
-heading,
-bio,
-"portrait": portrait.asset->{_id, url},
-"stats": stats[]{label, value}
-}`;
-
-/*
-queries/techQuery.ts
-*/
-export const TECH_QUERY = `*[_type == "technologiesSection"][0]{
-heading,
-"items": items[]{name, "icon": icon.asset->{_id, url}, proficiency}
-}`;
-
-/*
-queries/educationWorkQuery.ts
-*/
-export const EDUCATION_WORK_QUERY = `*[_type == "educationWorkSection"][0]{
-}`;
+export const portfolioQuery = `*[_type == "portfolio"]{
+  _id,
+  _createdAt,
+  _updatedAt,
+  _rev,
+  _type,
+  about{
+    badgeIcon,
+    badgeLabel,
+    content,
+    email,
+    experiences[]{
+      duration,
+      label
+    },
+    headline,
+    image,
+    phone,
+    title,
+    topStatLabel,
+    topStatValue
+  },
+  contact{
+    emailPlaceholder,
+    messagePlaceholder,
+    namePlaceholder,
+    submitLabel,
+    subtitle,
+    tagline,
+    title
+  },
+  educationWorkSection{
+    heading{
+      large,
+      small
+    },
+    education[]{
+      duration,
+      name,
+      title
+    },
+    work[]{
+      duration,
+      name,
+      title
+    }
+  },
+  hero{
+    badgesGroup[],
+    followText,
+    heading[]{
+      text,
+      type
+    },
+    headline,
+    heroImage,
+    primaryCta,
+    quote,
+    reviews,
+    secondaryCta,
+    socials[],
+    subtext
+  },
+  portfolioSection{
+    description,
+    heading{
+      large,
+      small
+    },
+    projects[]{
+      excerpt,
+      tags,
+      thumbnail,
+      title,
+      tools,
+      url
+    }
+  },
+  pricingSection{
+    heading{
+      large,
+      small
+    },
+    plans[]{
+      duration,
+      features,
+      highlight,
+      name,
+      price
+    }
+  },
+  servicesSection{
+    heading{
+      large,
+      small
+    },
+    intro,
+    items[]{
+      description,
+      image,
+      index,
+      label,
+      tags
+    }
+  },
+  technologiesSection{
+    heading,
+    items[]{
+      icon,
+      name,
+      proficiency
+    }
+  },
+  testimonialsSection{
+    heading,
+    subheading,
+    testimonials[]{
+      avatar,
+      feedback,
+      name,
+      rating,
+      role
+    }
+  }
+}
+`;
+  
