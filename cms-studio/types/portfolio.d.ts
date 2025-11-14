@@ -24,7 +24,7 @@ export type About = {
   email: string;
   experiences: Experience[];
   headline: string;
-  image: SanityImageRaw ;
+  image: SanityImageRaw;
   phone: string;
   title: string;
   topStatLabel: string;
@@ -61,10 +61,8 @@ export type Work = {
 };
 
 export type EducationWorkSection = {
-  heading: {
-    large: string;
-    small: string;
-  };
+  heading: HeroHeading[];
+  headline: string;
   education: Education[];
   work: Work[];
 };
@@ -91,11 +89,11 @@ export type Hero = {
   followText: string;
   heading: HeroHeading[];
   headline: string;
-  heroImage: SanityImageRaw ;
+  heroImage: SanityImageRaw;
   primaryCta: { href: string; label: string };
   quote: string;
   reviews: {
-    avatars: (SanityImageRaw )[];
+    avatars: SanityImageRaw[];
     count: number;
     label: string;
     rating: number;
@@ -109,7 +107,7 @@ export type Project = {
   _key: string;
   excerpt: string;
   tags: string[];
-  thumbnail: SanityImageRaw ;
+  thumbnail: SanityImageRaw;
   title: string;
   tools: string[];
   url: string;
@@ -117,10 +115,8 @@ export type Project = {
 
 export type PortfolioSection = {
   description: string;
-  heading: {
-    large: string;
-    small: string;
-  };
+  heading: HeroHeading[];
+  headline: string;
   projects: Project[];
 };
 
@@ -134,34 +130,30 @@ export type Plan = {
 };
 
 export type PricingSection = {
-  heading: {
-    large: string;
-    small: string;
-  };
+  heading: HeroHeading[];
+  headline: string;
   plans: Plan[];
 };
 
 export type ServiceItem = {
   _key: string;
   description: string;
-  image: SanityImageRaw ;
+  image: SanityImageRaw;
   index: number;
   label: string;
   tags: string[];
 };
 
 export type ServicesSection = {
-  heading: {
-    large: string;
-    small: string;
-  };
+  heading: HeroHeading[];
+  headline: string;
   intro: string;
   items: ServiceItem[];
 };
 
 export type Technology = {
   _key: string;
-  icon: SanityImageRaw ;
+  icon: SanityImageRaw;
   name: string;
   proficiency: number;
 };
@@ -173,7 +165,7 @@ export type TechnologiesSection = {
 
 export type Testimonial = {
   _key: string;
-  avatar: SanityImageRaw ;
+  avatar: SanityImageRaw;
   feedback: string;
   name: string;
   rating: number;
