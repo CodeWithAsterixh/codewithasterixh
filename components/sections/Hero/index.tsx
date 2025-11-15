@@ -21,7 +21,7 @@ export default function HeroSection({ data }: { data: Hero }) {
   return (
     <section
       id="#"
-      className="w-full min-h-screen pt-40 pb-5 gridline-bg [--bg-size:150px] [--fade:0.02]"
+      className="w-full min-h-fit pt-40 pb-10 gridline-bg [--bg-size:150px] [--fade:0.02]"
     >
       <span className="max-w-full overflow-hidden flex items-center justify-center font-bitcount text-9xl text-base-100/50 absolute -z-10 w-fit top-24 left-1/2 -translate-x-1/2 pointer-events-none text-nowrap">
         Paul Peter
