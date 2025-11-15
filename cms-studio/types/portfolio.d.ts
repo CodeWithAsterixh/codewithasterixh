@@ -120,6 +120,9 @@ export type ProjectMeta = {
 export type Project = {
   _key: string;
   excerpt: string;
+  slug: {
+    current: string;
+  };
   tags: string[];
   thumbnail: SanityImageRaw;
   title: string;

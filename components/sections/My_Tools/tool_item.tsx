@@ -16,7 +16,7 @@ export default function ToolItem({ index, icon, percentage, tool }: Props) {
       {/* box */}
       <div
         className={cn(
-          "w-full bg-base-100/50 border py-7 border-base-100 rounded-full flex flex-col items-center gap-3",
+          "w-full bg-gradient-to-b from-base-300/70 via-80% to-primary/10 border py-7 border-base-100 rounded-full flex flex-col items-center gap-3",
           {
             "!rounded-tl-none": isEven,
             "!rounded-tr-[var(--tr)]": !isEven,
@@ -24,7 +24,7 @@ export default function ToolItem({ index, icon, percentage, tool }: Props) {
         )}
       >
         {isEven}
-        <span className="size-20 rounded-full bg-base-300 box-border flex items-center justify-center">
+        <span className="size-20 rounded-full bg-gradient-to-t from-base-300/10 to-primary/10 box-border flex items-center justify-center">
           {icon && (
             <HoveredElement asChild className="size-[70%] duration-500" hoveredClass={{
                 true:"grayscale-0",

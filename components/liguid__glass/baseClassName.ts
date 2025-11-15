@@ -1,4 +1,3 @@
-import { cn } from "d/lib/utils";
 import { GlassVarOptions } from "./types";
 
 export const glassVarClasses = [

@@ -3,6 +3,7 @@ import { HoveredElement } from "d/components/HoveredElement";
 import { useHash } from "d/lib/hooks/useHash";
 import { cn } from "d/lib/utils";
 import { NavigationItem } from "./navigations";
+import Link from "next/link";
 
 type Props = {
   navigations: NavigationItem[];
@@ -29,11 +30,11 @@ export default function DesktopVersion({ navigations }: Props) {
                 }
               )
             }>
-                <a
+                <Link
               href={nav.href}
             >
               {nav.name}
-            </a>
+            </Link>
             </HoveredElement>
           </li>
         )

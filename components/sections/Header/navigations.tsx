@@ -18,22 +18,22 @@ export type NavigationItem = {
 const navigations:NavigationItem[] = [
   {
     name: "Home",
-    href: "#",
+    href: "/",
     icon: "home",
   },
   {
     name: "About",
-    href: "#about",
+    href: "/#about",
     icon: "info",
   },
   {
     name: "Projects",
-    href: "#projects",
+    href: "/projects",
     icon: "briefcase",
   },
   {
     name: "Contact",
-    href: "#contact",
+    href: "/#contact",
     icon: "mail",
   },
 ]

@@ -29,6 +29,15 @@ export const portfolioSection = defineField({
           type: "object",
           fields: [
             { name: "title", title: "Project Title", type: "string" },
+            {
+              name: "slug",
+              title: "Slug",
+              type: "slug",
+              options: {
+                source: "title",
+                maxLength: 96,
+              },
+            },
             { name: "excerpt", title: "Short Description", type: "text" },
             {
               name: "thumbnail",

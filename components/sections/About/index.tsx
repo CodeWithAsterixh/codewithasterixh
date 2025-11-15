@@ -21,7 +21,7 @@ export default function About({data}:{data:AboutDataType}) {
           <span className="w-full relative min-h-full pointer-events-none block bg-primary-content aspect-square rounded-b-2xl rounded-t-[50%] honey_comb_bg overflow-hidden">
             <Image
               src={aboutImg}
-              alt="image of me looking right"
+              alt="Professional headshot of Asterixh, showcasing expertise in web development"
               width={1024}
               height={1440}
               quality={100}

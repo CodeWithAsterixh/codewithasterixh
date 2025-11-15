@@ -1,10 +1,10 @@
 "use client";
-import { HoveredElement } from "d/components/HoveredElement";
 import { useHash } from "d/lib/hooks/useHash";
 import { cn } from "d/lib/utils";
 import { DynamicIcon } from "lucide-react/dynamic";
 import { NavigationItem } from "./navigations";
 import { LiquidGlass } from "d/components/liguid__glass";
+import Link from "next/link";
 
 type Props = {
   navigations: NavigationItem[];
@@ -62,7 +62,7 @@ export default function MobileVersion({ navigations }: Props) {
                   }
                 )}
               >
-                <a href={nav.href}>
+                <Link href={nav.href}>
                   <DynamicIcon
                     name={nav.icon}
                     strokeWidth={2}
@@ -71,7 +71,7 @@ export default function MobileVersion({ navigations }: Props) {
                   <em className="text-xs not-italic duration-300">
                     {nav.name}
                   </em>
-                </a>
+                </Link>
               </LiquidGlass>
             </li>
           );

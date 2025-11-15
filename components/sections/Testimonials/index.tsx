@@ -3,30 +3,6 @@ import { Heading, Headline } from "d/components/SmallItems/headings";
 import { Quote } from "lucide-react";
 import { TestimonialsSection } from "d/cms-studio/types";
 
-const testimonials = [
-  {
-    name: "Sandra Cole",
-    role: "Product Manager, NexaLabs",
-    feedback:
-      "Paul was professional and efficient. He delivered our project on time and with exceptional quality. The attention to detail was impressive.",
-    rating: 5,
-  },
-  {
-    name: "David Ayo",
-    role: "Founder, SwiftCom",
-    feedback:
-      "Working with Paul made development easy. His design sense and communication were excellent throughout the project.",
-    rating: 5,
-  },
-  {
-    name: "Linda Martins",
-    role: "CTO, FinBridge",
-    feedback:
-      "The result exceeded expectations. The site was smooth, fast, and well-optimized for all devices.",
-    rating: 5,
-  },
-];
-
 function NameAvatar({ name }: { name: string }) {
   const initials = name
     .split(" ")

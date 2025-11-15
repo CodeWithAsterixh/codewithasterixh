@@ -1,48 +1,7 @@
-import { Heading, Headline } from "d/components/SmallItems/headings";
-import { IconName } from "tech-stack-icons";
-import ToolItem from "./tool_item";
 import { TechnologiesSection } from "d/cms-studio/types";
-const my_tools:{
-  tool:string;
-  percentage:number;
-  icon:IconName;
-}[] = [
-  {
-    icon:"figma",
-    percentage:60,
-    tool:"Figma"
-  },
-  {
-    icon:"vscode",
-    percentage:100,
-    tool:"Vscode"
-  },
-  {
-    icon:"nextjs",
-    percentage:90,
-    tool:"Next js"
-  },
-  {
-    icon:"nuxtjs",
-    percentage:80,
-    tool:"Nuxt js"
-  },
-  {
-    icon:"tailwindcss",
-    percentage:98,
-    tool:"Tailwind css"
-  },
-  {
-    icon:"shadcnui",
-    percentage:90,
-    tool:"Shadcn"
-  },
-  {
-    icon:"gsap",
-    percentage:70,
-    tool:"Gsap"
-  }
-]
+import { Heading, Headline } from "d/components/SmallItems/headings";
+import ToolItem from "./tool_item";
+
 export default function MyTools({data}:{data:TechnologiesSection}) {
   return (
     <section id="my_tools" className="py-20">

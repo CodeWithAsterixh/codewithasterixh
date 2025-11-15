@@ -1,9 +1,9 @@
 "use client"
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "d/lib/utils";
-import React, { cloneElement, isValidElement, useState } from "react";
-import { GlassVarOptions } from "./types";
+import React, { cloneElement, isValidElement } from "react";
 import { getGlassStructures, glassBaseClasses } from "./baseClassName";
+import { GlassVarOptions } from "./types";
 
 /**
  * A polymorphic component that handles hover state internally
@@ -46,12 +46,8 @@ export const LiquidGlass = React.forwardRef(function LiquidGlass<
     as,
     asChild,
     children,
-    hoveredClass,
-    onMouseEnter,
-    onMouseLeave,
     className,
     options,
-    hoverVars,
     ...rest
   }: LiquidGlassProps<As>,
   ref?: React.Ref<Element>

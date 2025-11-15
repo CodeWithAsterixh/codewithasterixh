@@ -1,6 +1,6 @@
-const { createClient } = require("@sanity/client");
-const fs = require("fs");
-const path = require("path");
+import { createClient } from "@sanity/client";
+import { existsSync, readFileSync } from "fs";
+import { resolve } from "path";
 require("dotenv").config();
 
 // Instantiate Sanity client via .env
@@ -44,18 +44,18 @@ if (files.length === 0) {
 }
 
 async function seedFile(filePath) {
-  const absPath = path.resolve(process.cwd(), basePath, filePath);
+  const absPath = resolve(process.cwd(), basePath, filePath);
   console.log(`
 📄  Seeding ${filePath} (from ${basePath})`);
 
-  if (!fs.existsSync(absPath)) {
+  if (!existsSync(absPath)) {
     console.error(`❌  File not found: ${absPath}`);
     return;
   }
 
   let docs;
   try {
-    const raw = fs.readFileSync(absPath, 'utf8');
+    const raw = readFileSync(absPath, 'utf8');
     docs = JSON.parse(raw);
     if (!Array.isArray(docs)) throw new Error('JSON must be an array of docs');
     console.log(`✅  Parsed ${docs.length} docs from ${filePath}`);

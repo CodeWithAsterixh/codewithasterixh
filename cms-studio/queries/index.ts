@@ -1,3 +1,37 @@
+export const portfolioSectionQuery = `*[_type == "portfolio"]{
+  portfolioSection{
+    description,
+    heading[]{
+      text,
+      type
+    },
+    headline,
+    projects[]{
+      excerpt,
+      slug,
+      tags,
+      thumbnail,
+      title,
+      tools,
+      url,
+      meta{
+        title,
+        description,
+        keywords,
+        canonicalUrl,
+        ogTitle,
+        ogDescription,
+        ogImage,
+        twitterTitle,
+        twitterDescription,
+        twitterImage,
+        structuredData
+      }
+    }
+  }
+}
+`;
+
 export const portfolioQuery = `*[_type == "portfolio"]{
   _id,
   _createdAt,
@@ -88,6 +122,7 @@ export const portfolioQuery = `*[_type == "portfolio"]{
     headline,
     projects[]{
       excerpt,
+      slug,
       tags,
       thumbnail,
       title,

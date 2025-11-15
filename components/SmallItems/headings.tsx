@@ -1,5 +1,5 @@
 import { cn } from "d/lib/utils";
-import React, { Fragment } from "react";
+import React from "react";
 import { PassThroughElement } from "../PassThroughElement";
 import Cowlick, { cowlickProps } from "./cowlick";
 

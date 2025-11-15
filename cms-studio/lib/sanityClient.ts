@@ -1,6 +1,6 @@
-import sanityClient from "@sanity/client";
+import  {createClient} from "@sanity/client";
 import env from "d/env";
-export const client = sanityClient({
+export const client = createClient({
   projectId: env.PID,
   dataset: env.DATASET || "production",
   useCdn: false,

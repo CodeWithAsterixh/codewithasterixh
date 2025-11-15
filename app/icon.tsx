@@ -4,8 +4,14 @@ export const size = {
   height: 500,
 };
 export const contentType = "image/png";
-type weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+type weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 export default async function Icon() {
+  // Fetch the profile image
+  const imageRes = await fetch(
+    new URL("/images/me-cut-1.png", "https://codewithasterixh.vercel.app")
+  );
+  const imageBuffer = await imageRes.arrayBuffer();
+
   // 1. Fetch the Google Fonts CSS
   const cssRes = await fetch(
     "https://fonts.googleapis.com/css2?family=Bitcount:wght@100;200;300;400;500;600;700;800;900&display=swap"
@@ -27,13 +33,13 @@ export default async function Icon() {
   );
 
   // 3. Build the fonts array
-  
-  const fonts:{
+
+  const fonts: {
     name: string;
     data: ArrayBuffer;
     weight: weight;
     style: "normal";
-}[] = fontsMeta.map((f, i) => ({
+  }[] = fontsMeta.map((f, i) => ({
     name: "Bitcount",
     data: buffers[i],
     weight: f.weight as weight,
@@ -44,37 +50,59 @@ export default async function Icon() {
     (
       <div
         style={{
-          backgroundColor: "#001b20",
           width: "100%",
           height: "100%",
           display: "flex",
-          borderRadius: "50%",
           alignItems: "center",
           justifyContent: "center",
+          position: "relative",
         }}
       >
-        <span
+        {/* Profile Image */}
+        <img
+          src={`data:image/png;base64,${Buffer.from(imageBuffer).toString(
+            "base64"
+          )}`}
           style={{
-            backgroundColor:"#c2fd00",
-            backgroundClip:"text",
-            background: "radial-gradient(circle at 60% 40%, #c2fd00 0%, #cebef4 60%, #001b20 100%)",
-            color: "transparent",
             width: "100%",
             height: "100%",
+            objectFit: "cover",
+            borderRadius: "50%",
+            background: "rgba(0, 27, 32, 1)", // Semi-transparent overlay
+          }}
+          alt="Profile"
+        />
+        {/* Overlay PAUL */}
+        <div
+          style={{
+            position: "absolute",
+            top: '50%',
+            left: '50%',
+            transform: "translate(-50%)",
             display: "flex",
-            fontSize: "480px",
-            paddingLeft: "15%",
-            paddingTop: "15%",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily: '"Bitcount", sans-serif',
-            fontOpticalSizing: "auto",
-            fontVariationSettings:
-              '"wght" 400, "slnt" 0, "CRSV" 0.5, "ELSH" 0, "ELXP" 0',
+            alignItems: "flex-end",
+            justifyContent: "flex-end",
           }}
         >
-          P
-        </span>
+          <span
+            style={{
+              backgroundColor: "#c2fd00",
+              backgroundClip: "text",
+              background:
+                "radial-gradient(circle at 5% 40%, #c2fd00 20%, #cebef4 60%, #001b20 100%)",
+              color: "transparent",
+              fontSize: "150px", // 70% of 500px
+              fontFamily: '"Bitcount", sans-serif',
+              fontOpticalSizing: "auto",
+              fontVariationSettings:
+                '"wght" 400, "slnt" 0, "CRSV" 0.5, "ELSH" 0, "ELXP" 0',
+              marginTop: "50px",
+              marginLeft: "10px",
+            }}
+          >
+            PAUL
+          </span>
+        </div>
       </div>
     ),
     {

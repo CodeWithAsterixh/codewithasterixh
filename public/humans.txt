@@ -1,0 +1,10 @@
+/* TEAM */
+Developer: Asterixh (Paul Peter)
+Contact: peterpaultolulope@gmail.com
+Location: Nigeria
+
+/* SITE */
+Last update: 2024
+Language: English
+Doctype: HTML5
+IDE: Visual Studio Code

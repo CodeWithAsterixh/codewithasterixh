@@ -1,9 +1,9 @@
 import { PortfolioSection, Project } from "d/cms-studio/types";
 import { Heading, Headline } from "d/components/SmallItems/headings";
 import { Button2 } from "d/components/ui/button2";
-import imageUrlBuilder from "d/lib/imageUrlBuilder";
 import React from "react";
 import { ProjectCard } from "./portfolioItem";
+import Link from "next/link";
 
 export default function Portfolio({ data }: { data: PortfolioSection }) {
   return (
@@ -35,23 +35,25 @@ export default function Portfolio({ data }: { data: PortfolioSection }) {
         </main>
 
         <div className="w-full flex items-center justify-center">
-          <Button2
-            variant="dark"
-            className="w-fit h-full duration-300 cursor-pointer isolate p-[2px] rounded-full flex items-center justify-center gap-2"
-            text_class="p-3 w-full text-center font-bold flex items-center justify-center bg-primary text-base-100 rounded-full h-full"
-            iconRight={{
-              icon_name: "arrow-right",
-              props: {
-                className: "size-full scale-90 duration-300 text-base-100",
-              },
-              slot_props: {
-                className:
-                  "bg-accent-content shrink-0 box-border p-2.5 flex items-center justify-center rounded-full h-full aspect-square",
-              },
-            }}
-          >
-            View All Projects
-          </Button2>
+          <Link href="/projects">
+            <Button2
+              variant="dark"
+              className="w-fit h-full duration-300 cursor-pointer isolate p-[2px] rounded-full flex items-center justify-center gap-2"
+              text_class="p-3 w-full text-center font-bold flex items-center justify-center bg-primary text-base-100 rounded-full h-full"
+              iconRight={{
+                icon_name: "arrow-right",
+                props: {
+                  className: "size-full scale-90 duration-300 text-base-100",
+                },
+                slot_props: {
+                  className:
+                    "bg-accent-content shrink-0 box-border p-2.5 flex items-center justify-center rounded-full h-full aspect-square",
+                },
+              }}
+            >
+              View All Projects
+            </Button2>
+          </Link>
         </div>
       </main>
     </section>

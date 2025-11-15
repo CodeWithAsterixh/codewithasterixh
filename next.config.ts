@@ -9,9 +9,14 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/images/**",
       },
-      
     ],
-  }
+    formats: ['image/webp', 'image/avif'],
+  },
+  compress: true,
+  poweredByHeader: false,
+  experimental: {
+    optimizeCss: true,
+  },
 };
 
 export default nextConfig;

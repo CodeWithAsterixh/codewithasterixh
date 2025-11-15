@@ -48,7 +48,7 @@ export default function HeroSection({ data }: { data: Hero }) {
             <span className="size-full absolute -top-5 left-0">
               <Image
                 src={heroMainImage}
-                alt="my-image"
+                alt="Professional portrait of Asterixh, Full Stack Developer"
                 width={500}
                 height={500}
                 className="size-full  object-cover object-top drop-shadow-2xl drop-shadow-background"

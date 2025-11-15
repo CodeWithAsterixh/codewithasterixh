@@ -20,7 +20,7 @@ type GlassVarClass = (typeof glassVarClasses)[number];
  * }
  */
 export type GlassVarDefaults = {
-  [C in GlassVarClass as C extends `[--${infer Name}:${infer Value}]`
+  [C in GlassVarClass as C extends `[--${infer Name}:${string}]`
     ? Name
     : never]: string;
 };
