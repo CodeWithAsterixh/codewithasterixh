@@ -1,7 +1,9 @@
 import { createClient } from "@sanity/client";
 import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
-require("dotenv").config();
+import {config} from "dotenv";
+
+config()
 
 // Instantiate Sanity client via .env
 const client = createClient({
