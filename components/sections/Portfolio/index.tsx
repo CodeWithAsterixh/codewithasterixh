@@ -31,7 +31,7 @@ export default function Portfolio({ data }: { data: PortfolioSection }) {
         </header>
 
         <main className="w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {data.projects.map((project: Project, idx) => <ProjectCard key={idx} project={project}/>)}
+          {data.projects.slice(0,3).map((project: Project, idx) => <ProjectCard key={idx} project={project}/>)}
         </main>
 
         <div className="w-full flex items-center justify-center">

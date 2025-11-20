@@ -103,7 +103,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
           <section className="prose prose-lg max-w-none">
             {/* Assuming project has content, but from schema it's excerpt. For full content, might need to add to schema */}
-            <p>{project.excerpt}</p>
+            {/* <p>{project.excerpt}</p> */}
             {/* Add more content if available */}
           </section>
 
