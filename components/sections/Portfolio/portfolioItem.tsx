@@ -27,10 +27,10 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="p-4 h-full flex flex-col gap-2 justify-between">
         <div className="w-full flex flex-col gap-2">
           <h3 className="text-xl font-semibold">{project.title}</h3>
-          <p className="text-accent-content/80 text-sm">{project.excerpt}</p>
+          <p className="text-accent-content/80 text-sm">{project.excerpt.split(".")[0]}</p>
 
           <div className="flex flex-wrap gap-2 mt-2">
-            {project.tags.map((tag, idx) => (
+            {project.slice(0,3).tags.map((tag, idx) => (
               <span
                 key={idx}
                 className="text-xs px-2 py-1 bg-base-300 rounded-full text-base-content"
@@ -41,7 +41,7 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
 
           <div className="flex flex-wrap gap-2 mt-2">
-            {project.tools.map((tool, idx) => (
+            {project.tools.slice(0,3).map((tool, idx) => (
               <span
                 key={idx}
                 className="text-xs px-2 py-1 border border-base-300 rounded-full"
