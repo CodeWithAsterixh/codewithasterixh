@@ -30,7 +30,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <p className="text-accent-content/80 text-sm">{project.excerpt.split(".")[0]}</p>
 
           <div className="flex flex-wrap gap-2 mt-2">
-            {project.slice(0,3).tags.map((tag, idx) => (
+            {project.tags.slice(0,3).map((tag, idx) => (
               <span
                 key={idx}
                 className="text-xs px-2 py-1 bg-base-300 rounded-full text-base-content"
