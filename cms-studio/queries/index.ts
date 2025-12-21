@@ -6,7 +6,7 @@ export const portfolioSectionQuery = `*[_type == "portfolio"]{
       type
     },
     headline,
-    "projects":[visibility==true]{
+    projects[visibility == true]{
       excerpt,
       slug,
       tags,
@@ -113,14 +113,14 @@ export const portfolioQuery = `*[_type == "portfolio"]{
     socials[],
     subtext
   },
-  "portfolioSection": portfolioSection[visibility == true]{
+  portfolioSection[]{
     description,
     heading[]{
       text,
       type
     },
     headline,
-    projects[]{
+    projects[visibility == true]{
       excerpt,
       slug,
       tags,
