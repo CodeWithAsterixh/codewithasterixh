@@ -115,7 +115,7 @@ export default function Services({ data }: { data: ServicesSection }) {
           </Accordion>
         </main>
 
-        <div className="w-full flex items-center justify-center">
+        {/* <div className="w-full flex items-center justify-center">
           <Button2
             variant={"dark"}
             className="w-fit h-full duration-300 cursor-pointer isolate p-[2px] rounded-full flex items-center justify-center gap-2"
@@ -133,7 +133,7 @@ export default function Services({ data }: { data: ServicesSection }) {
           >
             View All Services
           </Button2>
-        </div>
+        </div> */}
       </main>
     </section>
   );
