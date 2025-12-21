@@ -4,6 +4,7 @@
 
 @import "tw-animate-css";
 
+@custom-variant hover (&:hover);
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
