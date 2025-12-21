@@ -28,6 +28,7 @@ export const portfolioSection = defineField({
         {
           type: "object",
           fields: [
+            {name: "Visibility", title: "show in project list", type: "boolean"},
             { name: "title", title: "Project Title", type: "string" },
             {
               name: "slug",
