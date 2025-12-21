@@ -6,7 +6,7 @@ export const portfolioSectionQuery = `*[_type == "portfolio"]{
       type
     },
     headline,
-    projects[]{
+    "projects":[visibility==true]{
       excerpt,
       slug,
       tags,
