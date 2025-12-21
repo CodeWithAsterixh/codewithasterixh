@@ -103,7 +103,7 @@ export default function HeroSection({ data }: { data: Hero }) {
                   </p>
                 </article>
 
-                <article className="w-full flex flex-col gap-2">
+                {/* <article className="w-full flex flex-col gap-2">
                   <div className="*:data-[slot=avatar]:ring-background flex -space-x-3 *:data-[slot=avatar]:ring-2">
                     {data.reviews.avatars.map((avatar, idx) => (
                       <Avatar
@@ -130,7 +130,7 @@ export default function HeroSection({ data }: { data: Hero }) {
                     </em>
                   </strong>
                   <p className="text-accent-content/70">{data.reviews.label}</p>
-                </article>
+                </article> */}
               </div>
             </section>
             <section className="w-full h-full flex items-center justify-end">
