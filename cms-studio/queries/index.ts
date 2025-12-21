@@ -113,7 +113,7 @@ export const portfolioQuery = `*[_type == "portfolio"]{
     socials[],
     subtext
   },
-  portfolioSection{
+  "portfolioSection": portfolioSection[visibility == true]{
     description,
     heading[]{
       text,
