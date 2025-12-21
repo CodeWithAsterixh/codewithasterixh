@@ -2,7 +2,7 @@
   "name": "peterpaul",
   "version": "0.1.0",
   "private": true,
-  "type":"module",
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -32,7 +32,7 @@
     "gsap": "^3.13.0",
     "lucide-react": "^0.525.0",
     "motion": "^12.23.6",
-    "next": "15.4.1",
+    "next": "15.4.10",
     "next-sanity": "^11.6.5",
     "nodemailer": "^7.0.10",
     "react": "19.1.0",
