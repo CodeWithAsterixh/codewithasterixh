@@ -16,7 +16,8 @@ export default async function ProjectsPage() {
   return (
     <main className="min-h-screen pt-20">
       <section className="w-full py-20 bg-base-100">
-        <div className="section_container px-4">
+        {
+          homeData.portfolioSection.projects.length>0?<div className="section_container px-4">
           <h1 className="text-4xl font-bold mb-8">All Projects</h1>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {homeData.portfolioSection.projects.map((project, idx) => (
@@ -71,7 +72,8 @@ export default async function ProjectsPage() {
               </article>
             ))}
           </div>
-        </div>
+        </div>:<p>No project found</p>
+        }
       </section>
     </main>
   );
