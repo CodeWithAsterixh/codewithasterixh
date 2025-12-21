@@ -72,7 +72,7 @@ export default async function ProjectsPage() {
               </article>
             ))}
           </div>
-        </div>:<p>No project found</p>
+        </div>:<p className="text-center">No project found</p>
         }
       </section>
     </main>
