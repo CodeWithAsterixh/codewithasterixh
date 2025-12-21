@@ -6,6 +6,7 @@ import { ProjectCard } from "./portfolioItem";
 import Link from "next/link";
 
 export default function Portfolio({ data }: { data: PortfolioSection }) {
+  if(data?.projects?.length <= 0) return null;
   return (
     <section id="portfolio" className="w-full py-20">
       <main className="section_container px-4 flex flex-col gap-10">
