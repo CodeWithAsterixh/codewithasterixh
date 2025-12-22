@@ -13,6 +13,7 @@ import Services from "d/components/sections/Services";
 import Testimonials from "d/components/sections/Testimonials";
 import { Metadata } from "next";
 import imageUrlBuilder from "d/lib/imageUrlBuilder";
+import { Suspense } from "react";
 
 export async function generateMetadata(): Promise<Metadata> {
   const homeData: PortfolioDataType = (await getSanityQuery(portfolioQuery))[0];
@@ -70,7 +71,9 @@ export default async function Home() {
       <Portfolio data={homeData.portfolioSection} />
       <Pricing data={homeData.pricingSection} />
       <Testimonials data={homeData.testimonialsSection} />
-      <Contact data={homeData.contact} />
+      <Suspense fallback={<div>Loading Contact Section...</div>}>
+        <Contact data={homeData.contact} />
+      </Suspense>
       <Cutout/>
     </>
   );

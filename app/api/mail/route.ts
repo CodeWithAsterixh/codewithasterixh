@@ -8,7 +8,7 @@ function sanitizeText(input:string) {
 }
 export async function POST(req: Request) {
   const sanitizedRequestObj = JSON.stringify(await req.json())
-  const { name, email, message } = JSON.parse(sanitizeText(sanitizedRequestObj));
+  const { name, email, message, pricingType } = JSON.parse(sanitizeText(sanitizedRequestObj));
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -24,6 +24,7 @@ export async function POST(req: Request) {
     <div style="margin-top: 24px; background-color: #181818; padding: 20px; border-radius: 8px;">
       <p><strong style="color: #7C3AED;">Name:</strong> ${name}</p>
       <p><strong style="color: #7C3AED;">Email:</strong> ${email}</p>
+      <p><strong style="color: #7C3AED;">Selected Pricing Category:${pricingType}</strong></p>
       <p><strong style="color: #7C3AED;">Message:</strong></p>
       <p style="color: #D1D5DB;">${message}</p>
     </div>

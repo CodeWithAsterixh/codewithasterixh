@@ -6,7 +6,7 @@ export function useMail() {
     "idle"
   );
 
-  const sendMail = async (data: { name: string; email: string; message: string }) => {
+  const sendMail = async (data: { name: string; email: string; message: string, pricingType: string; }) => {
     try {
       setStatus("loading");
       const res = await fetch("/api/contact", {

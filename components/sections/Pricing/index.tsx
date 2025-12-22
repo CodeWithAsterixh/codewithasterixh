@@ -113,7 +113,7 @@ export default function Pricing({data}:{data:PricingSection}) {
                     : "!bg-primary !text-base-300"
                 }`}
                 as="a"
-                href="#contact"
+                href={`?pricingType=${plan.name.toLowerCase()}`}
               >
                 Choose Plan
               </Button2>
