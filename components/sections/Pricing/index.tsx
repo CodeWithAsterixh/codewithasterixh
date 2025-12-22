@@ -71,7 +71,7 @@ export default function Pricing({data}:{data:PricingSection}) {
               key={idx}
               className={`relative flex flex-col justify-between rounded-2xl border p-8 shadow-lg transition-all duration-300 ${
                 plan.highlight
-                  ? "bg-primary text-base-300 border-primary-content scale-105"
+                  ? "bg-primary/50 text-base-300 border-primary-content scale-105"
                   : "bg-base-200 text-accent-content border-base-300"
               }`}
             >
@@ -82,9 +82,10 @@ export default function Pricing({data}:{data:PricingSection}) {
               )}
 
               <header className="mb-6">
-                <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
-                <p className="text-4xl font-bitcount font-extrabold">
+                <h3 className="text-xl font-bitcount font-bold mb-2">{plan.name}</h3>
+                <p className="text-2xl font-extrabold">
                   {plan.price}
+                  <br />
                   <span className="text-sm font-normal ml-1">
                     {plan.duration}
                   </span>
