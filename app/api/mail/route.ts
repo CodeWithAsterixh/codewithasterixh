@@ -1,8 +1,14 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+function sanitizeText(input:string) {
+  return input
+    .trim()
+    .replace(/[<>]/g, "");
+}
 export async function POST(req: Request) {
-  const { name, email, message } = await req.json();
+  const sanitizedRequestObj = JSON.stringify(await req.json())
+  const { name, email, message } = JSON.parse(sanitizeText(sanitizedRequestObj));
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -32,6 +38,7 @@ export async function POST(req: Request) {
     await transporter.sendMail({
       from: `"Portfolio Contact" <${process.env.SMTP_USER}>`,
       to: process.env.MY_EMAIL,
+      text:"new message!",
       subject: `New message from ${name}`,
       html: htmlTemplate,
     });
@@ -41,6 +48,7 @@ export async function POST(req: Request) {
       from: `"${name}" <${process.env.SMTP_USER}>`,
       to: email,
       subject: "Thanks for reaching out!",
+      text: "Thanks for contacting asterixh, you will receive a response within 3 working days",
       html: `
       <div style="font-family: Inter, Arial, sans-serif; background-color: #0F0F0F; color: #F1F1F1; padding: 32px; border-radius: 12px; max-width: 600px; margin: auto;">
         <h2 style="color: #7C3AED; text-align: center;">Message Received</h2>
