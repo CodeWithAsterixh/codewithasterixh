@@ -9,7 +9,7 @@ export function useMail() {
   const sendMail = async (data: { name: string; email: string; message: string, pricingType: string; }) => {
     try {
       setStatus("loading");
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/api/mail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
