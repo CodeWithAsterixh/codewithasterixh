@@ -29,7 +29,7 @@ export default function About({data}:{data:AboutDataType}) {
               style={
                 {
                   "--tw-drop-shadow-size":
-                    "drop-shadow(-10px 0px 0px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.15)))",
+                    "drop-shadow(-4px 5px 0px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.15)))",
                 } as React.CSSProperties
               }
             />
