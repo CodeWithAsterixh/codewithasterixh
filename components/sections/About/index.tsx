@@ -22,10 +22,10 @@ export default function About({data}:{data:AboutDataType}) {
             <Image
               src={aboutImg}
               alt="Professional headshot of Asterixh, showcasing expertise in web development"
-              width={1024}
-              height={1440}
+              width={500}
+              height={450}
               quality={100}
-              className="size-full object-cover object-top drop-shadow-2xl drop-shadow-accent-content"
+              className="w-full h-fit aspect-square object-cover object-center drop-shadow-2xl drop-shadow-accent-content"
               style={
                 {
                   "--tw-drop-shadow-size":
