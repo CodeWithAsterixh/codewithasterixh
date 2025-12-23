@@ -210,7 +210,7 @@ function PlanCard({ plan, priceReady, getAdjustedPrice }: PlanCardProps) {
     >
       {plan.highlight && (
         <span className="absolute top-4 right-4 bg-base-300 text-primary text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1">
-          <Zap className="size-4" /> Popular
+          <Zap className="size-4" /> Recommended
         </span>
       )}
 
