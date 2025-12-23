@@ -145,6 +145,11 @@ export type Plan = {
   highlight: boolean;
   name: string;
   price: string;
+  country_discounts?: {
+    country: string;
+    countryCode: string;
+    discountedPercent: number;
+  }[];
 };
 
 export type PricingSection = {

@@ -32,6 +32,16 @@ export const pricingSection = defineField({
               of: [{ type: "string" }],
             },
             {
+              name: "country_discounts",
+              title: "Country Discounts",
+              type: "array",
+              of: [{ type: "object", fields: [
+                { name: "country", title: "Country", type: "string" },
+                { name: "countryCode", title: "Country Code", type: "string" },
+                { name: "discountedPercent", title: "Discounted Percent", type: "number" },
+              ] }],
+            },
+            {
               name: "highlight",
               title: "Highlight This Plan",
               type: "boolean",

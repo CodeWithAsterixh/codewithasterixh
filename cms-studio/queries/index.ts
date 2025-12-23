@@ -152,6 +152,11 @@ export const portfolioQuery = `*[_type == "portfolio"]{
     plans[]{
       duration,
       features,
+      country_discounts[]{
+        country,
+        countryCode,
+        discountedPercent
+      },
       highlight,
       name,
       price
