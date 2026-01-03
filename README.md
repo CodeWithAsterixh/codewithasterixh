@@ -11,7 +11,9 @@ I'm **Paul Peter** (aka **Asterixh**), a dedicated front-end developer focused o
 - **Tutorials & Experiments**: I regularly experiment with new tech and share practical insights.
 
 ## 🚀 Latest Projects
-
+### Anonfly - Anonymous communication
+[anonfly.vercel.app](https://anonfly.vercel.app)
+A very secure, private and anonymous communication web app
 ### Quizeen – Quiz Taker 🎓  
 [quizeen.vercel.app](https://quizeen.vercel.app)  
 A dynamic quiz platform built with **Next.js**, **Tailwind CSS**, **TypeScript**, and **MongoDB**.  
