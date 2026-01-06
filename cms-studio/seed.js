@@ -1,7 +1,7 @@
 import { createClient } from "@sanity/client";
 import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
-import {config} from "dotenv";
+import { config } from "dotenv";
 
 config()
 
@@ -9,7 +9,7 @@ config()
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_STUDIO_PID,
   dataset: process.env.NEXT_PUBLIC_SANITY_STUDIO_DATASET,
-  apiVersion:'2023-03-01',
+  apiVersion: '2023-03-01',
   token: process.env.DIRECT_SEEDER_TOKEN,
   useCdn: false,
 });
@@ -29,6 +29,8 @@ if (args.includes('-h') || args.includes('--help')) {
   process.exit(0);
 }
 
+const BASE_DIR = resolve(process.cwd())
+
 let basePath = '';
 const files = [];
 for (let i = 0; i < args.length; i++) {
@@ -45,8 +47,22 @@ if (files.length === 0) {
   process.exit(1);
 }
 
+function safeResolve(baseDir, targetPath) {
+  const resolvedBase = resolve(baseDir)
+  const resolvedTarget = resolve(baseDir, targetPath)
+
+  if (!resolvedTarget.startsWith(resolvedBase + "/")) {
+    throw new Error("Path traversal detected")
+  }
+
+  return resolvedTarget
+}
+
 async function seedFile(filePath) {
-  const absPath = resolve(process.cwd(), basePath, filePath);
+  const absPath = safeResolve(
+    BASE_DIR,
+    resolve(basePath, filePath)
+  );
   console.log(`
 📄  Seeding ${filePath} (from ${basePath})`);
 
@@ -71,7 +87,7 @@ async function seedFile(filePath) {
     const { _id, ...body } = doc;
     const op = _id ? 'createOrReplace' : 'create';
     tx[op](_id ? { _id, ...body } : body);
-    process.stdout.write(`🔄  [${idx+1}/${docs.length}] ${op}\r`);
+    process.stdout.write(`🔄  [${idx + 1}/${docs.length}] ${op}\r`);
   });
 
   try {
