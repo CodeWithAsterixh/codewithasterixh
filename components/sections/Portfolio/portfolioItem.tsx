@@ -7,9 +7,8 @@ import Image from "next/image";
 export function ProjectCard({ project }: { project: Project }) {
   const thumbnailImg = project.thumbnail._type
     ? imageUrlBuilder([project.thumbnail], {
-        width: 1024,
-        height: 1440,
-        quality: 90,
+        quality: 80,
+        format: "webp",
       })[0]
     : null;
   return (
@@ -27,10 +26,12 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="p-4 h-full flex flex-col gap-2 justify-between">
         <div className="w-full flex flex-col gap-2">
           <h3 className="text-xl font-semibold">{project.title}</h3>
-          <p className="text-accent-content/80 text-sm">{project.excerpt.split(".")[0]}</p>
+          <p className="text-accent-content/80 text-sm">
+            {project.excerpt.split(".")[0]}
+          </p>
 
           <div className="flex flex-wrap gap-2 mt-2">
-            {project.tags.slice(0,3).map((tag, idx) => (
+            {project.tags.slice(0, 3).map((tag, idx) => (
               <span
                 key={idx}
                 className="text-xs px-2 py-1 bg-base-300 rounded-full text-base-content"
@@ -41,7 +42,7 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
 
           <div className="flex flex-wrap gap-2 mt-2">
-            {project.tools.slice(0,3).map((tool, idx) => (
+            {project.tools.slice(0, 3).map((tool, idx) => (
               <span
                 key={idx}
                 className="text-xs px-2 py-1 border border-base-300 rounded-full"
@@ -53,7 +54,7 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
 
         <Link
-          href={`/projects/${project.slug?.current||""}`}
+          href={`/projects/${project.slug?.current || ""}`}
           className="mt-4 inline-block"
         >
           <Button2

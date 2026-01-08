@@ -28,7 +28,11 @@ export const portfolioSection = defineField({
         {
           type: "object",
           fields: [
-            {name: "visibility", title: "show in project list", type: "boolean"},
+            {
+              name: "visibility",
+              title: "show in project list",
+              type: "boolean",
+            },
             { name: "title", title: "Project Title", type: "string" },
             {
               name: "slug",
@@ -40,12 +44,13 @@ export const portfolioSection = defineField({
               },
             },
             { name: "excerpt", title: "Short Description", type: "text" },
-            {
+
+            defineField({
               name: "thumbnail",
               title: "Thumbnail Image",
               type: "image",
               options: { hotspot: true },
-            },
+            }),
             {
               name: "url",
               title: "Live Link or Repo",
@@ -67,21 +72,30 @@ export const portfolioSection = defineField({
               name: "meta",
               title: "SEO Metadata",
               type: "object",
-              description: "SEO metadata for search engines, Open Graph, and Twitter Cards",
+              description:
+                "SEO metadata for search engines, Open Graph, and Twitter Cards",
               fields: [
                 {
                   name: "title",
                   title: "Meta Title",
                   type: "string",
-                  description: "Title for meta title tag (50-60 characters for optimal SEO)",
-                  validation: (Rule) => Rule.max(60).warning("Meta titles should be under 60 characters"),
+                  description:
+                    "Title for meta title tag (50-60 characters for optimal SEO)",
+                  validation: (Rule) =>
+                    Rule.max(60).warning(
+                      "Meta titles should be under 60 characters"
+                    ),
                 },
                 {
                   name: "description",
                   title: "Meta Description",
                   type: "text",
-                  description: "Description for meta description tag (150-160 characters for optimal SEO)",
-                  validation: (Rule) => Rule.max(160).warning("Meta descriptions should be under 160 characters"),
+                  description:
+                    "Description for meta description tag (150-160 characters for optimal SEO)",
+                  validation: (Rule) =>
+                    Rule.max(160).warning(
+                      "Meta descriptions should be under 160 characters"
+                    ),
                 },
                 {
                   name: "keywords",
@@ -94,7 +108,8 @@ export const portfolioSection = defineField({
                   name: "canonicalUrl",
                   title: "Canonical URL",
                   type: "url",
-                  description: "Canonical URL to prevent duplicate content issues",
+                  description:
+                    "Canonical URL to prevent duplicate content issues",
                 },
                 {
                   name: "ogTitle",
@@ -112,7 +127,8 @@ export const portfolioSection = defineField({
                   name: "ogImage",
                   title: "Open Graph Image",
                   type: "image",
-                  description: "Image for Open Graph sharing (1200x630 recommended)",
+                  description:
+                    "Image for Open Graph sharing (1200x630 recommended)",
                   options: { hotspot: true },
                 },
                 {
@@ -131,23 +147,26 @@ export const portfolioSection = defineField({
                   name: "twitterImage",
                   title: "Twitter Card Image",
                   type: "image",
-                  description: "Image for Twitter Card sharing (1200x600 recommended)",
+                  description:
+                    "Image for Twitter Card sharing (1200x600 recommended)",
                   options: { hotspot: true },
                 },
                 {
                   name: "structuredData",
                   title: "Structured Data (JSON-LD)",
                   type: "text",
-                  description: "JSON-LD structured data for rich snippets (e.g., CreativeWork, SoftwareApplication)",
-                  validation: (Rule) => Rule.custom((value) => {
-                    if (!value || typeof value !== 'string') return true;
-                    try {
-                      JSON.parse(value);
-                      return true;
-                    } catch {
-                      return "Invalid JSON format";
-                    }
-                  }),
+                  description:
+                    "JSON-LD structured data for rich snippets (e.g., CreativeWork, SoftwareApplication)",
+                  validation: (Rule) =>
+                    Rule.custom((value) => {
+                      if (!value || typeof value !== "string") return true;
+                      try {
+                        JSON.parse(value);
+                        return true;
+                      } catch {
+                        return "Invalid JSON format";
+                      }
+                    }),
                 },
               ],
             },
