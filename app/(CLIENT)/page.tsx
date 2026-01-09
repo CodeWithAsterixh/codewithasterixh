@@ -69,7 +69,7 @@ export default async function Home() {
       <Experience data={homeData.educationWorkSection} />
       <Cutout />
       <Portfolio data={homeData.portfolioSection} />
-      <Pricing data={homeData.pricingSection} />
+      {/*<Pricing data={homeData.pricingSection} />*/}
       <Testimonials data={homeData.testimonialsSection} />
       <Suspense fallback={<div>Loading Contact Section...</div>}>
         <Contact data={homeData.contact} />
