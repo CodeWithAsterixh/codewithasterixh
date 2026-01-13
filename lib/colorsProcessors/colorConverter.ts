@@ -10,15 +10,15 @@
 export function rgbToHex(color: string): string {
   // Regular expression to match rgb/rgba values
   const rgbRegex =
-    /rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})(?:\s*,\s*(\d*\.?\d+))?\s*\)/;
+    /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([\d.]+))?\s*\)/;
   const result = rgbRegex.exec(color);
   if (!result) {
     throw new Error("Invalid rgb/rgba color string");
   }
 
-  const r = parseInt(result[1], 10);
-  const g = parseInt(result[2], 10);
-  const b = parseInt(result[3], 10);
+  const r = Number.parseInt(result[1], 10);
+  const g = Number.parseInt(result[2], 10);
+  const b = Number.parseInt(result[3], 10);
 
   // Ensure r, g, b are within 0-255
   if ([r, g, b].some((val) => val < 0 || val > 255)) {
@@ -34,7 +34,7 @@ export function rgbToHex(color: string): string {
 
   // Check for an alpha value and append if present
   if (result[4] !== undefined) {
-    const alpha = parseFloat(result[4]);
+    const alpha = Number.parseFloat(result[4]);
     if (alpha < 0 || alpha > 1) {
       throw new Error("Alpha value must be between 0 and 1");
     }
@@ -75,14 +75,14 @@ export function hexToRgb(hex: string): string {
   }
 
   // Now hex is either 6 or 8 characters
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
+  const r = Number.parseInt(hex.substring(0, 2), 16);
+  const g = Number.parseInt(hex.substring(2, 4), 16);
+  const b = Number.parseInt(hex.substring(4, 6), 16);
 
   if (hex.length === 6) {
     return `rgb(${r}, ${g}, ${b})`;
   } else {
-    const a = parseInt(hex.substring(6, 8), 16) / 255;
+    const a = Number.parseInt(hex.substring(6, 8), 16) / 255;
     // Limit alpha to 2 decimal places
     return `rgba(${r}, ${g}, ${b}, ${a.toFixed(2)})`;
   }
@@ -103,9 +103,9 @@ export function hexToRgbObj(hex: string): { r: number; g: number; b: number } {
   if (hex.length !== 6) {
     throw new Error("Invalid hex color");
   }
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
+  const r = Number.parseInt(hex.substring(0, 2), 16);
+  const g = Number.parseInt(hex.substring(2, 4), 16);
+  const b = Number.parseInt(hex.substring(4, 6), 16);
   return { r, g, b };
 }
 

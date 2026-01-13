@@ -14,9 +14,9 @@ export function getContrastingTextColor(color: string): string {
     }
   
     // Convert hex to RGB values
-    const r = parseInt(hex.slice(0, 2), 16);
-    const g = parseInt(hex.slice(2, 4), 16);
-    const b = parseInt(hex.slice(4, 6), 16);
+    const r = Number.parseInt(hex.slice(0, 2), 16);
+    const g = Number.parseInt(hex.slice(2, 4), 16);
+    const b = Number.parseInt(hex.slice(4, 6), 16);
   
     // Calculate luminance using the YIQ formula:
     // (r*299 + g*587 + b*114) / 1000
