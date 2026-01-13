@@ -6,7 +6,7 @@ import nodemailer from "nodemailer";
 export const runtime = "nodejs"; // Ensure Node runtime, not Edge
 
 function sanitizeText(input: string) {
-  return input.trim().replace(/[<>]/g, "");
+  return input.trim().replaceAll(/[<>]/g, "");
 }
 
 function sanitizePricingType(input: unknown) {
