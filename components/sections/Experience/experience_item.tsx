@@ -9,7 +9,7 @@ type Props = {
     }
 }
 
-export default function ExperienceItem({duration,name,title}: Props) {
+export default function ExperienceItem({duration,name,title}: Readonly<Props>) {
   return (
     <li className='w-full flex items-center gap-3'>
         {/* info */}

@@ -9,7 +9,7 @@ type Props = {
   icon?: IconName;
 };
 
-export default function ToolItem({ index, icon, percentage, tool }: Props) {
+export default function ToolItem({ index, icon, percentage, tool }: Readonly<Props>) {
   const isEven = index % 2 === 0;
   return (
     <li className="w-full not-last:![--tr:0] last:![--tr:calc(infinity_*_1px)] max-w-50 sm:max-w-30 flex flex-col gap-3 text-accent-content items-center even:[--position:]">

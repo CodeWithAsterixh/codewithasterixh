@@ -53,7 +53,7 @@ export default async function Footer() {
               {hero?.socials?.map((social, idx) => (
                 <HoveredElement
                   aria-label={social.icon}
-                  key={idx}
+                  key={idx+1}
                   as="a"
                   href={social.href}
                   target={social.href.startsWith("#") ? undefined : "_blank"}

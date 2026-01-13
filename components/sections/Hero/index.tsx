@@ -2,7 +2,6 @@ import { Hero } from "d/cms-studio/types";
 import Cowlick from "d/components/SmallItems/cowlick";
 import { Heading, Headline } from "d/components/SmallItems/headings";
 import HeroSvg from "d/components/SmallItems/heroSvg";
-import { Avatar, AvatarFallback, AvatarImage } from "d/components/ui/avatar";
 import { Badge } from "d/components/ui/badge";
 import { Button } from "d/components/ui/button";
 import { Button2 } from "d/components/ui/button2";
@@ -13,7 +12,7 @@ import { DynamicIcon } from "lucide-react/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function HeroSection({ data }: { data: Hero }) {
+export default function HeroSection({ data }: Readonly<{ data: Hero }>) {
   const heroMainImage = imageUrlBuilder([data.heroImage], {
     quality: 80,
     format: "webp",
@@ -143,31 +142,36 @@ export default function HeroSection({ data }: { data: Hero }) {
                       className="w-fit shrink-0 flex items-center justify-end gap-3"
                     >
                       {badgeGroup.items
-                        .filter((i) => i)
+                        .filter(Boolean)
                         .map((item, idx) => {
                           // Determine color flip based on row index
                           const isEven = (idx + bg_idx) % 2 === 0;
+                          const isStarIcon = item.toLowerCase() === "star_icon";
+
+                          const colorClasses = isEven
+                            ? "bg-base-300 text-foreground"
+                            : "bg-primary text-base-300";
+
+                          const badgeVariantClasses = isStarIcon
+                            ? "size-10 rounded-full"
+                            : colorClasses;
 
                           return (
                             <Badge
-                              key={idx}
+                              key={idx + 1}
                               className={cn(
                                 "px-4 py-2.5 rounded-full",
-                                item.toLowerCase() === "star_icon"
-                                  ? "size-10 rounded-full"
-                                  : isEven
-                                  ? "bg-base-300 text-foreground"
-                                  : "bg-primary text-base-300"
+                                badgeVariantClasses
                               )}
                             >
-                              {item.toLowerCase() !== "star_icon" ? (
-                                item
-                              ) : (
+                              {item.toLowerCase() === "star_icon" ? (
                                 <Cowlick
                                   className="scale-70"
                                   variant="cross"
                                   itemClassName="bg-base-300"
                                 />
+                              ) : (
+                                item
                               )}
                             </Badge>
                           );
@@ -183,7 +187,7 @@ export default function HeroSection({ data }: { data: Hero }) {
                   <ul className="w-fit flex items-center justify-end gap-3">
                     {data.socials.map((nav, idx) => (
                       <li
-                        key={idx}
+                        key={idx+1}
                         className="size-10 rounded-full overflow-hidden flex items-center justify-center bg-base-300"
                       >
                         <a

@@ -20,7 +20,7 @@ type Props = {
   };
 };
 
-export default function ServiceItem({ item_id, index, label, content }: Props) {
+export default function ServiceItem({ item_id, index, label, content }: Readonly<Props>) {
   const indexing = index > 10 ? index : "0" + index;
   return (
     <AccordionItem
@@ -44,10 +44,10 @@ export default function ServiceItem({ item_id, index, label, content }: Props) {
       <AccordionContent className="sm:pl-25 flex flex-col gap-3 pb-0">
         <div className="w-fit flex flex-col gap-2">
           {arrayChunk(content?.tags || [], 2)?.map((tags, idx) => (
-            <div key={idx} className="w-fit flex flex-wrap gap-2">
-              {tags.map((tag, idx) => (
+            <div key={idx+1} className="w-fit flex flex-wrap gap-2">
+              {tags.map((tag, tag_idx) => (
                 <Badge
-                  key={idx}
+                  key={tag_idx+1}
                   variant={"secondary"}
                   className="px-4 py-2 rounded-full"
                 >

@@ -11,7 +11,7 @@ const EXCHANGE_RATE_KEY = "exchangeRates"
 const EXCHANGE_RATE_TIMESTAMP_KEY = "exchangeRatesTimestamp"
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000
 
-export default function Pricing({ data }: { data: PricingSection }) {
+export default function Pricing({ data }: Readonly<{ data: PricingSection }>) {
   const { coords } = useGeolocated({
     positionOptions: { enableHighAccuracy: false },
     userDecisionTimeout: 5000,
@@ -20,7 +20,6 @@ export default function Pricing({ data }: { data: PricingSection }) {
   // ------------------------
   // State
   // ------------------------
-  const [countryCode, setCountryCode] = useState<string | null>(null) // For discounts
   const [currencyCode, setCurrencyCode] = useState<string | null>(null) // For conversion
   const [currencySymbol, setCurrencySymbol] = useState<string>("$")
   const [exchangeRates, setExchangeRates] = useState<Record<string, number> | null>(null)
@@ -60,7 +59,7 @@ export default function Pricing({ data }: { data: PricingSection }) {
   const parsePrice = (priceStr: string) => Number(priceStr.replace("$", "").trim())
 
   const getAdjustedPrice = (plan: Plan) => {
-    const clean = plan.price.replace(/\s+/g, " ").trim()
+    const clean = plan.price.replaceAll(/\s+/g, " ").trim()
     const discount = getDiscountPercent(plan)
 
     const process = (val: number) => formatWithRate(applyDiscount(val, discount))
@@ -96,7 +95,6 @@ export default function Pricing({ data }: { data: PricingSection }) {
         )
         const data = await res.json()
         const country = data.address.country_code?.toUpperCase() || null
-        setCountryCode(country)
 
         if (country) {
           try {
@@ -111,7 +109,6 @@ export default function Pricing({ data }: { data: PricingSection }) {
           }
         }
       } catch (err) {
-        setCountryCode(null)
         setCurrencyCode("USD")
         setCurrencySymbol("$")
         console.error("Failed to fetch country/currency", err)
@@ -178,7 +175,7 @@ export default function Pricing({ data }: { data: PricingSection }) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
           {data.plans.map((plan, idx) => (
             <PlanCard
-              key={idx}
+              key={idx+1}
               plan={plan}
               priceReady={priceReady}
               getAdjustedPrice={getAdjustedPrice}
@@ -199,7 +196,7 @@ interface PlanCardProps {
   getAdjustedPrice: (plan: Plan) => string
 }
 
-function PlanCard({ plan, priceReady, getAdjustedPrice }: PlanCardProps) {
+function PlanCard({ plan, priceReady, getAdjustedPrice }: Readonly<PlanCardProps>) {
   return (
     <article
       className={`relative flex flex-col justify-between rounded-2xl border p-8 shadow-lg transition-all duration-300 ${
@@ -216,20 +213,20 @@ function PlanCard({ plan, priceReady, getAdjustedPrice }: PlanCardProps) {
 
       <header className="mb-6 text-center">
         <h3 className="text-xl font-bitcount font-bold mb-2">{plan.name}</h3>
-        {!priceReady ? (
-          <div className="w-32 h-7 rounded bg-base-300 animate-pulse mx-auto mb-1" />
-        ) : (
+        {priceReady ? (
           <p className="text-2xl font-extrabold">
             {getAdjustedPrice(plan)}
             <br />
             <span className="text-sm font-normal ml-1">{plan.duration}</span>
           </p>
+        ) : (
+          <div className="w-32 h-7 rounded bg-base-300 animate-pulse mx-auto mb-1" />
         )}
       </header>
 
       <ul className="flex-1 space-y-3 mb-6">
         {plan.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-3">
+          <li key={i+1} className="flex items-center gap-3">
             <CheckCircle2 className={`size-5 ${plan.highlight ? "text-base-300" : "text-primary"}`} />
             <span className="text-sm">{feature}</span>
           </li>

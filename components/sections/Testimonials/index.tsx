@@ -3,7 +3,7 @@ import { Heading, Headline } from "d/components/SmallItems/headings";
 import { Quote } from "lucide-react";
 import { TestimonialsSection } from "d/cms-studio/types";
 
-function NameAvatar({ name }: { name: string }) {
+function NameAvatar({ name }: Readonly<{ name: string }>) {
   const initials = name
     .split(" ")
     .map((n) => n[0])
@@ -17,7 +17,7 @@ function NameAvatar({ name }: { name: string }) {
   );
 }
 
-export default function Testimonials({data}:{data:TestimonialsSection}) {
+export default function Testimonials({data}:Readonly<{data:TestimonialsSection}>) {
   return (
     <section id="testimonials" className="w-full bg-base-200 py-20">
       <main className="section_container px-4 flex flex-col items-center gap-12">
@@ -39,7 +39,7 @@ export default function Testimonials({data}:{data:TestimonialsSection}) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
           {data.testimonials.map((t, idx) => (
             <article
-              key={idx}
+              key={idx+1}
               className="relative flex flex-col bg-base-200 border border-base-300 rounded-2xl p-6 shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               <Quote className="absolute top-4 right-4 size-5 text-primary opacity-70" />
@@ -56,12 +56,12 @@ export default function Testimonials({data}:{data:TestimonialsSection}) {
 
               <div className="flex items-center gap-1">
                 {Array.from({ length: t.rating }).map((_, i) => (
-                  <span key={i} className="text-primary text-lg">
+                  <span key={i+1} className="text-primary text-lg">
                     ★
                   </span>
                 ))}
                 {Array.from({ length: 5 - t.rating }).map((_, i) => (
-                  <span key={i} className="text-base-300 text-lg">
+                  <span key={i+1} className="text-base-300 text-lg">
                     ★
                   </span>
                 ))}

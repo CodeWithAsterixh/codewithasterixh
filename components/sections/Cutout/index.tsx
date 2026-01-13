@@ -14,7 +14,7 @@ export default function Cutout({
   className,
   itemClassName,
   separatorClassName,
-}: Props) {
+}: Readonly<Props>) {
   return (
     <aside
       className={cn(
@@ -25,7 +25,7 @@ export default function Cutout({
       {items.map((item, idx, arr) => {
         const last = arr.at(-1) === item
         return (
-          <Fragment key={idx}>
+          <Fragment key={idx+1}>
           <strong className={cn("text-2xl font-bitcount text-accent-content opacity-50 mt-1", itemClassName)}>
             {item}
           </strong>

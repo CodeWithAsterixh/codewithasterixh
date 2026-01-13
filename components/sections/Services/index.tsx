@@ -1,11 +1,10 @@
+import { ServicesSection } from "d/cms-studio/types";
 import { Heading, Headline } from "d/components/SmallItems/headings";
 import { Accordion } from "d/components/ui/accordion";
-import { Button2 } from "d/components/ui/button2";
-import ServiceItem from "./service_item";
-import { ServicesSection } from "d/cms-studio/types";
 import imageUrlBuilder from "d/lib/imageUrlBuilder";
+import ServiceItem from "./service_item";
 
-export default function Services({ data }: { data: ServicesSection }) {
+export default function Services({ data }: Readonly<{ data: ServicesSection }>) {
   return (
     <section id="services" className="w-full py-20">
       <main className="section_container px-4 flex flex-col gap-10">
@@ -40,14 +39,14 @@ export default function Services({ data }: { data: ServicesSection }) {
               /* Render service items from data.items if available */
               data.items && data.items.length > 0
                 ? data.items.map((item, index) => {
-                    const image = item.image&&item.image._type? imageUrlBuilder([item.image],{
+                    const image = item.image?._type? imageUrlBuilder([item.image],{
                       width: 300,
                       height: 200,
                       quality: 80,
                     })[0]:undefined
                     return (
                       <ServiceItem
-                        key={index}
+                        key={index+1}
                         index={index + 1}
                         item_id={item._key}
                         label={item.label}

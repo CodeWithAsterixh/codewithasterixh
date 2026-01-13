@@ -4,7 +4,7 @@ import imageUrlBuilder from "d/lib/imageUrlBuilder";
 import Link from "next/link";
 import Image from "next/image";
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({ project }: Readonly<{ project: Project }>) {
   const thumbnailImg = project.thumbnail._type
     ? imageUrlBuilder([project.thumbnail], {
         quality: 80,
@@ -33,7 +33,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <div className="flex flex-wrap gap-2 mt-2">
             {project.tags.slice(0, 3).map((tag, idx) => (
               <span
-                key={idx}
+                key={idx+1}
                 className="text-xs px-2 py-1 bg-base-300 rounded-full text-base-content"
               >
                 {tag}
@@ -44,7 +44,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <div className="flex flex-wrap gap-2 mt-2">
             {project.tools.slice(0, 3).map((tool, idx) => (
               <span
-                key={idx}
+                key={idx+1}
                 className="text-xs px-2 py-1 border border-base-300 rounded-full"
               >
                 {tool}

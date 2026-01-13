@@ -9,7 +9,7 @@ type Props = {
   navigations: NavigationItem[];
 };
 
-export default function DesktopVersion({ navigations }: Props) {
+export default function DesktopVersion({ navigations }: Readonly<Props>) {
     const currentHash = useHash()
   
   return (
@@ -19,10 +19,10 @@ export default function DesktopVersion({ navigations }: Props) {
           const isActive = currentHash === nav.href || (nav.href === "#" && currentHash === "");
           return(
           <li key={nav.name} className="flex items-center gap-2">
-            <HoveredElement asChild hoveredClass={!isActive?{
+            <HoveredElement asChild hoveredClass={isActive?undefined:{
                 true: "text-base-content before:w-full before:bg-primary-content",
                 false: "text-base-content before:w-0 before:bg-transparent",
-            }:undefined} className={
+            }} className={
               cn(
                 "relative before:h-[1px] before:top-[100%] duration-300 before:left-1/2 before:-translate-x-1/2 before:absolute before:duration-300 transition-colors",
                 {

@@ -8,7 +8,7 @@ import { BadgeCheck, Users } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
-export default function About({data}:{data:AboutDataType}) {
+export default function About({data}:Readonly<{data:AboutDataType}>) {
   const aboutImg = imageUrlBuilder([data.image],{
     width: 1024,
     height: 1440,
@@ -74,7 +74,7 @@ export default function About({data}:{data:AboutDataType}) {
 
           <ul className="grid grid-cols-[repeat(auto-fit,_minmax(10rem,_1fr))] gap-3">
             {data.experiences.map((exp, idx) => (
-              <li key={idx} className="flex flex-col gap-2">
+              <li key={idx+1} className="flex flex-col gap-2">
                 <strong className="font-bold text-2xl">{exp.duration}+</strong>
                 <em className="text-accent-content text-xs sm:text-base not-italic">
                   {exp.label}

@@ -18,12 +18,12 @@ const pricingValues = ["basic", "standard", "advanced", "none"] as const;
 
 const schema = z.object({
   name: z.string().min(2, "Enter your name"),
-  email: z.string().email("Enter a valid email"),
+  email: z.email("Enter a valid email"),
   message: z.string().min(10, "Enter at least 10 characters"),
   pricingType: z.enum(pricingValues),
 });
 
-export default function Contact({ data }: { data: ContactSection }) {
+export default function Contact({ data }: Readonly<{ data: ContactSection }>) {
   const { sendMail, status } = useMail();
   const searchParams = useSearchParams();
   const router = useRouter();

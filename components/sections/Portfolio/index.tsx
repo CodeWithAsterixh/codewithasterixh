@@ -5,7 +5,7 @@ import React from "react";
 import { ProjectCard } from "./portfolioItem";
 import Link from "next/link";
 
-export default function Portfolio({ data }: { data: PortfolioSection }) {
+export default function Portfolio({ data }: Readonly<{ data: PortfolioSection }>) {
   if(!data||data?.projects?.length <= 0) return null;
   return (
     <section id="portfolio" className="w-full py-20">
@@ -32,7 +32,7 @@ export default function Portfolio({ data }: { data: PortfolioSection }) {
         </header>
 
         <main className="w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {data.projects.slice(0,3).map((project: Project, idx) => <ProjectCard key={idx} project={project}/>)}
+          {data.projects.slice(0,3).map((project: Project, idx) => <ProjectCard key={idx+1} project={project}/>)}
         </main>
 
         <div className="w-full flex items-center justify-center">

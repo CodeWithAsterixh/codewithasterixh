@@ -4,7 +4,7 @@ import { BriefcaseBusiness, GraduationCap } from "lucide-react";
 import ExperienceItem from "./experience_item";
 import { EducationWorkSection } from "d/cms-studio/types";
 
-export default function Experience({ data }: { data: EducationWorkSection }) {
+export default function Experience({ data }: Readonly<{ data: EducationWorkSection }>) {
   return (
     <section id="my_tools" className="py-20">
       <main className="section_container flex flex-col gap-4 p-4 sm:p-0">
@@ -34,7 +34,7 @@ export default function Experience({ data }: { data: EducationWorkSection }) {
             <ul className="w-full flex flex-col gap-2">
               {data.education.map((item, idx) => (
                 <ExperienceItem
-                  key={idx}
+                  key={idx+1}
                   name={item.name}
                   title={item.title}
                   duration={item.duration}
@@ -53,7 +53,7 @@ export default function Experience({ data }: { data: EducationWorkSection }) {
             <ul className="w-full flex flex-col gap-2">
               {data.work.map((item, idx) => (
                 <ExperienceItem
-                  key={idx}
+                  key={idx+1}
                   name={item.name}
                   title={item.title}
                   duration={item.duration}

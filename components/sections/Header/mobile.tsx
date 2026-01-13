@@ -10,7 +10,7 @@ type Props = {
   navigations: NavigationItem[];
 };
 
-export default function MobileVersion({ navigations }: Props) {
+export default function MobileVersion({ navigations }: Readonly<Props>) {
   const currentHash = useHash();
 
   return (
@@ -36,8 +36,13 @@ export default function MobileVersion({ navigations }: Props) {
               <LiquidGlass
                 asChild
                 options={
-                  !isActive
+                  isActive
                     ? {
+                        "shadow-color": "#001e2980",
+                        tint: "#00061180",
+                        "frost-blur": "10px",
+                      }
+                    : {
                         "shadow-color": "rgba(0,0,0,0)",
                         tint: "rgba(0,0,0,0)",
                         "frost-blur": "-10px",
@@ -47,11 +52,6 @@ export default function MobileVersion({ navigations }: Props) {
                         "shadow-blur": "0",
                         "shadow-offset": "0",
                         "shadow-spread": "0",
-                      }
-                    : {
-                        "shadow-color": "#001e2980",
-                        tint: "#00061180",
-                        "frost-blur": "10px",
                       }
                 }
                 className={cn(

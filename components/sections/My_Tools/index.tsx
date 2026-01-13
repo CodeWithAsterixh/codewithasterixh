@@ -2,7 +2,7 @@ import { TechnologiesSection } from "d/cms-studio/types";
 import { Heading, Headline } from "d/components/SmallItems/headings";
 import ToolItem from "./tool_item";
 
-export default function MyTools({data}:{data:TechnologiesSection}) {
+export default function MyTools({data}:Readonly<{data:TechnologiesSection}>) {
   return (
     <section id="my_tools" className="py-20">
       <main className="section_container flex flex-col gap-4 p-4 sm:p-0">
@@ -22,7 +22,7 @@ export default function MyTools({data}:{data:TechnologiesSection}) {
 
         <ul className="justify-center w-full mx-auto flex flex-wrap *:basis-30 *:grow gap-4">
           {
-            data.items.map((tool,idx)=><ToolItem key={idx} index={idx+1} icon={typeof tool.icon === "string" ?tool.icon:undefined} tool={tool.name} percentage={tool.proficiency}/>)
+            data.items.map((tool,idx)=><ToolItem key={idx+1} index={idx+1} icon={typeof tool.icon === "string" ?tool.icon:undefined} tool={tool.name} percentage={tool.proficiency}/>)
           }
         </ul>
       </main>
