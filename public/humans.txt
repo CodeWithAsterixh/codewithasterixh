@@ -4,7 +4,7 @@ Contact: peterpaultolulope@gmail.com
 Location: Nigeria
 
 /* SITE */
-Last update: 2024
+Last update: 2025
 Language: English
 Doctype: HTML5
 IDE: Visual Studio Code

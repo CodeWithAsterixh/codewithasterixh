@@ -23,7 +23,7 @@ export function extractUtilityClasses(classString: string, utility: string) {
   const utilityProps = new Set<string>();
 
   classes.forEach(cl => {
-    const match = cl.match(utilityRegex);
+    const match =new RegExp(utilityRegex).exec(cl);
     if (match) {
       utilityActive.push(cl.replace(utility, ""));
       // Extract property before first dash or slash
