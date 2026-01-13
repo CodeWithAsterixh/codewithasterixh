@@ -21,7 +21,7 @@ export default async function ProjectsPage() {
           <h1 className="text-4xl font-bold mb-8">All Projects</h1>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {homeData.portfolioSection.projects.map((project, idx) => (
-              <article key={idx} className="flex flex-col gap-4 rounded-lg shadow-lg overflow-hidden bg-base-200 border-2 border-primary-content hover:shadow-xl duration-300">
+              <article key={idx+1} className="flex flex-col gap-4 rounded-lg shadow-lg overflow-hidden bg-base-200 border-2 border-primary-content hover:shadow-xl duration-300">
                 {project.thumbnail._type && (
                   <div className="relative w-full h-48">
                     <Image
@@ -40,7 +40,7 @@ export default async function ProjectsPage() {
                     <div className="flex flex-wrap gap-2 mt-2">
                       {project.tags.map((tag, tagIdx) => (
                         <span
-                          key={tagIdx}
+                          key={tagIdx+1}
                           className="text-xs px-2 py-1 bg-base-300 rounded-full text-base-content"
                         >
                           {tag}
@@ -51,7 +51,7 @@ export default async function ProjectsPage() {
                     <div className="flex flex-wrap gap-2 mt-2">
                       {project.tools.map((tool, toolIdx) => (
                         <span
-                          key={toolIdx}
+                          key={toolIdx+1}
                           className="text-xs px-2 py-1 border border-base-300 rounded-full"
                         >
                           {tool}

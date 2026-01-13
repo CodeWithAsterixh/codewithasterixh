@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ProjectDetailPage({ params }: Props) {
+export default async function ProjectDetailPage({ params }: Readonly<Props>) {
   const { slug } = await params;
   const homeData: PortfolioDataType = (await getSanityQuery(portfolioSectionQuery))[0];
   const project = homeData.portfolioSection.projects.find(p => p.slug.current === slug);
@@ -70,7 +70,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             <div className="flex flex-wrap gap-2 mb-4">
               {project.tags.map((tag, idx) => (
                 <span
-                  key={idx}
+                  key={idx+1}
                   className="text-sm px-3 py-1 bg-primary-content text-base-300 rounded-full"
                 >
                   {tag}
@@ -81,7 +81,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             <div className="flex flex-wrap gap-2">
               {project.tools.map((tool, idx) => (
                 <span
-                  key={idx}
+                  key={idx+1}
                   className="text-sm px-3 py-1 border border-base-300 rounded-full"
                 >
                   {tool}

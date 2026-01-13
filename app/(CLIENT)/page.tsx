@@ -8,11 +8,10 @@ import Experience from "d/components/sections/Experience";
 import HeroSection from "d/components/sections/Hero";
 import MyTools from "d/components/sections/My_Tools";
 import Portfolio from "d/components/sections/Portfolio";
-import Pricing from "d/components/sections/Pricing";
 import Services from "d/components/sections/Services";
 import Testimonials from "d/components/sections/Testimonials";
-import { Metadata } from "next";
 import imageUrlBuilder from "d/lib/imageUrlBuilder";
+import { Metadata } from "next";
 import { Suspense } from "react";
 
 export async function generateMetadata(): Promise<Metadata> {
