@@ -37,7 +37,7 @@ export const PassThroughElement = React.forwardRef(function HoveredElement<
   { as, asChild, children, ...rest }: PassThroughElementProps<As>,
   ref?: React.Ref<Element>
 ) {
-  const Component = as || "div";
+  const Component = as ?? "div";
 
   if (asChild) {
     const child = React.Children.only(children);

@@ -63,7 +63,7 @@ export const HoveredElement = React.forwardRef(
       onMouseLeave?.(e);
     };
 
-    const Component = as || 'div';
+    const Component = as ?? 'div';
 
     if(asChild){
       const child = React.Children.only(children);
