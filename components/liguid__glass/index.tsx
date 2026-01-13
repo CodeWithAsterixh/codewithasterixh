@@ -39,6 +39,53 @@ type LiquidGlassComponent = <As extends React.ElementType = "div">(
   props: LiquidGlassProps<As> & { ref?: React.Ref<Element> }
 ) => React.ReactElement | null;
 
+/**
+ * Internal component to handle the rendering logic of LiquidGlass
+ */
+interface MainComponentProps<As extends React.ElementType> {
+  asChild?: boolean;
+  children?: React.ReactNode;
+  innerRef?: React.Ref<any>;
+  mainClass: string;
+  varStyle: React.CSSProperties;
+  rest: React.ComponentPropsWithoutRef<As>;
+  Component: As;
+}
+
+const MainComponent = <As extends React.ElementType>({
+  asChild,
+  children,
+  innerRef,
+  mainClass,
+  varStyle,
+  rest,
+  Component,
+}: MainComponentProps<As>) => {
+  if (asChild) {
+    const child = React.Children.only(children);
+    if (isValidElement(child)) {
+      const typedChild = child as React.ReactElement<any>;
+      return cloneElement(typedChild, {
+        ref: innerRef,
+        className: cn(mainClass),
+        style: { ...typedChild.props.style, ...varStyle },
+        ...(rest),
+      });
+    }
+  }
+  const ComponentTag = Component as any;
+  return (
+    <ComponentTag
+      ref={innerRef}
+      className={cn(mainClass)}
+      {...rest}
+      style={{ ...varStyle, ...rest.style }}
+    >
+      {children}
+    </ComponentTag>
+  );
+};
+
 export const LiquidGlass = React.forwardRef(function LiquidGlass<
   As extends React.ElementType = "div"
 >(
@@ -57,32 +104,7 @@ export const LiquidGlass = React.forwardRef(function LiquidGlass<
     className,
   );
   const varStyle = getGlassStructures(options)
-  const Component = as || "div";
-  const MainComponent = () => {
-    if (asChild) {
-      const child = React.Children.only(children);
-      if (isValidElement(child)) {
-        const typedChild = child as React.ReactElement<any>;
-        return cloneElement(typedChild, {
-          ref,
-          className: cn(mainClass),
-          style: { ...typedChild.props.style, ...varStyle },
-          ...(rest as React.ComponentPropsWithoutRef<As>),
-        });
-      }
-    }
-    return (
-      <Component
-        ref={ref}
-        className={cn(mainClass)}
-        {...(rest as React.ComponentPropsWithoutRef<As>)}
-        style={{...varStyle, ...rest.style}}
-
-      >
-        {children}
-      </Component>
-    );
-  };
+  const Component = (as ?? "div") as As;
 
   return (
     <>
@@ -121,7 +143,14 @@ export const LiquidGlass = React.forwardRef(function LiquidGlass<
           </filter>
         </defs>
       </svg>
-      <MainComponent />
+      <MainComponent
+        asChild={asChild}
+        innerRef={ref}
+        mainClass={mainClass}
+        varStyle={varStyle}
+        rest={rest as React.ComponentPropsWithoutRef<As>}
+        Component={Component}
+      >{children}</MainComponent>
     </>
   );
 }) as LiquidGlassComponent;

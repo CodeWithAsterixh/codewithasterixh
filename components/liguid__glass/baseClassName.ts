@@ -15,7 +15,7 @@ export const glassVarClasses = [
 // 1) Extract CSS var name / default value pairs
 const defaultVarsMap = Object.fromEntries(
   glassVarClasses.map((cls) => {
-    const [, name, value] = cls.match(/^\[\-\-([^:]+):(.+)\]$/)!;
+    const [, name, value] = cls.match(/^\[--([^:]+):(.+)\]$/)!;
     return [name, value];
   })
 ) as Record<string, string>;
