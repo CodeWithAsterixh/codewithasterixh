@@ -5,7 +5,7 @@ interface SE {
   s: string;
   e: string;
 }
-interface screenView {
+interface ScreenView {
   section?: string;
   setSection: (val: string) => void;
   setStartEnd: React.Dispatch<
@@ -16,7 +16,7 @@ interface screenView {
   >;
   ref?: React.RefObject<HTMLDivElement | null>;
 }
-const ScrollContext = createContext<screenView>({
+const ScrollContext = createContext<ScreenView>({
   section: "",
   setSection() {},
   setStartEnd() {},
@@ -44,45 +44,48 @@ export const ScrollViewProvider = ({
     section: { e: "bottom", s: "top" },
     main: { e: "top", s: "top" },
   });
+  const value = React.useMemo(
+    () => ({
+      setSection,
+      section,
+      ref: containerRef,
+      setStartEnd,
+    }),
+    [setSection, section, containerRef, setStartEnd]
+  );
 
-  useGSAP(() => {
-    const card = containerRef.current;
-    if (!card) return;
-    gsap.to(card, {
-      scrollTrigger: {
-        trigger: card,
-        start: `${startEnd.section.s} ${startEnd.main.s}`,
-        end: `${startEnd.section.e} ${startEnd.main.e}`,
-        toggleActions: "play reverse play reverse",
-        onEnter() {
-          setSection(containerRef.current?.id);
+  useGSAP(
+    () => {
+      const card = containerRef.current;
+      if (!card) return;
+      gsap.to(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: `${startEnd.section.s} ${startEnd.main.s}`,
+          end: `${startEnd.section.e} ${startEnd.main.e}`,
+          toggleActions: "play reverse play reverse",
+          onEnter() {
+            setSection(containerRef.current?.id);
+          },
+          onLeave() {
+            setSection(undefined);
+          },
+          onEnterBack() {
+            setSection(containerRef.current?.id);
+          },
+          onLeaveBack() {
+            setSection(undefined);
+          },
         },
-        onLeave() {
-          setSection(undefined);
-        },
-        onEnterBack() {
-          setSection(containerRef.current?.id);
-        },
-        onLeaveBack() {
-          setSection(undefined);
-        },
-      },
-      ease: "none",
-    });
-  }, {
-    dependencies:[startEnd]
-  });
+        ease: "none",
+      });
+    },
+    {
+      dependencies: [startEnd],
+    }
+  );
 
   return (
-    <ScrollContext.Provider
-      value={{
-        setSection,
-        section,
-        ref: containerRef,
-        setStartEnd,
-      }}
-    >
-      {children}
-    </ScrollContext.Provider>
+    <ScrollContext.Provider value={value}>{children}</ScrollContext.Provider>
   );
 };

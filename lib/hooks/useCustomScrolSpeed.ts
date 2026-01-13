@@ -30,7 +30,7 @@ export function useCustomScrollSpeed(selector?: string): (factor?: number) => vo
       const nodes = Array.from(document.querySelectorAll<HTMLElement>(selector));
       if (nodes.length) els = nodes;
     }
-    if (!els.length) els = [window];
+    if (!els.length) els = [globalThis.window];
 
     elementsRef.current = els;
 

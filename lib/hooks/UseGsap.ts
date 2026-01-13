@@ -4,7 +4,8 @@ import gsap from "gsap";
 import {ScrollTrigger} from "gsap/dist/ScrollTrigger";
 
 // if is client-side, register ScrollTrigger plugin
-if (typeof window !== "undefined") {
+if (globalThis.window !== undefined) {
   gsap.registerPlugin(ScrollTrigger);
 }
-export default useGSAP
+const gsapHook = useGSAP;
+export default gsapHook

@@ -2,24 +2,24 @@ import { useEffect, useState } from "react";
 
 export function useHash() {
   const [hash, setHash] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.location.hash;
+    if (globalThis.window !== undefined) {
+      return globalThis.window.location.hash;
     }
     return "";
   });
 
   useEffect(() => {
-    const updateHash = () => setHash(window.location.hash);
-    window.addEventListener("hashchange", updateHash);
+    const updateHash = () => setHash(globalThis.window.location.hash);
+    globalThis.window.addEventListener("hashchange", updateHash);
     // Also listen for popstate (browser back/forward)
-    window.addEventListener("popstate", updateHash);
+    globalThis.window.addEventListener("popstate", updateHash);
 
     // Set initial hash in case it changed before mount
     updateHash();
 
     return () => {
-      window.removeEventListener("hashchange", updateHash);
-      window.removeEventListener("popstate", updateHash);
+      globalThis.window.removeEventListener("hashchange", updateHash);
+      globalThis.window.removeEventListener("popstate", updateHash);
     };
   }, []);
 
