@@ -13,7 +13,7 @@ export default function Logo({
   iconClassName,
   textClassName,
   emClassName,
-}: Props) {
+}: Readonly<Props>) {
   return (
     <div className={cn("w-fit flex items-center gap-2", containerClassName)}>
       <span

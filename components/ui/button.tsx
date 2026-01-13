@@ -81,7 +81,7 @@ function Button({
 
   return (
     <HoveredElement
-      as={!asChild?as:undefined}
+      as={asChild?undefined:as}
       asChild={asChild}
       data-slot="button"
       hoveredClass={{

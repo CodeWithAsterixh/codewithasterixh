@@ -13,7 +13,7 @@ export default function HeroSvg({
   as: Tag = "div",
   className,
   ...props
-}: HeroSvgProps) {
+}: Readonly<HeroSvgProps>) {
 
   return (
     <PassThroughElement
@@ -46,12 +46,7 @@ export default function HeroSvg({
     //       </clipPath>
     //     </defs>
 
-    //     {/* solid fill */}
-    //     <path
-    //       d="M173 -163C235.5 -110.5 305.2 -55.2 319.7 14.5C334.1 84.1 293.3 168.3 230.8 221.1C168.3 274 84.1 295.5 1.3 294.2C-81.6 292.9 -163.1 268.8 -207.3 215.9C-251.4 163.1 -258.2 81.6 -250.3 7.9C-242.4 -65.8 -219.9 -131.5 -175.7 -184C-131.5 -236.5 -65.8 -275.8 -5.3 -270.5C55.2 -265.2 110.5 -215.5 173 -163"
-    //       transform={`translate(${tx} ${ty})`}
-    //       fill="#BB004B"
-    //     />
+
 
     //     {/* honey‑comb pattern clipped to same shape */}
     //     <g clipPath="url(#honeyClip)">

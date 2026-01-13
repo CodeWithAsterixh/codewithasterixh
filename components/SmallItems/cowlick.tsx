@@ -34,13 +34,13 @@ export default function Cowlick({
   itemClassName = "",
   size = "w-2 h-2",
   className
-}: cowlickProps) {
+}: Readonly<cowlickProps>) {
   const variantClasses = variants[variant] || variants.cross
   return (
     <span className={cn("w-fit relative duration-300 flex gap-2 pointer-events-none", className)}>
       {variantClasses.items.map((modifiers, index) => (
         <span
-          key={index}
+          key={index+1}
           className={cn(
             "duration-300",
             baseClass,

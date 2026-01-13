@@ -70,7 +70,7 @@ export const Button2 = React.forwardRef<HTMLButtonElement, Button2Props>(
 
     return (
       <HoveredElement
-        as={!asChild ? as : undefined}
+        as={asChild ? undefined : as}
         asChild={asChild}
         data-slot="button"
         hoveredClass={{ true: '', false: '' }}

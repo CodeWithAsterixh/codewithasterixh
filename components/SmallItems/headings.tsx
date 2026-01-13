@@ -10,7 +10,7 @@ type Props = {
   asChild?: boolean;
 };
 
-export function Headline({ as, asChild, children, className }: Props) {
+export function Headline({ as, asChild, children, className }: Readonly<Props>) {
   const asSlot = as || "h4";
   return (
     <PassThroughElement
@@ -56,7 +56,7 @@ export function Heading({
     >
       {texts.map((item, i,arr) => (
         <span
-          key={i}
+          key={i+1}
           className={cn(
             "relative",
             item.type === "odd"
