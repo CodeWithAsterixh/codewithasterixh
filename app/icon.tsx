@@ -24,7 +24,7 @@ export default async function Icon() {
   const fontsMeta: { weight: number; url: string }[] = [];
   let m: RegExpExecArray | null;
   while ((m = regex.exec(cssText)) !== null) {
-    fontsMeta.push({ weight: parseInt(m[1], 10), url: m[2] });
+    fontsMeta.push({ weight: Number.parseInt(m[1], 10), url: m[2] });
   }
 
   // 2. Fetch each font in parallel

@@ -107,9 +107,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   const portfolioData: PortfolioDataType = (await getSanityQuery(portfolioQuery))[0];
   const about = portfolioData?.about;
   const hero = portfolioData?.hero;
@@ -232,7 +232,7 @@ export default async function RootLayout({
         <link rel="author" href="/humans.txt" />
         {structuredData.map((data, index) => (
           <script
-            key={index}
+            key={index+1}
             type="application/ld+json"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify(data),

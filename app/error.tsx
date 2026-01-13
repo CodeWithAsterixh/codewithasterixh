@@ -1,12 +1,12 @@
 'use client';
 
 
-export default function Error({
+export default function PageError({
   reset,
-}: {
+}: Readonly<{
   error: Error & { digest?: string };
   reset: () => void;
-}) {
+}>) {
 
 
   return (
