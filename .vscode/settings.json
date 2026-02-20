@@ -1,5 +1,3 @@
 {
-    "cSpell.words": [
-        "shadcn"
-    ]
+    "snyk.advanced.autoSelectOrganization": true
 }

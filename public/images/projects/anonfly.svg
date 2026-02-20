@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 512 512" height="512" width="512">
+  <defs>
+    <linearGradient y2="100%" x2="100%" y1="0%" x1="0%" id="shieldGrad">
+      <stop stop-color="#3b82f6" offset="0%"></stop>
+      <stop stop-color="#1d4ed8" offset="100%"></stop>
+    </linearGradient>
+  </defs>
+  
+  
+  <path stroke-linecap="round" stroke-width="32" stroke="#3b82f6" d="M176 192V144C176 99.8172 211.817 64 256 64C300.183 64 336 99.8172 336 144V192"></path>
+  
+  
+  <path fill="url(#shieldGrad)" d="M128 160C128 160 128 280 128 320C128 400 256 464 256 464C256 464 384 400 384 320C384 280 384 160 384 160H128Z"></path>
+  
+  
+  <rect fill="white" rx="10" height="20" width="60" y="260" x="180"></rect>
+  <rect fill="white" rx="10" height="20" width="60" y="260" x="272"></rect>
+  
+  
+  <path fill-opacity="0.6" fill="#3b82f6" d="M128 200L32 280L128 320"></path>
+  <path fill-opacity="0.6" fill="#3b82f6" d="M384 200L480 280L384 320"></path>
+</svg>

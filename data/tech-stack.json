@@ -1,0 +1,12 @@
+[
+  { "name": "Figma", "icon": "figma", "proficiency": 70 },
+  { "name": "VS Code", "icon": "vscode", "proficiency": 100 },
+  { "name": "Next.js", "icon": "nextjs", "proficiency": 95 },
+  { "name": "Nuxt.js", "icon": "nuxtjs", "proficiency": 95 },
+  { "name": "Tailwind CSS", "icon": "tailwindcss", "proficiency": 98 },
+  { "name": "Shadcn/UI", "icon": "shadcnui", "proficiency": 90 },
+  { "name": "GSAP", "icon": "gsap", "proficiency": 70 },
+  { "name": "Mongo db", "icon": "mongodb", "proficiency": 90 },
+  { "name": "Python", "icon": "python", "proficiency": 80 },
+  { "name": "Fast API", "icon": "python", "proficiency": 80 }
+]

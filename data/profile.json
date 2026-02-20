@@ -1,0 +1,99 @@
+{
+  "name": "Paul Peter",
+  "role": "Full Stack Developer",
+  "handle": "@codewithasterixh",
+  "alias": "Asterixh",
+  "headline": "Hello there",
+  "marquee": "LATEST WORK AND FEATURED",
+  "stats": [
+    {
+      "value": "03",
+      "label": "Years\nExperience"
+    },
+    {
+      "value": "10+",
+      "label": "Total Clients"
+    },
+    {
+      "value": "+10",
+      "label": "Total\nProjects"
+    }
+  ],
+  "subtext": "Web developer based in Lagos",
+  "email": "peterpaultolulope@gmail.com",
+  "phone": "+234 810 908 0838",
+  "location": "Lagos, Nigeria",
+  "about": {
+    "content": "I'm an enthusiastic and creative Fullstack software engineer and developer who love bringing solutions to real world cases. with over 3years of experience in web development, I have been able to hone my skills and expertise.\nAs a passionate Developer with a strong foundation in modern web technologies, I am eager to contribute my skills to a dynamic team. WIth my exceptional skill in creating internet recognizable serivices, and user focused solutions, I believe I will be of great use in a like minded workforce.",
+    "badgeIcon": "badge-check",
+    "badgeLabel": "Innovative Developer",
+    "topStatLabel": "Total Clients",
+    "topStatValue": "10+"
+  },
+  "hero": {
+    "quote": "Creating digital experiences that blend creativity with functionality, delivering solutions that drive results.",
+    "primaryCta": {
+      "href": "https://github.com/codewithasterixh",
+      "label": "Github"
+    },
+    "secondaryCta": {
+      "href": "https://codewithasterixh.vercel.app/#contact",
+      "label": "Hire Me"
+    },
+    "badges": [
+      {
+        "items": [
+          "Prototype",
+          "Dashboard",
+          ""
+        ]
+      },
+      {
+        "items": [
+          "star_icon",
+          "Mobile App"
+        ]
+      },
+      {
+        "items": [
+          "Design",
+          "Website"
+        ]
+      }
+    ]
+  },
+  "socials": [
+    {
+      "href": "https://github.com/codewithasterixh",
+      "icon": "github"
+    },
+    {
+      "href": "https://linkedin.com/in/paul-peter-eyinnaya",
+      "icon": "linkedin"
+    },
+    {
+      "href": "https://twitter.com/paul_peter",
+      "icon": "twitter"
+    }
+  ],
+  "images": {
+    "hero": {
+      "src": "/images/profile/hero.png",
+      "alt": "Paul Peter Hero Image",
+      "width": 959,
+      "height": 968
+    },
+    "about": {
+      "src": "/images/profile/about.png",
+      "alt": "Paul Peter About Image",
+      "width": 713,
+      "height": 739
+    },
+    "signature": {
+      "src": "/next.svg",
+      "alt": "Signature",
+      "width": 150,
+      "height": 50
+    }
+  }
+}

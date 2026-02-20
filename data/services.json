@@ -1,0 +1,17 @@
+[
+  {
+    "label": "Website Development",
+    "description": "Custom, responsive websites built with a mobile-first mindset to ensure fast performance and seamless user experience across all devices.",
+    "tags": ["Mobile-first approach", "Responsive design", "Performance optimization", "Cross-browser compatibility"]
+  },
+  {
+    "label": "Website Management",
+    "description": "Ongoing site maintenance including content updates, security monitoring, regular backups, and performance analytics to keep your site running smoothly.",
+    "tags": ["Content updates", "Security monitoring", "Backup & recovery", "Performance analytics"]
+  },
+  {
+    "label": "SEO Optimization",
+    "description": "Comprehensive SEO services—from keyword research and on-page tweaks to technical audits and link building—to boost your organic search rankings.",
+    "tags": ["Keyword research", "On-page optimization", "Link building", "Technical SEO"]
+  }
+]

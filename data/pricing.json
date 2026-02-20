@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Basic",
+    "price": "$150 to $300",
+    "duration": "Feature based",
+    "highlight": false,
+    "features": ["1-page website", "Responsive layout", "Basic SEO setup", "1-2 weeks delivery", "Maximum 2 revisions"]
+  },
+  {
+    "name": "Standard",
+    "price": "$900 to $1800",
+    "duration": "Feature based",
+    "highlight": true,
+    "features": ["Up to 5 pages", "CMS integration", "Performance optimization", "Priority support", "maximum of 12 revisions"]
+  },
+  {
+    "name": "Advanced",
+    "price": "$2500 to $5000",
+    "duration": "Task based",
+    "highlight": false,
+    "features": ["Full website design/redesign", "Dashboard & API setup", "SEO optimization", "Dedicated support", "3 months+ maintenance", "maximum of 3 revisions daily"]
+  }
+]

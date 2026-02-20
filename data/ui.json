@@ -1,0 +1,133 @@
+{
+  "home": {
+    "projectsCard": {
+      "subtitle": "Showcase",
+      "title": "Projects"
+    },
+    "blogCard": {
+      "subtitle": "Blog",
+      "title": "My Blog"
+    },
+    "servicesCard": {
+      "subtitle": "Specialization",
+      "title": "Services Offering"
+    }
+  },
+  "common": {
+    "breadcrumbs": {
+      "home": "Home"
+    },
+    "contactCard": {
+      "line1": "Let's",
+      "line2": "work",
+      "highlight": "together."
+    },
+    "profilesCard": {
+      "subtitle": "Stay with me",
+      "title": "Profiles"
+    },
+    "credentialsCard": {
+      "subtitle": "More About Me",
+      "title": "Credentials"
+    }
+  },
+  "contact": {
+    "info": {
+      "title": "Contact Info",
+      "mail": "MAIL US",
+      "contact": "CONTACT US",
+      "location": "LOCATION",
+      "socialsTitle": "Social Info"
+    },
+    "form": {
+      "title": {
+        "line1": "Let's",
+        "line2": "work",
+        "highlight": "together."
+      },
+      "placeholders": {
+        "name": "Name *",
+        "email": "Email *",
+        "subject": "Your Subject *",
+        "message": "Your Message *"
+      },
+      "button": "Send Message"
+    }
+  },
+  "credentials": {
+    "sidebar": {
+      "contactButton": "Contact Me"
+    },
+    "skills": {
+      "title": "Skills",
+      "proficiency": "Proficiency"
+    },
+    "about": {
+      "title": "About Me"
+    },
+    "experience": {
+      "title": "Experience"
+    },
+    "education": {
+      "title": "Education"
+    }
+  },
+  "services": {
+    "offerings": {
+      "title": "My Offerings"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Self-Summary"
+    },
+    "experience": {
+      "title": "Experience"
+    },
+    "education": {
+      "title": "Education"
+    }
+  },
+  "works": {
+    "hero": {
+      "title": "All Projects"
+    }
+  },
+  "blog": {
+    "hero": {
+      "title": "Blog",
+      "description": "Stay updated with the latest trends, insights, and stories from the world of design and development."
+    },
+    "sidebar": {
+      "search": {
+        "title": "Search",
+        "placeholder": "Search..."
+      },
+      "recentPosts": {
+        "title": "Recent Posts"
+      },
+      "recentComments": {
+        "title": "Recent Comments",
+        "empty": "No comments to show."
+      },
+      "archives": {
+        "title": "Archives",
+        "items": ["June 2023"]
+      },
+      "categories": {
+        "title": "Categories",
+        "items": ["Uncategorized"]
+      }
+    },
+    "comments": {
+      "count": "0 Comment",
+      "title": "Leave a Reply",
+      "placeholders": {
+        "message": "Your Message",
+        "name": "Name",
+        "email": "Email"
+      },
+      "button": "Send Message"
+    }
+  }
+}

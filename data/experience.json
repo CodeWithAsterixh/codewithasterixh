@@ -1,0 +1,22 @@
+[
+  {
+    "duration": { "from": 2024, "to": 2024 },
+    "name": "Gerald Consultant",
+    "title": "Web Developement"
+  },
+  {
+    "duration": { "from": 2025, "to": 2025 },
+    "name": "Estoyonline",
+    "title": "Web Development"
+  },
+  {
+    "duration": { "from": 2025, "to": 2025 },
+    "name": "Broome-service",
+    "title": "Web developement, Seo"
+  },
+  {
+    "duration": { "from": 2025, "to": 2026 },
+    "name": "Great Everlee School",
+    "title": "Programming Tutor"
+  }
+]

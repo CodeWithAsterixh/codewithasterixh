@@ -59,13 +59,14 @@ export default async function Icon() {
         }}
       >
         {/* Profile Image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
+          width="100%"
+          height="100%"
           src={`data:image/png;base64,${Buffer.from(imageBuffer).toString(
             "base64"
           )}`}
           style={{
-            width: "100%",
-            height: "100%",
             objectFit: "cover",
             borderRadius: "50%",
             background: "rgba(0, 27, 32, 1)", // Semi-transparent overlay

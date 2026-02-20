@@ -1,95 +1,106 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NextRequest, NextResponse } from "next/server";
+import { contactFormSchema } from "@/features/contact/schema/contact";
+import { formatConfirmationMessage } from "@/features/email/lib/formatMail/confirmation";
+import { formatContactMessage } from "@/features/email/lib/formatMail/contact";
+import { sendMail } from "@/features/email/lib/sendMail";
+import { ZodError } from "zod";
 
-import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+// Simple in-memory rate limiting
+const rateLimitMap = new Map<string, number>();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS = 3; // 3 requests per minute
 
-export const runtime = "nodejs"; // Ensure Node runtime, not Edge
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const lastRequestTime = rateLimitMap.get(ip);
 
-function sanitizeText(input: string) {
-  return input.trim().replaceAll(/[<>]/g, "");
+  if (lastRequestTime && now - lastRequestTime < RATE_LIMIT_WINDOW) {
+    return true;
+  }
+
+  rateLimitMap.set(ip, now);
+  return false;
 }
 
-function sanitizePricingType(input: unknown) {
-  const allowed = ["basic", "standard", "advanced"];
-  if (typeof input !== "string") return undefined;
-  return allowed.includes(input) ? input : undefined;
-}
-
-function isValidEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-export async function POST(req: Request) {
+export async function POST(request: NextRequest) {
   try {
-    // Check environment variables
-    const { SMTP_USER, SMTP_PASS, MY_EMAIL } = process.env;
-    if (!SMTP_USER || !SMTP_PASS || !MY_EMAIL) {
-      throw new Error("Missing required SMTP environment variables");
-    }
-
-    const body = await req.json();
-    const name = sanitizeText(body.name || "");
-    const email = sanitizeText(body.email || "");
-    const message = sanitizeText(body.message || "");
-    const pricingType = sanitizePricingType(body.pricingType);
-
-    if (!name || !isValidEmail(email) || !message) {
+    // Rate Limiting
+    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    if (isRateLimited(ip)) {
       return NextResponse.json(
-        { ok: false, error: "Invalid input" },
-        { status: 400 }
+        { error: "Too many requests. Please try again later." },
+        { status: 429 }
       );
     }
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      secure: false,
-      port: 587,
-      auth: { user: SMTP_USER, pass: SMTP_PASS },
+    // Parse request body
+    const body = await request.json();
+
+    // Validate with Zod schema
+    let validatedData;
+    try {
+      validatedData = contactFormSchema.parse(body);
+    } catch (err) {
+      if (err instanceof ZodError) {
+        const fieldErrors: Record<string, string> = {};
+        err.issues.forEach((error) => {
+          const path = error.path[0] as string;
+          fieldErrors[path] = error.message;
+        });
+        return NextResponse.json(
+          { error: "Validation failed", fields: fieldErrors },
+          { status: 400 }
+        );
+      }
+      throw err;
+    }
+
+    const { fullName, email, subject, message } = validatedData;
+
+    const businessEmail = process.env.FROM_EMAIL || "codewithasterixh@gmail.com";
+
+    const mailSubject = `New Contact: ${subject} - from ${fullName}`;
+    const htmlMessage = formatContactMessage({ fullName, email, message });
+
+    // Send notification to business
+    const businessMail = await sendMail({
+      subject: mailSubject,
+      html: htmlMessage,
+      mailTo: businessEmail,
     });
 
-    // Admin notification email
-    const htmlTemplate = `
-      <div style="font-family: Inter, Arial, sans-serif; background-color: #0F0F0F; color: #F1F1F1; padding: 32px; border-radius: 12px; max-width: 600px; margin: auto;">
-        <h2 style="color: #7C3AED; text-align: center;">New Contact Message</h2>
-        <div style="margin-top: 24px; background-color: #181818; padding: 20px; border-radius: 8px;">
-          <p><strong style="color: #7C3AED;">Name:</strong> ${name}</p>
-          <p><strong style="color: #7C3AED;">Email:</strong> ${email}</p>
-          ${pricingType ? `<p><strong style="color: #7C3AED;">Pricing Type:</strong> ${pricingType}</p>` : ""}
-          <p><strong style="color: #7C3AED;">Message:</strong></p>
-          <p style="color: #D1D5DB;">${message}</p>
-        </div>
-      </div>
-    `;
-
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${SMTP_USER}>`,
-      to: MY_EMAIL,
-      replyTo: email,
-      subject: `New message from ${name}`,
-      text: "New message received",
-      html: htmlTemplate,
+    // Send confirmation to user
+    const userMail = await sendMail({
+      subject: "We received your message — Asterixh",
+      html: formatConfirmationMessage({
+        name: fullName,
+      }),
+      mailTo: email,
     });
 
-    // User acknowledgment email
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${SMTP_USER}>`,
-      to: email,
-      replyTo: MY_EMAIL,
-      subject: "Thanks for reaching out",
-      text: "Thanks for contacting Asterixh. You will receive a response within 3 working days.",
-      html: `
-        <div style="font-family: Inter, Arial, sans-serif; background-color: #0F0F0F; color: #F1F1F1; padding: 32px; border-radius: 12px; max-width: 600px; margin: auto;">
-          <h2 style="color: #7C3AED; text-align: center;">Message Received</h2>
-          <p>Hi ${name},</p>
-          <p>Your message has been received and I will respond soon.</p>
-        </div>
-      `,
-    });
+    if (!businessMail.ok && !userMail.ok) {
+       // If both fail, report error
+       console.error("Mail send error:", businessMail.error, userMail.error);
+       return NextResponse.json(
+        { error: "Failed to send emails" },
+        { status: 500 }
+      );
+    }
 
-    return NextResponse.json({ ok: true });
-  } catch (err: any) {
+    // Even if one fails, we can consider it a partial success or just success for the user
+    // Ideally we want both to succeed.
+
     return NextResponse.json(
-      { ok: false, error: err.message || "Email send failed" },
+      {
+        success: true,
+        message: "Your message has been sent! We'll get back to you within 24 hours.",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("API Error:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
       { status: 500 }
     );
   }

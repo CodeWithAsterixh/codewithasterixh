@@ -1,0 +1,1672 @@
+[
+  {
+    "_createdAt": "2025-11-14T18:57:44Z",
+    "_id": "s35MBoFemDiqgpOLU9eiOI",
+    "_originalId": "s35MBoFemDiqgpOLU9eiOI",
+    "_rev": "sN2KrN4WZKNEH471OTw6x7",
+    "_system": {
+      "base": {
+        "id": "s35MBoFemDiqgpOLU9eiOI",
+        "rev": "sN2KrN4WZKNEH471OTvcID"
+      }
+    },
+    "_type": "portfolio",
+    "_updatedAt": "2026-01-09T16:32:06Z",
+    "about": {
+      "badgeIcon": "badge-check",
+      "badgeLabel": "Innovative Developer",
+      "content": "I'm an enthusiastic and creative Fullstack software engineer and developer who love bringing solutions to real world cases. with over 3years of experience in web development, I have been able to hone my skills and expertise.\nAs a passionate Developer with a strong foundation in modern web technologies, I am eager to contribute my skills to a dynamic team. WIth my exceptional skill in creating internet recognizable serivices, and user focused solutions, I believe I will be of great use in a like minded workforce.",
+      "email": "peterpaultolulope@gmail.com",
+      "experiences": [
+        {
+          "_key": "5e03b450741cfd13b6bec837c01d500b",
+          "duration": 10,
+          "label": "Project completed"
+        },
+        {
+          "_key": "748fb2e3375a74983dcbfd0203b3d1cc",
+          "duration": 3,
+          "label": "Industries covered"
+        },
+        {
+          "_key": "e339d9585fa9636ba1f51b0b77baf463",
+          "duration": 3,
+          "label": "Years of experience"
+        }
+      ],
+      "heading": [
+        {
+          "_key": "2cbf2d677b78",
+          "_type": "part",
+          "text": "Who is",
+          "type": "even"
+        },
+        {
+          "_key": "5d0ed681750e",
+          "_type": "part",
+          "text": "Paul Peter?",
+          "type": "odd"
+        }
+      ],
+      "headline": "About Me",
+      "image": {
+        "asset": {
+          "_createdAt": "2025-12-23T09:45:56Z",
+          "_id": "image-1e6172a24d8e16b59bc92695ad74e488e73a1ca9-713x739-png",
+          "_originalId": "image-1e6172a24d8e16b59bc92695ad74e488e73a1ca9-713x739-png",
+          "_rev": "GZA8SAwsKh0Q7JjyWiKkPx",
+          "_type": "sanity.imageAsset",
+          "_updatedAt": "2025-12-23T09:45:56Z",
+          "assetId": "1e6172a24d8e16b59bc92695ad74e488e73a1ca9",
+          "extension": "png",
+          "metadata": {
+            "_type": "sanity.imageMetadata",
+            "blurHash": "eD8XII00~q4n?bM{xuM{ozjY00_39F?bD%t7M{%2Rjfl%MIU%MIUxa",
+            "dimensions": {
+              "_type": "sanity.imageDimensions",
+              "aspectRatio": 0.9648173207036536,
+              "height": 739,
+              "width": 713
+            },
+            "hasAlpha": true,
+            "isOpaque": false,
+            "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAE40lEQVR4nJXTeWwUVRwH8NdC4c10Z+c+3rzZme0edGm72y1turS09AIWtNVWslE5Ai2lGkVsRRSNZhP0D40JGjGKUUiMcgQwHP4hRgmGmJgIQRA0TbkKYoxQi409KHTemOmBBUnUl/wymZfMZ36/N98B4M6VNU1EEcjrz0IObZnGovapglEKGF0EAEwF/3Nl0rKlTeeNVsijw5BHFyCnHoO8tjWLQ0shp1nuC/8rlgEsC3o0fxXNG3sgr12HnDpCccow5NVrkEdfTZfwasjrPgDAlH/HAMhEaIbEIn8bLeo/uBjkFAI51Ya8ZkMe9VEy/oxWzXogisz4M/dyMm6DnN9veTUzTYt69zhEKAE5lIDc67BHxsdY3WpmIhH3PDMnoRkTRjqddvfHbiSMw15Z30Tx2q8Ur9m0qBNawqMgLWi9vOrbrvnDc43Zs6m7Opwiy8DDMIyYreSoE2AWo+DZtIB2QV77AwrIpmWD0DImjKwTbOZ0RqPR9mSyEo13MQFmJpuaUGrFsoVLWpvblj62+unRTQ9CkkcyVlG8dgLy6i1K0olHNQmj+ojuDw5VVSQOr21eXP/FG+uyHceZGDEDGIBas6699q0PNu/4aO/2MzsO7OkEwDAoKAfLsyVzGy0a11jNJJzut1ndsgXdP1gQi51pWfLAxndfX597JJ2eyGKG22moNOR9/Z03H/3626Pfd3WfG7l45ZINaD1URKmBV6Hg6/Rq/pv+vBgJxeI31Zxwj2wGvisqKd7Y/uTykoMH0/TkD+GCFfdX8B/u/GRl5/mu038O9NuDN4YIoFDwFShZx6fzeIhRLBKKzSJlNdU90UTikB7IXR/OK4x3dKSouyPignXLG8WPP93der774pnBoSH7xvAwAZRsnoI87oM8IhSPiGKFSFF52ZU5ddXvReLx+axlcY7zj9yNgqnmZnn7vt1PdP98+ScXHBwcJAAK2uBYkFXHLa+MSU5efl+8PPF5LFHyiD6Wu3uCS9vb0M79e5+59MvlroGBAbv3eo8NKE4lFKc4lAuyipMtaES1ArfC0ejZvOL4yzOLiqy7onIbbH3uKWPnvj0vXrpy+cLAQL/d03vVBryEHA8/1h10YV4hnGbYejD0m5U7c7M/Gs0Ff4OjaBqAzFQqNWVJS4v12tub0ocOf3nxxKmTIydPnyIA64bDippDsYpDsbIDOZl4JGRLhtWLcoLb1ECgYPxXGy0XaysGWW1txVmVTU1o8cqVLY93dOxf+/yGc+0vvNQPNE13vILquGO7I0NWIdmCavPY14cCoV1mJFIMqsBUWZY9IYyNihk5sYeKA3OW1eQXpurnmcmGhvyy2trG/MTcLTNLq88CTdUc5jYojxbFKYRV8ZAWDB5FodAqRtHLRFFv8GG8IR40t1YXBA4sSuS/31BbuiZVv+DhxsbGFRULGrbEKpM/AqwjhxXvBN2z9Ej6iGCYVwXs+4aRtP1eAR1RNb0rZPp6CsP+gdK84NXigkjnrMLoibLysuNz6+afTdQs/B0YGDusNAZOLlpEjlc1bBb5bjAy7veIaIiV9REVYTtgmiQcDJBgKExCM/LsvGihHS8pHYmXlo8AHRsOL2kOPQlzu6R5zWEU7HDYsjndtD2ybmeLiHhEjSjY70Ris5xEZY1TUZN0ymuSpGreIlJ334PkLxz/rIYZ+qZ0AAAAAElFTkSuQmCC",
+            "palette": {
+              "_type": "sanity.imagePalette",
+              "darkMuted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#4d3931",
+                "foreground": "#fff",
+                "population": 0.17,
+                "title": "#fff"
+              },
+              "darkVibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#47200e",
+                "foreground": "#fff",
+                "population": 0.05,
+                "title": "#fff"
+              },
+              "dominant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#4d3931",
+                "foreground": "#fff",
+                "population": 0.17,
+                "title": "#fff"
+              },
+              "lightMuted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#cac5ab",
+                "foreground": "#000",
+                "population": 0.16,
+                "title": "#fff"
+              },
+              "lightVibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#d9ae86",
+                "foreground": "#000",
+                "population": 0.01,
+                "title": "#fff"
+              },
+              "muted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#9d866a",
+                "foreground": "#fff",
+                "population": 0.14,
+                "title": "#fff"
+              },
+              "vibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#ccac74",
+                "foreground": "#000",
+                "population": 0,
+                "title": "#fff"
+              }
+            }
+          },
+          "mimeType": "image/png",
+          "originalFilename": "grok_image_z1dvzw.png",
+          "path": "images/t6w9gnpo/portfolio/1e6172a24d8e16b59bc92695ad74e488e73a1ca9-713x739.png",
+          "sha1hash": "1e6172a24d8e16b59bc92695ad74e488e73a1ca9",
+          "size": 297986,
+          "uploadId": "ceQCzCDUFvYivvHmvfQMf6fURWbduFZI",
+          "url": "https://cdn.sanity.io/images/t6w9gnpo/portfolio/1e6172a24d8e16b59bc92695ad74e488e73a1ca9-713x739.png"
+        },
+        "crop": {
+          "_type": "sanity.imageCrop",
+          "bottom": 0,
+          "left": 0,
+          "right": 0.0028336108459324247,
+          "top": 0
+        },
+        "hotspot": {
+          "_type": "sanity.imageHotspot",
+          "height": 1,
+          "width": 0.9971663891540675,
+          "x": 0.49858319457703376,
+          "y": 0.5
+        }
+      },
+      "phone": "+234 810 908 0838",
+      "topStatLabel": "Total Clients",
+      "topStatValue": "10+"
+    },
+    "contact": {
+      "emailPlaceholder": "Your Email",
+      "messagePlaceholder": "Your Message",
+      "namePlaceholder": "Your Name",
+      "submitLabel": "Send Message",
+      "subtitle": "Send me a message, and I'll respond within 3 working days.",
+      "tagline": "Let's Talk",
+      "title": "Contact Me"
+    },
+    "educationWorkSection": {
+      "education": [
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwsw",
+          "duration": {
+            "from": 2021,
+            "to": 2025
+          },
+          "name": "Global Wealth University",
+          "title": "Bachelor of Science in Computer Science"
+        }
+      ],
+      "heading": [
+        {
+          "_key": "23c846b4d23a",
+          "_type": "part",
+          "text": "My",
+          "type": "even"
+        },
+        {
+          "_key": "99bdfed07e02",
+          "_type": "part",
+          "text": "Education",
+          "type": "odd"
+        },
+        {
+          "_key": "f269507a19ea",
+          "_type": "part",
+          "text": "&",
+          "type": "even"
+        },
+        {
+          "_key": "d0511a0b4999",
+          "_type": "part",
+          "text": "Work Experience",
+          "type": "odd"
+        }
+      ],
+      "headline": "Education & Work",
+      "work": [
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwrm",
+          "duration": {
+            "from": 2024,
+            "to": 2024
+          },
+          "name": "Gerald Consultant",
+          "title": "Web Developement"
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwsM",
+          "duration": {
+            "from": 2025,
+            "to": 2025
+          },
+          "name": "Estoyonline",
+          "title": "Web Development"
+        },
+        {
+          "_key": "fff6f32e04f9",
+          "duration": {
+            "from": 2025,
+            "to": 2025
+          },
+          "name": "Broome-service",
+          "title": "Web developement, Seo"
+        },
+        {
+          "_key": "e1493312ff45",
+          "duration": {
+            "from": 2025,
+            "to": 2026
+          },
+          "name": "Great Everlee School",
+          "title": "Programming Tutor"
+        }
+      ]
+    },
+    "hero": {
+      "badgesGroup": [
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUx3O",
+          "items": [
+            "Prototype",
+            "Dashboard",
+            ""
+          ]
+        },
+        {
+          "_key": "918c46dd724c",
+          "_type": "badgeGroup",
+          "items": [
+            "star_icon",
+            "Mobile App"
+          ]
+        },
+        {
+          "_key": "f1e1737d9d0e",
+          "_type": "badgeGroup",
+          "items": [
+            "Design",
+            "Website"
+          ]
+        }
+      ],
+      "followText": "Follow Me On",
+      "heading": [
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUx0U",
+          "text": "I'm",
+          "type": "even"
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUx14",
+          "text": "Paul Peter",
+          "type": "odd"
+        }
+      ],
+      "headline": "Hello there",
+      "heroImage": {
+        "asset": {
+          "_createdAt": "2026-01-09T16:31:59Z",
+          "_id": "image-2050cd926d026a33a247ddf346144c15bed69a84-959x968-png",
+          "_originalId": "image-2050cd926d026a33a247ddf346144c15bed69a84-959x968-png",
+          "_rev": "WlF6Na4JSScYQEOacEmDSY",
+          "_type": "sanity.imageAsset",
+          "_updatedAt": "2026-01-09T16:31:59Z",
+          "assetId": "2050cd926d026a33a247ddf346144c15bed69a84",
+          "extension": "png",
+          "metadata": {
+            "_type": "sanity.imageMetadata",
+            "blurHash": "e87TX#R*0gt7}r$eWXI=xGxG9^fQ=xayEgEgoe$%NHWUIpj[$%ayR+",
+            "dimensions": {
+              "_type": "sanity.imageDimensions",
+              "aspectRatio": 0.9907024793388429,
+              "height": 968,
+              "width": 959
+            },
+            "hasAlpha": true,
+            "isOpaque": false,
+            "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAEWUlEQVR4nI2TW2wUVRjHT8utuzuzc9m57szO7Ozspd377HQv5bILSC+2yKXLUtqiFBWwjRpjQCMKRUMAtQExqVViqw8SSeOL0UcviTEEo0+a6IPGSwxBtInKA9KWOZ/Z2gcTI+2X/B9Ovn9+55/vfAeh/6+VCCHJ5Vrd63K5LhBu9wckQb5FusmhJprWF/vLrgaEEEu5Vlclyj2tc9R3YZm9bkrcTwrPvuej6UGZILhF37JqBeVelTVo14W2AP1Lb0qZ37c25txbit3uSgRmMprwpiZz9mLKhqVgdYNbIF3bLIn8tD8lzj3XnXbG79uMJwYrzlNbWua3p9TLSV3egUTRsxSw3mzMSgSflYjhTSHm6wPrTHx2sIwvPlaFiyM9+PkdOWdf0fy8ENZqiI8Tdf+S0FqUMqotvlN7LPXnR9rT+IXBjTA10gMTB+7GJ3qL84c2xj/ZaUd6SmrJtSRsFKHGAUvSH7DFE49XzB9Pbred831F/Pq+DfDK/i34dN+62WNbsx8+3ZXpON/VtQYA7jxDQKihK8x6h1r9fUfvil55qWrNTQ4W8aUHy3h6uB2/cX955uW+4uTYnjZrdLSyrEdBNYRW1DJqYWR9ePrkVuvGq3sr+O1DnXh6uGN2aqh8ZayvODTab3NLplushtFR1Lg5rsV354ITh9szv53v3+K8NtTlnBuoXD/eWxp/9J5i+qBtr1ruyjQiXW/KR9Ty1rQ6PVxu+eNkteyc3l3Bh3vyP+zdZD+zqa1Nr9VqK+4EbFjUSkRRtNcntVox49mdtvHNQxsic090W/jYtlb8cIc1s7mQuxQwU9spUQ/yPF9fm/+A64dVHo8ouCnO8niFQYpTxpOJxJcDldTNo91JfKZqw4u7izDSXZgv5ItXJT3+PisEj/uE4DbCpzczTIj616/hCY+HTrsJ7iDhlSY9pPCZl/VfM5uTt6qVHJza1QpT+9fB2MB66OvYAOlC5bY/lLnByeb3rGB8RPPaWYrVdnl5NYyQ3oTWuNkOF0GPeUj+C4KSZkhKnvOyiiP4TVxKtcCR7hyc62+DQ50lyOeKYKbWgmJmsaA0Oz7R/IsRjKssH/zYJwafFIRQCrlJ7h0PyX1LeMVbJO13KDaAGd7ArGhCUItCZy4Be9ZbUEpboJtZUM0c+I0siGoCODmKOTnqcHL0Jq9EL4tq7Ahyk/zvBCXOehk/phgFM1wQeH8MBDUBspaEkBGHWCQJuplZgAXCNiiGBWIgCbzSXBcW1JbbohK7JiqRd5GH5DBJS0CxKtC+APhEE0Q1DpKeBn8wA7KeAjmYAjWcAz2WBy2aB9W0QdbTCz7OX08ZcTgp8icnmV8hF+EDghLByyrAcBpwcgTEQAIkLbUAVELWggKRVtBjhQVpkTwoZj1lHHyyCYxgYEYIzjK8/itq8jDgJjkgaAloLlC/EYRAPWESFKM+MxuUUA7UcCto0cKi/gEKajMwogE0pwPNaZhilbm/AdBbbuVMzqBCAAAAAElFTkSuQmCC",
+            "palette": {
+              "_type": "sanity.imagePalette",
+              "darkMuted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#314752",
+                "foreground": "#fff",
+                "population": 0.26,
+                "title": "#fff"
+              },
+              "darkVibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#652d0b",
+                "foreground": "#fff",
+                "population": 0.11,
+                "title": "#fff"
+              },
+              "dominant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#b76f47",
+                "foreground": "#fff",
+                "population": 1.31,
+                "title": "#fff"
+              },
+              "lightMuted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#b1b1b1",
+                "foreground": "#000",
+                "population": 0.05,
+                "title": "#fff"
+              },
+              "lightVibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#d89977",
+                "foreground": "#000",
+                "population": 0.01,
+                "title": "#fff"
+              },
+              "muted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#a97456",
+                "foreground": "#fff",
+                "population": 0.47,
+                "title": "#fff"
+              },
+              "vibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#b76f47",
+                "foreground": "#fff",
+                "population": 1.31,
+                "title": "#fff"
+              }
+            },
+            "thumbHash": "TBiGFQQ4BtmOiHFaeCh/gfIXB6hwhXtpWA=="
+          },
+          "mimeType": "image/png",
+          "originalFilename": "file_00000000e19c720a87b2228a12805117~4.png",
+          "path": "images/t6w9gnpo/portfolio/2050cd926d026a33a247ddf346144c15bed69a84-959x968.png",
+          "sha1hash": "2050cd926d026a33a247ddf346144c15bed69a84",
+          "size": 854121,
+          "uploadId": "7oZsW3jRnqlPeSv1mdZHBWxDyDcbUuk2",
+          "url": "https://cdn.sanity.io/images/t6w9gnpo/portfolio/2050cd926d026a33a247ddf346144c15bed69a84-959x968.png"
+        },
+        "crop": {
+          "_type": "sanity.imageCrop",
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "hotspot": {
+          "_type": "sanity.imageHotspot",
+          "height": 1,
+          "width": 1,
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "primaryCta": {
+        "href": "https://github.com/codewithasterixh",
+        "label": "Github"
+      },
+      "quote": "Creating digital experiences that blend creativity with functionality, delivering solutions that drive results.",
+      "reviews": {
+        "avatars": [],
+        "count": 10,
+        "label": "Reviews from valued clients",
+        "rating": 4.9
+      },
+      "secondaryCta": {
+        "href": "https://codewithasterixh.vercel.app/#contact",
+        "label": "Hire Me"
+      },
+      "socials": [
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUx1e",
+          "href": "https://github.com/codewithasterixh",
+          "icon": "github"
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUx2E",
+          "href": "https://linkedin.com/in/paul-peter-eyinnaya",
+          "icon": "linkedin"
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUx2o",
+          "href": "https://twitter.com/paul_peter",
+          "icon": "twitter"
+        }
+      ],
+      "subtext": "Web developer based in Lagos"
+    },
+    "meta": {
+      "canonicalUrl": "https://codewithasterixh.vercel.app",
+      "description": "Asterixh builds fast and structured web services with Next.js, React and TypeScript aswell as Python with fastapi. View projects, skills and results.",
+      "keywords": [
+        "Asterixh",
+        "Paul Peter",
+        "Full Stack Developer",
+        "Next.js Developer",
+        "React Developer",
+        "TypeScript Developer",
+        "Web Developer Nigeria"
+      ],
+      "ogDescription": "Portfolio of Asterixh. High performance web solutions built with modern tools.",
+      "ogImage": {
+        "asset": {
+          "_createdAt": "2025-12-21T02:46:46Z",
+          "_id": "image-a765f2b1421d0246797f697ca1a00e4c0fe7591e-880x794-png",
+          "_originalId": "image-a765f2b1421d0246797f697ca1a00e4c0fe7591e-880x794-png",
+          "_rev": "lbhjHDOgjU8GdK0hpRPK6R",
+          "_type": "sanity.imageAsset",
+          "_updatedAt": "2025-12-21T02:46:46Z",
+          "assetId": "a765f2b1421d0246797f697ca1a00e4c0fe7591e",
+          "extension": "png",
+          "metadata": {
+            "_type": "sanity.imageMetadata",
+            "blurHash": "e23k.$S60K$y^k-6axELsm-pE1oL-pR-NG9[jZ={X99tE2jZ={R*EL",
+            "dimensions": {
+              "_type": "sanity.imageDimensions",
+              "aspectRatio": 1.1083123425692696,
+              "height": 794,
+              "width": 880
+            },
+            "hasAlpha": true,
+            "isOpaque": false,
+            "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAA7DAAAOwwHHb6hkAAADjElEQVR4nJ3UzWscZRwH8Gc3mbdn3md2Zmd2Znd2Z+dl32ZnNrub7YZNm6RJCKYWaYk01CoYFBXiQYrtbfHiSQz9A8RbUU8eRCw9eNFAKOhBI6KxoqIBEYSaSkoy88gWi4JQ2X7h4bn8+PA88H0eAP4n7XYb8/0Z1nGmOcdxCABACjxyTJMSVTvQjNKaqtvrWt7u+L7PPio6wco5X1HyrxXz5U/8sr/j2u6blmVFAABsXDQFgENIamnRM8s3T09NHV5YnD9a7k1v10vOeaAoDAAgPQ6aymabtO12zvXrrZ2n5wbx1bUzyXPLJ79YalY3aqYpjYUNh8P09PQK1+ktXZjvzN66NDtzfHl1Ln55qf/1szPNzY1eIzuaGQMdptvt5+Hs/PnllVOrHzyzsHDw6ur8vVcWT2y/NIjWXxwE4pggGIHYYOVi7eTcua3HBwv7l2ZP3HmqF737RKvSX3EcYhwwDUCWpiTHlPL1ZaPcertSqv3ad92DQdW/EVVq645TL4dhKIw6Ch6GmqZJZYyqK6jls5xsXWWkwju0kP9WkfR71XzxOKrU94Na80ZQb70ehlMXw7AbPayXadXt2EohuKLmKh+rmrsnKqXfWdE4kuUcsgtlVK8EcRR2DqZa3Z/CZvtW1W9u5fN2BwDwnxeUAtYpUvX6p5VC88OsWbmrm36s6k4sq8VE10uoVPKR7zVQFHaSKOzGnhccGabzuSSZG4BhMv/uZQoMh2m9fSYjWt0XOK3ypajax6ruJmrOS3TTRZ7XQPVadH+v1ULkeo0kq9sxx+u/kKS8heNM5W/wQdYmGKtXZbT6NUos7NO8EQuZYiKqNtIM5z4SBG1UsivIKvpI00uI5bIJSYl/4jj7ETFBLwEAyH9OqLchazQeYzL2TZLV7pCMcpcRzSNOKiBJKSDL8lCx6CNVK6KMUkAcr8UkxR8SJHuIkezuJEFvAkCrD8A0JQUmVLwrUDB3cSjdJijpM8gbv7GCiTjRQLJiIjljIl7MIZbXEgqKf2AE/Q2G03s4wf6I48xbGAZHn8bkCJzkNK/LyOXrUMh9T0D+fYLkrxG0+hVkdcTyeiLKBhKlHGJG14RSjBPszzgO38NxeJ2ihNsUFLZJknsSAMABoOuQlYtnaan4KS0aP0BG3iIoYRMjMzsEVBOaVRNR0tFo0Yyc4AQbYxj8DiOoNyDkhjyv7Ipido/n5csQQv0vXfXmTT5SEkQAAAAASUVORK5CYII=",
+            "palette": {
+              "_type": "sanity.imagePalette",
+              "darkMuted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#512d2a",
+                "foreground": "#fff",
+                "population": 1.17,
+                "title": "#fff"
+              },
+              "darkVibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#47100a",
+                "foreground": "#fff",
+                "population": 0.05,
+                "title": "#fff"
+              },
+              "dominant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#512d2a",
+                "foreground": "#fff",
+                "population": 1.17,
+                "title": "#fff"
+              },
+              "lightMuted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#c3a498",
+                "foreground": "#000",
+                "population": 0.18,
+                "title": "#fff"
+              },
+              "lightVibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#e8c2a4",
+                "foreground": "#000",
+                "population": 0.01,
+                "title": "#000"
+              },
+              "muted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#99685c",
+                "foreground": "#fff",
+                "population": 0.52,
+                "title": "#fff"
+              },
+              "vibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#843424",
+                "foreground": "#fff",
+                "population": 0,
+                "title": "#fff"
+              }
+            }
+          },
+          "mimeType": "image/png",
+          "originalFilename": "grok_1766282163458_1.png",
+          "path": "images/t6w9gnpo/portfolio/a765f2b1421d0246797f697ca1a00e4c0fe7591e-880x794.png",
+          "sha1hash": "a765f2b1421d0246797f697ca1a00e4c0fe7591e",
+          "size": 403604,
+          "uploadId": "W59hN2d8yyQPUhgt6a1YHTd9oP4gFj9U",
+          "url": "https://cdn.sanity.io/images/t6w9gnpo/portfolio/a765f2b1421d0246797f697ca1a00e4c0fe7591e-880x794.png"
+        }
+      },
+      "ogTitle": "Asterixh | Full Stack Developer",
+      "robots": "index, follow",
+      "structuredData": "",
+      "title": "Asterixh | Full Stack Developer",
+      "twitterDescription": "Modern web solutions created with React, Next.js and TypeScript.",
+      "twitterImage": {
+        "asset": {
+          "_createdAt": "2025-12-23T09:45:56Z",
+          "_id": "image-1e6172a24d8e16b59bc92695ad74e488e73a1ca9-713x739-png",
+          "_originalId": "image-1e6172a24d8e16b59bc92695ad74e488e73a1ca9-713x739-png",
+          "_rev": "GZA8SAwsKh0Q7JjyWiKkPx",
+          "_type": "sanity.imageAsset",
+          "_updatedAt": "2025-12-23T09:45:56Z",
+          "assetId": "1e6172a24d8e16b59bc92695ad74e488e73a1ca9",
+          "extension": "png",
+          "metadata": {
+            "_type": "sanity.imageMetadata",
+            "blurHash": "eD8XII00~q4n?bM{xuM{ozjY00_39F?bD%t7M{%2Rjfl%MIU%MIUxa",
+            "dimensions": {
+              "_type": "sanity.imageDimensions",
+              "aspectRatio": 0.9648173207036536,
+              "height": 739,
+              "width": 713
+            },
+            "hasAlpha": true,
+            "isOpaque": false,
+            "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAE40lEQVR4nJXTeWwUVRwH8NdC4c10Z+c+3rzZme0edGm72y1turS09AIWtNVWslE5Ai2lGkVsRRSNZhP0D40JGjGKUUiMcgQwHP4hRgmGmJgIQRA0TbkKYoxQi409KHTemOmBBUnUl/wymZfMZ36/N98B4M6VNU1EEcjrz0IObZnGovapglEKGF0EAEwF/3Nl0rKlTeeNVsijw5BHFyCnHoO8tjWLQ0shp1nuC/8rlgEsC3o0fxXNG3sgr12HnDpCccow5NVrkEdfTZfwasjrPgDAlH/HAMhEaIbEIn8bLeo/uBjkFAI51Ya8ZkMe9VEy/oxWzXogisz4M/dyMm6DnN9veTUzTYt69zhEKAE5lIDc67BHxsdY3WpmIhH3PDMnoRkTRjqddvfHbiSMw15Z30Tx2q8Ur9m0qBNawqMgLWi9vOrbrvnDc43Zs6m7Opwiy8DDMIyYreSoE2AWo+DZtIB2QV77AwrIpmWD0DImjKwTbOZ0RqPR9mSyEo13MQFmJpuaUGrFsoVLWpvblj62+unRTQ9CkkcyVlG8dgLy6i1K0olHNQmj+ojuDw5VVSQOr21eXP/FG+uyHceZGDEDGIBas6699q0PNu/4aO/2MzsO7OkEwDAoKAfLsyVzGy0a11jNJJzut1ndsgXdP1gQi51pWfLAxndfX597JJ2eyGKG22moNOR9/Z03H/3626Pfd3WfG7l45ZINaD1URKmBV6Hg6/Rq/pv+vBgJxeI31Zxwj2wGvisqKd7Y/uTykoMH0/TkD+GCFfdX8B/u/GRl5/mu038O9NuDN4YIoFDwFShZx6fzeIhRLBKKzSJlNdU90UTikB7IXR/OK4x3dKSouyPignXLG8WPP93der774pnBoSH7xvAwAZRsnoI87oM8IhSPiGKFSFF52ZU5ddXvReLx+axlcY7zj9yNgqnmZnn7vt1PdP98+ScXHBwcJAAK2uBYkFXHLa+MSU5efl+8PPF5LFHyiD6Wu3uCS9vb0M79e5+59MvlroGBAbv3eo8NKE4lFKc4lAuyipMtaES1ArfC0ejZvOL4yzOLiqy7onIbbH3uKWPnvj0vXrpy+cLAQL/d03vVBryEHA8/1h10YV4hnGbYejD0m5U7c7M/Gs0Ff4OjaBqAzFQqNWVJS4v12tub0ocOf3nxxKmTIydPnyIA64bDippDsYpDsbIDOZl4JGRLhtWLcoLb1ECgYPxXGy0XaysGWW1txVmVTU1o8cqVLY93dOxf+/yGc+0vvNQPNE13vILquGO7I0NWIdmCavPY14cCoV1mJFIMqsBUWZY9IYyNihk5sYeKA3OW1eQXpurnmcmGhvyy2trG/MTcLTNLq88CTdUc5jYojxbFKYRV8ZAWDB5FodAqRtHLRFFv8GG8IR40t1YXBA4sSuS/31BbuiZVv+DhxsbGFRULGrbEKpM/AqwjhxXvBN2z9Ej6iGCYVwXs+4aRtP1eAR1RNb0rZPp6CsP+gdK84NXigkjnrMLoibLysuNz6+afTdQs/B0YGDusNAZOLlpEjlc1bBb5bjAy7veIaIiV9REVYTtgmiQcDJBgKExCM/LsvGihHS8pHYmXlo8AHRsOL2kOPQlzu6R5zWEU7HDYsjndtD2ybmeLiHhEjSjY70Ris5xEZY1TUZN0ymuSpGreIlJ334PkLxz/rIYZ+qZ0AAAAAElFTkSuQmCC",
+            "palette": {
+              "_type": "sanity.imagePalette",
+              "darkMuted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#4d3931",
+                "foreground": "#fff",
+                "population": 0.17,
+                "title": "#fff"
+              },
+              "darkVibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#47200e",
+                "foreground": "#fff",
+                "population": 0.05,
+                "title": "#fff"
+              },
+              "dominant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#4d3931",
+                "foreground": "#fff",
+                "population": 0.17,
+                "title": "#fff"
+              },
+              "lightMuted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#cac5ab",
+                "foreground": "#000",
+                "population": 0.16,
+                "title": "#fff"
+              },
+              "lightVibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#d9ae86",
+                "foreground": "#000",
+                "population": 0.01,
+                "title": "#fff"
+              },
+              "muted": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#9d866a",
+                "foreground": "#fff",
+                "population": 0.14,
+                "title": "#fff"
+              },
+              "vibrant": {
+                "_type": "sanity.imagePaletteSwatch",
+                "background": "#ccac74",
+                "foreground": "#000",
+                "population": 0,
+                "title": "#fff"
+              }
+            }
+          },
+          "mimeType": "image/png",
+          "originalFilename": "grok_image_z1dvzw.png",
+          "path": "images/t6w9gnpo/portfolio/1e6172a24d8e16b59bc92695ad74e488e73a1ca9-713x739.png",
+          "sha1hash": "1e6172a24d8e16b59bc92695ad74e488e73a1ca9",
+          "size": 297986,
+          "uploadId": "ceQCzCDUFvYivvHmvfQMf6fURWbduFZI",
+          "url": "https://cdn.sanity.io/images/t6w9gnpo/portfolio/1e6172a24d8e16b59bc92695ad74e488e73a1ca9-713x739.png"
+        }
+      },
+      "twitterTitle": "Asterixh | Full Stack Developer"
+    },
+    "portfolioSection": {
+      "description": "Explore some of my recent projects that showcase my skills in web development, design, and problem-solving.",
+      "heading": [
+        {
+          "_key": "b8cb28394db9",
+          "_type": "part",
+          "text": "Let's have a",
+          "type": "even"
+        },
+        {
+          "_key": "6e23c7a2c39f",
+          "_type": "part",
+          "text": "Look at My Portfolio",
+          "type": "odd"
+        }
+      ],
+      "headline": "My Portfolio",
+      "projects": [
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwx0",
+          "excerpt": "Quizeen is a modern, interactive quiz-taking application built to make learning engaging, simple, and enjoyable. Designed and developed by Paul (aka Asterixh), the platform offers a smooth and intuitive user experience powered by a robust full-stack architecture.\n\nUsers can explore a variety of course-based quizzes, each featuring streamlined multiple-choice questions (A–D options). The system supports user authentication, customizable preferences, theme control, and optional quiz result saving — all optimized for performance, accessibility, and responsiveness.\n\nUnder the hood, Quizeen is engineered using production-grade practices, ensuring strong security, clean state management, and maintainable code. It’s a showcase of my expertise in building scalable, feature-rich web applications using modern technologies.",
+          "meta": {
+            "canonicalUrl": "https://codewithasterixh.vercel.app/projects/quizeen-interactive-quiz-platform",
+            "description": "Quizeen is an interactive learning platform featuring course-based quizzes, account customization, authentication – built using Next.js",
+            "keywords": [
+              "quiz app",
+              "interactive learning",
+              "full-stack development",
+              "Next.js",
+              "MongoDB",
+              "authentication",
+              "redux"
+            ],
+            "ogDescription": "A modern, interactive quiz platform with authentication, streamlined quizzes, and customizable user settings.",
+            "ogImage": {
+              "asset": {
+                "_ref": "image-a38c8bbd0423daa2a522f38238ca3df5a44f90dd-1369x651-png",
+                "_type": "reference"
+              }
+            },
+            "ogTitle": "Quizeen – Interactive Quiz Taking Platform",
+            "structuredData": "",
+            "title": "Quizeen – Interactive Quiz Taking Platform",
+            "twitterDescription": "A modern, interactive quiz platform with authentication, streamlined quizzes, and customizable user settings.",
+            "twitterImage": {
+              "asset": {
+                "_ref": "image-a38c8bbd0423daa2a522f38238ca3df5a44f90dd-1369x651-png",
+                "_type": "reference"
+              }
+            },
+            "twitterTitle": "Quizeen – Interactive Quiz Taking Platform"
+          },
+          "slug": {
+            "current": "quizeen-interactive-quiz-platform"
+          },
+          "tags": [
+            "Quiz taker",
+            "Full-stack",
+            "Database integration"
+          ],
+          "thumbnail": {
+            "asset": {
+              "_createdAt": "2025-11-20T12:17:38Z",
+              "_id": "image-a38c8bbd0423daa2a522f38238ca3df5a44f90dd-1369x651-png",
+              "_originalId": "image-a38c8bbd0423daa2a522f38238ca3df5a44f90dd-1369x651-png",
+              "_rev": "7URXz2pGPaz4rGIMDil1YQ",
+              "_type": "sanity.imageAsset",
+              "_updatedAt": "2025-11-20T12:17:38Z",
+              "assetId": "a38c8bbd0423daa2a522f38238ca3df5a44f90dd",
+              "extension": "png",
+              "metadata": {
+                "_type": "sanity.imageMetadata",
+                "blurHash": "M4RfnL_4~px]9Y~Wxtt7D%og%W%LM|IAs=",
+                "dimensions": {
+                  "_type": "sanity.imageDimensions",
+                  "aspectRatio": 2.1029185867895546,
+                  "height": 651,
+                  "width": 1369
+                },
+                "hasAlpha": true,
+                "isOpaque": false,
+                "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAB4klEQVR4nG3RyU4cMRAG4Hn/Fwk3colyyHJACjnklIhZEBEwMNN273ZttlvdrqibIRAUS9+hqqxftmpVFIW3ZcUeUGKMi/AsRJEQZD7MIrd393J+/l7enZ3J1dVGnPcCQAJIQsQeEe9XXe+C8zAg8cgS/uGBxqpqx8JW49GU4/7xOG621+N2dz3ashoBecQZycgSBRCLFSAPgDQ5AHXOKyAqsagH1Kbt1NhKja31UFg9Grv05tmsd35BLHn+EhDbJdB7nKq6VluWSyiRnMJKbbtOAVCrulkC55qItet7NdZq3TRKzDnE9BLYOpr2xunR9MoelVD0UII+mF7BgQqLFjXqvujV9V6FWG2Duj922jVOk0iOS6A8BVa9TLuD6P0BlVqnrie9MUFvHlHNQ6G3v+/0x/qgv24a7apeyaHuy6DXD6xN6TR5yPMaAZ5emDovk2k4lw1m6H12DrNtOR+sz9v1Nn/5/DV//HSRf65vc9u4DA5z1XE2Neeu9Zk8ZmaJHsiuWGI8bXV6C4mnojDTerOdNtvdZGw1IcvLHT6ROEmIgVnMKqXBpmGoUxrat2IaWpHQEvFCQlx6f+dxaENMi5gGE1LarYj4goi/EfPlfxFf4iuvZ3PtgC4d4HckvkDmD38AvnvvHd45NHUAAAAASUVORK5CYII=",
+                "palette": {
+                  "_type": "sanity.imagePalette",
+                  "darkMuted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#42504e",
+                    "foreground": "#fff",
+                    "population": 0.01,
+                    "title": "#fff"
+                  },
+                  "darkVibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#944434",
+                    "foreground": "#fff",
+                    "population": 0,
+                    "title": "#fff"
+                  },
+                  "dominant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#c9b8aa",
+                    "foreground": "#000",
+                    "population": 0.04,
+                    "title": "#fff"
+                  },
+                  "lightMuted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#c9b8aa",
+                    "foreground": "#000",
+                    "population": 0.04,
+                    "title": "#fff"
+                  },
+                  "lightVibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#74bcfc",
+                    "foreground": "#000",
+                    "population": 0.01,
+                    "title": "#fff"
+                  },
+                  "muted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#4a6faa",
+                    "foreground": "#fff",
+                    "population": 0.03,
+                    "title": "#fff"
+                  },
+                  "vibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#2280e2",
+                    "foreground": "#fff",
+                    "population": 0.02,
+                    "title": "#fff"
+                  }
+                }
+              },
+              "mimeType": "image/png",
+              "originalFilename": "image.png",
+              "path": "images/t6w9gnpo/portfolio/a38c8bbd0423daa2a522f38238ca3df5a44f90dd-1369x651.png",
+              "sha1hash": "a38c8bbd0423daa2a522f38238ca3df5a44f90dd",
+              "size": 42739,
+              "uploadId": "CcOxJ168MhTJr6bVBZZNtkL930SaJgEn",
+              "url": "https://cdn.sanity.io/images/t6w9gnpo/portfolio/a38c8bbd0423daa2a522f38238ca3df5a44f90dd-1369x651.png"
+            }
+          },
+          "title": "Quizeen – Interactive Quiz Taking Platform",
+          "tools": [
+            "Next.js (App Router)",
+            "React 19",
+            "Tailwind CSS",
+            "MongoDB + Mongoose",
+            "Redux Toolkit",
+            "Zod",
+            "JWT Authentication",
+            "Axios"
+          ],
+          "url": "https://quizeen.vercel.app",
+          "visibility": true
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwx1",
+          "excerpt": "WorkUp Cards is a fast and user-friendly business card creator designed to let anyone generate a high-quality card in minutes. Users simply choose from modern, creative, or corporate templates, fill in their details, and instantly download a ready-to-use high-resolution image.\n\nThe platform removes the need for design skills entirely, offering clean, professional layouts and an intuitive interface. From customizable colors and typography to instant export through HTML-to-image rendering, WorkUp Cards showcases my ability to build performant, interactive tools focused on accessibility, responsiveness, and excellent user experience.",
+          "meta": {
+            "canonicalUrl": "https://codewithasterixh.vercel.app/projects/workup-cards",
+            "description": "WorkUp Cards is a simple, fast, and free tool for creating professional business cards. Choose a template, customize your details",
+            "keywords": [
+              "business card generator",
+              "design tool",
+              "template editor",
+              "React",
+              "Tailwind CSS",
+              "GSAP animations"
+            ],
+            "ogDescription": "Create professional business cards instantly with customizable templates and high-res downloads.",
+            "ogImage": {
+              "asset": {
+                "_ref": "image-5d4eb8c33afc479c726d671ad29fdb1d7c0504ad-972x558-png",
+                "_type": "reference"
+              }
+            },
+            "ogTitle": "WorkUp Cards – Create Your Business Card in Minutes",
+            "structuredData": "",
+            "title": "WorkUp Cards – Create Your Business Card in Minutes",
+            "twitterDescription": "Create professional business cards instantly with customizable templates and high-res downloads.",
+            "twitterImage": {
+              "asset": {
+                "_ref": "image-5d4eb8c33afc479c726d671ad29fdb1d7c0504ad-972x558-png",
+                "_type": "reference"
+              }
+            },
+            "twitterTitle": "WorkUp Cards – Create Your Business Card in Minutes"
+          },
+          "slug": {
+            "current": "workup-cards-business-card-generator"
+          },
+          "tags": [
+            "Design Tool",
+            "Interactive UI",
+            "Image Generation"
+          ],
+          "thumbnail": {
+            "asset": {
+              "_createdAt": "2025-11-20T12:09:01Z",
+              "_id": "image-5d4eb8c33afc479c726d671ad29fdb1d7c0504ad-972x558-png",
+              "_originalId": "image-5d4eb8c33afc479c726d671ad29fdb1d7c0504ad-972x558-png",
+              "_rev": "7URXz2pGPaz4rGIMDikvVQ",
+              "_type": "sanity.imageAsset",
+              "_updatedAt": "2025-11-20T12:09:01Z",
+              "assetId": "5d4eb8c33afc479c726d671ad29fdb1d7c0504ad",
+              "extension": "png",
+              "metadata": {
+                "_type": "sanity.imageMetadata",
+                "blurHash": "M9NKL^s?00%J00%MjID%oy%200W9~qajtm",
+                "dimensions": {
+                  "_type": "sanity.imageDimensions",
+                  "aspectRatio": 1.7419354838709677,
+                  "height": 558,
+                  "width": 972
+                },
+                "hasAlpha": true,
+                "isOpaque": false,
+                "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAACkElEQVR4nHXRTU8aQRgHcO7GEwc+ApemH8IPQaQHEl/S1KQHLUhDmzSGTQz24KnprfVgFGsrTZoGAxobFBEUZgdQK4ICFuIblgWR3VnM/JtZq31LD/88M08yvzz7rMlisXQ5+vps4z4feTs1xWdmZ/nc/DwWAoH/JvDxIwI3Z+6fm+OTk5PE4XDYTCZTl8lsNnd7PJ7ehUBAjic2sZWSeZJQZLZ3kS8coHx0hEqlYqRaraJSraJULmM/n0duf59v7+zwYDBIhWE1m7sNcGxszL4YCtMkSWNjk/BYIoWknEXhsIR6ownGmBFd19FmKnLnZQTTqwhGl3mKEB6JrFKfz/c7KNmDi2G6mSRYi23ySHRDVBC6jePTM7RVDaqqQWMMF+0GPpXWMfT5JR6/esHnPrznoXCYjk9M2M13oCTZw0tfaHonj2T2gCczeWR2C8jlizg5q+GqrRqYAbYULJW24F15A5//NV9cCvHllZV/weDyKo3vniKy0+TxXAPF40ucf7+E0ryCqjLonY7xyUqzgYNqGZnDr8gVC7xULvP1WIxK0vifYGglSuXCBVJFxre/MZw3rnGldqBqOhjT78DLVgt1RUHrsgVN03i9rvBEIkElSfoFiktkNUorJzXUGipXWgwquwbTO9CYbuQGFHd2t09d7/C6ovCNv0Gv1/tgbS2artVqaLdVLh6IacRkYn+3OxQ9UY2fpGlgum5MKEBhWK3WblNPT4/F6XT2TU/PZGOxGAiROSEyZJmCyBQpIoseZEp/9mSkCDEiy5TH43Hu97/LCkNYpgHH0P1eW69zYGBwb3hkBC7XKHe5XKLC6RqF2/0UHs9zeDzPMOp23/VvMzzyhA8OPtyz2Xqd/f2P7v0A72+FUwIz/kUAAAAASUVORK5CYII=",
+                "palette": {
+                  "_type": "sanity.imagePalette",
+                  "darkMuted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#353644",
+                    "foreground": "#fff",
+                    "population": 0.54,
+                    "title": "#fff"
+                  },
+                  "darkVibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#18a96e",
+                    "foreground": "#fff",
+                    "population": 1.16,
+                    "title": "#fff"
+                  },
+                  "dominant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#18a96e",
+                    "foreground": "#fff",
+                    "population": 1.16,
+                    "title": "#fff"
+                  },
+                  "lightMuted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#bcc5ca",
+                    "foreground": "#000",
+                    "population": 1.1,
+                    "title": "#fff"
+                  },
+                  "lightVibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#f9faec",
+                    "foreground": "#000",
+                    "population": 0.19,
+                    "title": "#000"
+                  },
+                  "muted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#747484",
+                    "foreground": "#fff",
+                    "population": 0.04,
+                    "title": "#fff"
+                  },
+                  "vibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#3477e8",
+                    "foreground": "#fff",
+                    "population": 0.38,
+                    "title": "#fff"
+                  }
+                }
+              },
+              "mimeType": "image/png",
+              "originalFilename": "image.png",
+              "path": "images/t6w9gnpo/portfolio/5d4eb8c33afc479c726d671ad29fdb1d7c0504ad-972x558.png",
+              "sha1hash": "5d4eb8c33afc479c726d671ad29fdb1d7c0504ad",
+              "size": 151355,
+              "uploadId": "i3kvdt0wQgBWiMxdCHe7QkVDDzZ3fjKr",
+              "url": "https://cdn.sanity.io/images/t6w9gnpo/portfolio/5d4eb8c33afc479c726d671ad29fdb1d7c0504ad-972x558.png"
+            }
+          },
+          "title": "WorkUp Cards – Business Card Generator",
+          "tools": [
+            "React 19",
+            "React Router",
+            "Tailwind CSS",
+            "GSAP",
+            "Zod",
+            "React Hook Form",
+            "HTML2Canvas"
+          ],
+          "url": "https://workup-ashy.vercel.app/",
+          "visibility": false
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwx2",
+          "excerpt": "The WorldTimeSage is a time-tracking platform. including world clock, customizing themes, exploring timezone details, using offline capabilities, managing permissions, and installing the PWA\n\nit also includes a documentation, which demonstrates my ability to design comprehensive documentation systems with clean navigation, search-friendly structure, and accessible layouts. The project highlights skills in interface design, structured content architecture, UX writing, and building support tools for modern web applications.",
+          "meta": {
+            "canonicalUrl": "https://codewithasterixh.vercel.app/projects/worldtimesage-help-center",
+            "description": "WorldTimeSage, covering global time tracking, search features, timezone details, offline support, personalization, accessibility, and PWA installation.",
+            "keywords": [
+              "help center",
+              "documentation platform",
+              "world clock",
+              "timezone app",
+              "PWA",
+              "React",
+              "global time tracking"
+            ],
+            "ogDescription": "A complete help center for WorldTimeSage, guiding users through global time tracking, timezone details, offline usage, and customization.",
+            "ogImage": {
+              "asset": {
+                "_ref": "image-2a01cbd0c72e50fba09be51cefb62a0c98b55d55-972x558-png",
+                "_type": "reference"
+              }
+            },
+            "ogTitle": "WorldTimeSage Help Center – Complete User Guide",
+            "structuredData": "",
+            "title": "WorldTimeSage Help Center – Complete User Guide",
+            "twitterDescription": "A complete help center for WorldTimeSage, guiding users through global time tracking, timezone details, offline usage, and customization.",
+            "twitterImage": {
+              "asset": {
+                "_ref": "image-2a01cbd0c72e50fba09be51cefb62a0c98b55d55-972x558-png",
+                "_type": "reference"
+              }
+            },
+            "twitterTitle": "WorldTimeSage Help Center – Complete User Guide"
+          },
+          "slug": {
+            "current": "worldtimesage"
+          },
+          "tags": [
+            "Documentation",
+            "UX Writing",
+            "Support Center"
+          ],
+          "thumbnail": {
+            "asset": {
+              "_createdAt": "2025-11-20T12:19:36Z",
+              "_id": "image-2a01cbd0c72e50fba09be51cefb62a0c98b55d55-972x558-png",
+              "_originalId": "image-2a01cbd0c72e50fba09be51cefb62a0c98b55d55-972x558-png",
+              "_rev": "h3muukduqmJaCehd8JWhfA",
+              "_type": "sanity.imageAsset",
+              "_updatedAt": "2025-11-20T12:19:36Z",
+              "assetId": "2a01cbd0c72e50fba09be51cefb62a0c98b55d55",
+              "extension": "png",
+              "metadata": {
+                "_type": "sanity.imageMetadata",
+                "blurHash": "MBNdRHxu00t700NGaxM|WXWA00WB~qRk~q",
+                "dimensions": {
+                  "_type": "sanity.imageDimensions",
+                  "aspectRatio": 1.7419354838709677,
+                  "height": 558,
+                  "width": 972
+                },
+                "hasAlpha": true,
+                "isOpaque": false,
+                "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAACfklEQVR4nG2RP0/bQBiHs6NODPkILFU3vgASHdiQSuokA4IkIl0QxAlQhirCCnvbja5IFUvVDhVU/IkabFNo7RixMFdqRSGxE8f23dnO/apzqg4tw6M7vXd67n1/l0qn02OTk5OZ6enH5uzsLM9kMvypJCGXz2N+fh7FYhFLS0sJYi9q+XwOkiQJ+Nxchs/MzJjCkUqlxlLj4+MPSqWS9PLV6/a79x9weHTMm80mWq0WTlUVmqZB03Toup6sp6cqjk8+4+NBE58Om3x//4Dv7LyxyuWyJFyJ8EW9nj06aVo/ft7A8wNOCAGlFIQyBITC94moww9IQqdH8P3Gx50d8Nu7Dtd03Wo0GtLExMRIWK8r2VZLtTodG1EU8SiKwMIQlI0gVMBGsBADP4TjMnhByG2nx8/Ozy1FUbJ/O1T+CLtdG3Ecc8oY+gMPTs+F03fRcz34AQVl4qEokQo5ZSF3hPDsX6GiZFVVtWzbwXA45OKy7fTx666L246NrtPHwCOgYYQwisGiOJEKoX2/cDuraZrlOCOh6GLgBXD6PtyByI0miDzFWRhFIISCBoQ7ts3PLy4sZXv7fmE8jHkUx/BJiN5A5CTGjOEHDH03QBCECMXYvgfi9rjT7fwv3Npq5FRVvRQZhlHEkw5oCNdniVh05fsMvT6B5zEwFoEGAYg34Ha3mwi3Go1c8stTU1NpWV5b2N3dvVJVHYbZ5obZhmm2YRgmzLaFtnUJw7Tw9ZsJw2gnNXFmmCbXz77wt3t7V6uyvCBcqULh2SNJyskLheL18vIKVisyr1SqkOVaQq22jo3nm1jf2ES1tga5Wk2oyCNWViu8UCxdP8lI8uJi+eFv9KyDeX76RAoAAAAASUVORK5CYII=",
+                "palette": {
+                  "_type": "sanity.imagePalette",
+                  "darkMuted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#343544",
+                    "foreground": "#fff",
+                    "population": 0.51,
+                    "title": "#fff"
+                  },
+                  "darkVibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#04040c",
+                    "foreground": "#fff",
+                    "population": 0.02,
+                    "title": "#fff"
+                  },
+                  "dominant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#343544",
+                    "foreground": "#fff",
+                    "population": 0.51,
+                    "title": "#fff"
+                  },
+                  "lightMuted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#bdafb0",
+                    "foreground": "#000",
+                    "population": 0.21,
+                    "title": "#fff"
+                  },
+                  "lightVibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#e08f68",
+                    "foreground": "#000",
+                    "population": 0.03,
+                    "title": "#fff"
+                  },
+                  "muted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#5069b3",
+                    "foreground": "#fff",
+                    "population": 0.19,
+                    "title": "#fff"
+                  },
+                  "vibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#4488e8",
+                    "foreground": "#fff",
+                    "population": 0.01,
+                    "title": "#fff"
+                  }
+                }
+              },
+              "mimeType": "image/png",
+              "originalFilename": "image.png",
+              "path": "images/t6w9gnpo/portfolio/2a01cbd0c72e50fba09be51cefb62a0c98b55d55-972x558.png",
+              "sha1hash": "2a01cbd0c72e50fba09be51cefb62a0c98b55d55",
+              "size": 160689,
+              "uploadId": "WtJxyq95xwA2BCDsoJVydhVYxUfKPZW8",
+              "url": "https://cdn.sanity.io/images/t6w9gnpo/portfolio/2a01cbd0c72e50fba09be51cefb62a0c98b55d55-972x558.png"
+            }
+          },
+          "title": "WorldTimeSage",
+          "tools": [
+            "React",
+            "React Router",
+            "Tailwind CSS",
+            "Redux Toolkit",
+            "Framer Motion",
+            "Fuse.js",
+            "Recharts",
+            "Date-fns"
+          ],
+          "url": "https://worldtime-sage.vercel.app",
+          "visibility": true
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwx3",
+          "excerpt": "AsterMail is a flexible, high-performance email delivery service built with Node.js, Express, and Nodemailer. It supports dynamic SMTP configuration, autoresponse workflows, structured validation, logging, and robust error handling — making it ideal for SaaS platforms, dashboards, notification systems, and automated communication tools.\n\nThis project showcases my backend engineering expertise: designing secure APIs, implementing scalable email transport logic, building validation pipelines, and integrating reliable delivery flows suitable for production environments.",
+          "meta": {
+            "canonicalUrl": "https://codewithasterixh.vercel.app/projects/astermail",
+            "description": "A flexible Node.js email service with dynamic SMTP, autoresponse support, validation, and secure API architecture.",
+            "keywords": [
+              "email service",
+              "nodemailer",
+              "smtp",
+              "nodejs api",
+              "express backend",
+              "email automation",
+              "backend development"
+            ],
+            "ogDescription": "A Node.js and Express powered email service with dynamic SMTP configuration, autoresponses, validation, and secure API architecture.",
+            "ogImage": {},
+            "ogTitle": "AsterMail – Dynamic Email Delivery Service",
+            "structuredData": "",
+            "title": "AsterMail – Dynamic Email Delivery Service",
+            "twitterDescription": "A flexible Node.js email service with dynamic SMTP, autoresponse workflows, validation, and secure API architecture.",
+            "twitterImage": {},
+            "twitterTitle": "AsterMail – Dynamic Email Delivery Service"
+          },
+          "slug": {
+            "current": "astermail"
+          },
+          "tags": [
+            "Backend",
+            "API",
+            "Email Service"
+          ],
+          "thumbnail": {
+            "asset": null
+          },
+          "title": "AsterMail",
+          "tools": [
+            "Node.js",
+            "Express",
+            "Nodemailer",
+            "TypeScript",
+            "Helmet",
+            "Express Validator",
+            "Morgan"
+          ],
+          "url": "https://astermail.onrender.com/",
+          "visibility": true
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwx4",
+          "excerpt": "Geemex is an immersive gaming landing page template built with Vue.js, designed to showcase a futuristic survival game. The template highlights intense gameplay, tactical combat, cooperative multiplayer, hero stories, and in-game collectibles, offering a fully responsive and visually engaging user experience.\n\nIt demonstrates my ability to create interactive, high-performance frontend templates with modern UI design, clear content hierarchy, pricing tiers, subscription options, and promotional sections for gaming projects.",
+          "meta": {
+            "canonicalUrl": "https://codewithasterixh.vercel.app/projects/geemex",
+            "description": "Geemex is a Vue.js gaming landing page template that features immersive gameplay highlights, etc. Perfect for promoting survival and multiplayer games.",
+            "keywords": [
+              "gaming template",
+              "Vue.js",
+              "landing page",
+              "game showcase",
+              "interactive UI",
+              "frontend development",
+              "responsive design"
+            ],
+            "ogDescription": "A Vue.js landing page template showcasing a futuristic survival game with gameplay features, heroes, and subscription options.",
+            "ogImage": {},
+            "ogTitle": "Geemex – Gaming Landing Page Template",
+            "structuredData": "",
+            "title": "Geemex – Gaming Landing Page Template",
+            "twitterDescription": "A Vue.js landing page template showcasing a futuristic survival game with gameplay features, heroes, and subscription options.",
+            "twitterImage": {},
+            "twitterTitle": "Geemex – Gaming Landing Page Template"
+          },
+          "slug": {
+            "current": "geemex-gaming-landing-page-template"
+          },
+          "tags": [
+            "Gaming",
+            "Vue.js",
+            "Landing Page"
+          ],
+          "thumbnail": {
+            "asset": null
+          },
+          "title": "Geemex – Gaming Landing Page Template",
+          "tools": [
+            "Vue.js 3",
+            "Tailwind CSS",
+            "Vite",
+            "TypeScript",
+            "Vue TSC"
+          ],
+          "url": "https://geemex.vercel.app/"
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwx5",
+          "excerpt": "GitFinder is a simple and intuitive GitHub user search application built using HTML, CSS, JavaScript, and Bootstrap. Users can quickly look up GitHub profiles, view public repositories, and get basic information about developers. The project demonstrates frontend development skills, responsive design, and dynamic data handling using APIs without a backend.",
+          "meta": {
+            "canonicalUrl": "https://codewithasterixh.vercel.app/projects/gitfinder",
+            "description": "GitFinder is a GitHub user search tool built with HTML, CSS, JavaScript, and Bootstrap that allows users to view profiles, repositories, and user info quickly.",
+            "keywords": [
+              "GitHub user search",
+              "HTML",
+              "CSS",
+              "JavaScript",
+              "Bootstrap",
+              "frontend project",
+              "API integration"
+            ],
+            "ogDescription": "A GitHub user search application using HTML, CSS, JS, and Bootstrap to find profiles and repositories.",
+            "ogImage": {
+              "asset": {
+                "_ref": "image-3e10774c154d6c1c0c5f563a3d123ae1545f82ec-972x558-png",
+                "_type": "reference"
+              }
+            },
+            "ogTitle": "GitFinder – GitHub User Finder",
+            "structuredData": "",
+            "title": "GitFinder – GitHub User Finder",
+            "twitterDescription": "A GitHub user search application using HTML, CSS, JS, and Bootstrap to find profiles and repositories.",
+            "twitterImage": {
+              "asset": {
+                "_ref": "image-3e10774c154d6c1c0c5f563a3d123ae1545f82ec-972x558-png",
+                "_type": "reference"
+              }
+            },
+            "twitterTitle": "GitFinder – GitHub User Finder"
+          },
+          "slug": {
+            "current": "gitfinder-github-user-finder"
+          },
+          "tags": [
+            "Frontend",
+            "API",
+            "Bootstrap"
+          ],
+          "thumbnail": {
+            "asset": {
+              "_createdAt": "2025-11-20T12:28:04Z",
+              "_id": "image-3e10774c154d6c1c0c5f563a3d123ae1545f82ec-972x558-png",
+              "_originalId": "image-3e10774c154d6c1c0c5f563a3d123ae1545f82ec-972x558-png",
+              "_rev": "I2hLjysYkMCEINdktOXzE8",
+              "_type": "sanity.imageAsset",
+              "_updatedAt": "2025-11-20T12:28:04Z",
+              "assetId": "3e10774c154d6c1c0c5f563a3d123ae1545f82ec",
+              "extension": "png",
+              "metadata": {
+                "_type": "sanity.imageMetadata",
+                "blurHash": "MEM@itt700t70000ay%Mayt700WB~qWC_N",
+                "dimensions": {
+                  "_type": "sanity.imageDimensions",
+                  "aspectRatio": 1.7419354838709677,
+                  "height": 558,
+                  "width": 972
+                },
+                "hasAlpha": true,
+                "isOpaque": false,
+                "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAACI0lEQVR4nGWSy4oaURCGZx+yciEEXEzA7l50Ai58AcFXEHUhGc0MyW60u08wsxtRyIO4GDe+hJd4a7sVRvMCiuB9vLXaVaGOFzRp+Klzqv76uk73uXE6ne8+uFyB29uPuiCIIEkSCIKAkiShLMvo8XjQ6/Vy0VqWP/EaeQRBAFEUwe126y6XK0CsG4fD8d7n8wcjkS9NRVEwmUyCpmnIxUgMGfuBjDHUNHaMGqqqSoJ4PAHRaMzw+/1BYnFgIpEI5XI5o9FoYLf7BzqdDr52XrHdbqOuN5Hy9XoddV3nOaofBc1mE/L5vMEYC4qieACmUqlQoVAwBoMBzudzmM/n+LZ4w9lshqPRCIfDIRetKbdYLLiWyyWMx2OoVCpGJpMJnYG0OQGn0ylMp1PeSHEymeB4POaR9pc1evlwOIJqtWpkMr+ugaVSyaAJLMsCy7Jwu91yrVarM3C9Xp/z5CHvZDKBaq32/4QEpCbbtgEAkB6KBOn1etjv93Gz2eBljbyz2Qxq/wJTqUyoWCyegbZt8wYSTXM66m63O+fJcwJW+ZEJePzLz8/pcKFQMOlo+/0e9vv9qYH2HESy7es8eembEzCdTof5hD6fz6ko7C6bzbbL5TKapgmmaVI8qNXC1oWuaqYJvysVeHnJtRVFuSPWTSzy/XMwEFZisa/dx3gcVVUDVaWLy7joUid/PmEy+cTXp/zBo+FjPAH39w/dQCCoRKPf5L8LHWfNcEbZTAAAAABJRU5ErkJggg==",
+                "palette": {
+                  "_type": "sanity.imagePalette",
+                  "darkMuted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#343544",
+                    "foreground": "#fff",
+                    "population": 0.45,
+                    "title": "#fff"
+                  },
+                  "darkVibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#04040c",
+                    "foreground": "#fff",
+                    "population": 0.02,
+                    "title": "#fff"
+                  },
+                  "dominant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#343544",
+                    "foreground": "#fff",
+                    "population": 0.45,
+                    "title": "#fff"
+                  },
+                  "lightMuted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#b4b4bc",
+                    "foreground": "#000",
+                    "population": 0.02,
+                    "title": "#fff"
+                  },
+                  "lightVibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#9b9bdd",
+                    "foreground": "#000",
+                    "population": 0,
+                    "title": "#fff"
+                  },
+                  "muted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#777b84",
+                    "foreground": "#fff",
+                    "population": 0.03,
+                    "title": "#fff"
+                  },
+                  "vibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#3f3fbf",
+                    "foreground": "#fff",
+                    "population": 0,
+                    "title": "#fff"
+                  }
+                }
+              },
+              "mimeType": "image/png",
+              "originalFilename": "image.png",
+              "path": "images/t6w9gnpo/portfolio/3e10774c154d6c1c0c5f563a3d123ae1545f82ec-972x558.png",
+              "sha1hash": "3e10774c154d6c1c0c5f563a3d123ae1545f82ec",
+              "size": 98334,
+              "uploadId": "0MxKzjf7wg2htyYrXfmTFI1Uq4mwpDsO",
+              "url": "https://cdn.sanity.io/images/t6w9gnpo/portfolio/3e10774c154d6c1c0c5f563a3d123ae1545f82ec-972x558.png"
+            }
+          },
+          "title": "GitFinder – GitHub User Finder",
+          "tools": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Bootstrap"
+          ],
+          "url": "https://codewithasterixh.github.io/gitfinder.com/"
+        },
+        {
+          "_key": "64989227946e",
+          "excerpt": "Anonfly is built on the principle of \"Privacy by Design.\" It leverages cryptographic identities and end-to-end encryption to ensure that conversations remain between participants.",
+          "meta": {
+            "canonicalUrl": "https://anonfly.vercel.app",
+            "description": "a secure, real-time, and anonymous chat application",
+            "keywords": [
+              "Anonfly",
+              "Chat",
+              "cat",
+              "realtime chat",
+              "anonymous",
+              "conversation"
+            ],
+            "ogDescription": "a secure, real-time, and anonymous chat application",
+            "ogImage": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-a8812cb95d0273d9b2ff318e402657624e2e4b18-512x512-svg",
+                "_type": "reference"
+              }
+            },
+            "ogTitle": "Anonfly",
+            "title": "Anonfly",
+            "twitterDescription": "a secure, real-time, and anonymous chat application",
+            "twitterImage": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-a8812cb95d0273d9b2ff318e402657624e2e4b18-512x512-svg",
+                "_type": "reference"
+              }
+            },
+            "twitterTitle": "Anonfly"
+          },
+          "slug": {
+            "current": "anonfly"
+          },
+          "tags": [
+            "anonfly",
+            "chatapp",
+            "app"
+          ],
+          "thumbnail": {
+            "_type": "image",
+            "asset": {
+              "_createdAt": "2025-12-28T21:30:54Z",
+              "_id": "image-a8812cb95d0273d9b2ff318e402657624e2e4b18-512x512-svg",
+              "_originalId": "image-a8812cb95d0273d9b2ff318e402657624e2e4b18-512x512-svg",
+              "_rev": "GZA8SAwsKh0Q7JjyWnl21Q",
+              "_type": "sanity.imageAsset",
+              "_updatedAt": "2025-12-28T21:30:54Z",
+              "assetId": "a8812cb95d0273d9b2ff318e402657624e2e4b18",
+              "extension": "svg",
+              "metadata": {
+                "_type": "sanity.imageMetadata",
+                "blurHash": "eE4MuvkEL}aJn$fzf6e?fkawHqadx|kCb#ojfkacf6kEx_j[Sma~nd",
+                "dimensions": {
+                  "_type": "sanity.imageDimensions",
+                  "aspectRatio": 1,
+                  "height": 512,
+                  "width": 512
+                },
+                "hasAlpha": true,
+                "isOpaque": false,
+                "lqip": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAADpElEQVR4nKWUy28TVxTGnQRCS7sA0UgIVFHFJvH7kbE9d8A0JW1FRGjFolaagLGaxE5Sx3GCSewY23ccilylFVJRFoQuSLuEBf9CK1ZhBVLFwiix8/BzbM+MZ2xHQuqpxtBuWhFH/aQjXV3p/HTO/T5dmawZYWht1P8ShtZezB4hF3dVZ3HNJpV0lu72Dwdosd2udFCYv4SwsIhwbRnFassUXY1RMXHAtlDpkMmgpWkegeEwhYU+FBN/pGLCEhkVXSQtuigsLCG6+gOF2T4Cpw83DUTfwckztOClYuIddEvsJzB8IBXC9X4K1+4gWvCiUPXkPqar9yEsLqNo5ScyLF40+0ta/XRJSwTKA9YQf9cS4pd7/Gwf4W5iShvmu6iIsERGKs+sIf6pOcA9IuZKD0yzzAOTj3lkmik+NfiYZ3pPbkk5ttP1NlbLKQzvULH6BTIs/GYNVeqWBa5GzLF8j7/EmmYZ1jBd4PWefE03matrJtK/6735fjS79e5/GAQten/2PUtY0JC0GLDerCSsCzyYAywQN8pgmi2C0ceAfioPum9zoBnPgHY889I4UwyhsKBTY3hfSsZrFoZWA2aPWDBnlpwko8Iv1hCfPhfm4Is4B5fjHJwPleCThSJcootw4WYBejwZCZrumWd/RbgyYY5ULbogd7SRTzX+ox3hugJFhSuIFuJkVHhsDnLZz2McTP9cgfnVCtjjZfjqdhH891mYuFuCszMZULnSWWK+/BjFhO9JLFwlw/xpiSWTPYQ2CxaPWyPCeURXxi0R4R4xx6bOBEswsFiGLxdL8PF8Ac7dyMPFcB4+C2TB6N4G5eh2yugv30N0Ver51DTHnJBhOPA6Km44KK1tjtc7iWDZabrOrBl9zCvDdAH0njxoJ7OgcWdANboDym+2oeva5qsuR2pN7ck7iVuc3BbkjhIrcPDf5tgftumvF0wGX2HV4C2UGyZM5how9Vi6Aet2bsHpq8myYmh9VeFImqSet+bQ6M106KZyLp0nv6abyO1KjjZgI3/DUrvy4eSa/OuXruP2RMeewe7FcEA7xSi1k5moxp15rhpL11UjO29gm3X58MbzzqGN6KmhpFLW++bN9pLC++chnXtLpx5NB7tHtp90O7cYhSPFyIc3nnQOJoOd9nWdwps4JNuP1BjaNdc25V3OlEPhSK7Ih9dXPhrccHw4mJCr7dC+L9g/skOb0vHimOJKSq2wJ9QnLr84tqcJzakRh6Y+1L8AfQLt84L4z2MAAAAASUVORK5CYII=",
+                "palette": {
+                  "_type": "sanity.imagePalette",
+                  "darkMuted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#2a3237",
+                    "foreground": "#fff",
+                    "population": 0.01,
+                    "title": "#fff"
+                  },
+                  "darkVibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#09258b",
+                    "foreground": "#fff",
+                    "population": 0.03,
+                    "title": "#fff"
+                  },
+                  "dominant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#acd1fa",
+                    "foreground": "#000",
+                    "population": 0.09,
+                    "title": "#000"
+                  },
+                  "lightMuted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#9caccc",
+                    "foreground": "#000",
+                    "population": 0,
+                    "title": "#fff"
+                  },
+                  "lightVibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#acd1fa",
+                    "foreground": "#000",
+                    "population": 0.09,
+                    "title": "#000"
+                  },
+                  "muted": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#6c8494",
+                    "foreground": "#fff",
+                    "population": 0,
+                    "title": "#fff"
+                  },
+                  "vibrant": {
+                    "_type": "sanity.imagePaletteSwatch",
+                    "background": "#1484fc",
+                    "foreground": "#fff",
+                    "population": 0,
+                    "title": "#fff"
+                  }
+                }
+              },
+              "mimeType": "image/svg+xml",
+              "originalFilename": "logo.svg",
+              "path": "images/t6w9gnpo/portfolio/a8812cb95d0273d9b2ff318e402657624e2e4b18-512x512.svg",
+              "sha1hash": "a8812cb95d0273d9b2ff318e402657624e2e4b18",
+              "size": 972,
+              "uploadId": "zKHv0CQLnSFwhwoHMem74B7lXAQD9xBm",
+              "url": "https://cdn.sanity.io/images/t6w9gnpo/portfolio/a8812cb95d0273d9b2ff318e402657624e2e4b18-512x512.svg"
+            }
+          },
+          "title": "Anonfly - Anonymous messaging platform",
+          "tools": [
+            "Express.js (TypeScript)",
+            "MongoDB (Mongoose)",
+            "WebSockets (`ws`) and Server-Sent Events (SSE)",
+            "Redis",
+            "React Router v7 (SSR-ready)",
+            "Tailwind CSS v4 (Modern, utility-first)",
+            "IndexedDB"
+          ],
+          "url": "https://anonfly.vercel.app",
+          "visibility": true
+        }
+      ]
+    },
+    "pricingSection": {
+      "heading": [
+        {
+          "_key": "47e0db896e7a",
+          "_type": "part",
+          "text": "Simple",
+          "type": "even"
+        },
+        {
+          "_key": "115e224da1bd",
+          "_type": "part",
+          "text": "Pricing Plans",
+          "type": "odd"
+        }
+      ],
+      "headline": "My Pricing Model",
+      "plans": [
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwyk",
+          "country_discounts": [
+            {
+              "_key": "6e573157472a",
+              "country": "Nigeria",
+              "countryCode": "NGN",
+              "discountedPercent": 80
+            }
+          ],
+          "duration": "Feature based",
+          "features": [
+            "1-page website",
+            "Responsive layout",
+            "Basic SEO setup",
+            "1-2 weeks delivery",
+            "Maximum 2 revisions"
+          ],
+          "highlight": false,
+          "name": "Basic",
+          "price": "$150 to $300"
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwzK",
+          "country_discounts": [
+            {
+              "_key": "944f049b6801",
+              "country": "Nigeria",
+              "countryCode": "NGN",
+              "discountedPercent": 80
+            }
+          ],
+          "duration": "Feature based",
+          "features": [
+            "Up to 5 pages",
+            "CMS integration",
+            "Performance optimization",
+            "Priority support",
+            "maximum of 12 revisions"
+          ],
+          "highlight": true,
+          "name": "Standard",
+          "price": "$900 to $1800"
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwzu",
+          "country_discounts": [
+            {
+              "_key": "f1d360bd5228",
+              "country": "Nigeria",
+              "countryCode": "NGN",
+              "discountedPercent": 80
+            }
+          ],
+          "duration": "Task based",
+          "features": [
+            "Full website design/redesign",
+            "Dashboard & API setup",
+            "SEO optimization",
+            "Dedicated support",
+            "3 months+ maintenance",
+            "maximum of 3 revisions daily"
+          ],
+          "highlight": false,
+          "name": "Advanced",
+          "price": "$2500 to $5000"
+        }
+      ]
+    },
+    "servicesSection": {
+      "heading": [
+        {
+          "_key": "1aa419278b89",
+          "_type": "part",
+          "text": "Services",
+          "type": "odd"
+        },
+        {
+          "_key": "4bed7359a5d9",
+          "_type": "part",
+          "text": "I Provide",
+          "type": "even"
+        }
+      ],
+      "headline": "My Specialization",
+      "intro": "I offer comprehensive web development services tailored to meet your business needs. From responsive websites to complex web applications, I deliver high-quality solutions that drive results.",
+      "items": [
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwtW",
+          "description": "Custom, responsive websites built with a mobile-first mindset to ensure fast performance and seamless user experience across all devices.",
+          "image": {
+            "asset": null
+          },
+          "index": 1,
+          "label": "Website Development",
+          "tags": [
+            "Mobile-first approach",
+            "Responsive design",
+            "Performance optimization",
+            "Cross-browser compatibility"
+          ]
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwu6",
+          "description": "Ongoing site maintenance including content updates, security monitoring, regular backups, and performance analytics to keep your site running smoothly.",
+          "image": {
+            "asset": null
+          },
+          "index": 2,
+          "label": "Website Management",
+          "tags": [
+            "Content updates",
+            "Security monitoring",
+            "Backup & recovery",
+            "Performance analytics"
+          ]
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwug",
+          "description": "Comprehensive SEO services—from keyword research and on-page tweaks to technical audits and link building—to boost your organic search rankings.",
+          "image": {
+            "asset": null
+          },
+          "index": 3,
+          "label": "SEO Optimization",
+          "tags": [
+            "Keyword research",
+            "On-page optimization",
+            "Link building",
+            "Technical SEO"
+          ]
+        }
+      ]
+    },
+    "technologiesSection": {
+      "heading": [
+        {
+          "_key": "9d1ff878e6d0",
+          "_type": "part",
+          "text": "Tools & Services That",
+          "type": "even"
+        },
+        {
+          "_key": "5555974ee81b",
+          "_type": "part",
+          "text": "Power My Work",
+          "type": "odd"
+        }
+      ],
+      "headline": "My Favorite Technologies",
+      "items": [
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwni",
+          "icon": "figma",
+          "name": "Figma",
+          "proficiency": 70
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwoI",
+          "icon": "vscode",
+          "name": "VS Code",
+          "proficiency": 100
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwos",
+          "icon": "nextjs",
+          "name": "Next.js",
+          "proficiency": 95
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwpS",
+          "icon": "nuxtjs",
+          "name": "Nuxt.js",
+          "proficiency": 95
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwq2",
+          "icon": "tailwindcss",
+          "name": "Tailwind CSS",
+          "proficiency": 98
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwqc",
+          "icon": "shadcnui",
+          "name": "Shadcn/UI",
+          "proficiency": 90
+        },
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwrC",
+          "icon": "gsap",
+          "name": "GSAP",
+          "proficiency": 70
+        },
+        {
+          "_key": "e4e5896db527",
+          "_type": "toolItem",
+          "icon": "mongodb",
+          "name": "Mongo db",
+          "proficiency": 90
+        },
+        {
+          "_key": "753e921e0fa2",
+          "_type": "toolItem",
+          "icon": "python",
+          "name": "Python",
+          "proficiency": 80
+        },
+        {
+          "_key": "40179df931bf",
+          "_type": "toolItem",
+          "icon": "python",
+          "name": "Fast API",
+          "proficiency": 80
+        }
+      ]
+    },
+    "testimonialsSection": {
+      "heading": [
+        {
+          "_key": "4cc57866b394",
+          "_type": "part",
+          "text": "What My",
+          "type": "even"
+        },
+        {
+          "_key": "7a7dea146236",
+          "_type": "part",
+          "text": "Clients Say",
+          "type": "odd"
+        }
+      ],
+      "headline": "Client Feedback",
+      "testimonials": [
+        {
+          "_key": "HN3hixh3LHK5WHxDmgUwvG",
+          "avatar": {
+            "asset": null
+          },
+          "feedback": "Paul was professional and efficient. He delivered our project with exceptional quality. The attention to detail was impressive.",
+          "name": "Shauna Shaw",
+          "rating": 5,
+          "role": "Ceo, Broome services"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,146 @@
+[
+  {
+    "title": "Quizeen – Interactive Quiz Taking Platform",
+    "excerpt": "Quizeen is a modern, interactive quiz-taking application built to make learning engaging, simple, and enjoyable. Designed and developed by Paul (aka Asterixh), the platform offers a smooth and intuitive user experience powered by a robust full-stack architecture.\n\nUsers can explore a variety of course-based quizzes, each featuring streamlined multiple-choice questions (A–D options). The system supports user authentication, customizable preferences, theme control, and optional quiz result saving — all optimized for performance, accessibility, and responsiveness.\n\nUnder the hood, Quizeen is engineered using production-grade practices, ensuring strong security, clean state management, and maintainable code. It’s a showcase of my expertise in building scalable, feature-rich web applications using modern technologies.",
+    "thumbnail": "/images/projects/quizeen-interactive-quiz-platform.png",
+    "tags": [
+      "Quiz taker",
+      "Full-stack",
+      "Database integration"
+    ],
+    "tools": [
+      "Next.js (App Router)",
+      "React 19",
+      "Tailwind CSS",
+      "MongoDB + Mongoose",
+      "Redux Toolkit",
+      "Zod",
+      "JWT Authentication",
+      "Axios"
+    ],
+    "url": "https://quizeen.vercel.app",
+    "slug": "quizeen-interactive-quiz-platform"
+  },
+  {
+    "title": "WorkUp Cards – Business Card Generator",
+    "excerpt": "WorkUp Cards is a fast and user-friendly business card creator designed to let anyone generate a high-quality card in minutes. Users simply choose from modern, creative, or corporate templates, fill in their details, and instantly download a ready-to-use high-resolution image.\n\nThe platform removes the need for design skills entirely, offering clean, professional layouts and an intuitive interface. From customizable colors and typography to instant export through HTML-to-image rendering, WorkUp Cards showcases my ability to build performant, interactive tools focused on accessibility, responsiveness, and excellent user experience.",
+    "thumbnail": "/images/projects/workup-cards-business-card-generator.png",
+    "tags": [
+      "Design Tool",
+      "Interactive UI",
+      "Image Generation"
+    ],
+    "tools": [
+      "React 19",
+      "React Router",
+      "Tailwind CSS",
+      "GSAP",
+      "Zod",
+      "React Hook Form",
+      "HTML2Canvas"
+    ],
+    "url": "https://workup-ashy.vercel.app/",
+    "slug": "workup-cards-business-card-generator"
+  },
+  {
+    "title": "WorldTimeSage",
+    "excerpt": "The WorldTimeSage is a time-tracking platform. including world clock, customizing themes, exploring timezone details, using offline capabilities, managing permissions, and installing the PWA\n\nit also includes a documentation, which demonstrates my ability to design comprehensive documentation systems with clean navigation, search-friendly structure, and accessible layouts. The project highlights skills in interface design, structured content architecture, UX writing, and building support tools for modern web applications.",
+    "thumbnail": "/images/projects/worldtimesage.png",
+    "tags": [
+      "Documentation",
+      "UX Writing",
+      "Support Center"
+    ],
+    "tools": [
+      "React",
+      "React Router",
+      "Tailwind CSS",
+      "Redux Toolkit",
+      "Framer Motion",
+      "Fuse.js",
+      "Recharts",
+      "Date-fns"
+    ],
+    "url": "https://worldtime-sage.vercel.app",
+    "slug": "worldtimesage"
+  },
+  {
+    "title": "AsterMail",
+    "excerpt": "AsterMail is a flexible, high-performance email delivery service built with Node.js, Express, and Nodemailer. It supports dynamic SMTP configuration, autoresponse workflows, structured validation, logging, and robust error handling — making it ideal for SaaS platforms, dashboards, notification systems, and automated communication tools.\n\nThis project showcases my backend engineering expertise: designing secure APIs, implementing scalable email transport logic, building validation pipelines, and integrating reliable delivery flows suitable for production environments.",
+    "thumbnail": null,
+    "tags": [
+      "Backend",
+      "API",
+      "Email Service"
+    ],
+    "tools": [
+      "Node.js",
+      "Express",
+      "Nodemailer",
+      "TypeScript",
+      "Helmet",
+      "Express Validator",
+      "Morgan"
+    ],
+    "url": "https://astermail.onrender.com/",
+    "slug": "astermail"
+  },
+  {
+    "title": "Geemex – Gaming Landing Page Template",
+    "excerpt": "Geemex is an immersive gaming landing page template built with Vue.js, designed to showcase a futuristic survival game. The template highlights intense gameplay, tactical combat, cooperative multiplayer, hero stories, and in-game collectibles, offering a fully responsive and visually engaging user experience.\n\nIt demonstrates my ability to create interactive, high-performance frontend templates with modern UI design, clear content hierarchy, pricing tiers, subscription options, and promotional sections for gaming projects.",
+    "thumbnail": null,
+    "tags": [
+      "Gaming",
+      "Vue.js",
+      "Landing Page"
+    ],
+    "tools": [
+      "Vue.js 3",
+      "Tailwind CSS",
+      "Vite",
+      "TypeScript",
+      "Vue TSC"
+    ],
+    "url": "https://geemex.vercel.app/",
+    "slug": "geemex-gaming-landing-page-template"
+  },
+  {
+    "title": "GitFinder – GitHub User Finder",
+    "excerpt": "GitFinder is a simple and intuitive GitHub user search application built using HTML, CSS, JavaScript, and Bootstrap. Users can quickly look up GitHub profiles, view public repositories, and get basic information about developers. The project demonstrates frontend development skills, responsive design, and dynamic data handling using APIs without a backend.",
+    "thumbnail": "/images/projects/gitfinder-github-user-finder.png",
+    "tags": [
+      "Frontend",
+      "API",
+      "Bootstrap"
+    ],
+    "tools": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Bootstrap"
+    ],
+    "url": "https://codewithasterixh.github.io/gitfinder.com/",
+    "slug": "gitfinder-github-user-finder"
+  },
+  {
+    "title": "Anonfly - Anonymous messaging platform",
+    "excerpt": "Anonfly is built on the principle of \"Privacy by Design.\" It leverages cryptographic identities and end-to-end encryption to ensure that conversations remain between participants.",
+    "thumbnail": "/images/projects/anonfly.svg",
+    "tags": [
+      "anonfly",
+      "chatapp",
+      "app"
+    ],
+    "tools": [
+      "Express.js (TypeScript)",
+      "MongoDB (Mongoose)",
+      "WebSockets (`ws`) and Server-Sent Events (SSE)",
+      "Redis",
+      "React Router v7 (SSR-ready)",
+      "Tailwind CSS v4 (Modern, utility-first)",
+      "IndexedDB"
+    ],
+    "url": "https://anonfly.vercel.app",
+    "slug": "anonfly"
+  }
+]
