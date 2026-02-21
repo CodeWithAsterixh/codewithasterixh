@@ -8,7 +8,7 @@ export const contentType = "image/png";
 
 type weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 
-export default async function Icon() {
+export default async function Image() {
   // Fetch the profile image
   const imageRes = await fetch(
     new URL("/images/my-photo.png", "https://codewithasterixh.vercel.app")
@@ -30,12 +30,12 @@ export default async function Icon() {
     fontsMeta.push({ weight: Number.parseInt(m[1], 10), url: m[2] });
   }
 
-  // 3. Fetch each font in parallel
+  // 2. Fetch each font in parallel
   const buffers = await Promise.all(
     fontsMeta.map((f) => fetch(f.url).then((res) => res.arrayBuffer()))
   );
 
-  // 4. Build the fonts array
+  // 3. Build the fonts array
   const fonts: {
     name: string;
     data: ArrayBuffer;
@@ -59,7 +59,6 @@ export default async function Icon() {
           justifyContent: "center",
           position: "relative",
           backgroundColor: "#0F0F0F",
-          borderRadius: "20%",
         }}
       >
         {/* Profile Image */}
@@ -71,25 +70,24 @@ export default async function Icon() {
             "base64"
           )}`}
           style={{
-            objectFit: "cover",
+            objectFit: "contain",
+            opacity: 0.3,
             position: "absolute",
-            top: 0,
-            left: 0,
-            opacity: 0.8,
-            borderRadius: "20%",
+            right: "-20%",
           }}
           alt="Profile"
         />
-        {/* Overlay PAUL */}
+        {/* Overlay Content */}
         <div
           style={{
-            position: "absolute",
-            top: '50%',
-            left: '50%',
-            transform: "translate(-50%, -50%)",
             display: "flex",
-            alignItems: "center",
+            flexDirection: "column",
+            alignItems: "flex-start",
             justifyContent: "center",
+            padding: "80px",
+            width: "100%",
+            height: "100%",
+            zIndex: 10,
           }}
         >
           <span
@@ -99,12 +97,26 @@ export default async function Icon() {
               background:
                 "radial-gradient(circle at 5% 40%, #c2fd00 20%, #cebef4 60%, #001b20 100%)",
               color: "transparent",
-              fontSize: "54px", // Scaled for 180px
+              fontSize: "80px",
               fontFamily: '"Bitcount", sans-serif',
               fontWeight: 700,
+              lineHeight: 1,
+              marginBottom: "20px",
             }}
           >
-            PAUL
+            ASTERIXH
+          </span>
+           <span
+            style={{
+              color: "#ffffff",
+              fontSize: "40px",
+              fontFamily: 'sans-serif',
+              fontWeight: 400,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+            }}
+          >
+            Full Stack Developer
           </span>
         </div>
       </div>

@@ -1,11 +1,14 @@
 import { ImageResponse } from "next/og";
+
 export const size = {
   width: 500,
   height: 500,
 };
 export const contentType = "image/png";
+
 type weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
-export default async function Icon() {
+
+export default async function Image() {
   // Fetch the profile image
   const imageRes = await fetch(
     new URL("/images/my-photo.png", "https://codewithasterixh.vercel.app")
@@ -33,7 +36,6 @@ export default async function Icon() {
   );
 
   // 3. Build the fonts array
-
   const fonts: {
     name: string;
     data: ArrayBuffer;
@@ -56,6 +58,7 @@ export default async function Icon() {
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
+          backgroundColor: "#0F0F0F",
         }}
       >
         {/* Profile Image */}
@@ -67,22 +70,24 @@ export default async function Icon() {
             "base64"
           )}`}
           style={{
-            objectFit: "cover",
-            borderRadius: "50%",
-            background: "rgba(0, 27, 32, 1)", // Semi-transparent overlay
+            objectFit: "contain",
+            opacity: 0.3,
+            position: "absolute",
+            right: "-20%",
           }}
           alt="Profile"
         />
-        {/* Overlay PAUL */}
+        {/* Overlay Content */}
         <div
           style={{
-            position: "absolute",
-            top: '50%',
-            left: '50%',
-            transform: "translate(-50%)",
             display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            justifyContent: "center",
+            padding: "80px",
+            width: "100%",
+            height: "100%",
+            zIndex: 10,
           }}
         >
           <span
@@ -92,23 +97,33 @@ export default async function Icon() {
               background:
                 "radial-gradient(circle at 5% 40%, #c2fd00 20%, #cebef4 60%, #001b20 100%)",
               color: "transparent",
-              fontSize: "150px", // 70% of 500px
+              fontSize: "80px",
               fontFamily: '"Bitcount", sans-serif',
-              fontOpticalSizing: "auto",
-              fontVariationSettings:
-                '"wght" 400, "slnt" 0, "CRSV" 0.5, "ELSH" 0, "ELXP" 0',
-              marginTop: "50px",
-              marginLeft: "10px",
+              fontWeight: 700,
+              lineHeight: 1,
+              marginBottom: "20px",
             }}
           >
-            PAUL
+            ASTERIXH
+          </span>
+           <span
+            style={{
+              color: "#ffffff",
+              fontSize: "40px",
+              fontFamily: 'sans-serif',
+              fontWeight: 400,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+            }}
+          >
+            Full Stack Developer
           </span>
         </div>
       </div>
     ),
     {
-      fonts,
       ...size,
+      fonts: fonts.length > 0 ? fonts : undefined,
     }
   );
 }
