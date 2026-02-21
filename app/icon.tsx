@@ -8,7 +8,7 @@ type weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 export default async function Icon() {
   // Fetch the profile image
   const imageRes = await fetch(
-    new URL("/images/me-cut-1.png", "https://codewithasterixh.vercel.app")
+    new URL("/images/my-photo.png", "https://codewithasterixh.vercel.app")
   );
   const imageBuffer = await imageRes.arrayBuffer();
 

@@ -10,7 +10,7 @@ export const JsonLd = () => {
     alternateName: profile.alias,
     jobTitle: profile.role,
     url: metaData.site.url,
-    image: `${metaData.site.url}/images/me-cut-1.png`,
+    image: `${metaData.site.url}/images/my-photo.png`,
     sameAs: profile.socials.map((s) => s.href),
     description: profile.about.content,
     worksFor: {
