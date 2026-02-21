@@ -1,14 +1,14 @@
 {
   "site": {
-    "title": "CodeWithAsterixh | Asterixh | Full Stack Developer",
-    "description": "CodeWithAsterixh (Asterixh) builds fast and structured web applications with Next.js, React and TypeScript. View projects, skills and results.",
+    "title": "Asterixh | Asterixh | Full Stack Developer",
+    "description": "Asterixh (Asterixh) builds fast and structured web applications with Next.js, React and TypeScript. View projects, skills and results.",
     "keywords": [
-      "CodeWithAsterixh", "Asterixh", "Paul Peter", "Full Stack Developer", "Next.js Developer", "React Developer",
+      "Asterixh", "Asterixh", "Paul Peter", "Full Stack Developer", "Next.js Developer", "React Developer",
       "TypeScript Developer", "Web Developer", "Nigeria Developer", "Frontend Developer", "Backend Developer",
       "Software Engineer", "Web Applications", "Modern Web Solutions"
     ],
     "url": "https://asterixh.vercel.app",
-    "logo": "CodeWithAsterixh",
+    "logo": "Asterixh",
     "copyright": "Asterixh"
   },
   "navigation": [

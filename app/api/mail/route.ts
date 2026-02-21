@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
 
     const { fullName, email, subject, message } = validatedData;
 
-    const businessEmail = process.env.FROM_EMAIL || "codewithasterixh@gmail.com";
+    const businessEmail = process.env.FROM_EMAIL || "asterixh@gmail.com";
 
     const mailSubject = `New Contact: ${subject} - from ${fullName}`;
     const htmlMessage = formatContactMessage({ fullName, email, message });

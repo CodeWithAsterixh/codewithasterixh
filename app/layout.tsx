@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: metaData.site.title,
     description: metaData.site.description,
     url: metaData.site.url,
-    siteName: "CodeWithAsterixh",
+    siteName: "Asterixh",
     type: "website",
   },
   twitter: {

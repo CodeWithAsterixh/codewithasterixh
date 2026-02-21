@@ -57,7 +57,7 @@ function getTransporter(): nodemailer.Transporter {
 
 export async function sendMail(options: SendMailOptions): Promise<SendMailResult> {
   const { subject, html, mailTo } = options;
-  const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER || "noreply@codewithasterixh.com";
+  const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER || "noreply@asterixh.com";
 
   try {
     const transport = getTransporter();

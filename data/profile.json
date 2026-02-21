@@ -1,8 +1,8 @@
 {
   "name": "Paul Peter",
   "role": "Full Stack Developer",
-  "handle": "@codewithasterixh",
-  "alias": "CodeWithAsterixh",
+  "handle": "@asterixh",
+  "alias": "Asterixh",
   "headline": "Hello there",
   "marquee": "LATEST WORK AND FEATURED",
   "stats": [
@@ -33,7 +33,7 @@
   "hero": {
     "quote": "Creating digital experiences that blend creativity with functionality, delivering solutions that drive results.",
     "primaryCta": {
-      "href": "https://github.com/codewithasterixh",
+      "href": "https://github.com/asterixh",
       "label": "Github"
     },
     "secondaryCta": {
@@ -64,7 +64,7 @@
   },
   "socials": [
     {
-      "href": "https://github.com/codewithasterixh",
+      "href": "https://github.com/asterixh",
       "icon": "github"
     },
     {
