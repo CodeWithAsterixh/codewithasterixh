@@ -8,7 +8,7 @@ import { ZodError } from "zod";
 // Simple in-memory rate limiting
 const rateLimitMap = new Map<string, number>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
-const MAX_REQUESTS = 3; // 3 requests per minute
+// const MAX_REQUESTS = 3; // 3 requests per minute
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();

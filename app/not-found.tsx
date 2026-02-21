@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { Button } from "@/components/ui/atoms/Button/Button"
 import { Text } from "@/components/ui/atoms/Text/Text"
 import { ArrowLeft } from "@phosphor-icons/react/dist/ssr"

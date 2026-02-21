@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/atoms/Card/Card";
 import { Text } from "@/components/ui/atoms/Text/Text";
 import { ArrowButton } from "@/components/ui/atoms/ArrowButton/ArrowButton";
 import { IconBox } from "@/components/ui/atoms/IconBox/IconBox";
-import { Camera, PenNib, Laptop, Code, CirclesThree, ChartBar } from "@phosphor-icons/react/dist/ssr";
+import { Laptop, Code, CirclesThree, ChartBar } from "@phosphor-icons/react/dist/ssr";
 import servicesData from "@/data/services.json";
 import uiData from "@/data/ui.json";
 import { Icon } from "@phosphor-icons/react";

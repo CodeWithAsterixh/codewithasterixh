@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "@/components/ui/atoms/Text/Text";
-import { StarFour, Camera, PenNib, CirclesThree, Laptop, Code, ChartBar } from "@phosphor-icons/react/dist/ssr";
+import { StarFour, CirclesThree, Laptop, Code, ChartBar } from "@phosphor-icons/react/dist/ssr";
 import { ServiceMenu } from "./ServiceMenu/ServiceMenu";
 import { ServiceOfferings } from "./ServiceOfferings/ServiceOfferings";
 import { ProfilesCard } from "@/components/ui/organisms/ProfilesCard/ProfilesCard";

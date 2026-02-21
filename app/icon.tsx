@@ -87,7 +87,6 @@ export default async function Image() {
             padding: "80px",
             width: "100%",
             height: "100%",
-            zIndex: 10,
           }}
         >
           <span
