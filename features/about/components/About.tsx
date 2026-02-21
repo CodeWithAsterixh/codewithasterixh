@@ -32,11 +32,13 @@ export const About: React.FC = () => {
           className="h-full"
         />
         <div className="w-full grid grid-cols-1 xl:grid-cols-2 gap-6">
-          <ExperienceCard
-            title={uiData.about.education.title}
-            items={formattedEducation}
-            className="h-fit"
-          />
+          <div className="col-span-1 lg:col-span-2">
+            <ExperienceCard
+              title={uiData.about.education.title}
+              items={formattedEducation}
+              className="h-full"
+            />{" "}
+          </div>
           <div className="col-span-1">
             <ProfilesCard />
           </div>

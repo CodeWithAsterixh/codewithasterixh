@@ -17,7 +17,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ titleAs = "h2" }) => {
             src={profileData.images.hero.src} 
             alt={profileData.images.hero.alt}
             fill
-            className="object-cover" 
+            className="object-cover drop-shadow-foreground drop-shadow-[4px_0_10px_var(--tw-drop-shadow-color,rgb(0_0_0/0.15))]" 
          />
       </div>
       

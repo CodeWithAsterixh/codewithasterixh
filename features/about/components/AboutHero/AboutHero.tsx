@@ -11,12 +11,12 @@ export const AboutHero: React.FC = () => {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
       {/* Left: Image Card */}
       <Card className="col-span-1 p-4 bg-[#1a1a1a]">
-        <div className="relative w-full aspect-square min-h-full rounded-[30px] overflow-hidden bg-linear-to-b from-blue-400 to-blue-600">
+        <div className="relative w-full aspect-square  min-h-full rounded-[30px] overflow-hidden bg-linear-to-b from-background via-50% via-transparent to-primary-blue">
              <Image 
                 src={profileData.images.about.src} 
                 alt={profileData.images.about.alt} 
                 fill 
-                className="object-cover"
+                className="object-cover drop-shadow-foreground drop-shadow-[4px_-2px_0px_var(--tw-drop-shadow-color,rgb(0_0_0/0.15))]"
              />
         </div>
       </Card>

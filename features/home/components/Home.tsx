@@ -42,7 +42,7 @@ export const Home: React.FC = () => {
         <div className="col-span-1">
           <ContactCard />
         </div>
-        <div className="col-span-1 md:col-span-2">
+        <div className="col-span-1 md:col-span-2 lg:col-span-4">
           <StatsCard />
         </div>
       </div>

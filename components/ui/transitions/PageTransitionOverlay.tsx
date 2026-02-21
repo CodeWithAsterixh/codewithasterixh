@@ -145,9 +145,9 @@ export const PageTransitionOverlay: React.FC = () => {
       >
         {/* Scramble Text Animation - Only visible during initial load */}
         {state === "initial-loading" && (
-           <div className="w-full max-w-3xl px-4 text-center">
+           <div className="w-full max-w-6xl px-4 text-center">
              <ScrambleText 
-               text="Welcome to my web page"
+               text="Asterixh | Full Stack Developer"
                className="text-4xl md:text-6xl font-bold font-sans tracking-wider text-white"
                duration={2000}
                staggerFrom="center"

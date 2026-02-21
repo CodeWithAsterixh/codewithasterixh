@@ -18,8 +18,8 @@ export const Navbar: React.FC = () => {
   useEffect(() => {
     if (scrollPx > 40) {
       navbarRef.current?.classList.add(
-        "w-[80%]!",
-        "mx-auto",
+        "w-[90%]!",
+        "md:w-[80%]!",
         "top-2",
         "bg-background/30",
         "backdrop-blur-md",
@@ -28,8 +28,8 @@ export const Navbar: React.FC = () => {
       );
     }else {
       navbarRef.current?.classList.remove(
-        "w-[80%]!",
-        "mx-auto",
+        "w-[90%]!",
+        "md:w-[80%]!",
         "top-2",
         "bg-background/30",
         "backdrop-blur-md",
