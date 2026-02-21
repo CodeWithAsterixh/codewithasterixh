@@ -4,17 +4,17 @@ import { Card } from "@/components/ui/atoms/Card/Card";
 import { Text } from "@/components/ui/atoms/Text/Text";
 import { Button } from "@/components/ui/atoms/Button/Button";
 import { IconBox } from "@/components/ui/atoms/IconBox/IconBox";
-import { GithubLogo, LinkedinLogo, TwitterLogo, DribbbleLogo, Globe } from "@phosphor-icons/react/dist/ssr";
+import { GithubLogoIcon, LinkedinLogoIcon, TwitterLogoIcon, DribbbleLogoIcon, GlobeIcon } from "@phosphor-icons/react/dist/ssr";
 import profileData from "@/data/profile.json";
 import uiData from "@/data/ui.json";
 import { Icon } from "@phosphor-icons/react";
 
 const iconMap: Record<string, Icon> = {
-  github: GithubLogo,
-  linkedin: LinkedinLogo,
-  twitter: TwitterLogo,
-  dribbble: DribbbleLogo,
-  website: Globe
+  github: GithubLogoIcon,
+  linkedin: LinkedinLogoIcon,
+  twitter: TwitterLogoIcon,
+  dribbble: DribbbleLogoIcon,
+  website: GlobeIcon
 };
 
 interface ProfileSidebarProps {
@@ -40,7 +40,7 @@ export const ProfileSidebar: React.FC<ProfileSidebarProps> = ({ nameAs = "h3" })
 
       <div className="flex items-center gap-3 justify-center">
          {profileData.socials.map((social, index) => {
-            const Icon = iconMap[social.icon.toLowerCase()] || Globe;
+            const Icon = iconMap[social.icon.toLowerCase()] || GlobeIcon;
             return (
                <a key={index} href={social.href} target="_blank" rel="noopener noreferrer">
                  <IconBox icon={Icon} className="w-10 h-10 rounded-full bg-white/5 text-white hover:bg-white hover:text-black transition-colors cursor-pointer border border-white/10" />

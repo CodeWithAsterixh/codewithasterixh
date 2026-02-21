@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { ArrowButtonProps } from "./ArrowButton.types";
 
 export const ArrowButton: React.FC<ArrowButtonProps> = ({
@@ -17,7 +17,7 @@ export const ArrowButton: React.FC<ArrowButtonProps> = ({
   `;
 
   const icon = (
-    <ArrowRight 
+    <ArrowRightIcon 
       size={20} 
       weight="bold" 
       className="transform group-hover:-rotate-45 transition-transform duration-300" 

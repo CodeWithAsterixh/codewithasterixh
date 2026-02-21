@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Card } from "@/components/ui/atoms/Card/Card";
 import { Text } from "@/components/ui/atoms/Text/Text";
-import { StarFour } from "@phosphor-icons/react/dist/ssr";
+import { StarFourIcon } from "@phosphor-icons/react/dist/ssr";
 import profileData from "@/data/profile.json";
 import uiData from "@/data/ui.json";
 
@@ -24,14 +24,14 @@ export const AboutHero: React.FC = () => {
       {/* Right: Self Summary */}
       <div className="col-span-1 md:col-span-2 flex flex-col gap-6">
         <div className="flex items-center justify-center gap-4 py-2">
-            <StarFour size={40} weight="fill" className="text-white" />
+            <StarFourIcon size={40} weight="fill" className="text-white" />
             <Text variant="h1" weight="medium" className="uppercase tracking-wide">{uiData.about.hero.title}</Text>
-            <StarFour size={40} weight="fill" className="text-white" />
+            <StarFourIcon size={40} weight="fill" className="text-white" />
         </div>
         
         <Card className="flex-1 p-8 md:p-12 bg-[#1a1a1a] relative overflow-hidden">
             <div className="absolute top-0 left-8">
-                <StarFour size={48} weight="light" className="text-white/20" />
+                <StarFourIcon size={48} weight="light" className="text-white/20" />
             </div>
             
             <div className="mt-8">

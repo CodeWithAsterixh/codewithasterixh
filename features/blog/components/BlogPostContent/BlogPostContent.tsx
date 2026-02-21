@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Text } from "@/components/ui/atoms/Text/Text";
 import { BlogPostProps } from "../../types/blog";
-import { StarFour } from "@phosphor-icons/react/dist/ssr";
+import { StarFourIcon } from "@phosphor-icons/react/dist/ssr";
 import uiData from "@/data/ui.json";
 
 export const BlogPostContent: React.FC<BlogPostProps> = ({ post }) => {
@@ -15,11 +15,11 @@ export const BlogPostContent: React.FC<BlogPostProps> = ({ post }) => {
          </Text>
          
          <div className="flex items-center gap-2 mb-8">
-            <StarFour size={24} weight="fill" className="text-white/30" />
+            <StarFourIcon size={24} weight="fill" className="text-white/30" />
             <Text variant="h1" weight="bold" className="uppercase text-2xl! md:text-3xl! text-white leading-tight">
                 {post.title}
             </Text>
-            <StarFour size={24} weight="fill" className="text-white/30" />
+            <StarFourIcon size={24} weight="fill" className="text-white/30" />
          </div>
 
          {/* Featured Image */}

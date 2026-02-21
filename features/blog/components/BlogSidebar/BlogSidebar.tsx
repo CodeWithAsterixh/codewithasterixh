@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Card } from "@/components/ui/atoms/Card/Card";
 import { Text } from "@/components/ui/atoms/Text/Text";
 import { Button } from "@/components/ui/atoms/Button/Button";
-import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr";
 import { BlogPost } from "../../types/blog";
 import Link from "next/link";
 import uiData from "@/data/ui.json";
@@ -46,7 +46,7 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({ recentPosts }) => {
             />
             <div className="absolute top-1 right-1 bottom-1">
                 <Button onClick={handleSearch} variant="primary" className="h-full aspect-square flex items-center justify-center bg-primary-blue hover:bg-[#4a8cd8] rounded-md text-white p-0">
-                    <MagnifyingGlass size={20} weight="bold" />
+                    <MagnifyingGlassIcon size={20} weight="bold" />
                 </Button>
             </div>
         </div>

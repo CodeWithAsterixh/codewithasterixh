@@ -1,6 +1,6 @@
 "use client";
 
-import { List, X } from "@phosphor-icons/react";
+import { ListIcon, XIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../../atoms/Button/Button";
@@ -80,7 +80,7 @@ export const Navbar: React.FC = () => {
         className="md:hidden text-white p-2"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {isOpen ? <X size={24} /> : <List size={24} />}
+        {isOpen ? <XIcon size={24} /> : <ListIcon size={24} />}
       </button>
 
       {/* Mobile Menu Overlay */}

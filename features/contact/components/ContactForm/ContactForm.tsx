@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Card } from "@/components/ui/atoms/Card/Card";
 import { Text } from "@/components/ui/atoms/Text/Text";
 import { Button } from "@/components/ui/atoms/Button/Button";
-import { StarFour, Spinner } from "@phosphor-icons/react/dist/ssr";
+import { StarFourIcon, SpinnerIcon } from "@phosphor-icons/react/dist/ssr";
 import uiData from "@/data/ui.json";
 import { contactFormSchema, ContactFormData } from "@/features/contact/schema/contact";
 import { toast } from "sonner";
@@ -72,7 +72,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ titleAs = "h2" }) => {
   return (
     <Card className="p-8 md:p-12 relative overflow-hidden">
         <div className="absolute top-8 right-8 text-white/20">
-            <StarFour size={48} weight="light" />
+            <StarFourIcon size={48} weight="light" />
         </div>
 
         <div className="mb-8">
@@ -143,7 +143,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ titleAs = "h2" }) => {
                 >
                     {isSubmitting ? (
                         <>
-                            <Spinner className="animate-spin" size={20} />
+                            <SpinnerIcon className="animate-spin" size={20} />
                             Sending...
                         </>
                     ) : (

@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "@/components/ui/atoms/Text/Text";
-import { StarFour } from "@phosphor-icons/react/dist/ssr";
+import { StarFourIcon } from "@phosphor-icons/react/dist/ssr";
 import { ProjectCard } from "./ProjectCard/ProjectCard";
 import projectsData from "@/data/projects.json";
 import uiData from "@/data/ui.json";
@@ -47,9 +47,9 @@ export const Works: React.FC = () => {
             {/* Header */}
             <div className="flex flex-col items-center justify-center">
                 <div className="flex items-center justify-center gap-4">
-                    <StarFour size={40} weight="fill" className="text-white/30" />
+                    <StarFourIcon size={40} weight="fill" className="text-white/30" />
                     <Text variant="h1" weight="bold" className="uppercase tracking-wide text-5xl md:text-7xl text-white">{uiData.works.hero.title}</Text>
-                    <StarFour size={40} weight="fill" className="text-white/30" />
+                    <StarFourIcon size={40} weight="fill" className="text-white/30" />
                 </div>
             </div>
 

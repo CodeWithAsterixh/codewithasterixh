@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "@/components/ui/atoms/Text/Text";
-import { StarFour, CirclesThree, Laptop, Code, ChartBar } from "@phosphor-icons/react/dist/ssr";
+import { StarFourIcon, CirclesThreeIcon, LaptopIcon, CodeIcon, ChartBarIcon } from "@phosphor-icons/react/dist/ssr";
 import { ServiceMenu } from "./ServiceMenu/ServiceMenu";
 import { ServiceOfferings } from "./ServiceOfferings/ServiceOfferings";
 import { ProfilesCard } from "@/components/ui/organisms/ProfilesCard/ProfilesCard";
@@ -12,10 +12,10 @@ import uiData from "@/data/ui.json";
 import { Icon } from "@phosphor-icons/react";
 
 const iconMap: Record<string, Icon> = {
-  "Website Development": Code,
-  "Website Management": Laptop,
-  "SEO Optimization": ChartBar,
-  "default": CirclesThree
+  "Website Development": CodeIcon,
+  "Website Management": LaptopIcon,
+  "SEO Optimization": ChartBarIcon,
+  "default": CirclesThreeIcon
 };
 
 const serviceItems: ServiceItem[] = servicesData.map(service => ({
@@ -37,9 +37,9 @@ export const Services: React.FC = () => {
          {/* Right Column: Offerings */}
          <div className="col-span-1 lg:col-span-2 flex flex-col gap-12">
             <div className="flex items-center justify-center gap-4">
-                <StarFour size={40} weight="fill" className="text-white/30" />
+                <StarFourIcon size={40} weight="fill" className="text-white/30" />
                 <Text variant="h1" weight="bold" className="uppercase tracking-wide text-4xl md:text-6xl text-white">{uiData.services.offerings.title}</Text>
-                <StarFour size={40} weight="fill" className="text-white/30" />
+                <StarFourIcon size={40} weight="fill" className="text-white/30" />
             </div>
             
             <ServiceOfferings items={serviceItems} />

@@ -7,7 +7,7 @@ import { BlogList } from "./BlogList/BlogList";
 import blogPosts from "@/data/posts.json";
 import { Text } from "@/components/ui/atoms/Text/Text";
 import { Button } from "@/components/ui/atoms/Button/Button";
-import { StarFour, MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
+import { StarFourIcon, MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr";
 import uiData from "@/data/ui.json";
 
 interface BlogProps {
@@ -50,9 +50,9 @@ export const Blog: React.FC<BlogProps> = ({ query }) => {
       {/* Header */}
       <div className="flex flex-col items-center justify-center mb-16">
          <div className="flex items-center gap-4 mb-4">
-            <StarFour size={32} weight="fill" className="text-white/30" />
+            <StarFourIcon size={32} weight="fill" className="text-white/30" />
             <Text variant="h1" weight="bold" className="uppercase tracking-wide text-5xl md:text-7xl text-white">{uiData.blog.hero.title}</Text>
-            <StarFour size={32} weight="fill" className="text-white/30" />
+            <StarFourIcon size={32} weight="fill" className="text-white/30" />
          </div>
          <Text variant="body" color="gray" className="text-center max-w-2xl mb-12">
             {uiData.blog.hero.description}
@@ -61,7 +61,7 @@ export const Blog: React.FC<BlogProps> = ({ query }) => {
          {/* Search Bar */}
          <div className="relative w-full max-w-xl">
             <div className="relative group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg blur opacity-30 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                <div className="absolute -inset-0.5 bg-linear-to-r from-pink-500 to-purple-600 rounded-lg blur opacity-30 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
                 <div className="relative flex items-center bg-[#0a0a0a] rounded-lg p-1 border border-white/10">
                     <input 
                         type="text" 
@@ -74,9 +74,9 @@ export const Blog: React.FC<BlogProps> = ({ query }) => {
                     <Button 
                         onClick={handleSearch} 
                         variant="primary" 
-                        className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-md aspect-square flex items-center justify-center min-w-[44px]"
+                        className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-md aspect-square flex items-center justify-center min-w-11"
                     >
-                        <MagnifyingGlass size={20} weight="bold" />
+                        <MagnifyingGlassIcon size={20} weight="bold" />
                     </Button>
                 </div>
             </div>

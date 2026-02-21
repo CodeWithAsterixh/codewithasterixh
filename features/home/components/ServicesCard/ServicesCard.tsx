@@ -3,16 +3,16 @@ import { Card } from "@/components/ui/atoms/Card/Card";
 import { Text } from "@/components/ui/atoms/Text/Text";
 import { ArrowButton } from "@/components/ui/atoms/ArrowButton/ArrowButton";
 import { IconBox } from "@/components/ui/atoms/IconBox/IconBox";
-import { Laptop, Code, CirclesThree, ChartBar } from "@phosphor-icons/react/dist/ssr";
+import { LaptopIcon, CodeIcon, CirclesThreeIcon, ChartBarIcon } from "@phosphor-icons/react/dist/ssr";
 import servicesData from "@/data/services.json";
 import uiData from "@/data/ui.json";
 import { Icon } from "@phosphor-icons/react";
 
 const iconMap: Record<string, Icon> = {
-  "Website Development": Code,
-  "Website Management": Laptop,
-  "SEO Optimization": ChartBar,
-  "default": CirclesThree
+  "Website Development": CodeIcon,
+  "Website Management": LaptopIcon,
+  "SEO Optimization": ChartBarIcon,
+  "default": CirclesThreeIcon
 };
 
 export const ServicesCard: React.FC = () => {

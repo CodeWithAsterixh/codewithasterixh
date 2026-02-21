@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Globe } from "@phosphor-icons/react/dist/ssr";
+import { ArrowLeftIcon, GlobeIcon } from "@phosphor-icons/react/dist/ssr";
 import { Text } from "@/components/ui/atoms/Text/Text";
 import { Button } from "@/components/ui/atoms/Button/Button";
 import { Card } from "@/components/ui/atoms/Card/Card";
@@ -20,7 +20,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ slug }) => {
 
   return (
     <main className="max-w-4xl mx-auto px-4 md:px-8 pb-12 pt-12 md:pt-24">
-      <Button href="/works" variant="ghost" icon={ArrowLeft} iconPosition="left" className="mb-8">
+      <Button href="/works" variant="ghost" icon={ArrowLeftIcon} iconPosition="left" className="mb-8">
         Back to Works
       </Button>
 
@@ -68,7 +68,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ slug }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                             variant="primary"
-                            icon={Globe}
+                            icon={GlobeIcon}
                         >
                             Visit Live Site
                         </Button>

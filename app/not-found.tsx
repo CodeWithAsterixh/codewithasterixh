@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/atoms/Button/Button"
 import { Text } from "@/components/ui/atoms/Text/Text"
-import { ArrowLeft } from "@phosphor-icons/react/dist/ssr"
+import { ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr"
 
 export default function NotFound() {
   return (
@@ -13,7 +13,7 @@ export default function NotFound() {
       <Button
         variant="primary"
         href="/"
-        icon={ArrowLeft}
+        icon={ArrowLeftIcon}
       >
         Back to Home
       </Button>

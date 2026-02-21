@@ -3,15 +3,15 @@ import Link from "next/link";
 import { Text } from "@/components/ui/atoms/Text/Text";
 import { ContactItem } from "./ContactItem";
 import { 
-  Envelope, 
-  Phone, 
-  MapPin, 
-  GithubLogo, 
-  LinkedinLogo, 
-  TwitterLogo,
-  InstagramLogo,
-  DribbbleLogo,
-  Globe
+  EnvelopeIcon, 
+  PhoneIcon, 
+  MapPinIcon, 
+  GithubLogoIcon, 
+  LinkedinLogoIcon, 
+  TwitterLogoIcon,
+  InstagramLogoIcon,
+  DribbbleLogoIcon,
+  GlobeIcon
 } from "@phosphor-icons/react/dist/ssr";
 import { IconBox } from "@/components/ui/atoms/IconBox/IconBox";
 import profileData from "@/data/profile.json";
@@ -19,12 +19,12 @@ import uiData from "@/data/ui.json";
 import { Icon } from "@phosphor-icons/react";
 
 const socialIconMap: Record<string, Icon> = {
-  github: GithubLogo,
-  linkedin: LinkedinLogo,
-  twitter: TwitterLogo,
-  instagram: InstagramLogo,
-  dribbble: DribbbleLogo,
-  website: Globe
+  github: GithubLogoIcon,
+  linkedin: LinkedinLogoIcon,
+  twitter: TwitterLogoIcon,
+  instagram: InstagramLogoIcon,
+  dribbble: DribbbleLogoIcon,
+  website: GlobeIcon
 };
 
 export const ContactInfo: React.FC = () => {
@@ -34,17 +34,17 @@ export const ContactInfo: React.FC = () => {
         
         <div className="mb-12 flex flex-col gap-8">
             <ContactItem 
-                icon={Envelope} 
+                icon={EnvelopeIcon} 
                 title={uiData.contact.info.mail} 
                 details={[profileData.email]} 
             />
             <ContactItem 
-                icon={Phone} 
+                icon={PhoneIcon} 
                 title={uiData.contact.info.contact} 
                 details={[profileData.phone]} 
             />
             <ContactItem 
-                icon={MapPin} 
+                icon={MapPinIcon} 
                 title={uiData.contact.info.location} 
                 details={[profileData.location]} 
             />
@@ -53,7 +53,7 @@ export const ContactInfo: React.FC = () => {
         <Text variant="h4" weight="medium" className="uppercase mb-6">{uiData.contact.info.socialsTitle}</Text>
         <div className="flex items-center gap-4">
             {profileData.socials.map((social, index) => {
-                const Icon = socialIconMap[social.icon.toLowerCase()] || Globe;
+                const Icon = socialIconMap[social.icon.toLowerCase()] || GlobeIcon;
                 return (
                     <Link 
                         key={index} 
