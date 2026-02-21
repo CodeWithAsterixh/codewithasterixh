@@ -23,9 +23,9 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ titleAs = "h2" }) => {
       
       <div className="flex flex-col justify-center flex-1 gap-2">
         <Text variant="caption" color="gray">{profileData.role}</Text>
-        <Text variant="h2" as={titleAs} weight="medium" color="white">{profileData.name}.</Text>
+        <Text variant="h2" as={titleAs} weight="medium" color="white">{profileData.alias}.</Text>
         <Text variant="body" color="gray" className="max-w-xs">
-          {profileData.subtext}
+          {profileData.name} — {profileData.subtext}
         </Text>
       </div>
 

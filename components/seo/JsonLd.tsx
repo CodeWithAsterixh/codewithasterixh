@@ -7,7 +7,7 @@ export const JsonLd = () => {
     "@type": "Person",
     "@id": `${metaData.site.url}/#person`,
     name: profile.name,
-    alternateName: profile.alias,
+    alternateName: ["CodeWithAsterixh", "Asterixh"],
     jobTitle: profile.role,
     url: metaData.site.url,
     image: `${metaData.site.url}/images/my-photo.png`,
