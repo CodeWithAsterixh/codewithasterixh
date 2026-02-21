@@ -45,7 +45,7 @@ export function formatConfirmationMessage({
           <p>In the meantime, feel free to check out my latest projects or connect with me on social media.</p>
           
           <div style="text-align: center;">
-            <a href="https://codewithasterixh.vercel.app/works" class="cta-button">View My Works</a>
+            <a href="https://asterixh.vercel.app/works" class="cta-button">View My Works</a>
           </div>
         </div>
         

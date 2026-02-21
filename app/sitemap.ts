@@ -3,7 +3,7 @@ import posts from '@/data/posts.json'
 import projects from '@/data/projects.json'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://codewithasterixh.vercel.app'
+  const baseUrl = 'https://asterixh.vercel.app'
 
   const postUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
