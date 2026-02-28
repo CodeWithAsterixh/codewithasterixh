@@ -28,12 +28,13 @@ export const ScrambleText: React.FC<ScrambleTextProps> = ({
   );
   const intervalRefs = useRef<(NodeJS.Timeout | null)[]>([]);
 
-  // Effect to reset state when props change
+  // Effect to reset state when props change (defer to avoid synchronous setState)
   useEffect(() => {
-    // Reset state
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setDisplayText(Array(text.length).fill(""));
-    setIsRevealed(Array(text.length).fill(false));
+    const reset = () => {
+      setDisplayText(Array(text.length).fill(""));
+      setIsRevealed(Array(text.length).fill(false));
+    };
+    const timer = setTimeout(reset, 0);
 
     // Clear any existing intervals
     intervalRefs.current.forEach((ref) => {
@@ -113,6 +114,7 @@ export const ScrambleText: React.FC<ScrambleTextProps> = ({
     });
 
     return () => {
+      clearTimeout(timer);
       intervalRefs.current.forEach((ref) => {
         if (ref) clearInterval(ref);
       });

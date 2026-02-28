@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { BlogList } from "./BlogList/BlogList";
 import blogPosts from "@/data/posts.json";
@@ -17,11 +16,6 @@ interface BlogProps {
 export const Blog: React.FC<BlogProps> = ({ query }) => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState(query || "");
-
-  // Update search query when URL param changes
-  useEffect(() => {
-    setSearchQuery(query || "");
-  }, [query]);
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
