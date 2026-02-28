@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { TextProps } from "./Text.types";
 
@@ -11,7 +10,9 @@ export const Text: React.FC<TextProps> = ({
   align = "left",
   as,
 }) => {
-  const Component = as || (["h1", "h2", "h3", "h4"].includes(variant) ? variant : "p") as any;
+  const Component: React.ElementType =
+    as ||
+    (["h1", "h2", "h3", "h4"].includes(variant) ? (variant as "h1" | "h2" | "h3" | "h4") : "p");
 
   const styles = {
     h1: "text-4xl md:text-5xl lg:text-6xl tracking-tight",

@@ -21,7 +21,7 @@ export default async function Image() {
   );
   const cssText = await cssRes.text();
 
-  // 2. Extract all the woff2 URLs from the CSS
+  // 2. Extract all the TTF URLs from the CSS
   const regex =
     /font-weight:\s*(\d+)[^}]*url\((https:\/\/fonts\.gstatic\.com\/[^)]+\.ttf)\)/g;
   const fontsMeta: { weight: number; url: string }[] = [];

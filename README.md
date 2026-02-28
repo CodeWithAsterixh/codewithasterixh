@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Asterixh — Software Engineer & Web Developer
 
-## Getting Started
+I build functional software and responsive web applications with clean architecture, reliable data flows, and a strong focus on performance and accessibility.
 
-First, run the development server:
+## Core Skills
+- React (19) and Next.js (App Router)
+- TypeScript-first engineering
+- Node.js/Express APIs and email/notification pipelines
+- Authentication, authorization, and secure data handling
+- State management and data modeling (Redux Toolkit, Supabase, MongoDB/Mongoose)
+- Performance and accessibility in modern UI (Tailwind CSS v4, Framer Motion)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Selected Works
+- Anonfly — Anonymous Encrypted Messaging  
+  Privacy-by-design platform with E2EE, cryptographic identities, WebSockets/SSE, Redis, Node.js.  
+  https://anonfly.vercel.app
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- SMS — School Management System  
+  RBAC, attendance, admin workflows; Supabase backend with React-based UI.  
+  https://asterixh-sms-frontend.vercel.app/
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Quizeen — Interactive Quiz Platform  
+  Full-stack Next.js, JWT auth, MongoDB/Mongoose, Redux Toolkit, Zod validation.  
+  https://quizeen.vercel.app
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- AsterMail — Email Delivery Service  
+  Dynamic SMTP configuration, autoresponse workflows, structured validation and error handling.  
+  https://astermail.onrender.com/
 
-## Learn More
+- WorkUp Cards — Business Card Generator  
+  Fast, user-friendly card creator with instant export and accessible UI.  
+  https://workup-ashy.vercel.app/
 
-To learn more about Next.js, take a look at the following resources:
+- Client Platforms  
+  EHM Elec — Solar & Electrical Engineering: https://elohimelec.vercel.app/  
+  Glorious Dental Clinic — Healthcare: https://glorious-dental-clinic.vercel.app/
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Get in Touch
+- Portfolio: https://asterixh.vercel.app
+- GitHub: https://github.com/CodeWithAsterixh
+- LinkedIn: https://linkedin.com/in/paul-peter-eyinnaya
+- Email: peterpaultolulope@gmail.com

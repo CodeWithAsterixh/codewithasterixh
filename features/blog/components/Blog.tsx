@@ -59,7 +59,7 @@ export const Blog: React.FC<BlogProps> = ({ query }) => {
          </Text>
 
          {/* Search Bar */}
-         <div className="relative w-full max-w-xl">
+         <div className="relative w-full max-w-xl" role="search" aria-label="Search blog posts">
             <div className="relative group">
                 <div className="absolute -inset-0.5 bg-linear-to-r from-pink-500 to-purple-600 rounded-lg blur opacity-30 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
                 <div className="relative flex items-center bg-[#0a0a0a] rounded-lg p-1 border border-white/10">
@@ -70,6 +70,7 @@ export const Blog: React.FC<BlogProps> = ({ query }) => {
                         onKeyDown={handleKeyDown}
                         placeholder="Search for articles, topics, or keywords..."
                         className="w-full bg-transparent px-4 py-3 text-white focus:outline-none placeholder-white/30"
+                        aria-label="Search articles, topics, or keywords"
                     />
                     <Button 
                         onClick={handleSearch} 

@@ -17,6 +17,11 @@ export const ArrowButton: React.FC<ArrowButtonProps> = ({
     ${className}
   `;
 
+  const ariaLabel =
+    href
+      ? `Open ${typeof href === "string" ? href : "link"}`
+      : "Activate action";
+
   const icon = (
     <ArrowRightIcon 
       size={20} 
@@ -27,14 +32,14 @@ export const ArrowButton: React.FC<ArrowButtonProps> = ({
 
   if (href) {
     return (
-      <Link href={href} className={baseClasses} target={target} rel={target === "_blank" ? "noopener noreferrer" : undefined}>
+      <Link href={href} className={baseClasses} target={target} rel={target === "_blank" ? "noopener noreferrer" : undefined} aria-label={ariaLabel}>
         {icon}
       </Link>
     );
   }
 
   return (
-    <button onClick={onClick} className={baseClasses}>
+    <button onClick={onClick} className={baseClasses} aria-label={ariaLabel}>
       {icon}
     </button>
   );

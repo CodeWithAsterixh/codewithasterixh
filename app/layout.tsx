@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   description: metaData.site.description,
   keywords: metaData.site.keywords,
   alternates: {
-    canonical: "./",
+    canonical: metaData.site.url,
   },
   openGraph: {
     title: metaData.site.title,

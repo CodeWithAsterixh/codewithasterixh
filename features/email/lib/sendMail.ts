@@ -57,7 +57,13 @@ function getTransporter(): nodemailer.Transporter {
 
 export async function sendMail(options: SendMailOptions): Promise<SendMailResult> {
   const { subject, html, mailTo } = options;
-  const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER || "noreply@asterixh.com";
+  const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER;
+  if (!fromEmail) {
+    return {
+      ok: false,
+      error: "Mail configuration error: FROM_EMAIL or SMTP_USER must be set.",
+    };
+  }
 
   try {
     const transport = getTransporter();

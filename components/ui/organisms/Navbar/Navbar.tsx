@@ -79,18 +79,22 @@ export const Navbar: React.FC = () => {
       <button
         className="md:hidden text-white p-2"
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={isOpen}
+        aria-controls="mobile-navigation"
       >
         {isOpen ? <XIcon size={24} /> : <ListIcon size={24} />}
       </button>
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="absolute top-20 left-0 w-full bg-background z-50 p-4 border-b border-white/10 md:hidden flex flex-col gap-4 shadow-2xl">
+        <div id="mobile-navigation" className="absolute top-20 left-0 w-full bg-background z-50 p-4 border-b border-white/10 md:hidden flex flex-col gap-4 shadow-2xl" role="menu" aria-label="Mobile navigation">
           {navigation.map((link) => (
             <div key={link.label} onClick={() => setIsOpen(false)}>
               <Link
                 href={link.href}
                 className="text-white/70 hover:text-white py-2 block"
+                role="menuitem"
               >
                 {link.label}
               </Link>
