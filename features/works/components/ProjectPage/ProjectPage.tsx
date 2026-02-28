@@ -46,9 +46,9 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ slug }) => {
                     priority
                 />
             ) : (
-                <div className="w-full h-full flex items-center justify-center text-white/20">
-                    No Image Available
-                </div>
+                <Text variant="h4" weight="medium" className="text-white text-center">
+                    {project.title}
+                </Text>
             )}
         </div>
 

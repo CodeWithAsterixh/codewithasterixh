@@ -2,25 +2,25 @@ import { Services as ServicesPage } from "@/features/services/components/Service
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Services | Asterixh - Full Stack Developer",
-  description: "Web development services offered by Asterixh (Paul Peter). Including frontend development, backend API design, full stack applications, and performance optimization.",
+  title: "Services | Asterixh - Software Engineer & Web Developer",
+  description: "Software engineering and web development services offered by Asterixh (Paul Peter). Including system architecture, API design, and responsive web applications.",
   keywords: [
+    "Software Engineering Services",
     "Web Development Services",
-    "Frontend Development",
-    "Backend API Design",
-    "Performance Optimization",
+    "System Architecture",
+    "API Design",
     "React Development Services"
   ],
   openGraph: {
-    title: "Services | Asterixh - Full Stack Developer",
-    description: "Web development services offered by Asterixh (Paul Peter). Including frontend development, backend API design, and full stack applications.",
+    title: "Services | Asterixh - Software Engineer & Web Developer",
+    description: "Software engineering and web development services offered by Asterixh (Paul Peter). Including system architecture, API design, and responsive web applications.",
     url: "/services",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Services | Asterixh - Full Stack Developer",
-    description: "Web development services offered by Asterixh (Paul Peter). Including frontend development, backend API design, and full stack applications.",
+    title: "Services | Asterixh - Software Engineer & Web Developer",
+    description: "Software engineering and web development services offered by Asterixh (Paul Peter). Including system architecture, API design, and responsive web applications.",
   }
 };
 

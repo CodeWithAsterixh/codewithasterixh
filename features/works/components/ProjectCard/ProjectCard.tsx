@@ -5,21 +5,40 @@ import { Text } from "@/components/ui/atoms/Text/Text";
 import { ArrowButton } from "@/components/ui/atoms/ArrowButton/ArrowButton";
 import { ProjectCardProps } from "../../types/works";
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({ project, className = "" }) => {
+export const ProjectCard: React.FC<ProjectCardProps> = ({
+  project,
+  className = "",
+}) => {
   return (
     <Card className={`group flex flex-col justify-between p-6 ${className}`}>
       <div className="relative w-full aspect-4/3 mb-6 rounded-2xl overflow-hidden bg-[#2a2a2a]">
-         <Image 
-            src={project.image} 
+        {project.image ? (
+          <Image
+            src={project.image}
             alt={project.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
-         />
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-white/20">
+            <Text
+              variant="h4"
+              weight="medium"
+              className="text-white text-center"
+            >
+              {project.title}
+            </Text>
+          </div>
+        )}
       </div>
-      
+
       <div className="flex items-end justify-between">
         <div className="flex flex-col gap-1">
-          <Text variant="caption" color="gray" className="uppercase tracking-wider text-xs">
+          <Text
+            variant="caption"
+            color="gray"
+            className="uppercase tracking-wider text-xs"
+          >
             {project.category}
           </Text>
           <Text variant="h4" weight="medium" className="text-white">

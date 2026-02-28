@@ -1,17 +1,17 @@
 [
   {
-    "label": "Website Development",
-    "description": "Custom, responsive websites built with a mobile-first mindset to ensure fast performance and seamless user experience across all devices.",
-    "tags": ["Mobile-first approach", "Responsive design", "Performance optimization", "Cross-browser compatibility"]
+    "label": "Software Engineering",
+    "description": "I build the backend systems and APIs that power your software. I focus on database management, security, and making sure everything runs without errors.",
+    "tags": ["System Architecture", "API Design", "Database Modeling", "Backend Optimization", "Clean Code"]
+  },
+  {
+    "label": "Web Development",
+    "description": "I build responsive and fast websites using React and Next.js. I make sure the site looks good on all devices and is easy for users to navigate.",
+    "tags": ["React & Next.js", "Responsive Design", "UI/UX Development", "SEO Strategy", "Performance Focused"]
   },
   {
     "label": "Website Management",
-    "description": "Ongoing site maintenance including content updates, security monitoring, regular backups, and performance analytics to keep your site running smoothly.",
-    "tags": ["Content updates", "Security monitoring", "Backup & recovery", "Performance analytics"]
-  },
-  {
-    "label": "SEO Optimization",
-    "description": "Comprehensive SEO services—from keyword research and on-page tweaks to technical audits and link building—to boost your organic search rankings.",
-    "tags": ["Keyword research", "On-page optimization", "Link building", "Technical SEO"]
+    "description": "I handle the maintenance of your website after it's live. This includes updates, security monitoring, and making sure your site stays online.",
+    "tags": ["Updates", "Security Checks", "Backups", "Performance Monitoring"]
   }
 ]

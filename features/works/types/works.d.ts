@@ -4,7 +4,7 @@ export interface Project {
   id: string;
   category: string;
   title: string;
-  image: string;
+  image?: string|null;
 }
 
 export interface ProjectCardProps extends BaseComponentProps {

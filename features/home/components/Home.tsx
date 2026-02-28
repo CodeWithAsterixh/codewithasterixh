@@ -3,6 +3,7 @@ import { Marquee } from "./Marquee/Marquee";
 import { ProjectsCard } from "./ProjectsCard/ProjectsCard";
 import { BlogCard } from "./BlogCard/BlogCard";
 import { ServicesCard } from "./ServicesCard/ServicesCard";
+import { GitRollCard } from "./GitRollCard/GitRollCard";
 import { StatsCard } from "./StatsCard/StatsCard";
 import { ProfileCard } from "@/components/ui/organisms/ProfileCard/ProfileCard";
 import { CredentialsCard } from "@/components/ui/organisms/CredentialsCard/CredentialsCard";
@@ -23,7 +24,7 @@ export const Home: React.FC = () => {
           <Marquee />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 flex-1">
             <CredentialsCard />
-            <ProjectsCard />
+            <GitRollCard />
           </div>
         </div>
 
@@ -37,12 +38,15 @@ export const Home: React.FC = () => {
         <div className="col-span-1">
           <ProfilesCard />
         </div>
+        <div className="col-span-1">
+          <ProjectsCard />
+        </div>
 
         {/* Bottom Row */}
         <div className="col-span-1">
           <ContactCard />
         </div>
-        <div className="col-span-1 md:col-span-2 lg:col-span-4">
+        <div className="col-span-1 lg:col-span-3">
           <StatsCard />
         </div>
       </div>

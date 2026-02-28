@@ -7,6 +7,7 @@ export const ArrowButton: React.FC<ArrowButtonProps> = ({
   className = "",
   onClick,
   href,
+  target,
 }) => {
   const baseClasses = `
     group flex items-center justify-center w-10 h-10 rounded-full 
@@ -26,7 +27,7 @@ export const ArrowButton: React.FC<ArrowButtonProps> = ({
 
   if (href) {
     return (
-      <Link href={href} className={baseClasses}>
+      <Link href={href} className={baseClasses} target={target} rel={target === "_blank" ? "noopener noreferrer" : undefined}>
         {icon}
       </Link>
     );

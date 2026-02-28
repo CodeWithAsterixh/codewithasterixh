@@ -29,7 +29,7 @@ export function formatConfirmationMessage({
       <div class="container">
         <div class="header">
           <h1>Message Received!</h1>
-          <div class="logo">Asterixh | Full Stack Developer</div>
+          <div class="logo">Asterixh | Software Engineer & Web Developer</div>
         </div>
         
         <div class="content">
@@ -42,7 +42,7 @@ export function formatConfirmationMessage({
             I'll review your inquiry and get back to you within <strong>24 hours</strong>.
           </div>
           
-          <p>In the meantime, feel free to check out my latest projects or connect with me on social media.</p>
+          <p>In the meantime, feel free to check out my latest projects.</p>
           
           <div style="text-align: center;">
             <a href="https://asterixh.vercel.app/works" class="cta-button">View My Works</a>
@@ -50,7 +50,7 @@ export function formatConfirmationMessage({
         </div>
         
         <div class="footer">
-          <p style="margin: 0 0 12px 0;"><strong>Asterixh</strong> — Building fast, scalable web applications.</p>
+          <p style="margin: 0 0 12px 0;"><strong>Asterixh</strong> — Building functional software and responsive websites.</p>
           <p style="margin: 0; font-size: 12px; color: #a1a1aa;">Lagos, Nigeria</p>
         </div>
       </div>

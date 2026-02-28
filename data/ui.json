@@ -11,6 +11,10 @@
     "servicesCard": {
       "subtitle": "Specialization",
       "title": "Services Offering"
+    },
+    "gitRollCard": {
+      "subtitle": "Technical Merit",
+      "title": "GitRoll Profile"
     }
   },
   "common": {

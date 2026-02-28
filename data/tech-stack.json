@@ -1,12 +1,29 @@
-[
-  { "name": "Figma", "icon": "figma", "proficiency": 70 },
-  { "name": "VS Code", "icon": "vscode", "proficiency": 100 },
-  { "name": "Next.js", "icon": "nextjs", "proficiency": 95 },
-  { "name": "Nuxt.js", "icon": "nuxtjs", "proficiency": 95 },
-  { "name": "Tailwind CSS", "icon": "tailwindcss", "proficiency": 98 },
-  { "name": "Shadcn/UI", "icon": "shadcnui", "proficiency": 90 },
-  { "name": "GSAP", "icon": "gsap", "proficiency": 70 },
-  { "name": "Mongo db", "icon": "mongodb", "proficiency": 90 },
-  { "name": "Python", "icon": "python", "proficiency": 80 },
-  { "name": "Fast API", "icon": "python", "proficiency": 80 }
-]
+{
+  "Technical": [
+    { "name": "Next.js 15+", "icon": "nextjs", "proficiency": 95 },
+    { "name": "React 19", "icon": "react", "proficiency": 98 },
+    { "name": "TypeScript", "icon": "typescript", "proficiency": 95 },
+    { "name": "Node.js (Express)", "icon": "nodejs", "proficiency": 92 },
+    { "name": "MongoDB (Mongoose)", "icon": "mongodb", "proficiency": 90 },
+    { "name": "Supabase & PostgreSQL", "icon": "supabase", "proficiency": 85 },
+    { "name": "Redis (Caching)", "icon": "redis", "proficiency": 80 },
+    { "name": "WebSockets (ws) & SSE", "icon": "websocket", "proficiency": 88 },
+    { "name": "Python (FastAPI)", "icon": "python", "proficiency": 80 }
+  ],
+  "Creative & UI": [
+    { "name": "Tailwind CSS v4", "icon": "tailwindcss", "proficiency": 98 },
+    { "name": "GSAP (Animations)", "icon": "gsap", "proficiency": 85 },
+    { "name": "Framer Motion", "icon": "framer", "proficiency": 90 },
+    { "name": "Shadcn/UI", "icon": "shadcnui", "proficiency": 95 },
+    { "name": "Figma (UI/UX Design)", "icon": "figma", "proficiency": 75 },
+    { "name": "Responsive Design", "icon": "responsive", "proficiency": 100 }
+  ],
+  "Other Skills": [
+    { "name": "System Architecture", "icon": "architecture", "proficiency": 85 },
+    { "name": "API Design (REST)", "icon": "api", "proficiency": 95 },
+    { "name": "E2E Encryption", "icon": "security", "proficiency": 80 },
+    { "name": "PWA Development", "icon": "pwa", "proficiency": 85 },
+    { "name": "Git & Team Workflow", "icon": "git", "proficiency": 95 },
+    { "name": "Technical Documentation", "icon": "docs", "proficiency": 90 }
+  ]
+}

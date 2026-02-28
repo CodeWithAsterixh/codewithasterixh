@@ -5,6 +5,14 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   reactCompiler: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "gitroll.io",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

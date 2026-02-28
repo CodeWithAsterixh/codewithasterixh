@@ -2,25 +2,25 @@ import { Credentials as CredentialsPage } from "@/features/credentials/component
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Credentials & Skills | Asterixh - Full Stack Developer",
-  description: "View the credentials, skills, and certifications of Asterixh (Paul Peter). Expert in JavaScript, TypeScript, React, Next.js, and Node.js.",
+  title: "Credentials & Skills | Asterixh - Software Engineer & Web Developer",
+  description: "View the credentials, skills, and certifications of Asterixh (Paul Peter). Expert in software engineering and web development with React, Next.js, and TypeScript.",
   keywords: [
-    "Developer Skills",
-    "React Certification",
-    "JavaScript Expert",
+    "Software Engineer Skills",
+    "Web Developer Credentials",
+    "React Expert",
     "TypeScript Proficiency",
-    "Full Stack Credentials"
+    "Engineering Certifications"
   ],
   openGraph: {
-    title: "Credentials & Skills | Asterixh - Full Stack Developer",
-    description: "View the credentials, skills, and certifications of Asterixh (Paul Peter). Expert in JavaScript, TypeScript, React, Next.js, and Node.js.",
+    title: "Credentials & Skills | Asterixh - Software Engineer & Web Developer",
+    description: "View the credentials, skills, and certifications of Asterixh (Paul Peter). Expert in software engineering and web development with React, Next.js, and TypeScript.",
     url: "/credentials",
     type: "profile",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Credentials & Skills | Asterixh - Full Stack Developer",
-    description: "View the credentials, skills, and certifications of Asterixh (Paul Peter). Expert in JavaScript, TypeScript, React, Next.js, and Node.js.",
+    title: "Credentials & Skills | Asterixh - Software Engineer & Web Developer",
+    description: "View the credentials, skills, and certifications of Asterixh (Paul Peter). Expert in software engineering and web development with React, Next.js, and TypeScript.",
   }
 };
 

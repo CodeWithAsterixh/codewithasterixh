@@ -2,9 +2,9 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Asterixh - Full Stack Developer',
+    name: 'Asterixh - Software Engineer & Web Developer',
     short_name: 'Asterixh',
-    description: 'Asterixh builds fast and structured web applications with Next.js, React and TypeScript.',
+    description: 'Asterixh builds functional software and responsive web applications with Next.js, React and TypeScript.',
     start_url: '/',
     display: 'standalone',
     background_color: '#0F0F0F',

@@ -11,7 +11,7 @@ export const Works: React.FC = () => {
     id: p.slug,
     category: p.tags[0] || "Project",
     title: p.title,
-    image: p.thumbnail || "/images/project-placeholder.png" // Fallback if needed
+    image: p.thumbnail
   }));
   
   const totalProjects = projects.length;

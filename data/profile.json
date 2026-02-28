@@ -1,39 +1,39 @@
 {
   "name": "Paul Peter",
-  "role": "Full Stack Developer",
+  "role": "Software Engineer & Web Developer",
   "handle": "@asterixh",
   "alias": "Asterixh",
-  "headline": "Hello there",
-  "marquee": "LATEST WORK AND FEATURED",
+  "headline": "Software Engineer & Web Developer",
+  "marquee": "LATEST PROJECTS & SOFTWARE SOLUTIONS",
   "stats": [
     {
-      "value": "03",
+      "value": "04",
       "label": "Years\nExperience"
     },
     {
-      "value": "10+",
+      "value": "06",
       "label": "Total Clients"
     },
     {
-      "value": "+10",
+      "value": "15+",
       "label": "Total\nProjects"
     }
   ],
-  "subtext": "Web developer based in Lagos",
+  "subtext": "I build functional software and responsive websites.",
   "email": "peterpaultolulope@gmail.com",
   "phone": "+234 810 908 0838",
   "location": "Lagos, Nigeria",
   "about": {
-    "content": "I'm an enthusiastic and creative Fullstack software engineer and developer who love bringing solutions to real world cases. with over 3years of experience in web development, I have been able to hone my skills and expertise.\nAs a passionate Developer with a strong foundation in modern web technologies, I am eager to contribute my skills to a dynamic team. WIth my exceptional skill in creating internet recognizable serivices, and user focused solutions, I believe I will be of great use in a like minded workforce.",
+    "content": "I am Paul Peter, also known as **Asterixh**. I am a Software Engineer and Web Developer with 4 years of experience. I focus on building software that works and websites that are easy to use.\n\nI have built over 15 projects, including custom tools for 6 different clients. While I recently focus on high-performance professional websites, my technical depth is best seen in projects like **Anonfly** (an encrypted messaging platform), **SMS** (a full-stack School Management System), and **Quizeen** (an interactive quiz engine). I write clean code and I deliver what is needed.",
     "badgeIcon": "badge-check",
-    "badgeLabel": "Innovative Developer",
+    "badgeLabel": "Software Engineer",
     "topStatLabel": "Total Clients",
-    "topStatValue": "10+"
+    "topStatValue": "06"
   },
   "hero": {
     "quote": "Creating digital experiences that blend creativity with functionality, delivering solutions that drive results.",
     "primaryCta": {
-      "href": "https://github.com/asterixh",
+      "href": "https://github.com/CodeWithAsterixh",
       "label": "Github"
     },
     "secondaryCta": {
@@ -64,7 +64,7 @@
   },
   "socials": [
     {
-      "href": "https://github.com/asterixh",
+      "href": "https://github.com/CodeWithAsterixh",
       "icon": "github"
     },
     {
