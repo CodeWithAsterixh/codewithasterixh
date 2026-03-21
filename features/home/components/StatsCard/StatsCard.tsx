@@ -9,7 +9,7 @@ export const StatsCard: React.FC = () => {
       {profileData.stats.map((stat, index) => (
         <div key={index} className="flex flex-col items-center text-center p-4 rounded-[30px] bg-white/5 border border-white/5 w-full h-full justify-center">
             <Text variant="h3" weight="bold" className="mb-2">{stat.value}</Text>
-            <Text variant="tiny" color="gray" className="uppercase tracking-widest whitespace-pre-line">{stat.label}</Text>
+            <Text variant="tiny" color="gray" className="uppercase tracking-widest whitespace-pre-line text-center!">{stat.label}</Text>
         </div>
       ))}
     </Card>

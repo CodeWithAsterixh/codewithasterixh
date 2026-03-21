@@ -9,6 +9,7 @@ import { ProfileCard } from "@/components/ui/organisms/ProfileCard/ProfileCard";
 import { CredentialsCard } from "@/components/ui/organisms/CredentialsCard/CredentialsCard";
 import { ProfilesCard } from "@/components/ui/organisms/ProfilesCard/ProfilesCard";
 import { ContactCard } from "@/components/ui/organisms/ContactCard/ContactCard";
+import { ResumeCard } from "@/components/ui/organisms/ResumeCard/ResumeCard";
 
 export const Home: React.FC = () => {
   return (
@@ -33,7 +34,7 @@ export const Home: React.FC = () => {
           <BlogCard />
         </div>
         <div className="col-span-1">
-          <ServicesCard />
+          <ResumeCard />
         </div>
         <div className="col-span-1">
           <ProfilesCard />
@@ -46,8 +47,11 @@ export const Home: React.FC = () => {
         <div className="col-span-1">
           <ContactCard />
         </div>
-        <div className="col-span-1 lg:col-span-3">
+        <div className="col-span-1 lg:col-span-2">
           <StatsCard />
+        </div>
+        <div className="col-span-1">
+          <ServicesCard />
         </div>
       </div>
     </main>

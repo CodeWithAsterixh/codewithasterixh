@@ -18,12 +18,12 @@ const iconMap: Record<string, Icon> = {
 export const ProfilesCard: React.FC = () => {
   return (
     <Card className="h-full flex flex-col justify-between group">
-      <div className="flex-1 flex items-center justify-center gap-4 mb-6 p-4 rounded-[30px] border border-white/5 bg-[#1a1a1a]">
+      <div className="flex-1 flex items-center justify-center gap-4 mb-6 px-4 py-2 rounded-[30px] border border-white/5 bg-[#1a1a1a]">
          {profileData.socials.map((social, index) => {
             const Icon = iconMap[social.icon.toLowerCase()] || GlobeIcon;
             return (
                <a key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors cursor-pointer">
-                  <Icon size={32} weight="fill" />
+                  <Icon size={20} weight="fill" />
                </a>
             );
          })}

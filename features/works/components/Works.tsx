@@ -2,6 +2,7 @@ import React from "react";
 import { Text } from "@/components/ui/atoms/Text/Text";
 import { StarFourIcon } from "@phosphor-icons/react/dist/ssr";
 import { ProjectCard } from "./ProjectCard/ProjectCard";
+import { ResumeCard } from "@/components/ui/organisms/ResumeCard/ResumeCard";
 import projectsData from "@/data/projects.json";
 import uiData from "@/data/ui.json";
 
@@ -19,8 +20,6 @@ export const Works: React.FC = () => {
   let splitIndex = Math.ceil((totalProjects + 2) / 3);
   
   // Ensure Right Column (Grid) has an even number of items to avoid gaps
-  // The Right Column contains the rest of the projects.
-  // If (total - splitIndex) is odd, we move one more project from Left to Right.
   if ((totalProjects - splitIndex) % 2 !== 0) {
     splitIndex--;
   }
@@ -40,6 +39,7 @@ export const Works: React.FC = () => {
                     className="h-full min-h-100 flex-1" 
                 />
             ))}
+            <ResumeCard />
         </div>
 
         {/* Right Column - Header + Grid */}

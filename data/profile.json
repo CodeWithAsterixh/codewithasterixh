@@ -1,63 +1,63 @@
 {
   "name": "Paul Peter",
-  "role": "Software Engineer & Web Developer",
+  "role": "Software Engineer (Fullstack)",
   "handle": "@asterixh",
   "alias": "Asterixh",
-  "headline": "Software Engineer & Web Developer",
-  "marquee": "LATEST PROJECTS & SOFTWARE SOLUTIONS",
+  "headline": "Fullstack Software Engineer focused on scalable web systems",
+  "marquee": "FULLSTACK SYSTEMS, REAL-TIME APPS, AND PRODUCTION WEB SOLUTIONS",
   "stats": [
     {
       "value": "04",
-      "label": "Years\nExperience"
+      "label": "Years\nBuilding Web Systems"
     },
     {
       "value": "06",
-      "label": "Total Clients"
+      "label": "Clients\nServed"
     },
     {
       "value": "15+",
-      "label": "Total\nProjects"
+      "label": "Production\nProjects"
     }
   ],
-  "subtext": "I build functional software and responsive websites.",
+  "subtext": "I design and build scalable web applications, from responsive interfaces to backend systems and APIs.",
   "email": "peterpaultolulope@gmail.com",
   "phone": "+234 810 908 0838",
   "location": "Lagos, Nigeria",
   "about": {
-    "content": "I am Paul Peter, also known as **Asterixh**. I am a Software Engineer and Web Developer with 4 years of experience. I focus on building software that works and websites that are easy to use.\n\nI have built over 15 projects, including custom tools for 6 different clients. While I recently focus on high-performance professional websites, my technical depth is best seen in projects like **Anonfly** (an encrypted messaging platform), **SMS** (a full-stack School Management System), and **Quizeen** (an interactive quiz engine). I write clean code and I deliver what is needed.",
+    "content": "I am Paul Peter, also known as **Asterixh**. I am a fullstack software engineer with 4 years of experience building and deploying web applications.\n\nMy work spans frontend architecture and backend systems. I build responsive interfaces with React and Next.js, and I design APIs and services with Node.js and Express. I focus on performance, clean code structure, and scalable application design.\n\nI have delivered over 15 projects across 6 clients, including production systems like **Anonfly**, a real-time encrypted messaging platform, **SMS**, a student management system with role-based access and structured data handling, and **Quizeen**, a dynamic quiz engine with complex state management. My work is driven by clear logic, maintainable systems, and measurable results.",
     "badgeIcon": "badge-check",
-    "badgeLabel": "Software Engineer",
-    "topStatLabel": "Total Clients",
+    "badgeLabel": "Fullstack Engineer",
+    "topStatLabel": "Clients Served",
     "topStatValue": "06"
   },
   "hero": {
-    "quote": "Creating digital experiences that blend creativity with functionality, delivering solutions that drive results.",
+    "quote": "I build scalable web applications with clean architecture, fast interfaces, and reliable backend systems.",
     "primaryCta": {
       "href": "https://github.com/CodeWithAsterixh",
-      "label": "Github"
+      "label": "View Code"
     },
     "secondaryCta": {
-      "href": "https://asterixh.vercel.app/#contact",
-      "label": "Hire Me"
+      "href": "https://asterixh.vercel.app/contact",
+      "label": "Work With Me"
     },
     "badges": [
       {
         "items": [
-          "Prototype",
-          "Dashboard",
-          "Web App"
+          "Fullstack Systems",
+          "Web Applications",
+          "API Design"
         ]
       },
       {
         "items": [
-          "star_icon",
-          "Mobile App"
+          "Real-time Apps",
+          "System Architecture"
         ]
       },
       {
         "items": [
-          "Design",
-          "Website"
+          "Responsive UI",
+          "Performance Optimization"
         ]
       }
     ]

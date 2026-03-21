@@ -2,21 +2,51 @@
   {
     "duration": { "from": 2024, "to": 2024 },
     "name": "Gerald Consultant",
-    "title": "Web Developement"
+    "role": "Freelance Web Developer",
+    "workType": "Freelance",
+    "stacks": ["Frontend", "UI/UX", "Responsive Design"],
+    "description": "Worked with frontend team to deliver clean and accessible UI. Built responsive pages and improved usability across devices.",
+    "achievements": [
+      "Worked with frontend team to deliver clean and accessible UI.",
+      "Built responsive pages and improved usability across devices."
+    ]
   },
   {
     "duration": { "from": 2025, "to": 2025 },
     "name": "Estoyonline",
-    "title": "Web Development"
+    "role": "Freelance Web Developer",
+    "workType": "Freelance",
+    "stacks": ["React", "UI/UX", "Responsive Design", "Reusable Components"],
+    "description": "Collaborated with designers to build user-focused interfaces. Improved conversion rate by 5% within one month. Developed responsive layouts and reusable components.",
+    "achievements": [
+      "Collaborated with designers to build user-focused interfaces.",
+      "Improved conversion rate by 5% within one month.",
+      "Developed responsive layouts and reusable components."
+    ]
   },
   {
     "duration": { "from": 2025, "to": 2025 },
     "name": "Broome-service",
-    "title": "Web developement, Seo"
+    "role": "Freelance Web Developer",
+    "workType": "Freelance",
+    "stacks": ["React", "SEO", "UI/UX", "Email Integration"],
+    "description": "Built a high-performing website to increase traffic, sales, and subscribers. Built a mobile-first responsive website with modern UI using React and optimized performance. Integrated secure contact forms and emailing system.",
+    "achievements": [
+      "Built a high-performing website to increase traffic, sales, and subscribers.",
+      "Built a mobile-first responsive website with modern UI using React and optimized performance.",
+      "Integrated secure contact forms and emailing system."
+    ]
   },
   {
     "duration": { "from": 2025, "to": 2026 },
     "name": "Great Everlee School",
-    "title": "Programming Tutor"
+    "role": "Programming Tutor",
+    "workType": "Full-time",
+    "stacks": ["Web Development", "Programming Fundamentals", "Frontend Concepts"],
+    "description": "Teach programming fundamentals with focus on problem solving. Guide students on web development and frontend concepts.",
+    "achievements": [
+      "Teach programming fundamentals with focus on problem solving.",
+      "Guide students on web development and frontend concepts."
+    ]
   }
 ]

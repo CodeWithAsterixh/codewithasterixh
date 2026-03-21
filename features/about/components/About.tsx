@@ -4,6 +4,7 @@ import { ExperienceCard } from "./ExperienceCard/ExperienceCard";
 import { ProfilesCard } from "@/components/ui/organisms/ProfilesCard/ProfilesCard";
 import { ContactCard } from "@/components/ui/organisms/ContactCard/ContactCard";
 import { CredentialsCard } from "@/components/ui/organisms/CredentialsCard/CredentialsCard";
+import { ResumeCard } from "@/components/ui/organisms/ResumeCard/ResumeCard";
 import experienceData from "@/data/experience.json";
 import educationData from "@/data/education.json";
 import uiData from "@/data/ui.json";
@@ -11,14 +12,24 @@ import uiData from "@/data/ui.json";
 export const About: React.FC = () => {
   const formattedExperience = experienceData.map((item) => ({
     period: `${item.duration.from} - ${item.duration.to}`,
-    title: item.title,
+    title: item.role || "",
     subtitle: item.name,
+    description: item.description,
+    duration: item.duration,
+    name: item.name,
+    role: item.role,
+    workType: item.workType,
+    stacks: item.stacks,
+    achievements: item.achievements,
   }));
 
   const formattedEducation = educationData.map((item) => ({
     period: `${item.duration.from} - ${item.duration.to}`,
     title: item.title,
     subtitle: item.name,
+    description: item.description,
+    duration: item.duration,
+    name: item.name,
   }));
 
   return (
@@ -43,13 +54,18 @@ export const About: React.FC = () => {
             <ProfilesCard />
           </div>
           <div className="col-span-1">
-            <ContactCard />
+            <ResumeCard />
           </div>
         </div>
       </div>
 
-      <div className="col-span-1">
-        <CredentialsCard />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="col-span-1">
+          <CredentialsCard />
+        </div>
+        <div className="col-span-1">
+          <ContactCard />
+        </div>
       </div>
     </main>
   );
