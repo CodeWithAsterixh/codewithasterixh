@@ -11,29 +11,26 @@ I build functional software and responsive web applications with clean architect
 - Performance and accessibility in modern UI (Tailwind CSS v4, Framer Motion)
 
 ## Selected Works
-- Anonfly — Anonymous Encrypted Messaging  
+- Anonfly; Anonymous Encrypted Messaging  
   Privacy-by-design platform with E2EE, cryptographic identities, WebSockets/SSE, Redis, Node.js.  
   https://anonfly.vercel.app
 
-- SMS — School Management System  
+- SMS; School Management System  
   RBAC, attendance, admin workflows; Supabase backend with React-based UI.  
   https://asterixh-sms-frontend.vercel.app/
 
-- Quizeen — Interactive Quiz Platform  
+- Quizeen; Interactive Quiz Platform  
   Full-stack Next.js, JWT auth, MongoDB/Mongoose, Redux Toolkit, Zod validation.  
   https://quizeen.vercel.app
 
-- AsterMail — Email Delivery Service  
+- AsterMail; Email Delivery Service  
   Dynamic SMTP configuration, autoresponse workflows, structured validation and error handling.  
   https://astermail.onrender.com/
 
-- WorkUp Cards — Business Card Generator  
+- WorkUp Cards; Business Card Generator  
   Fast, user-friendly card creator with instant export and accessible UI.  
   https://workup-ashy.vercel.app/
 
-- Client Platforms  
-  EHM Elec — Solar & Electrical Engineering: https://elohimelec.vercel.app/  
-  Glorious Dental Clinic — Healthcare: https://glorious-dental-clinic.vercel.app/
 
 ## Get in Touch
 - Portfolio: https://asterixh.vercel.app
