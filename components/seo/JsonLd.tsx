@@ -1,7 +1,25 @@
 import profile from "@/data/profile.json";
 import metaData from "@/data/meta.json";
 
-export const JsonLd = () => {
+interface Breadcrumb {
+  name: string;
+  item: string;
+}
+
+interface JsonLdProps {
+  breadcrumbs?: Breadcrumb[];
+  article?: {
+    headline: string;
+    description: string;
+    image?: string;
+    datePublished?: string;
+    dateModified?: string;
+    authorName?: string;
+    url: string;
+  };
+}
+
+export const JsonLd = ({ breadcrumbs, article }: JsonLdProps) => {
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -48,16 +66,64 @@ export const JsonLd = () => {
     },
   };
 
+  const breadcrumbSchema = breadcrumbs
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: breadcrumbs.map((crumb, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: crumb.name,
+          item: crumb.item.startsWith("http")
+            ? crumb.item
+            : `${metaData.site.url}${crumb.item}`,
+        })),
+      }
+    : null;
+
+  const articleSchema = article
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: article.headline,
+        description: article.description,
+        image: article.image,
+        datePublished: article.datePublished,
+        dateModified: article.dateModified || article.datePublished,
+        author: {
+          "@type": "Person",
+          name: article.authorName || profile.name,
+          url: metaData.site.url,
+        },
+        url: article.url,
+      }
+    : null;
+
+  const jsonLdContentPersonsChema = JSON.stringify(personSchema).replaceAll('<', String.raw`\u003c`);
+
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdContentPersonsChema }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
+      {breadcrumbSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+      )}
+      {articleSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        />
+      )}
     </>
   );
 };

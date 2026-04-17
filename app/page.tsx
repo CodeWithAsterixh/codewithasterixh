@@ -3,29 +3,30 @@ import { Metadata } from "next";
 import metaData from "@/data/meta.json";
 
 export const metadata: Metadata = {
-  title: "Asterixh | Software Engineer & Web Developer",
-  description: "Asterixh (Paul Peter) is a Software Engineer and Web Developer specializing in Next.js, React, TypeScript, and functional software solutions.",
+  title: "Asterixh | Expert Software Engineer & Fullstack Web Developer",
+  description: "Asterixh (Paul Peter) is a Software Engineer specializing in Next.js, React, and Node.js. Building scalable, high-performance web systems that convert.",
   keywords: [
+    "Expert Software Engineer",
+    "Fullstack Web Developer",
+    "Next.js Specialist",
+    "React Architecture",
+    "Backend Systems",
+    "Scalable Web Applications",
     ...metaData.site.keywords,
-    "Hire Software Engineer",
-    "Hire Web Developer",
-    "Software Solutions",
-    "Next.js Developer",
-    "Portfolio"
   ],
   alternates: {
     canonical: metaData.site.url,
   },
   openGraph: {
-    title: "Asterixh | Software Engineer & Web Developer",
-    description: "Asterixh (Paul Peter) is a Software Engineer and Web Developer specializing in Next.js, React, TypeScript, and functional software solutions.",
+    title: "Asterixh | Expert Software Engineer & Fullstack Web Developer",
+    description: "Building scalable, high-performance web systems that convert with Next.js, React, and Node.js.",
     url: "/",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Asterixh | Software Engineer & Web Developer",
-    description: "Asterixh (Paul Peter) is a Software Engineer and Web Developer specializing in Next.js, React, TypeScript, and functional software solutions.",
+    description: "Expert software engineering solutions focused on scalability and conversion.",
   }
 };
 

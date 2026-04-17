@@ -75,9 +75,12 @@ export const ContactForm: React.FC<ContactFormProps> = ({ titleAs = "h2" }) => {
             <StarFourIcon size={48} weight="light" />
         </div>
 
-        <div className="mb-8">
+        <div className="mb-8 flex flex-col gap-4">
             <Text variant="h2" as={titleAs} weight="medium" className="leading-tight text-4xl md:text-5xl">
-                {uiData.contact.form.title.line1} {uiData.contact.form.title.line2} <span className="text-primary-blue">{uiData.contact.form.title.highlight}</span>
+                Ready to reach a <br /> worldwide <span className="text-primary-blue">audience?</span>
+            </Text>
+            <Text variant="body" className="text-white/60 text-base md:text-lg max-w-sm mb-4 leading-relaxed font-light">
+                Fill out the form, and let's discuss how we can engineer your digital space to stop just sitting there, and start actively converting visitors into real leads and clients.
             </Text>
         </div>
 

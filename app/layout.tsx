@@ -20,11 +20,28 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(metaData.site.url),
   title: {
-    default: metaData.site.title,
+    default: "Asterixh | Software Engineer & Web Developer",
     template: `%s | ${metaData.site.title}`,
   },
   description: metaData.site.description,
-  keywords: metaData.site.keywords,
+  keywords: [
+    "Software Engineer",
+    "Website Developer",
+    "Fullstack Developer",
+    "Frontend Developer",
+    "Backend Developer",
+    "Next.js Developer",
+    "React Developer",
+    "TypeScript Developer",
+    "Node.js Developer",
+    "System Architecture",
+    "API Design",
+    "Custom Web Applications",
+    "Software Solutions",
+    "Lagos Developer",
+    "Nigeria Software Engineer",
+    ...metaData.site.keywords,
+  ],
   alternates: {
     canonical: metaData.site.url,
   },
@@ -34,11 +51,13 @@ export const metadata: Metadata = {
     url: metaData.site.url,
     siteName: "Asterixh",
     type: "website",
+    images: [{ url: "/images/og-images/og-home.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: metaData.site.title,
     description: metaData.site.description,
+    images: ["/images/og-images/og-home.png"],
   },
   robots: {
     index: true,
@@ -70,7 +89,9 @@ export default function RootLayout({
 
         <main id="scroll-container" className="relative isolate overflow-y-auto h-dvh w-full">
           <Navbar />
-          {children}
+          <div className="w-full z-1 isolate">
+            {children}
+          </div>
           <Footer />
         </main>
       </body>

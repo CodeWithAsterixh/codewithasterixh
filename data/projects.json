@@ -20,7 +20,15 @@
       "Axios"
     ],
     "url": "https://quizeen.vercel.app",
-    "slug": "quizeen-interactive-quiz-platform"
+    "slug": "quizeen-interactive-quiz-platform",
+    "problem": "Most quiz platforms are rigid, dropping users' progress if their connection stutters or providing zero analytics for the creator. We wanted a seamless, highly engaging experience that feels more like a game than a test, while giving creators deep insights.",
+    "goal": "Build an engaging, highly responsive interactive quiz engine that feels like a modern SaaS platform, supporting complex state management for customizable quiz flows.",
+    "architecture": "Next.js App Router for SEO and initial load speed, paired with a distinct Redux Toolkit store for managing complex, deeply nested quiz states safely.",
+    "challenges": "Synchronizing complex quiz state (timer, current question, selection) with rapid page transitions without losing data or causing hydration mismatches.",
+    "solutions": "Implemented a rigid deterministic state machine within Redux, ensuring the quiz flow strictly adheres to the schema. Persisted state to local storage to survive accidental reloads.",
+    "tradeOffs": "Sacrificed extreme offline capabilities (PWA) in favor of a simpler, always-connected architecture to prevent state desync with the server.",
+    "lessons": "Complex global state in Next.js requires careful segregation between server components and client state boundaries.",
+    "outcome": "Delivered a lightweight, incredibly fast quiz taker with sub 100ms interaction latency, resulting in a streamlined testing experience."
   },
   {
     "title": "WorkUp Cards – Business Card Generator",
@@ -42,7 +50,15 @@
       "HTML2Canvas"
     ],
     "url": "https://workup-ashy.vercel.app/",
-    "slug": "workup-cards-business-card-generator"
+    "slug": "workup-cards-business-card-generator",
+    "problem": "Physical business cards are outdated the moment they are printed, and manually sharing details is clumsy. We needed a frictionless way for professionals to generate, share, and update their digital presence instantly via QR codes without needing to download another app.",
+    "goal": "Create a fast, client-side only business card generator capable of rendering high-resolution, print-ready outputs instantly.",
+    "architecture": "React 19 with Tailwind for rapid styling. React Hook Form with Zod for robust input validation. HTML2Canvas for the heavy lifting of DOM-to-Image translation.",
+    "challenges": "Rendering complex CSS (gradients, shadows, custom fonts) accurately into an image canvas without visual corruption or extreme performance lag.",
+    "solutions": "Implemented a hidden rendering DOM layer that strips non-essential interactive elements and pre-loads fonts before triggering the HTML2Canvas snapshot.",
+    "tradeOffs": "Restricted the use of certain hyper-complex CSS filters (like backdrop-blur) because canvas rendering engines struggle to parse them identically to the browser.",
+    "lessons": "The DOM is not a 1:1 map to a Canvas context. Client-side image generation requires strict styling constraints.",
+    "outcome": "A fully functional, instant-download design tool with zero server-side processing costs."
   },
   {
     "title": "WorldTimeSage",
@@ -65,7 +81,15 @@
       "Date-fns"
     ],
     "url": "https://worldtime-sage.vercel.app",
-    "slug": "worldtimesage"
+    "slug": "worldtimesage",
+    "problem": "Managing global teams often feels like a guessing game of timezones, leading to missed meetings and delayed responses. The goal was to eliminate timezone fatigue entirely by giving users a clean, instant visual dashboard of exactly when their team is active.",
+    "goal": "Develop a comprehensive time-tracking and documentation hub offering offline capabilities and timezone customization without bloated UI.",
+    "architecture": "React and Redux Toolkit for complex timezone state, Fuse.js for rapid localized searching, and a strict PWA implementation for offline access.",
+    "challenges": "JavaScript's native Date object is infamously difficult for complex timezone permutations, especially with daylight savings rules changing dynamically.",
+    "solutions": "Leveraged Date-fns purely for formatting while maintaining a strict UTC-first data model. Built a robust caching layer to ensure core functionality remained during offline periods.",
+    "tradeOffs": "The robust documentation system meant the bundle size was larger initially, requiring aggressive code splitting at the route level.",
+    "lessons": "A documentation-first approach (writing the docs alongside the code) forces you to build more intuitive UIs.",
+    "outcome": "An accessible, installable PWA that functions flawlessly without an internet connection."
   },
   {
     "title": "AsterMail",
@@ -150,68 +174,15 @@
       "IndexedDB"
     ],
     "url": "https://anonfly.vercel.app",
-    "slug": "anonfly-anonymous-encrypted-messaging"
-  },
-  {
-    "title": "Broome Service – Professional Cleaning Solutions",
-    "category": "Web Development",
-    "excerpt": "A professional cleaning service platform for Broome Service, offering specialized residential and commercial cleaning. It features a modern booking system, membership management, and tailored solutions for Airbnb hosts. Engineered for seamless service management and high-performance user interaction.",
-    "thumbnail": "/images/projects/broome-service.png",
-    "tags": [
-      "Client Work",
-      "Service Platform",
-      "Business Website"
-    ],
-    "tools": [
-      "React",
-      "Vite",
-      "Tailwind CSS",
-      "Shadcn UI",
-      "Framer Motion",
-      "TypeScript"
-    ],
-    "url": "https://broomeserviceco.com",
-    "slug": "broomeservice-professional-cleaning-solutions"
-  },
-  {
-    "title": "EHM Elec – Solar & Electrical Engineering",
-    "category": "Web Development",
-    "excerpt": "A comprehensive solar and electrical engineering platform for EHM Elec. It provides tools for service booking, detailed quote requests for solar installations, and a gallery of engineering projects. The site focuses on accessibility, performance, and professional presentation for renewable energy solutions.",
-    "thumbnail": "/images/projects/elohim-electric.png",
-    "tags": [
-      "Client Work",
-      "Solar Energy",
-      "Engineering"
-    ],
-    "tools": [
-      "Next.js (App Router)",
-      "TypeScript",
-      "Tailwind CSS",
-      "Zod",
-      "Nodemailer"
-    ],
-    "url": "https://elohimelec.vercel.app/",
-    "slug": "ehmelec-solar-electrical-engineering"
-  },
-  {
-    "title": "Glorious Dental Clinic – Modern Healthcare Platform",
-    "category": "Web Development",
-    "excerpt": "A professional healthcare platform for Glorious Dental Clinic, designed to streamline patient appointments and showcase dental services. It features an interactive appointment booking system, before-and-after treatment galleries, and a comprehensive FAQ section to improve patient engagement.",
-    "thumbnail": "/images/projects/glorious-dental.png",
-    "tags": [
-      "Client Work",
-      "Healthcare",
-      "Appointment System"
-    ],
-    "tools": [
-      "Next.js (App Router)",
-      "TypeScript",
-      "Tailwind CSS",
-      "Zod",
-      "Framer Motion"
-    ],
-    "url": "https://glorious-dental-clinic.vercel.app/",
-    "slug": "glorious-dental-clinic-healthcare"
+    "slug": "anonfly-anonymous-encrypted-messaging",
+    "problem": "People hesitate to share honest feedback if they feel their identity isn't secure. Standard forms don't guarantee anonymity. We needed to build a space where users could send truly anonymous, encrypted feedback without the anxiety of being tracked.",
+    "goal": "Create a 'Privacy by Design' messaging platform utilizing cryptographic identities and end-to-end encryption, requiring absolutely no PII (Personally Identifiable Information).",
+    "architecture": "Node.js/Express backend acting solely as a relay. WebSockets and SSE for real-time delivery. IndexedDB for local cryptographic key and message storage. React on the frontend.",
+    "challenges": "Handling disconnected states where a user goes offline during an encrypted key exchange, leading to dropped message handshakes.",
+    "solutions": "Built a robust Redis-backed message queueing system that holds encrypted payloads temporarily until the recipient websocket re-connects and acknowledges receipt.",
+    "tradeOffs": "No multi-device sync. Because keys are generated and stored strictly in the local browser's IndexedDB, sessions cannot be easily transferred without explicit manual key export.",
+    "lessons": "Cryptography in the browser is powerful but unforgiving. State machines handling connection drops must be bulletproof.",
+    "outcome": "A fully functional, E2EE real-time chat application where the server literally cannot read the messages it relays."
   },
   {
     "title": "Asterixh School Portal – Educational Hub",
@@ -252,7 +223,15 @@
       "TypeScript"
     ],
     "url": "https://asterixh-sms-frontend.vercel.app/",
-    "slug": "sms-comprehensive-school-management"
+    "slug": "sms-comprehensive-school-management",
+    "problem": "School administrators are forced to bounce between disjointed systems just to track student grades and fees. It is exhausting and prone to constant data errors. We needed to build one single, reliable source of truth for the entire institution.",
+    "goal": "Centralize all operations into a single, high-performance platform featuring strict Role-Based Access Control (RBAC).",
+    "architecture": "Supabase for a scalable, secure Postgres backend. Node.js/Express for custom business logic. React frontend using Zustand for state and React Query for server state caching.",
+    "challenges": "Managing deeply granular permissions (e.g., a teacher can edit grades only for their assigned class, while admins can edit all, and students can only view).",
+    "solutions": "Implemented Row Level Security (RLS) policies directly within Supabase alongside application-layer middleware in Express to double-verify mutation intents.",
+    "tradeOffs": "Heavier initial setup time and steep learning curve for the Supabase RLS policies compared to a traditional ORM approach.",
+    "lessons": "Pushing security constraints down to the database layer drastically reduces application-level bugs regarding unauthorized data access.",
+    "outcome": "A production-grade, secure dashboard capable of handling thousands of relational records seamlessly."
   },
   {
     "title": "Resin Art – Creative Portfolio & Catalog",

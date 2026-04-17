@@ -1,18 +1,29 @@
 import { ResumeViewer } from "@/features/resume/components/ResumeViewer";
 import { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Resume | Peter Paul - Frontend Developer",
-  description: "View and download the professional resume of Peter Paul, a Frontend Developer and Software Engineer.",
-  keywords: ["Resume", "Peter Paul", "Frontend Developer", "CV", "Software Engineer"],
+  title: "Professional Resume & Career History | Paul Peter",
+  description: "Download and view the professional resume of Paul Peter (Asterixh), a Fullstack Software Engineer with 4+ years of experience in React and Node.js.",
+  keywords: ["Software Engineer Resume", "Paul Peter CV", "Asterixh Career History", "Fullstack Developer Resume", "Hire Paul Peter"],
   openGraph: {
-    title: "Resume | Peter Paul - Frontend Developer",
-    description: "View and download the professional resume of Peter Paul, a Frontend Developer and Software Engineer.",
+    title: "Professional Resume & Career History | Paul Peter",
+    description: "Fullstack Software Engineer Resume - 4+ years of experience in scalable web systems.",
     url: "/resume",
-    type: "website",
+    type: "profile",
   },
 };
 
 export default function Page() {
-  return <ResumeViewer />;
+  const breadcrumbs = [
+    { name: "Home", item: "/" },
+    { name: "Resume", item: "/resume" },
+  ];
+
+  return (
+    <>
+      <JsonLd breadcrumbs={breadcrumbs} />
+      <ResumeViewer />
+    </>
+  );
 }

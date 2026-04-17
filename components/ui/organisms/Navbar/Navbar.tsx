@@ -42,7 +42,7 @@ export const Navbar: React.FC = () => {
   return (
     <nav
       ref={navbarRef}
-      className="z-10 flex sticky top-0 border border-transparent w-full duration-300 items-center justify-between py-4 px-4 md:px-8 max-w-7xl mx-auto"
+      className="z-[100] flex sticky top-0 border border-transparent w-full duration-300 items-center justify-between py-4 px-4 md:px-8 max-w-7xl mx-auto transition-all"
     >
       <Logo />
 
