@@ -7,6 +7,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+type BlogPostRecord = (typeof postsData)[number];
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = postsData.find((p) => p.slug === slug);
@@ -38,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
-  const post: any = postsData.find((p) => p.slug === slug);
+  const post: BlogPostRecord | undefined = postsData.find((p) => p.slug === slug);
 
   if (!post) return null;
 

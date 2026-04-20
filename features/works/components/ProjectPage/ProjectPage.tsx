@@ -1,17 +1,20 @@
 import { Button } from "@/components/ui/atoms/Button/Button";
 import { Text } from "@/components/ui/atoms/Text/Text";
 import projectsData from "@/data/projects.json";
-import { ArrowLeftIcon, ArrowUpRightIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
+import { RequestLivePreviewButton } from "./RequestLivePreviewButton";
 
 interface ProjectPageProps {
   slug: string;
 }
 
+type ProjectRecord = (typeof projectsData)[number];
+
 export const ProjectPage: React.FC<ProjectPageProps> = ({ slug }) => {
-  const project: any = projectsData.find((p) => p.slug === slug);
+  const project: ProjectRecord | undefined = projectsData.find((p) => p.slug === slug);
 
   if (!project) {
     return notFound();
@@ -41,15 +44,10 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ slug }) => {
 
         {project.url && (
           <div className="pt-4">
-            <Button
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="primary"
-              icon={ArrowUpRightIcon}
-            >
-              View Live Project
-            </Button>
+            <RequestLivePreviewButton
+              projectSlug={project.slug}
+              projectTitle={project.title}
+            />
           </div>
         )}
       </section>

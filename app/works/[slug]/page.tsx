@@ -8,6 +8,8 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+type ProjectRecord = (typeof projectsData)[number];
+
 export async function generateStaticParams() {
   return projectsData.map((project) => ({
     slug: project.slug,
@@ -56,7 +58,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
-  const project: any = projectsData.find((p) => p.slug === slug);
+  const project: ProjectRecord | undefined = projectsData.find((p) => p.slug === slug);
 
   if (!project) return null;
 

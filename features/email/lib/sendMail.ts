@@ -15,6 +15,7 @@ interface SendMailOptions {
   subject: string;
   html: string;
   mailTo: string;
+  replyTo?: string;
 }
 
 interface SendMailResult {
@@ -56,7 +57,7 @@ function getTransporter(): nodemailer.Transporter {
 }
 
 export async function sendMail(options: SendMailOptions): Promise<SendMailResult> {
-  const { subject, html, mailTo } = options;
+  const { subject, html, mailTo, replyTo } = options;
   const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER;
   if (!fromEmail) {
     return {
@@ -71,6 +72,7 @@ export async function sendMail(options: SendMailOptions): Promise<SendMailResult
     const result = await transport.sendMail({
       from: fromEmail,
       to: mailTo,
+      replyTo,
       subject,
       html,
     });

@@ -1,100 +1,101 @@
 [
   {
-    "title": "Quizeen – Interactive Quiz Taking Platform",
+    "title": "Quizeen – Secure Quiz Platform",
     "category": "Software Engineering",
-    "excerpt": "I engineered Quizeen to solve a real problem: most quiz platforms force learners to lose progress if their connection hiccups. I collaborated to build an engaging, game-like experience using Next.js and Redux, implementing production-grade security and deterministic state management. The result: a fast, responsive platform where learners stay engaged and creators get deep insights into performance.",
+    "excerpt": "Quizeen is a full-stack quiz platform for creating, taking, and reviewing timed quizzes. The codebase combines Next.js App Router pages and API routes, MongoDB models, JWT-based authentication with refresh and CSRF flows, and Redux-powered client state for quiz progress, settings, and results.",
     "thumbnail": "/images/projects/quizeen-interactive-quiz-platform.png",
     "tags": [
-      "Quiz taker",
+      "EdTech",
       "Full-stack",
-      "Database integration"
+      "Assessment"
     ],
     "tools": [
-      "Next.js (App Router)",
+      "Next.js 16 (App Router)",
       "React 19",
-      "Tailwind CSS",
+      "Tailwind CSS 3",
       "MongoDB + Mongoose",
       "Redux Toolkit",
+      "JWT + CSRF Auth",
       "Zod",
-      "JWT Authentication",
-      "Axios"
+      "Jest"
     ],
     "url": "https://quizeen.vercel.app",
     "slug": "quizeen-interactive-quiz-platform",
-    "problem": "Most quiz platforms are rigid, dropping users' progress if their connection stutters or providing zero analytics for the creator. We wanted a seamless, highly engaging experience that feels more like a game than a test, while giving creators deep insights.",
-    "goal": "Build an engaging, highly responsive interactive quiz engine that feels like a modern SaaS platform, supporting complex state management for customizable quiz flows.",
-    "architecture": "Next.js App Router for SEO and initial load speed, paired with a distinct Redux Toolkit store for managing complex, deeply nested quiz states safely.",
-    "challenges": "Synchronizing complex quiz state (timer, current question, selection) with rapid page transitions without losing data or causing hydration mismatches.",
-    "solutions": "Implemented a rigid deterministic state machine within Redux, ensuring the quiz flow strictly adheres to the schema. Persisted state to local storage to survive accidental reloads.",
-    "tradeOffs": "Sacrificed extreme offline capabilities (PWA) in favor of a simpler, always-connected architecture to prevent state desync with the server.",
-    "lessons": "Complex global state in Next.js requires careful segregation between server components and client state boundaries.",
-    "outcome": "Delivered a lightweight, incredibly fast quiz taker with sub 100ms interaction latency, resulting in a streamlined testing experience."
+    "problem": "Most quiz experiences either feel clunky or fail to protect session state and account security properly. The product needed to support both learners taking quizzes and admins managing quiz content without sacrificing responsiveness.",
+    "goal": "Build a modern quiz application with secure authentication, structured quiz state management, and clear result tracking for both learners and administrators.",
+    "architecture": "Next.js App Router handles both the frontend and server routes, MongoDB stores users, quizzes, and results, and Redux Toolkit manages auth, quiz progress, and user settings on the client.",
+    "challenges": "Keeping quiz timing, progress, and authentication flows consistent across client state, protected routes, and API handlers.",
+    "solutions": "Separated auth, validation, middleware, and quiz logic into focused modules, then used Redux slices and reusable hooks to keep quiz flows predictable on the frontend.",
+    "tradeOffs": "Using one Next.js codebase for UI and backend APIs simplifies deployment, but tightly couples frontend and server-side concerns.",
+    "lessons": "Quiz products need strong state boundaries: auth, timing, answers, and result persistence all benefit from explicit ownership.",
+    "outcome": "A production-style quiz platform with account flows, timed quiz sessions, result reporting, and admin quiz creation endpoints."
   },
   {
     "title": "WorkUp Cards – Business Card Generator",
     "category": "Web Development",
-    "excerpt": "Physical business cards become obsolete the moment they're printed. I engineered WorkUp Cards to help professionals generate, customize, and instantly download high-resolution cards without design skills. Built with React and HTML-to-image rendering, it showcases my ability to craft fast, accessible tools that solve real user problems through responsive design and intuitive interfaces.",
+    "excerpt": "WorkUp Cards is a template-driven business card generator that lets users browse designs, customize front and back card content, preview updates in real time, and download or share generated card images directly from the browser.",
     "thumbnail": "/images/projects/workup-cards-business-card-generator.png",
     "tags": [
       "Design Tool",
-      "Interactive UI",
-      "Image Generation"
+      "Template System",
+      "Image Export"
     ],
     "tools": [
+      "React Router 7",
       "React 19",
-      "React Router",
-      "Tailwind CSS",
-      "GSAP",
-      "Zod",
+      "TypeScript",
+      "Tailwind CSS 4",
       "React Hook Form",
-      "HTML2Canvas"
+      "Zod",
+      "html2canvas",
+      "GSAP"
     ],
     "url": "https://workup-ashy.vercel.app/",
     "slug": "workup-cards-business-card-generator",
-    "problem": "Physical business cards are outdated the moment they are printed, and manually sharing details is clumsy. We needed a frictionless way for professionals to generate, share, and update their digital presence instantly via QR codes without needing to download another app.",
-    "goal": "Create a fast, client-side only business card generator capable of rendering high-resolution, print-ready outputs instantly.",
-    "architecture": "React 19 with Tailwind for rapid styling. React Hook Form with Zod for robust input validation. HTML2Canvas for the heavy lifting of DOM-to-Image translation.",
-    "challenges": "Rendering complex CSS (gradients, shadows, custom fonts) accurately into an image canvas without visual corruption or extreme performance lag.",
-    "solutions": "Implemented a hidden rendering DOM layer that strips non-essential interactive elements and pre-loads fonts before triggering the HTML2Canvas snapshot.",
-    "tradeOffs": "Restricted the use of certain hyper-complex CSS filters (like backdrop-blur) because canvas rendering engines struggle to parse them identically to the browser.",
-    "lessons": "The DOM is not a 1:1 map to a Canvas context. Client-side image generation requires strict styling constraints.",
-    "outcome": "A fully functional, instant-download design tool with zero server-side processing costs."
+    "problem": "Professionals need a quick way to generate polished business cards without opening design software or relying on a backend image service.",
+    "goal": "Create a fast, browser-first card maker with reusable templates, live previews, and instant export for sharing or printing.",
+    "architecture": "React Router powers the app shell and template routes, template components define each card layout, and a preview pipeline renders editable cards into exportable images on the client.",
+    "challenges": "Keeping customizable templates interactive while still producing stable image previews for download and share actions.",
+    "solutions": "Used structured form state, a dedicated template renderer, and a debounced preview generation flow to keep the editing and export experience responsive.",
+    "tradeOffs": "The app stays lightweight by generating everything client-side, but export quality depends on browser rendering behavior.",
+    "lessons": "Template-based products become easier to scale when the design system and rendering pipeline are clearly separated.",
+    "outcome": "A lightweight business-card builder with multiple templates, live customization, and zero-server image generation."
   },
   {
-    "title": "WorldTimeSage",
+    "title": "WorldTimeSage – Global Timezone Dashboard",
     "category": "Web Development",
-    "excerpt": "Managing global teams across timezones is exhausting. I built WorldTimeSage to help teams visualize exactly when everyone is active. Engineered as a PWA with Redux for complex timezone state, Fuse.js for rapid searching, and robust offline capabilities, it demonstrates my commitment to solving real operational challenges with thoughtful, user-centered design.",
+    "excerpt": "WorldTimeSage is a timezone dashboard and reference app for browsing countries, inspecting regional timezones, and saving clocks for multiple locations. The codebase includes searchable world clock views, country detail screens, offline mode, settings, help pages, and installable PWA support.",
     "thumbnail": "/images/projects/worldtimesage.png",
     "tags": [
-      "Documentation",
-      "UX Writing",
-      "Support Center"
+      "PWA",
+      "Timezone Tools",
+      "Dashboard"
     ],
     "tools": [
-      "React",
-      "React Router",
-      "Tailwind CSS",
+      "React 18",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS 3",
       "Redux Toolkit",
-      "Framer Motion",
-      "Fuse.js",
+      "D3",
       "Recharts",
-      "Date-fns"
+      "Framer Motion"
     ],
     "url": "https://worldtime-sage.vercel.app",
     "slug": "worldtimesage",
-    "problem": "Managing global teams often feels like a guessing game of timezones, leading to missed meetings and delayed responses. The goal was to eliminate timezone fatigue entirely by giving users a clean, instant visual dashboard of exactly when their team is active.",
-    "goal": "Develop a comprehensive time-tracking and documentation hub offering offline capabilities and timezone customization without bloated UI.",
-    "architecture": "React and Redux Toolkit for complex timezone state, Fuse.js for rapid localized searching, and a strict PWA implementation for offline access.",
-    "challenges": "JavaScript's native Date object is infamously difficult for complex timezone permutations, especially with daylight savings rules changing dynamically.",
-    "solutions": "Leveraged Date-fns purely for formatting while maintaining a strict UTC-first data model. Built a robust caching layer to ensure core functionality remained during offline periods.",
-    "tradeOffs": "The robust documentation system meant the bundle size was larger initially, requiring aggressive code splitting at the route level.",
-    "lessons": "A documentation-first approach (writing the docs alongside the code) forces you to build more intuitive UIs.",
-    "outcome": "An accessible, installable PWA that functions flawlessly without an internet connection."
+    "problem": "People working across countries often need more than a single world clock. They need search, country-level details, offline access, and a simple way to compare multiple timezones.",
+    "goal": "Build a practical timezone companion with searchable global data, country detail pages, saved clocks, and installable offline-friendly behavior.",
+    "architecture": "A React SPA organizes features into dashboard, country details, offline mode, help, and settings routes, with shared UI components and centralized state for search and view preferences.",
+    "challenges": "Presenting timezone information clearly while accounting for regional differences, offline usage, and a growing set of UI states.",
+    "solutions": "Split the product into focused route modules, added dedicated search and offline components, and layered in install prompts and preference controls for PWA-style usage.",
+    "tradeOffs": "A broader feature set improves usability, but creates more route and state complexity than a simple single-page world clock.",
+    "lessons": "Utility products benefit from explicit route boundaries: dashboard, details, settings, and offline support each need different interaction patterns.",
+    "outcome": "A richer world clock experience with search, multi-location viewing, country-level timezone details, and offline-aware navigation."
   },
   {
-    "title": "AsterMail",
+    "title": "AsterMail – Dynamic Email Delivery API",
     "category": "Software Engineering",
-    "excerpt": "I designed and built AsterMail as a flexible, production-grade email delivery service engineered for reliability and scalability. With dynamic SMTP configuration, robust validation pipelines, and comprehensive error handling, it showcases my backend expertise: designing secure APIs, implementing scalable transport logic, and building systems ready for real-world SaaS environments where delivery reliability matters.",
+    "excerpt": "AsterMail is a backend email service for sending messages through dynamic SMTP configuration. The codebase exposes API endpoints for email dispatch, validation, transport setup, request logging, caching, and consistent error handling for transactional or custom email workflows.",
     "thumbnail": null,
     "tags": [
       "Backend",
@@ -103,102 +104,93 @@
     ],
     "tools": [
       "Node.js",
-      "Express",
+      "Express 5",
       "Nodemailer",
       "TypeScript",
       "Helmet",
       "Express Validator",
-      "Morgan"
+      "Morgan",
+      "LRU Cache"
     ],
     "url": "https://astermail.onrender.com/",
-    "slug": "astermail"
+    "slug": "astermail",
+    "problem": "Many apps need email delivery without being locked into a single provider or rigid transport setup.",
+    "goal": "Provide a flexible email API that can validate requests, create SMTP transports dynamically, and handle autoresponses and failures cleanly.",
+    "architecture": "Express routes receive requests, validation middleware sanitizes input, transport utilities create mail clients on demand, and shared helpers standardize route handling and error responses.",
+    "challenges": "Balancing flexibility in SMTP configuration with safe request validation and predictable transport behavior.",
+    "solutions": "Wrapped transport creation and route execution in reusable utilities, then paired them with validation, logging, and security middleware.",
+    "tradeOffs": "A configurable email API is more flexible than a provider-specific integration, but requires stronger validation and clearer operational safeguards.",
+    "lessons": "Backend utility services become easier to maintain when validation, routing, and infrastructure concerns are separated early.",
+    "outcome": "A reusable email delivery service suitable for custom transactional workflows and SMTP-driven integrations."
   },
   {
     "title": "Geemex – Gaming Landing Page Template",
     "category": "Web Development",
-    "excerpt": "Geemex is an immersive gaming landing page template built with Vue.js, designed to showcase a futuristic survival game. The template highlights intense gameplay, tactical combat, cooperative multiplayer, hero stories, and in-game collectibles, offering a fully responsive and visually engaging user experience.\n\nIt demonstrates my ability to create interactive, high-performance frontend templates with modern UI design, clear content hierarchy, pricing tiers, subscription options, and promotional sections for gaming projects.",
+    "excerpt": "Geemex is a gaming landing page template built with Vue 3 and Vite. It is organized around reusable hero, character, pricing, FAQ, and call-to-action sections for promoting a game, community, or gaming brand with a polished single-page experience.",
     "thumbnail": "/images/projects/geemex.png",
     "tags": [
       "Gaming",
-      "Vue.js",
+      "Vue",
       "Landing Page"
     ],
     "tools": [
-      "Vue.js 3",
-      "Tailwind CSS",
-      "Vite",
+      "Vue 3",
       "TypeScript",
-      "Vue TSC"
+      "Vite 6",
+      "Tailwind CSS 4",
+      "Vue TSC",
+      "ESLint + Prettier"
     ],
     "url": "https://geemex.vercel.app/",
     "slug": "geemex-gaming-landing-page-template"
   },
   {
-    "title": "GitFinder – GitHub User Finder",
-    "category": "Web Development",
-    "excerpt": "GitFinder is a simple and intuitive GitHub user search application built using HTML, CSS, JavaScript, and Bootstrap. Users can quickly look up GitHub profiles, view public repositories, and get basic information about developers. The project demonstrates frontend development skills, responsive design, and dynamic data handling using APIs without a backend.",
-    "thumbnail": "/images/projects/gitfinder-github-user-finder.png",
-    "tags": [
-      "Frontend",
-      "API",
-      "Bootstrap"
-    ],
-    "tools": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Bootstrap"
-    ],
-    "url": "https://asterixh.github.io/gitfinder.com/",
-    "slug": "gitfinder-github-user-finder"
-  },
-  {
-    "title": "Anonfly – Anonymous Encrypted Messaging",
+    "title": "Anonfly – Private Real-Time Messaging Ecosystem",
     "category": "Software Engineering",
-    "excerpt": "Anonfly addresses a critical need: people avoid sharing honest feedback if they don't trust their anonymity. I engineered a 'Privacy by Design' platform using end-to-end encryption and cryptographic identities, ensuring conversations remain confidential without storing PII. Built with Node.js and React, featuring real-time WebSockets and IndexedDB for client-side key management, it demonstrates deep expertise in security-first architecture and complex state synchronization.",
+    "excerpt": "Anonfly is a privacy-first messaging ecosystem spread across a backend service, a React client, and an SDK monorepo. Together they cover anonymous identity flows, encrypted real-time chat over WebSockets and SSE, PostgreSQL and Redis-backed backend services, and reusable SDK packages for core, React, Next.js, and CLI integrations.",
     "thumbnail": "/images/projects/anonfly.svg",
     "tags": [
       "Privacy",
-      "E2EE",
-      "Real-time"
+      "Real-time",
+      "SDK"
     ],
     "tools": [
-      "Node.js",
-      "Express (TypeScript)",
-      "MongoDB (Mongoose)",
-      "WebSockets (ws)",
-      "SSE",
+      "Express 5 + TypeScript",
+      "PostgreSQL",
       "Redis",
-      "React Router v7",
-      "Tailwind CSS v4",
-      "IndexedDB"
+      "WebSockets + SSE",
+      "React Router 7",
+      "Tailwind CSS 4",
+      "Turborepo",
+      "Changesets"
     ],
     "url": "https://anonfly.vercel.app",
     "slug": "anonfly-anonymous-encrypted-messaging",
-    "problem": "People hesitate to share honest feedback if they feel their identity isn't secure. Standard forms don't guarantee anonymity. We needed to build a space where users could send truly anonymous, encrypted feedback without the anxiety of being tracked.",
-    "goal": "Create a 'Privacy by Design' messaging platform utilizing cryptographic identities and end-to-end encryption, requiring absolutely no PII (Personally Identifiable Information).",
-    "architecture": "Node.js/Express backend acting solely as a relay. WebSockets and SSE for real-time delivery. IndexedDB for local cryptographic key and message storage. React on the frontend.",
-    "challenges": "Handling disconnected states where a user goes offline during an encrypted key exchange, leading to dropped message handshakes.",
-    "solutions": "Built a robust Redis-backed message queueing system that holds encrypted payloads temporarily until the recipient websocket re-connects and acknowledges receipt.",
-    "tradeOffs": "No multi-device sync. Because keys are generated and stored strictly in the local browser's IndexedDB, sessions cannot be easily transferred without explicit manual key export.",
-    "lessons": "Cryptography in the browser is powerful but unforgiving. State machines handling connection drops must be bulletproof.",
-    "outcome": "A fully functional, E2EE real-time chat application where the server literally cannot read the messages it relays."
+    "problem": "Anonymous communication products need strong privacy guarantees, reliable real-time delivery, and developer-friendly integration paths if they are going to be used beyond a single app.",
+    "goal": "Build Anonfly as both an end-user messaging product and a reusable platform, with separate service, client, and SDK layers that support secure anonymous communication.",
+    "architecture": "The service repo handles authentication, rooms, messaging, SSE streams, billing-related integrations, and persistence. The client repo manages browser-side identity, chat UX, and encrypted session flows. The SDK monorepo publishes core, React, Next.js, and CLI packages for external integrations.",
+    "challenges": "Coordinating anonymous auth, room presence, and real-time delivery across multiple repos without sacrificing security or developer experience.",
+    "solutions": "Separated the ecosystem into backend, client, and package layers, used PostgreSQL and Redis for service-side coordination, and wrapped common integration logic into reusable packages and CLI commands.",
+    "tradeOffs": "The multi-repo setup makes the platform more flexible and reusable, but adds release coordination overhead between the app and SDK packages.",
+    "lessons": "Security-heavy products benefit from strong boundaries between infrastructure, user-facing clients, and integration libraries.",
+    "outcome": "A privacy-first messaging platform that works both as a finished product and as a developer platform for building anonymous real-time applications."
   },
   {
-    "title": "Asterixh School Portal – Educational Hub",
+    "title": "Asterixh School – School Website & Admissions Portal",
     "category": "Web Development",
-    "excerpt": "A modern educational portal designed to centralize academic resources, admission processes, and school communications. It provides a seamless interface for students, parents, and staff to access curriculum details, news, and administrative notices.",
+    "excerpt": "Asterixh School is a public-facing school website that presents academics, admissions, news, and contact information in a clean multi-page experience. The codebase includes a notice board, hero content, curriculum and admissions sections, registration and contact forms, and reusable navigation and footer components.",
     "thumbnail": "/images/projects/asterixh-school.png",
     "tags": [
       "Education",
-      "Portal",
-      "Management"
+      "School Website",
+      "Admissions"
     ],
     "tools": [
-      "Next.js (App Router)",
+      "Next.js 16 (App Router)",
+      "React 19",
       "TypeScript",
-      "Tailwind CSS",
-      "Lucide React"
+      "Tailwind CSS 4",
+      "React Icons"
     ],
     "url": "https://school-portal-demo.vercel.app",
     "slug": "asterixh-school-portal-educational-hub"
@@ -206,50 +198,122 @@
   {
     "title": "SMS – School Management System",
     "category": "Software Engineering",
-    "excerpt": "School administrators waste countless hours bouncing between disjointed systems to track grades and fees. I collaborated to engineer SMS as a unified, secure platform with granular role-based access control. Using Supabase RLS policies and React Query for state management, I built a system where teachers control only their classes, students see only their records, and admins have full visibility over institutional operations.",
+    "excerpt": "SMS is a full-stack school management system split into separate frontend and backend repos. It supports dashboards, student records, attendance, users, permissions, conduct, and financial workflows, with React Query and Zustand on the client and Express permission middleware plus PostgreSQL and Supabase integrations on the server.",
     "thumbnail": "/images/projects/sms-fe.png",
     "tags": [
       "Full-stack",
       "RBAC",
-      "Management System"
+      "EdTech Ops"
     ],
     "tools": [
-      "Node.js",
-      "Express",
-      "Supabase",
-      "React Router",
+      "React Router 7",
       "React Query",
       "Zustand",
-      "TypeScript"
+      "Express 5",
+      "PostgreSQL + Supabase",
+      "TypeScript",
+      "Zod",
+      "Multer + Sharp"
     ],
     "url": "https://asterixh-sms-frontend.vercel.app/",
     "slug": "sms-comprehensive-school-management",
-    "problem": "School administrators are forced to bounce between disjointed systems just to track student grades and fees. It is exhausting and prone to constant data errors. We needed to build one single, reliable source of truth for the entire institution.",
-    "goal": "Centralize all operations into a single, high-performance platform featuring strict Role-Based Access Control (RBAC).",
-    "architecture": "Supabase for a scalable, secure Postgres backend. Node.js/Express for custom business logic. React frontend using Zustand for state and React Query for server state caching.",
-    "challenges": "Managing deeply granular permissions (e.g., a teacher can edit grades only for their assigned class, while admins can edit all, and students can only view).",
-    "solutions": "Implemented Row Level Security (RLS) policies directly within Supabase alongside application-layer middleware in Express to double-verify mutation intents.",
-    "tradeOffs": "Heavier initial setup time and steep learning curve for the Supabase RLS policies compared to a traditional ORM approach.",
-    "lessons": "Pushing security constraints down to the database layer drastically reduces application-level bugs regarding unauthorized data access.",
-    "outcome": "A production-grade, secure dashboard capable of handling thousands of relational records seamlessly."
+    "problem": "School operations often get split across separate spreadsheets and disconnected systems for attendance, students, permissions, and finance.",
+    "goal": "Create a modular management system where administrators, teachers, and staff can work from one permission-aware platform.",
+    "architecture": "The frontend uses React Router, API services, React Query, and Zustand for dashboard workflows, while the backend exposes Express modules for auth, students, attendance, users, permissions, conduct, and financial operations.",
+    "challenges": "Maintaining granular permission control across many modules while keeping the frontend navigation and backend authorization rules aligned.",
+    "solutions": "Used permission-based navigation and service layers on the frontend, then enforced access again on the backend with authentication and authorization middleware around each module.",
+    "tradeOffs": "Splitting the system into separate frontend and backend repos keeps responsibilities clear, but requires tighter coordination between API contracts and UI state.",
+    "lessons": "Role-aware systems become easier to evolve when permissions are treated as first-class product rules, not just UI conditions.",
+    "outcome": "A structured school operations platform covering core administrative workflows from student data to attendance and role-based access control."
+  },
+  {
+    "title": "motion-lyte.js – Declarative Web Animation Library",
+    "category": "Software Engineering",
+    "excerpt": "motion-lyte.js is a lightweight animation library for the web built around declarative `data-*` attributes. It supports hover, scroll, toggle, and play-triggered effects, exposes a React hook and Vite plugin, and packages reusable animation primitives like underline, character, and dynamic toggle behaviors.",
+    "thumbnail": null,
+    "tags": [
+      "Library",
+      "Animation",
+      "Developer Tools"
+    ],
+    "tools": [
+      "JavaScript",
+      "TypeScript Declarations",
+      "tsup",
+      "Vitest",
+      "React Hook",
+      "Vite Plugin",
+      "Intersection Observer"
+    ],
+    "url": "https://github.com/CodeWithAsterixh/motion-lyte-js",
+    "slug": "motion-lyte-js-declarative-web-animation-library",
+    "problem": "Many animation utilities are either too framework-specific or require imperative setup that becomes noisy across larger interfaces.",
+    "goal": "Build a framework-agnostic animation library that lets developers attach expressive motion behavior directly through markup or helper utilities.",
+    "architecture": "Core runtime modules scan elements for animation attributes, a registry maps animation names to implementations, and companion packages expose React and Vite integrations for easier adoption.",
+    "challenges": "Designing an API that stays simple in HTML while still supporting configurable variables, reusable observers, and multiple trigger styles.",
+    "solutions": "Combined a declarative attribute format with helper factories, a shared runner/observer layer, and focused animation modules for common interaction patterns.",
+    "tradeOffs": "Attribute-driven APIs are easy to adopt and framework-agnostic, but they are less explicit than fully imperative animation code in complex edge cases.",
+    "lessons": "Small frontend libraries become more useful when they ship with integration helpers, documentation, and a clear extension model rather than only a runtime.",
+    "outcome": "A publishable animation package with reusable triggers, a React hook, Vite support, and a modular internal animation registry."
+  },
+  {
+    "title": "Catalyst Consultant – Business Consulting Landing Page",
+    "category": "Web Development",
+    "excerpt": "Catalyst Consultant is a marketing landing page for a consulting brand, built as a static Vite site with Tailwind browser utilities and custom CSS. The page covers hero messaging, services, team, testimonials, pricing, articles, FAQ, and repeated consultation CTAs, while using `motion-lyte.js` to power scroll, hover, and toggle animations across the experience.",
+    "thumbnail": null,
+    "tags": [
+      "Landing Page",
+      "Marketing Site",
+      "Animation Showcase"
+    ],
+    "tools": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Vite",
+      "Tailwind CSS Browser Runtime",
+      "motion-lyte.js"
+    ],
+    "url": null,
+    "slug": "catalyst-consultant-business-consulting-landing-page",
+    "problem": "Consulting brands need a clear way to communicate credibility, services, and conversion-focused calls to action without a heavy application stack.",
+    "goal": "Create a polished one-page consulting website that combines persuasive marketing sections with lightweight animation and fast static delivery.",
+    "architecture": "A single-page Vite setup serves static HTML, CSS, and asset files, while `motion-lyte.js` handles interactive hover, scroll, and menu-toggle animations through declarative attributes.",
+    "challenges": "Keeping a static marketing page visually engaging without adding a complex frontend framework or large animation dependency.",
+    "solutions": "Used a static-first structure, organized media and style assets by concern, and layered in declarative motion effects for navigation, hero copy, cards, and CTAs.",
+    "tradeOffs": "The static architecture keeps the site simple and fast, but content updates and richer interactivity require manual markup changes instead of a CMS or component system.",
+    "lessons": "A strong static landing page can still feel modern when layout, copy hierarchy, and motion are treated as first-class design tools.",
+    "outcome": "A responsive consulting landing page that also doubles as a practical showcase for the `motion-lyte.js` animation library."
   },
   {
     "title": "Resin Art – Creative Portfolio & Catalog",
     "category": "Web Development",
-    "excerpt": "I built this creative portfolio as a visually engaging showcase combining immersive gallery design with real-time Instagram feeds and WhatsApp integration. The result demonstrates my ability to craft responsive, conversion-focused experiences that blend aesthetics with practical business functionality, helping handcrafted resin pieces reach customers and drive direct sales.",
+    "excerpt": "Resin Art is a Next.js storefront-style portfolio for showcasing handcrafted resin products and collecting customer inquiries. The codebase combines JSON-driven marketing sections, a product catalog, testimonials, Instagram and WhatsApp-driven engagement, and a contact flow backed by a mail API for custom orders and quote requests.",
     "thumbnail": "/images/projects/resin-art.png",
     "tags": [
-      "E-commerce",
-      "Creative",
-      "Portfolio"
+      "Creative Commerce",
+      "Catalog",
+      "Lead Generation"
     ],
     "tools": [
-      "Next.js (App Router)",
+      "Next.js 16 (App Router)",
+      "React 19",
       "TypeScript",
-      "Tailwind CSS",
-      "WhatsApp API"
+      "Tailwind CSS 4",
+      "Nodemailer",
+      "Zod",
+      "WhatsApp Integration",
+      "Instagram Section"
     ],
     "url": "https://resinart-sak.vercel.app/",
-    "slug": "resin-art-creative-portfolio-catalog"
+    "slug": "resin-art-creative-portfolio-catalog",
+    "problem": "Small creative businesses need more than a static gallery. They need a simple way to present products, communicate trust, and turn interest into direct inquiries or custom orders.",
+    "goal": "Build a polished portfolio and catalog experience that highlights resin products while making it easy for customers to reach out by WhatsApp or contact form.",
+    "architecture": "Next.js App Router handles the page structure and API routes, JSON content files drive the hero, catalog, testimonials, and contact sections, and a mail endpoint processes customer contact submissions.",
+    "challenges": "Balancing visual presentation with practical conversion features such as inquiry forms, WhatsApp handoff, and quote-oriented product messaging.",
+    "solutions": "Structured the site into reusable landing-page sections, moved business content into JSON-backed data files, and added both direct messaging and email-based inquiry flows.",
+    "tradeOffs": "The content-first architecture is easy to maintain and fast to ship, but it is better suited to curated catalogs than to a full inventory-managed ecommerce backend.",
+    "lessons": "For creative brands, direct contact and trust-building content can be more valuable than a heavy checkout flow.",
+    "outcome": "A responsive brand site that showcases resin products, supports custom-order inquiries, and guides visitors toward direct conversation and conversion."
   }
 ]
