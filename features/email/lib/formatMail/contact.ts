@@ -56,7 +56,7 @@ export function formatContactMessage(formData: {
         </div>
         
         <div class="footer">
-          <p style="margin: 0;">Asterixh — Full Stack Developer</p>
+          <p style="margin: 0;">Asterixh - Full Stack Developer</p>
           <p style="margin: 4px 0 0 0;"><a href="https://asterixh.vercel.app" class="link">asterixh.vercel.app</a></p>
         </div>
       </div>

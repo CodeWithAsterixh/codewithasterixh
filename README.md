@@ -1,4 +1,4 @@
-# Asterixh — Software Engineer & Web Developer
+# Asterixh - Software Engineer & Web Developer
 
 I build functional software and responsive web applications with clean architecture, reliable data flows, and a strong focus on performance and accessibility.
 

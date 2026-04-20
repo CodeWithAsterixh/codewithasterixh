@@ -2,7 +2,7 @@
   {
     "title": "Quizeen – Interactive Quiz Taking Platform",
     "category": "Software Engineering",
-    "excerpt": "Quizeen is a modern, interactive quiz-taking application built to make learning engaging, simple, and enjoyable. Designed and developed by Paul (aka Asterixh), the platform offers a smooth and intuitive user experience powered by a robust full-stack architecture.\n\nUsers can explore a variety of course-based quizzes, each featuring streamlined multiple-choice questions (A–D options). The system supports user authentication, customizable preferences, theme control, and optional quiz result saving — all optimized for performance, accessibility, and responsiveness.\n\nUnder the hood, Quizeen is engineered using production-grade practices, ensuring strong security, clean state management, and maintainable code. It’s a showcase of my expertise in building scalable, feature-rich web applications using modern technologies.",
+    "excerpt": "I engineered Quizeen to solve a real problem: most quiz platforms force learners to lose progress if their connection hiccups. I collaborated to build an engaging, game-like experience using Next.js and Redux, implementing production-grade security and deterministic state management. The result: a fast, responsive platform where learners stay engaged and creators get deep insights into performance.",
     "thumbnail": "/images/projects/quizeen-interactive-quiz-platform.png",
     "tags": [
       "Quiz taker",
@@ -33,7 +33,7 @@
   {
     "title": "WorkUp Cards – Business Card Generator",
     "category": "Web Development",
-    "excerpt": "WorkUp Cards is a fast and user-friendly business card creator designed to let anyone generate a high-quality card in minutes. Users simply choose from modern, creative, or corporate templates, fill in their details, and instantly download a ready-to-use high-resolution image.\n\nThe platform removes the need for design skills entirely, offering clean, professional layouts and an intuitive interface. From customizable colors and typography to instant export through HTML-to-image rendering, WorkUp Cards showcases my ability to build performant, interactive tools focused on accessibility, responsiveness, and excellent user experience.",
+    "excerpt": "Physical business cards become obsolete the moment they're printed. I engineered WorkUp Cards to help professionals generate, customize, and instantly download high-resolution cards without design skills. Built with React and HTML-to-image rendering, it showcases my ability to craft fast, accessible tools that solve real user problems through responsive design and intuitive interfaces.",
     "thumbnail": "/images/projects/workup-cards-business-card-generator.png",
     "tags": [
       "Design Tool",
@@ -63,7 +63,7 @@
   {
     "title": "WorldTimeSage",
     "category": "Web Development",
-    "excerpt": "The WorldTimeSage is a time-tracking platform. including world clock, customizing themes, exploring timezone details, using offline capabilities, managing permissions, and installing the PWA\n\nit also includes a documentation, which demonstrates my ability to design comprehensive documentation systems with clean navigation, search-friendly structure, and accessible layouts. The project highlights skills in interface design, structured content architecture, UX writing, and building support tools for modern web applications.",
+    "excerpt": "Managing global teams across timezones is exhausting. I built WorldTimeSage to help teams visualize exactly when everyone is active. Engineered as a PWA with Redux for complex timezone state, Fuse.js for rapid searching, and robust offline capabilities, it demonstrates my commitment to solving real operational challenges with thoughtful, user-centered design.",
     "thumbnail": "/images/projects/worldtimesage.png",
     "tags": [
       "Documentation",
@@ -94,7 +94,7 @@
   {
     "title": "AsterMail",
     "category": "Software Engineering",
-    "excerpt": "AsterMail is a flexible, high-performance email delivery service built with Node.js, Express, and Nodemailer. It supports dynamic SMTP configuration, autoresponse workflows, structured validation, logging, and robust error handling — making it ideal for SaaS platforms, dashboards, notification systems, and automated communication tools.\n\nThis project showcases my backend engineering expertise: designing secure APIs, implementing scalable email transport logic, building validation pipelines, and integrating reliable delivery flows suitable for production environments.",
+    "excerpt": "I designed and built AsterMail as a flexible, production-grade email delivery service engineered for reliability and scalability. With dynamic SMTP configuration, robust validation pipelines, and comprehensive error handling, it showcases my backend expertise: designing secure APIs, implementing scalable transport logic, and building systems ready for real-world SaaS environments where delivery reliability matters.",
     "thumbnail": null,
     "tags": [
       "Backend",
@@ -155,7 +155,7 @@
   {
     "title": "Anonfly – Anonymous Encrypted Messaging",
     "category": "Software Engineering",
-    "excerpt": "Anonfly is a secure messaging platform built on the principle of \"Privacy by Design.\" It leverages cryptographic identities and end-to-end encryption to ensure that conversations remain between participants. It features real-time messaging using WebSockets and SSE, with a focus on anonymity and data security.",
+    "excerpt": "Anonfly addresses a critical need: people avoid sharing honest feedback if they don't trust their anonymity. I engineered a 'Privacy by Design' platform using end-to-end encryption and cryptographic identities, ensuring conversations remain confidential without storing PII. Built with Node.js and React, featuring real-time WebSockets and IndexedDB for client-side key management, it demonstrates deep expertise in security-first architecture and complex state synchronization.",
     "thumbnail": "/images/projects/anonfly.svg",
     "tags": [
       "Privacy",
@@ -206,7 +206,7 @@
   {
     "title": "SMS – School Management System",
     "category": "Software Engineering",
-    "excerpt": "A powerful, full-stack management system for educational institutions featuring Role-Based Access Control (RBAC), attendance tracking, and financial management. Engineered with a Supabase backend and a React-based frontend for secure and high-performance administrative operations.",
+    "excerpt": "School administrators waste countless hours bouncing between disjointed systems to track grades and fees. I collaborated to engineer SMS as a unified, secure platform with granular role-based access control. Using Supabase RLS policies and React Query for state management, I built a system where teachers control only their classes, students see only their records, and admins have full visibility over institutional operations.",
     "thumbnail": "/images/projects/sms-fe.png",
     "tags": [
       "Full-stack",
@@ -236,7 +236,7 @@
   {
     "title": "Resin Art – Creative Portfolio & Catalog",
     "category": "Web Development",
-    "excerpt": "A visually stunning landing page and product catalog for a resin art business. It showcases unique handcrafted pieces through an immersive gallery, integrated Instagram feed, and direct WhatsApp contact for sales, highlighting creativity while maintaining a smooth user journey.",
+    "excerpt": "I built this creative portfolio as a visually engaging showcase combining immersive gallery design with real-time Instagram feeds and WhatsApp integration. The result demonstrates my ability to craft responsive, conversion-focused experiences that blend aesthetics with practical business functionality, helping handcrafted resin pieces reach customers and drive direct sales.",
     "thumbnail": "/images/projects/resin-art.png",
     "tags": [
       "E-commerce",

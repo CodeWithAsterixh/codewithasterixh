@@ -19,26 +19,26 @@
       "label": "Production\nProjects"
     }
   ],
-  "subtext": "I design and build scalable web applications, from responsive interfaces to backend systems and APIs.",
+  "subtext": "I engineer high-performing web systems, from responsive interfaces to scalable backend architecture, dedicated to solving real problems and delivering tangible business impact.",
   "email": "peterpaultolulope@gmail.com",
   "phone": "+234 810 908 0838",
   "location": "Lagos, Nigeria",
   "about": {
-    "content": "I started my journey into tech driven by a simple enthusiasm for creating software. I was completely new to the industry, but I possessed one clear goal: I wanted to build easy-to-use solutions that helped everyday people share their value and reach a worldwide audience. That singular focus pushed me deep into the architecture of the web.\\n\\nOver the years, I've mastered the core fundamentals and gained deep experience engineering complex systems from the ground up, moving far beyond basic web development.\\n\\nMy approach changed when I realized a brutal truth: having a website means absolutely nothing if it doesn't serve a measurable purpose. A digital platform isn't just an 'online space' to place your logo. It must be an active, high-performing engine that quietly converts visitors into potential clients and serious leads. Whether I'm building a real-time messaging protocol or a robust e-commerce UI, every line of code I write is optimized to make that conversion frictionless.",
+    "content": "I started my journey into tech driven by a simple enthusiasm for creating software. I was completely new to the industry, but I possessed one clear goal: I wanted to build easy-to-use solutions that helped everyday people share their value and reach a worldwide audience. That singular focus pushed me deep into the architecture of the web.\\n\\nOver the years, I've mastered the core fundamentals and gained deep experience engineering complex systems from the ground up, moving far beyond basic web development.\\n\\nI learned that having a website without a measurable purpose wastes resources. A digital platform needs to serve a clear goal beyond aesthetics. Every line of code I write is engineered with intent, whether I'm building real-time messaging protocols or robust e-commerce interfaces, all optimized to deliver results and drive engagement.",
     "badgeIcon": "badge-check",
     "badgeLabel": "Fullstack Engineer",
     "topStatLabel": "Clients Served",
     "topStatValue": "06"
   },
   "hero": {
-    "quote": "I build scalable web applications with clean architecture, fast interfaces, and reliable backend systems.",
+    "quote": "With a strong foundation in React, TypeScript, and Node.js, I collaborate to craft high-performing applications that turn engagement into measurable outcomes.",
     "primaryCta": {
       "href": "https://github.com/CodeWithAsterixh",
-      "label": "View Code"
+      "label": "View the Code"
     },
     "secondaryCta": {
       "href": "https://asterixh.vercel.app/contact",
-      "label": "Work With Me"
+      "label": "Let's Collaborate"
     },
     "badges": [
       {

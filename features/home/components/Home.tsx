@@ -31,17 +31,17 @@ export const Home: React.FC = () => {
         <div className="relative flex flex-col gap-6">
           <Text variant="h1" className="text-4xl md:text-7xl font-bold tracking-tight text-white leading-tight lg:-ml-1">
             Hi, I’m {profileData.name.split(" ")[0]}.<br/>
-            I build platforms that convert.
+            I engineer solutions that drive real outcomes.
           </Text>
           <Text variant="body" className="text-xl text-white/70 max-w-3xl mt-4 leading-relaxed font-light">
-            A website is useless if it's just an online space. You are likely here because you need a high-performing digital engine that turns visitors into potential clients and leads. From intuitive interfaces to highly scalable Node.js architectures, I build solutions that make that conversion completely frictionless.
+            Most websites miss the mark because they&apos;re built without a clear purpose, leaving traffic and investment on the table. I&apos;ve engineered high-performing platforms for 6+ clients, collaborating closely with designers and teams to build responsive interfaces, scalable backend systems, and secure APIs that transform user engagement into measurable business results.
           </Text>
           <div className="flex flex-wrap items-center gap-4 pt-6">
             <Button href="/works" variant="primary" icon={ArrowUpRight}>
               View Selected Work
             </Button>
             <Button href="/contact" variant="ghost">
-              Let's talk solutions
+              Let&apos;s talk solutions
             </Button>
           </div>
         </div>
@@ -61,7 +61,7 @@ export const Home: React.FC = () => {
               <div className="flex flex-col gap-4 flex-1">
                 <Text variant="body" className="text-lg text-white/70 leading-relaxed font-light">
                   {/* Fallback to excerpt if we haven't updated JSON yet */}
-                  {(project as any).problem || project.excerpt.split('\n')[0]}
+                  {(project).problem || project.excerpt.split('\n')[0]}
                 </Text>
                 <div className="flex items-center gap-2 text-white/40 group-hover:text-white transition-colors pt-2">
                   <Text variant="caption" className="uppercase tracking-widest font-semibold text-xs">Read the Case Study</Text>
@@ -79,15 +79,15 @@ export const Home: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="flex flex-col gap-3">
             <span className="text-5xl font-bold text-white tracking-tighter">04+</span>
-            <Text variant="body" className="text-white/60 font-light leading-relaxed">Years of strictly engineering resilient, production-ready systems.</Text>
+            <Text variant="body" className="text-white/60 font-light leading-relaxed">Years dedicating myself to engineering reliable, scalable systems.</Text>
           </div>
           <div className="flex flex-col gap-3">
             <span className="text-5xl font-bold text-white tracking-tighter">Stack</span>
-            <Text variant="body" className="text-white/60 font-light leading-relaxed">Typescript, Next.js, React, Node.js, and complex state engines.</Text>
+            <Text variant="body" className="text-white/60 font-light leading-relaxed">TypeScript, React, Next.js, Node.js, and production-ready backend systems.</Text>
           </div>
           <div className="flex flex-col gap-3">
-            <span className="text-5xl font-bold text-white tracking-tighter">Trust</span>
-            <Text variant="body" className="text-white/60 font-light leading-relaxed">Secure, high-performance solutions delivered to 6+ active clients globally.</Text>
+            <span className="text-5xl font-bold text-white tracking-tighter">Impact</span>
+            <Text variant="body" className="text-white/60 font-light leading-relaxed">Delivered secure, high-performance solutions to 6+ global clients across diverse industries.</Text>
           </div>
         </div>
       </section>
@@ -97,8 +97,8 @@ export const Home: React.FC = () => {
         <Text variant="h2" className="text-sm font-semibold tracking-widest text-white/40 uppercase">
           My Philosophy
         </Text>
-        <Text variant="body" className="text-2xl md:text-4xl text-white font-medium max-w-4xl leading-snug text-white/90">
-          I started in tech with a simple goal: build easy solutions to help people reach a worldwide audience. Today, that means engineering scalable applications where every feature is focused on turning traffic into trusted clients.
+        <Text variant="body" className="text-2xl md:text-4xl text-white font-medium max-w-4xl leading-snug">
+          I&apos;m detail-oriented about problem-solving. My goal has always been helping everyday people share their value globally. I&apos;ve learned that great engineering requires understanding your real challenges first, then building production-grade solutions that quietly deliver results.
         </Text>
         <div className="pt-2">
            <Button href="/about" variant="outline" size="sm" icon={ArrowUpRight}>
@@ -110,10 +110,10 @@ export const Home: React.FC = () => {
       {/* 5. CTA Section */}
       <section className="flex flex-col items-center text-center gap-6 py-24 px-4 bg-white/5 border border-white/10 rounded-[30px] mt-20">
         <Text variant="h2" className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-          Let's fix what's broken.
+          Let&apos;s fix what&apos;s broken.
         </Text>
         <Text variant="body" className="text-xl text-white/60 max-w-xl mb-4 font-light leading-relaxed">
-          Whether you're struggling with a slow interface, facing an architectural wall, or needing a scalable MVP built properly from day one—I'm here to listen.
+          Whether you&apos;re struggling with a slow interface, facing an architectural wall, or needing a scalable MVP built properly from day one, I&apos;m here to listen.
         </Text>
         <Button href="/contact" variant="primary" icon={ArrowUpRight} size="lg">
           Start a conversation

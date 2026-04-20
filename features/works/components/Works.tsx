@@ -1,9 +1,9 @@
-import React from "react";
-import Link from 'next/link';
 import { Text } from "@/components/ui/atoms/Text/Text";
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
-import { ProjectCard } from "./ProjectCard/ProjectCard";
 import projectsData from "@/data/projects.json";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
+import Link from 'next/link';
+import React from "react";
 
 export const Works: React.FC = () => {
   const featuredSlugs = [
@@ -19,7 +19,7 @@ export const Works: React.FC = () => {
     category: p.tags[0] || "Project",
     title: p.title.split('–')[0].trim(),
     image: p.thumbnail,
-    problem: (p as any).problem || p.excerpt.split('\n')[0]
+    problem: (p).problem || p.excerpt.split('\n')[0]
   }));
 
   const featuredProjects = allProjects.filter(p => featuredSlugs.includes(p.id));
@@ -33,11 +33,11 @@ export const Works: React.FC = () => {
           Selected Works
         </Text>
         <Text variant="body" className="text-xl text-white/70 max-w-2xl">
-          A collection of systems I've built, emphasizing clean architecture, thoughtful UI, and real-world impact.
+          A collection of systems I&apos;ve engineered, emphasizing problem-solving, clean architecture, and delivering measurable outcomes for real users.
         </Text>
       </div>
 
-      {/* Section 1 — Featured Projects */}
+      {/* Section 1: Featured Projects */}
       <section className="flex flex-col gap-12">
         <Text variant="h2" className="text-sm font-semibold tracking-widest text-white/40 uppercase">
           Featured Architecture
@@ -46,9 +46,9 @@ export const Works: React.FC = () => {
         <div className="flex flex-col gap-12 sm:gap-20">
           {featuredProjects.map((project) => (
             <Link key={project.id} href={`/works/${project.id}`} className="group flex flex-col gap-6 w-full">
-              <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden bg-white/5 border border-white/10">
+              <div className="relative w-full aspect-video md:aspect-21/9 rounded-3xl overflow-hidden bg-white/5 border border-white/10">
                   {project.image ? (
-                      <img
+                      <Image
                           src={project.image}
                           alt={project.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -80,7 +80,7 @@ export const Works: React.FC = () => {
         </div>
       </section>
 
-      {/* Section 2 — Other Projects */}
+      {/* Section 2: Other Projects */}
       <section className="flex flex-col gap-10 border-t border-white/10 pt-16">
         <Text variant="h2" className="text-sm font-semibold tracking-widest text-white/40 uppercase">
           Other Explorations

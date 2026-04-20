@@ -77,10 +77,10 @@ export const ContactForm: React.FC<ContactFormProps> = ({ titleAs = "h2" }) => {
 
         <div className="mb-8 flex flex-col gap-4">
             <Text variant="h2" as={titleAs} weight="medium" className="leading-tight text-4xl md:text-5xl">
-                Ready to reach a <br /> worldwide <span className="text-primary-blue">audience?</span>
+                Let&apos;s collaborate and <span className="text-primary-blue">build something real.</span>
             </Text>
             <Text variant="body" className="text-white/60 text-base md:text-lg max-w-sm mb-4 leading-relaxed font-light">
-                Fill out the form, and let's discuss how we can engineer your digital space to stop just sitting there, and start actively converting visitors into real leads and clients.
+                Send me a message. Whether you&apos;re struggling with performance, facing an architectural challenge, or need a scalable solution built right from the start, I&apos;m here to listen and collaborate on practical, production-ready solutions.
             </Text>
         </div>
 

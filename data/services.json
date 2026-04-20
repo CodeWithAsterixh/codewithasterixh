@@ -1,17 +1,17 @@
 [
   {
     "label": "Software Engineering",
-    "description": "I build the backend systems and APIs that power your software. I focus on database management, security, and making sure everything runs without errors.",
+    "description": "I design and engineer scalable backend systems from the ground up. My approach emphasizes secure API design, optimized database architecture, and robust error handling. I take full ownership through conceptualization and deployment, ensuring your platform is production-ready, performs reliably, and scales as your business grows.",
     "tags": ["System Architecture", "API Design", "Database Modeling", "Backend Optimization", "Clean Code"]
   },
   {
     "label": "Web Development",
-    "description": "I build responsive and fast websites using React and Next.js. I make sure the site looks good on all devices and is easy for users to navigate.",
+    "description": "I collaborate to engineer responsive, high-performing interfaces using React and Next.js. I focus on user-centered design and ensure your site works flawlessly across all devices. Every detail is crafted to turn visitors into engaged users and drive measurable outcomes.",
     "tags": ["React & Next.js", "Responsive Design", "UI/UX Development", "SEO Strategy", "Performance Focused"]
   },
   {
     "label": "Website Management",
-    "description": "I handle the maintenance of your website after it's live. This includes updates, security monitoring, and making sure your site stays online.",
+    "description": "I provide ongoing support and optimization for your live platforms, including proactive security monitoring, performance tuning, dependency updates, and collaborative troubleshooting. I stay committed to keeping your systems healthy and performant as your needs evolve.",
     "tags": ["Updates", "Security Checks", "Backups", "Performance Monitoring"]
   }
 ]

@@ -84,7 +84,7 @@ export function formatQuoteMessage(formData: {
         </div>
         
         <div class="footer">
-          <p style="margin: 0;">Asterixh — Software Engineer & Web Developer</p>
+          <p style="margin: 0;">Asterixh - Software Engineer & Web Developer</p>
           <p style="margin: 4px 0 0 0;"><a href="https://asterixh.vercel.app" class="link">asterixh.vercel.app</a></p>
         </div>
       </div>

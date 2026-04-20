@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
 
     // Send confirmation to user
     const userMail = await sendMail({
-      subject: "We received your message — Asterixh",
+      subject: "We received your message, Asterixh",
       html: formatConfirmationMessage({
         name: fullName,
       }),

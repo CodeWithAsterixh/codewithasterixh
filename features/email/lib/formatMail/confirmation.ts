@@ -50,7 +50,7 @@ export function formatConfirmationMessage({
         </div>
         
         <div class="footer">
-          <p style="margin: 0 0 12px 0;"><strong>Asterixh</strong> — Building functional software and responsive websites.</p>
+          <p style="margin: 0 0 12px 0;"><strong>Asterixh</strong> - Building functional software and responsive websites.</p>
           <p style="margin: 0; font-size: 12px; color: #a1a1aa;">Lagos, Nigeria</p>
         </div>
       </div>
