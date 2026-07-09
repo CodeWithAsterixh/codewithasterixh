@@ -7,9 +7,9 @@
 Building software across web, backend, distributed systems, and machine learning.
 
 <p>
-  <a href="https://asterixh.vercel.app">
+  <!-- <a href="https://asterixh.vercel.app">
     <img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white"/>
-  </a>
+  </a> -->
   <a href="https://github.com/CodeWithAsterixh">
     <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github"/>
   </a>
@@ -258,7 +258,7 @@ Browse my repositories for experiments, client work, open source contributions, 
 
 ### Let's Connect
 
-<a href="https://asterixh.vercel.app">Portfolio</a> •
+<!-- <a href="https://asterixh.vercel.app">Portfolio</a> • -->
 <a href="https://github.com/CodeWithAsterixh">GitHub</a> •
 <a href="https://linkedin.com/in/paul-peter-eyinnaya">LinkedIn</a> •
 <a href="mailto:peterpaultolulope@gmail.com">Email</a>
