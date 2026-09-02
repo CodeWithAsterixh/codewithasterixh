@@ -15,11 +15,11 @@ export const BlogPostContent: React.FC<BlogPostProps> = ({ post }) => {
          </Text>
          
          <div className="flex items-center gap-2 mb-8">
-            <StarFourIcon size={24} weight="fill" className="text-white/30" />
+            <StarFourIcon size={24} weight="duotone" className="text-white/30" />
             <Text variant="h1" weight="bold" className="uppercase text-2xl! md:text-3xl! text-white leading-tight">
                 {post.title}
             </Text>
-            <StarFourIcon size={24} weight="fill" className="text-white/30" />
+            <StarFourIcon size={24} weight="duotone" className="text-white/30" />
          </div>
 
          {/* Featured Image */}

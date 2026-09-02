@@ -38,9 +38,9 @@ export const Button: React.FC<ButtonProps> = ({
 
   const content = (
     <>
-      {Icon && iconPosition === "left" && <Icon className="mr-2" size={20} weight="bold" />}
+      {Icon && iconPosition === "left" && <Icon className="mr-2" size={20} weight="duotone" />}
       {children}
-      {Icon && iconPosition === "right" && <Icon className="ml-2" size={20} weight="bold" />}
+      {Icon && iconPosition === "right" && <Icon className="ml-2" size={20} weight="duotone" />}
     </>
   );
 

@@ -90,8 +90,8 @@ export function RequestLivePreviewButton({
         onClick={() => setIsOpen(true)}
         className="inline-flex items-center justify-center rounded-full font-medium transition-all duration-300 cursor-pointer bg-accent text-white hover:bg-white hover:text-black px-6 py-3 text-base"
       >
-        Request Live Preview
-        <ArrowUpRightIcon className="ml-2" size={20} weight="bold" />
+        RequestLivePreview
+        <ArrowUpRightIcon className="ml-2" size={20} weight="duotone" />
       </button>
 
       <Modal
@@ -167,7 +167,7 @@ export function RequestLivePreviewButton({
               >
                 {isSubmitting ? (
                   <>
-                    <SpinnerIcon className="mr-2 animate-spin" size={18} />
+                    <SpinnerIcon className="mr-2 animate-spin" size={18} weight="duotone" />
                     Sending Request...
                   </>
                 ) : (

@@ -37,9 +37,9 @@ export const Services: React.FC = () => {
          {/* Right Column: Offerings */}
          <div className="col-span-1 lg:col-span-2 flex flex-col gap-12">
             <div className="flex items-center justify-center gap-4">
-                <StarFourIcon size={40} weight="fill" className="text-white/30" />
+                <StarFourIcon size={40} weight="duotone" className="text-white/30" />
                 <Text variant="h1" weight="bold" className="uppercase tracking-wide text-4xl md:text-6xl text-white">{uiData.services.offerings.title}</Text>
-                <StarFourIcon size={40} weight="fill" className="text-white/30" />
+                <StarFourIcon size={40} weight="duotone" className="text-white/30" />
             </div>
             
             <ServiceOfferings items={serviceItems} />

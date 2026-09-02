@@ -23,7 +23,7 @@ export const ProfilesCard: React.FC = () => {
             const Icon = iconMap[social.icon.toLowerCase()] || GlobeIcon;
             return (
                <a key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 rounded-full border border-white/10 hover:bg-white hover:text-black transition-colors cursor-pointer">
-                  <Icon size={20} weight="fill" />
+                  <Icon size={20} weight="duotone" />
                </a>
             );
          })}

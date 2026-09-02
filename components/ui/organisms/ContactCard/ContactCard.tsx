@@ -12,7 +12,7 @@ export const ContactCard: React.FC = () => {
       
       <div className="relative z-10">
          <div className="mb-8">
-            <StarFourIcon size={48} weight="fill" className="text-white/20 absolute -top-8 -left-4" />
+            <StarFourIcon size={48} weight="duotone" className="text-white/20 absolute -top-8 -left-4" />
          </div>
          <Text variant="h2" weight="medium" className="leading-tight wrap-break-word">
             {uiData.common.contactCard.line1}&nbsp;{uiData.common.contactCard.line2} <span className="text-primary-blue">{uiData.common.contactCard.highlight}</span>

@@ -1,0 +1,166 @@
+{
+  "version": "5.0.0",
+  "name": "Asterixh Brave New World",
+  "description": "Brave new world environment using exclusively public/locations/world assets (bg, clouds 1-3, ground, trees, and bushes 3-4).",
+  "mapSize": {
+    "totalWidth": 10000,
+    "minX": -5000,
+    "maxX": 5000,
+    "spawnX": 100,
+    "spawnY": 0
+  },
+  "spacing": {
+    "locationWidth": 1800,
+    "spaceBetweenLocations": 200
+  },
+  "defaultAtmosphere": {
+    "background": "/locations/world/bg.png",
+    "cloudAltitudeOffset": -140,
+    "clouds": [
+      {
+        "src": "/locations/world/cloud3.png",
+        "parallax": 0.05,
+        "speed": 0.06,
+        "yOffset": -220
+      },
+      {
+        "src": "/locations/world/cloud2.png",
+        "parallax": 0.12,
+        "speed": 0.14,
+        "yOffset": -180
+      },
+      {
+        "src": "/locations/world/cloud1.png",
+        "parallax": 0.22,
+        "speed": 0.25,
+        "yOffset": -110
+      }
+    ],
+    "floor": {
+      "image": "/locations/world/ground.png",
+      "standingOffsetY": 0,
+      "height": 520
+    }
+  },
+  "decorations": {
+    "trees": [
+      { "src": "/locations/world/tree1.png", "relX": -820, "size": 340, "yOffset": -30, "depth": "back" },
+      { "src": "/locations/world/tree1.png", "relX": -620, "size": 420, "yOffset": -10, "depth": "back" },
+      { "src": "/locations/world/tree1.png", "relX": -420, "size": 520, "yOffset": 35, "depth": "front" },
+      { "src": "/locations/world/tree1.png", "relX": -220, "size": 360, "yOffset": -25, "depth": "back" },
+      { "src": "/locations/world/tree1.png", "relX": 180, "size": 400, "yOffset": -5, "depth": "back" },
+      { "src": "/locations/world/tree1.png", "relX": 420, "size": 540, "yOffset": 40, "depth": "front" },
+      { "src": "/locations/world/tree1.png", "relX": 660, "size": 330, "yOffset": -35, "depth": "back" },
+      { "src": "/locations/world/tree1.png", "relX": 790, "size": 510, "yOffset": 30, "depth": "front" },
+      { "src": "/locations/world/tree1.png", "relX": 1190, "size": 490, "yOffset": 25, "depth": "front" }
+    ],
+    "bushes": [
+      { "src": "/locations/world/Bush3_1.png", "relX": -860, "size": 75, "yOffset": -10, "depth": "back" },
+      { "src": "/locations/world/Bush4_1.png", "relX": -720, "size": 110, "yOffset": 25, "depth": "front" },
+      { "src": "/locations/world/Bush3_2.png", "relX": -560, "size": 85, "yOffset": 0, "depth": "back" },
+      { "src": "/locations/world/Bush4_2.png", "relX": -460, "size": 120, "yOffset": 35, "depth": "front" },
+      { "src": "/locations/world/Bush3_3.png", "relX": -320, "size": 80, "yOffset": -5, "depth": "back" },
+      { "src": "/locations/world/Bush4_3.png", "relX": -190, "size": 115, "yOffset": 24, "depth": "front" },
+      { "src": "/locations/world/Bush3_4.png", "relX": 220, "size": 70, "yOffset": -8, "depth": "back" },
+      { "src": "/locations/world/Bush4_4.png", "relX": 340, "size": 115, "yOffset": 30, "depth": "front" },
+      { "src": "/locations/world/Bush3_1.png", "relX": 520, "size": 90, "yOffset": 5, "depth": "back" },
+      { "src": "/locations/world/Bush4_1.png", "relX": 680, "size": 125, "yOffset": 38, "depth": "front" },
+      { "src": "/locations/world/Bush3_2.png", "relX": 780, "size": 95, "yOffset": 15, "depth": "front" },
+      { "src": "/locations/world/Bush4_2.png", "relX": 820, "size": 110, "yOffset": 26, "depth": "front" },
+      { "src": "/locations/world/Bush3_3.png", "relX": 1175, "size": 100, "yOffset": 18, "depth": "front" },
+      { "src": "/locations/world/Bush4_3.png", "relX": 1225, "size": 110, "yOffset": 28, "depth": "front" }
+    ]
+  },
+  "locations": [
+    {
+      "id": "brave_nature_world",
+      "name": "Brave Nature Haven",
+      "category": "nature",
+      "repeatCount": 5,
+      "startX": -4000,
+      "spacing": 2000,
+      "width": 1800,
+      "background": "/locations/world/bg.png",
+      "clouds": [
+        {
+          "src": "/locations/world/cloud3.png",
+          "parallax": 0.05,
+          "speed": 0.06,
+          "yOffset": -220
+        },
+        {
+          "src": "/locations/world/cloud2.png",
+          "parallax": 0.12,
+          "speed": 0.14,
+          "yOffset": -180
+        },
+        {
+          "src": "/locations/world/cloud1.png",
+          "parallax": 0.22,
+          "speed": 0.25,
+          "yOffset": -110
+        }
+      ],
+      "floor": {
+        "image": "/locations/world/ground.png",
+        "standingOffsetY": 0,
+        "height": 520
+      },
+      "layers": [
+        "/locations/world/ground.png"
+      ],
+      "stations": [
+        {
+          "index": 0,
+          "x": -4000,
+          "name": "Skills Station",
+          "tag": "Skills",
+          "featureType": "skills",
+          "featureTitle": "Technologies & Tools",
+          "description": "Fullstack toolchain, programming languages, libraries, and frameworks.",
+          "actionLabel": "Inspect Skills"
+        },
+        {
+          "index": 1,
+          "x": -2000,
+          "name": "Projects Station",
+          "tag": "Projects",
+          "featureType": "projects",
+          "featureTitle": "Featured Projects",
+          "description": "Featured interactive web applications, tools, and demos.",
+          "actionLabel": "View Projects"
+        },
+        {
+          "index": 2,
+          "x": 0,
+          "name": "Home Base",
+          "tag": "Home (0m)",
+          "featureType": "about",
+          "featureTitle": "Paul Peter (Asterixh)",
+          "description": "Welcome to Asterixh's 2D world. Explore projects, skills, and contact info.",
+          "actionLabel": "Inspect Home Base"
+        },
+        {
+          "index": 3,
+          "x": 2000,
+          "name": "Services Station",
+          "tag": "Services",
+          "featureType": "services",
+          "featureTitle": "Services & Capabilities",
+          "description": "Fullstack web development, API engineering, UI design, and consulting.",
+          "actionLabel": "View Services"
+        },
+        {
+          "index": 4,
+          "x": 4000,
+          "name": "Contact Station",
+          "tag": "Contact",
+          "featureType": "contact",
+          "featureTitle": "Contact Me",
+          "description": "Have a project or opportunity? Send a direct message to Asterixh.",
+          "actionLabel": "Contact Asterixh"
+        }
+      ]
+    }
+  ]
+}

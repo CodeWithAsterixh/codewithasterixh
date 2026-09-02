@@ -1,6 +1,6 @@
 import { Text } from "@/components/ui/atoms/Text/Text";
 import projectsData from "@/data/projects.json";
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRightIcon } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from 'next/link';
 import React from "react";
@@ -74,7 +74,7 @@ export const Works: React.FC = () => {
                  </div>
                  <div className="flex items-center gap-2 text-white/50 group-hover:text-white transition-colors shrink-0 pt-2">
                     <Text variant="caption" className="uppercase tracking-widest font-semibold text-xs">Read Case Study</Text>
-                    <ArrowUpRight size={16} />
+                    <ArrowUpRightIcon size={16} weight="duotone" />
                  </div>
               </div>
             </Link>
@@ -89,26 +89,26 @@ export const Works: React.FC = () => {
         </Text>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {otherProjects.map((project) => (
-              <Link 
-                key={project.id} 
-                href={`/works/${project.id}`} 
-                className="group flex flex-col gap-4 p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-white/30 transition-colors"
-               >
-                 <div className="flex justify-between items-start">
-                    <Text variant="caption" className="text-xs uppercase tracking-widest text-white/40 font-semibold mb-2 block">
-                      {project.category}
-                    </Text>
-                    <ArrowUpRight size={16} className="text-white/30 group-hover:text-white transition-colors" />
-                 </div>
-                 <Text variant="h3" className="text-xl font-bold text-white group-hover:text-accent transition-colors">
-                   {project.title}
-                 </Text>
-                 <Text variant="body" className="text-white/70 line-clamp-3 leading-relaxed">
-                   {project.problem}
-                 </Text>
-              </Link>
-            ))}
+          {otherProjects.map((project) => (
+            <Link 
+              key={project.id} 
+              href={`/works/${project.id}`} 
+              className="group flex flex-col gap-4 p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-white/30 transition-colors"
+             >
+               <div className="flex justify-between items-start">
+                  <Text variant="caption" className="text-xs uppercase tracking-widest text-white/40 font-semibold mb-2 block">
+                    {project.category}
+                  </Text>
+                  <ArrowUpRightIcon size={16} weight="duotone" className="text-white/30 group-hover:text-white transition-colors" />
+               </div>
+               <Text variant="h3" className="text-xl font-bold text-white group-hover:text-accent transition-colors">
+                 {project.title}
+               </Text>
+               <Text variant="body" className="text-white/70 line-clamp-3 leading-relaxed">
+                 {project.problem}
+               </Text>
+            </Link>
+          ))}
         </div>
       </section>
     </main>

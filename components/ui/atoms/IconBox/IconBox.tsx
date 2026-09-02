@@ -14,7 +14,7 @@ export const IconBox: React.FC<IconBoxProps> = ({
         ${className}
       `}
     >
-      <Icon size={24} weight="light" />
+      <Icon size={24} weight="duotone" />
     </div>
   );
 };

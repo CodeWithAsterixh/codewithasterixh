@@ -44,9 +44,9 @@ export const Blog: React.FC<BlogProps> = ({ query }) => {
       {/* Header */}
       <div className="flex flex-col items-center justify-center mb-16">
          <div className="flex items-center gap-4 mb-4">
-            <StarFourIcon size={32} weight="fill" className="text-white/30" />
+            <StarFourIcon size={32} weight="duotone" className="text-white/30" />
             <Text variant="h1" weight="bold" className="uppercase tracking-wide text-5xl md:text-7xl text-white">{uiData.blog.hero.title}</Text>
-            <StarFourIcon size={32} weight="fill" className="text-white/30" />
+            <StarFourIcon size={32} weight="duotone" className="text-white/30" />
          </div>
          <Text variant="body" color="gray" className="text-center max-w-2xl mb-12">
             {uiData.blog.hero.description}
@@ -71,7 +71,7 @@ export const Blog: React.FC<BlogProps> = ({ query }) => {
                         variant="primary" 
                         className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-md aspect-square flex items-center justify-center min-w-11"
                     >
-                        <MagnifyingGlassIcon size={20} weight="bold" />
+                        <MagnifyingGlassIcon size={20} weight="duotone" />
                     </Button>
                 </div>
             </div>

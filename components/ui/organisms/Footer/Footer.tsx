@@ -1,9 +1,19 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { Logo } from "../../atoms/Logo/Logo";
 import metaData from "@/data/meta.json";
+import { usePathname } from "next/navigation";
 
 export const Footer: React.FC = () => {
+  const pathname = usePathname();
+
+  // Hide global footer on full-screen 2D interactive homepage
+  if (pathname === '/') {
+    return null;
+  }
+
   return (
     <footer className="py-12 flex flex-col items-center justify-center gap-8">
       <Logo />

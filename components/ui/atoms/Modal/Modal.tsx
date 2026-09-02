@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "@phosphor-icons/react";
+import { XIcon } from "@phosphor-icons/react";
 import { Text } from "../Text/Text";
 
 interface ModalProps {
@@ -54,7 +54,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }
                   onClick={onClose}
                   className="p-2 hover:bg-white/5 rounded-full transition-colors text-gray-400 hover:text-white"
                 >
-                  <X size={24} />
+                  <XIcon size={24} weight="duotone" />
                 </button>
               </div>
 

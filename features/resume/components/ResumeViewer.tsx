@@ -64,7 +64,7 @@ export const ResumeViewer: React.FC = () => {
         <div className="flex items-center gap-4">
           <Link href="/">
             <button className="p-3 bg-white/5 hover:bg-white/10 rounded-2xl transition-colors text-gray-400 hover:text-white">
-              <ArrowLeftIcon size={24} />
+              <ArrowLeftIcon size={24} weight="duotone" />
             </button>
           </Link>
           <div>
@@ -81,39 +81,39 @@ export const ResumeViewer: React.FC = () => {
           <div className="flex items-center gap-1 bg-black/20 p-1 rounded-2xl border border-white/5">
             <button
               onClick={handleZoomOut}
-              className="p-2 hover:bg-white/5 rounded-xl transition-colors text-gray-400 hover:text-white"
+              className="p-2 hover:bg-white/5 rounded-md transition-colors text-gray-400 hover:text-white"
               title="Zoom Out"
             >
-              <MagnifyingGlassMinusIcon size={20} />
+              <MagnifyingGlassMinusIcon size={20} weight="duotone" />
             </button>
             <span className="px-3 text-xs font-medium text-gray-400 w-12 text-center">
               {Math.round(zoom * 100)}%
             </span>
             <button
               onClick={handleZoomIn}
-              className="p-2 hover:bg-white/5 rounded-xl transition-colors text-gray-400 hover:text-white"
+              className="p-2 hover:bg-white/5 rounded-md transition-colors text-gray-400 hover:text-white"
               title="Zoom In"
             >
-              <MagnifyingGlassPlusIcon size={20} />
+              <MagnifyingGlassPlusIcon size={20} weight="duotone" />
             </button>
             <div className="w-px h-4 bg-white/10 mx-1" />
             <button
               onClick={handleReset}
-              className="p-2 hover:bg-white/5 rounded-xl transition-colors text-gray-400 hover:text-white"
+              className="p-2 hover:bg-white/5 rounded-md transition-colors text-gray-400 hover:text-white"
               title="Reset Zoom"
             >
-              <ArrowsOutIcon size={20} />
+              <ArrowsOutIcon size={20} weight="duotone" />
             </button>
             <div className="w-px h-4 bg-white/10 mx-1" />
             <button
               onClick={toggleFullscreen}
-              className="p-2 hover:bg-white/5 rounded-xl transition-colors text-gray-400 hover:text-white"
+              className="p-2 hover:bg-white/5 rounded-md transition-colors text-gray-400 hover:text-white"
               title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
             >
               {isFullscreen ? (
-                <CornersInIcon size={20} />
+                <CornersInIcon size={20} weight="duotone" />
               ) : (
-                <CornersOutIcon size={20} />
+                <CornersOutIcon size={20} weight="duotone" />
               )}
             </button>
           </div>
@@ -123,7 +123,7 @@ export const ResumeViewer: React.FC = () => {
             download="Peter_Paul_Resume.pdf"
           >
             <Button className="flex items-center gap-2 rounded-2xl px-6">
-              <DownloadIcon size={20} weight="bold" />
+              <DownloadIcon size={20} weight="duotone" />
               Download PDF
             </Button>
           </a>
@@ -133,12 +133,11 @@ export const ResumeViewer: React.FC = () => {
       {/* Viewer Container */}
       <div
         ref={viewerRef}
-        className={`flex-1 overflow-hidden relative rounded-3xl bg-[#111] border border-white/5 flex items-start justify-center p-8 cursor-grab active:cursor-grabbing ${
-          isFullscreen ? "bg-black rounded-none border-none" : ""
-        }`}
+        className={`flex-1 overflow-hidden relative rounded-3xl bg-[#111] border border-white/5 flex items-start justify-center p-8 cursor-grab active:cursor-grabbing ${isFullscreen ? "bg-black rounded-none border-none" : ""
+          }`}
       >
-        <div 
-          ref={containerRef} 
+        <div
+          ref={containerRef}
           className="w-full h-full flex items-start justify-center overflow-auto custom-scrollbar"
         >
           <motion.div

@@ -46,7 +46,7 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({ recentPosts }) => {
             />
             <div className="absolute top-1 right-1 bottom-1">
                 <Button onClick={handleSearch} variant="primary" className="h-full aspect-square flex items-center justify-center bg-primary-blue hover:bg-[#4a8cd8] rounded-md text-white p-0">
-                    <MagnifyingGlassIcon size={20} weight="bold" />
+                    <MagnifyingGlassIcon size={20} weight="duotone" />
                 </Button>
             </div>
         </div>

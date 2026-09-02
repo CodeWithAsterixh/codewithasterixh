@@ -14,30 +14,12 @@ export const Navbar: React.FC = () => {
   const { navigation } = metaData;
   const { scrollPx } = useScrollPercent("#scroll-container");
   const navbarRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname()
-  useEffect(() => {
-    if (scrollPx > 40) {
-      navbarRef.current?.classList.add(
-        "w-[90%]!",
-        "md:w-[80%]!",
-        "top-2",
-        "bg-background/30",
-        "backdrop-blur-md",
-        "rounded-full",
-        "border-foreground/20!",
-      );
-    }else {
-      navbarRef.current?.classList.remove(
-        "w-[90%]!",
-        "md:w-[80%]!",
-        "top-2",
-        "bg-background/30",
-        "backdrop-blur-md",
-        "rounded-full",
-        "border-foreground/20!",
-      );
-    }
-  }, [scrollPx]);
+  const pathname = usePathname();
+
+  // Hide global navbar on full-screen 2D interactive homepage
+  if (pathname === '/') {
+    return null;
+  }
 
   return (
     <nav
@@ -63,50 +45,47 @@ export const Navbar: React.FC = () => {
         ))}
       </div>
 
-      <div className="hidden md:flex">
-        <Link className="size-fit" href="contact">
-          <Button
-            variant="primary"
-            size="sm"
-            className="bg-accent hover:bg-white hover:text-black"
-          >
+      <div className="hidden md:flex items-center">
+        <Link href="/contact">
+          <Button variant="primary" size="sm">
             Let&apos;s talk
           </Button>
         </Link>
       </div>
 
-      {/* Mobile Menu Toggle */}
-      <button
-        className="md:hidden text-white p-2"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-        aria-expanded={isOpen}
-        aria-controls="mobile-navigation"
-      >
-        {isOpen ? <XIcon size={24} /> : <ListIcon size={24} />}
-      </button>
+      {/* Mobile Toggle Button */}
+      <div className="md:hidden flex items-center">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="text-white focus:outline-none p-2"
+          aria-label="Toggle Menu"
+        >
+          {isOpen ? <XIcon size={24} /> : <ListIcon size={24} />}
+        </button>
+      </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div id="mobile-navigation" className="absolute top-20 left-0 w-full bg-background z-50 p-4 border-b border-white/10 md:hidden flex flex-col gap-4 shadow-2xl" role="menu" aria-label="Mobile navigation">
-          {navigation.map((link) => (
-            <div key={link.label} onClick={() => setIsOpen(false)}>
+        <div className="absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-b border-foreground/10 flex flex-col p-6 gap-6 md:hidden animate-in fade-in slide-in-from-top-4 duration-300">
+          <div className="flex flex-col gap-4">
+            {navigation.map((link) => (
               <Link
+                key={link.label}
                 href={link.href}
-                className="text-white/70 hover:text-white py-2 block"
-                role="menuitem"
+                onClick={() => setIsOpen(false)}
+                className={`text-lg font-medium transition-colors ${
+                  pathname === link.href
+                    ? "text-white font-semibold"
+                    : "text-white/70 hover:text-white"
+                }`}
               >
                 {link.label}
               </Link>
-            </div>
-          ))}
-          <div onClick={() => setIsOpen(false)}>
-            <Link href="/contact">
-              <Button
-                variant="primary"
-                size="sm"
-                className="w-full justify-center"
-              >
+            ))}
+          </div>
+          <div className="pt-4 border-t border-foreground/10">
+            <Link href="/contact" onClick={() => setIsOpen(false)}>
+              <Button variant="primary" className="w-full justify-center">
                 Let&apos;s talk
               </Button>
             </Link>

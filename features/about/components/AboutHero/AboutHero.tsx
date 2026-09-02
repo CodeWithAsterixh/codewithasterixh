@@ -24,14 +24,14 @@ export const AboutHero: React.FC = () => {
       {/* Right: Self Summary */}
       <div className="col-span-1 md:col-span-2 flex flex-col gap-6">
         <div className="flex items-center justify-center gap-4 py-2">
-            <StarFourIcon size={40} weight="fill" className="text-white" />
+            <StarFourIcon size={40} weight="duotone" className="text-white" />
             <Text variant="h1" weight="medium" className="uppercase tracking-wide">{uiData.about.hero.title}</Text>
-            <StarFourIcon size={40} weight="fill" className="text-white" />
+            <StarFourIcon size={40} weight="duotone" className="text-white" />
         </div>
         
         <Card className="flex-1 p-8 md:p-12 bg-[#1a1a1a] relative overflow-hidden">
             <div className="absolute top-0 left-8">
-                <StarFourIcon size={48} weight="light" className="text-white/20" />
+                <StarFourIcon size={48} weight="duotone" className="text-white/20" />
             </div>
             
             <div className="mt-8">

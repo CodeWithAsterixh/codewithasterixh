@@ -25,7 +25,7 @@ export const ArrowButton: React.FC<ArrowButtonProps> = ({
   const icon = (
     <ArrowRightIcon 
       size={20} 
-      weight="bold" 
+      weight="duotone" 
       className="transform group-hover:-rotate-45 transition-transform duration-300" 
     />
   );
