@@ -1653,9 +1653,6 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const groundSurfaceRatio = 265 / 324;
       const drawY = GROUND_Y - targetH * groundSurfaceRatio;
 
-      if (currentThemeMode === 'dark') {
-        ctx.filter = 'brightness(0.50) saturate(0.85)';
-      }
 
       let layerX = Math.floor(viewLeft / layerW) * layerW;
       while (layerX < viewRight + layerW) {
@@ -1673,10 +1670,14 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         layerX += layerW - 1;
       }
 
+      // In dark mode: overlay a cheap dark tint over the entire ground area
+      // (much cheaper than ctx.filter which triggers GPU recomposite every frame)
       if (currentThemeMode === 'dark') {
-        ctx.filter = 'none';
+        ctx.fillStyle = 'rgba(0, 5, 20, 0.45)';
+        ctx.fillRect(Math.floor(viewLeft), drawY, (viewRight - viewLeft) + layerW * 2, viewBottom - drawY + 400);
       }
     }
+
 
     interface PooledDepthItem {
       type: number; // 1: tree, 2: bush, 3: interactiveObj, 4: kiosk, 5: garage, 6: home, 7: mailbox, 8: lamp, 9: dust, 10: player, 11: enemy
@@ -1769,23 +1770,16 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const activeSlice = depthPool.slice(0, count);
       activeSlice.sort((a, b) => a.y - b.y);
 
-      // Batch scenery filter once if dark mode
       const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
       const isDark = currentThemeMode === 'dark';
 
-      if (isDark) {
-        ctx.filter = 'brightness(0.55) saturate(0.85)';
-      }
-
-      // Dispatch-based zero-closure rendering
+      // Dispatch-based zero-closure rendering (no ctx.filter toggling — overlay tint applied per-pass instead)
       for (let i = 0; i < count; i++) {
         const ent = activeSlice[i];
-        if (ent.type === 10 || ent.type === 11) {
-          // Temporarily disable dark scenery filter for player and enemy so sprites remain crisp and vivid
-          if (isDark) ctx.filter = 'none';
-          if (ent.type === 10) renderPlayerCharacter();
-          else if (activeEnemy) renderEnemyNinja(activeEnemy);
-          if (isDark) ctx.filter = 'brightness(0.55) saturate(0.85)';
+        if (ent.type === 10) {
+          renderPlayerCharacter();
+        } else if (ent.type === 11) {
+          if (activeEnemy) renderEnemyNinja(activeEnemy);
         } else {
           switch (ent.type) {
             case 1: drawSingleTree(ALL_WORLD_TREES[ent.index]); break;
@@ -1801,10 +1795,17 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         }
       }
 
+      // After all entities: apply a single dark tint overlay for trees/bushes/objects in night mode
       if (isDark) {
-        ctx.filter = 'none';
+        const viewLeft = (-camX) / zoom - 450;
+        const viewRight = (p.width - camX) / zoom + 450;
+        const viewTop = (-camY) / zoom - 200;
+        const viewBottom = (p.height - camY) / zoom + 400;
+        ctx.fillStyle = 'rgba(0, 5, 20, 0.30)';
+        ctx.fillRect(viewLeft, viewTop, viewRight - viewLeft, viewBottom - viewTop);
       }
     }
+
 
     function drawSingleTree(tree: FlatSceneryItem) {
       const ctx: CanvasRenderingContext2D = (p as any).drawingContext;

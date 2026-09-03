@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { contactFormSchema } from "@/features/contact/schema/contact";
+import { contactFormSchema } from "@/features/email/schema/contact";
 import { formatConfirmationMessage } from "@/features/email/lib/formatMail/confirmation";
 import { formatContactMessage } from "@/features/email/lib/formatMail/contact";
 import { sendMail } from "@/features/email/lib/sendMail";

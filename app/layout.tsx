@@ -1,6 +1,3 @@
-import { Footer } from "@/components/ui/organisms/Footer/Footer";
-import { Navbar } from "@/components/ui/organisms/Navbar/Navbar";
-import { PageTransitionOverlay } from "@/components/ui/transitions/PageTransitionOverlay";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -90,14 +87,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-white`}
       >
         <JsonLd />
-        <PageTransitionOverlay />
-
-        <main id="scroll-container" className="relative isolate overflow-y-auto h-dvh w-full">
-          <Navbar />
-          <div className="w-full z-1 isolate">
-            {children}
-          </div>
-          <Footer />
+        <main id="scroll-container" className="relative isolate overflow-hidden h-dvh w-full">
+          {children}
         </main>
       </body>
     </html>

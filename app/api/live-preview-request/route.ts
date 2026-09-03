@@ -5,7 +5,7 @@ import { formatLivePreviewRequestMessage } from "@/features/email/lib/formatMail
 import { sendMail } from "@/features/email/lib/sendMail";
 import {
   livePreviewRequestSchema,
-} from "@/features/works/schema/livePreviewRequest";
+} from "@/features/email/schema/livePreviewRequest";
 import { ZodError } from "zod";
 
 const rateLimitMap = new Map<string, { windowStart: number; count: number }>();

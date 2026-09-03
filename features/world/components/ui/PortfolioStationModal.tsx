@@ -418,16 +418,32 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
                   >
                     ✉️ {profileData.email}
                   </a>
-                  <Link
-                    href="/contact"
-                    style={{
-                      clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
-                    }}
-                    className="px-5 py-2.5 bg-[#262626] hover:bg-[#333] text-white text-xs font-bold border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all active:translate-x-px active:translate-y-px"
-                  >
-                    Open Contact Form →
-                  </Link>
+                  {onOpenContact ? (
+                    <button
+                      onClick={() => {
+                        onClose();
+                        onOpenContact();
+                      }}
+                      style={{
+                        clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                      }}
+                      className="px-5 py-2.5 bg-[#262626] hover:bg-[#333] text-white text-xs font-bold border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all active:translate-x-px active:translate-y-px cursor-pointer"
+                    >
+                      Open Contact Form →
+                    </button>
+                  ) : (
+                    <a
+                      href={`mailto:${profileData.email}`}
+                      style={{
+                        clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                      }}
+                      className="px-5 py-2.5 bg-[#262626] hover:bg-[#333] text-white text-xs font-bold border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all active:translate-x-px active:translate-y-px"
+                    >
+                      Send Inquiry →
+                    </a>
+                  )}
                 </div>
+
                 {/* Social Links */}
                 <div className="flex items-center justify-center gap-3 pt-2 border-t border-white/5">
                   {profileData.socials.map((social) => {

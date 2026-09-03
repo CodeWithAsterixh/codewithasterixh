@@ -435,104 +435,90 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
             </div>
           )}
 
-          {/* Right Side Action Buttons (4 Attacks + Jump + Inspect) */}
-          <div className="flex items-center gap-2">
-            {/* Pixelated 4 Attack Combat Grid */}
-            <div
-              className="grid grid-cols-2 gap-1.5 p-1.5 bg-[#0F141F] border-4 border-[#384252] shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+          {/* Right Side Action Buttons — single vertical column */}
+          <div className="flex flex-col gap-1.5">
+            {/* Attack 1 */}
+            {isCombatActive && (
+              <>
+                <button
+                  onPointerDown={handleAttack1}
+                  onContextMenu={(e) => e.preventDefault()}
+                  style={{
+                    clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                  }}
+                  className="w-14 h-10 bg-[#DC2626] hover:bg-[#EF4444] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
+                  title="Attack 1 [J]"
+                >
+                  <span>⚔️</span>
+                  <span>ATK1</span>
+                </button>
+
+                <button
+                  onPointerDown={handleAttack2}
+                  onContextMenu={(e) => e.preventDefault()}
+                  style={{
+                    clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                  }}
+                  className="w-14 h-10 bg-[#2563EB] hover:bg-[#3B82F6] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
+                  title="Attack 2 [K]"
+                >
+                  <span>🗡️</span>
+                  <span>ATK2</span>
+                </button>
+
+                <button
+                  onPointerDown={handleAttack3}
+                  onContextMenu={(e) => e.preventDefault()}
+                  style={{
+                    clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                  }}
+                  className="w-14 h-10 bg-[#7C3AED] hover:bg-[#8B5CF6] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
+                  title="Attack 3 [L]"
+                >
+                  <span>⚡</span>
+                  <span>ATK3</span>
+                </button>
+
+                <button
+                  onPointerDown={handleAttack4}
+                  onContextMenu={(e) => e.preventDefault()}
+                  style={{
+                    clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                  }}
+                  className="w-14 h-10 bg-[#EA580C] hover:bg-[#F97316] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
+                  title="Attack 4 [U]"
+                >
+                  <span>🔥</span>
+                  <span>ATK4</span>
+                </button>
+              </>
+            )}
+
+            {/* Jump Button */}
+            <button
+              onPointerDown={handleJump}
+              onContextMenu={(e) => e.preventDefault()}
               style={{
-                clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
               }}
+              className="w-14 h-10 bg-[#6366F1] hover:bg-[#818CF8] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
+              title="Jump [Space]"
             >
-              {/* Attack 1 */}
-              <button
-                onPointerDown={handleAttack1}
-                onContextMenu={(e) => e.preventDefault()}
-                style={{
-                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
-                }}
-                className="w-12 h-12 sm:w-14 sm:h-14 bg-[#DC2626] hover:bg-[#EF4444] text-white font-black uppercase text-[10px] flex flex-col items-center justify-center gap-0 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
-                title="Attack 1 [J]"
-              >
-                <span className="text-sm leading-none">⚔️</span>
-                <span className="text-[8px] font-bold">ATK 1</span>
-                <span className="text-[7px] text-red-200 font-mono">[J]</span>
-              </button>
+              <ArrowFatUpIcon size={14} weight="fill" />
+              <span>JUMP</span>
+            </button>
 
-              {/* Attack 2 */}
-              <button
-                onPointerDown={handleAttack2}
-                onContextMenu={(e) => e.preventDefault()}
-                style={{
-                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
-                }}
-                className="w-12 h-12 sm:w-14 sm:h-14 bg-[#2563EB] hover:bg-[#3B82F6] text-white font-black uppercase text-[10px] flex flex-col items-center justify-center gap-0 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
-                title="Attack 2 [K]"
-              >
-                <span className="text-sm leading-none">🗡️</span>
-                <span className="text-[8px] font-bold">ATK 2</span>
-                <span className="text-[7px] text-blue-200 font-mono">[K]</span>
-              </button>
-
-              {/* Attack 3 */}
-              <button
-                onPointerDown={handleAttack3}
-                onContextMenu={(e) => e.preventDefault()}
-                style={{
-                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
-                }}
-                className="w-12 h-12 sm:w-14 sm:h-14 bg-[#7C3AED] hover:bg-[#8B5CF6] text-white font-black uppercase text-[10px] flex flex-col items-center justify-center gap-0 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
-                title="Attack 3 [L]"
-              >
-                <span className="text-sm leading-none">⚡</span>
-                <span className="text-[8px] font-bold">ATK 3</span>
-                <span className="text-[7px] text-purple-200 font-mono">[L]</span>
-              </button>
-
-              {/* Attack 4 */}
-              <button
-                onPointerDown={handleAttack4}
-                onContextMenu={(e) => e.preventDefault()}
-                style={{
-                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
-                }}
-                className="w-12 h-12 sm:w-14 sm:h-14 bg-[#EA580C] hover:bg-[#F97316] text-white font-black uppercase text-[10px] flex flex-col items-center justify-center gap-0 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
-                title="Attack 4 [U]"
-              >
-                <span className="text-sm leading-none">🔥</span>
-                <span className="text-[8px] font-bold">ATK 4</span>
-                <span className="text-[7px] text-orange-200 font-mono">[U]</span>
-              </button>
-            </div>
-
-            {/* Pixelated Jump & Inspect Column */}
-            <div className="flex flex-col gap-1.5">
-              {/* Mobile Jump Button */}
-              <button
-                onPointerDown={handleJump}
-                onContextMenu={(e) => e.preventDefault()}
-                style={{
-                  clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
-                }}
-                className="w-14 h-12 sm:w-16 sm:h-14 bg-[#6366F1] hover:bg-[#818CF8] text-white font-black uppercase text-xs flex flex-col items-center justify-center gap-0 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
-                title="Jump [Space]"
-              >
-                <ArrowFatUpIcon size={18} weight="fill" />
-                <span className="text-[9px] font-bold">JUMP</span>
-              </button>
-
-              {/* Inspect Button */}
-              <button
-                onClick={onInspectStation}
-                style={{
-                  clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
-                }}
-                className="px-3 h-12 sm:h-14 bg-[#0D9488] hover:bg-[#14B8A6] text-white font-black uppercase text-[10px] sm:text-xs flex items-center justify-center gap-1.5 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer"
-              >
-                <EyeIcon size={16} weight="bold" />
-                <span>INSPECT</span>
-              </button>
-            </div>
+            {/* Inspect Button */}
+            <button
+              onClick={onInspectStation}
+              style={{
+                clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+              }}
+              className="w-14 h-10 bg-[#0D9488] hover:bg-[#14B8A6] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer"
+            >
+              <EyeIcon size={14} weight="bold" />
+              <span>INSP</span>
+            </button>
           </div>
         </div>
       )}
