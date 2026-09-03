@@ -142,15 +142,17 @@ export const WorldPauseMapModal: React.FC<
       >
         {/* Main Game Menu */}
         <div
+          style={{
+            clipPath: 'polygon(0 8px, 8px 8px, 8px 0, calc(100% - 8px) 0, calc(100% - 8px) 8px, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 8px calc(100% - 8px), 0 calc(100% - 8px))'
+          }}
           className={clsx(
             'relative w-full max-w-5xl',
             'max-h-[94vh]',
             'overflow-hidden',
             'flex flex-col',
             'bg-[#20252D]',
-            'border-2 border-[#4A525D]',
-            'rounded-md',
-            'shadow-[0_20px_60px_rgba(0,0,0,0.75)]',
+            'border-4 border-[#384252]',
+            'shadow-[8px_8px_0px_rgba(0,0,0,1)]',
           )}
         >
           {/* Top Highlight */}
@@ -173,18 +175,21 @@ export const WorldPauseMapModal: React.FC<
               'gap-4',
               'px-4 py-3 sm:px-5',
               'bg-[#292F38]',
-              'border-b border-[#101318]',
+              'border-b-2 border-black',
             )}
           >
             <div className="flex min-w-0 items-center gap-3">
               {/* Game Menu Icon */}
               <div
+                style={{
+                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                }}
                 className={clsx(
                   'flex h-9 w-9 shrink-0',
                   'items-center justify-center',
-                  'rounded-md',
                   'bg-[#D9A441]',
-                  'border-b-2 border-[#8A6322]',
+                  'border-2 border-black',
+                  'shadow-[2px_2px_0px_rgba(0,0,0,1)]',
                   'text-[#1A1D21]',
                 )}
               >
@@ -225,23 +230,13 @@ export const WorldPauseMapModal: React.FC<
               type="button"
               onClick={onClose}
               title="Resume Game"
-              className={clsx(
-                'group',
-                'flex h-9 w-9 shrink-0',
-                'items-center justify-center',
-                'rounded-md',
-                'bg-[#343A44]',
-                'border border-[#555D68]',
-                'text-[#C8CDD3]',
-                'transition-colors',
-                'hover:bg-[#454C57]',
-                'hover:text-white',
-                'active:translate-y-px',
-                'cursor-pointer',
-              )}
+              style={{
+                clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+              }}
+              className="flex h-8 w-8 shrink-0 items-center justify-center bg-[#2C3440] hover:bg-[#3E4856] text-white border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] active:translate-y-px active:translate-x-px cursor-pointer"
             >
               <XIcon
-                size={17}
+                size={16}
                 weight="bold"
               />
             </button>
@@ -263,12 +258,14 @@ export const WorldPauseMapModal: React.FC<
             {/* ============================================================ */}
 
             <section
+              style={{
+                clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+              }}
               className={clsx(
                 'relative overflow-hidden',
-                'rounded-lg',
-                'border-2 border-[#3E4650]',
+                'border-4 border-[#3E4650]',
                 'bg-[#0D1014]',
-                'shadow-[0_8px_20px_rgba(0,0,0,0.35)]',
+                'shadow-[4px_4px_0px_rgba(0,0,0,1)]',
               )}
             >
               {/* Map */}
@@ -325,23 +322,23 @@ export const WorldPauseMapModal: React.FC<
                       >
                         {/* Label */}
                         <div
+                          style={{
+                            clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                          }}
                           className={clsx(
                             'mb-1',
                             'whitespace-nowrap',
-                            'rounded-md',
-                            'border',
+                            'border-2 border-black',
                             'px-2 py-1',
                             'text-[8px] sm:text-[9px]',
                             'font-black uppercase',
-                            'shadow-lg',
+                            'shadow-[2px_2px_0px_rgba(0,0,0,1)]',
                             isCurrent
                               ? [
-                                'border-[#F3C65B]',
                                 'bg-[#252B34]',
                                 'text-[#F3C65B]',
                               ]
                               : [
-                                'border-[#4A525D]',
                                 'bg-[#20252D]/95',
                                 'text-white',
                               ],
@@ -352,21 +349,21 @@ export const WorldPauseMapModal: React.FC<
 
                         {/* Pin */}
                         <div
+                          style={{
+                            clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                          }}
                           className={clsx(
                             'relative',
                             'flex h-7 w-7',
                             'items-center justify-center',
-                            'rounded-full',
-                            'border-2',
-                            'shadow-[0_3px_8px_rgba(0,0,0,0.6)]',
+                            'border-2 border-black',
+                            'shadow-[2px_2px_0px_rgba(0,0,0,1)]',
                             isCurrent
                               ? [
-                                'border-white',
                                 'bg-[#E0A936]',
                                 'scale-110',
                               ]
                               : [
-                                'border-[#D5D9DE]',
                                 'bg-[#2E3742]',
                                 'group-hover:bg-[#E0A936]',
                               ],
@@ -407,32 +404,38 @@ export const WorldPauseMapModal: React.FC<
 
               {/* Map HUD */}
               <div
+                style={{
+                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                }}
                 className={clsx(
                   'absolute left-3 top-3',
-                  'rounded-md',
-                  'border border-white/15',
+                  'border-2 border-black',
                   'bg-[#15191F]/90',
                   'px-2.5 py-1.5',
                   'text-[8px]',
                   'font-black uppercase',
                   'tracking-wider',
                   'text-white',
+                  'shadow-[2px_2px_0px_rgba(0,0,0,1)]'
                 )}
               >
                 Asterixh World
               </div>
 
               <div
+                style={{
+                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                }}
                 className={clsx(
                   'absolute bottom-3 right-3',
                   'hidden sm:block',
-                  'rounded-md',
-                  'border border-white/15',
+                  'border-2 border-black',
                   'bg-[#15191F]/90',
                   'px-2.5 py-1.5',
                   'text-[8px]',
                   'font-bold',
                   'text-[#B5BDC7]',
+                  'shadow-[2px_2px_0px_rgba(0,0,0,1)]'
                 )}
               >
                 CLICK A LANDMARK TO TRAVEL
@@ -667,55 +670,20 @@ export const WorldPauseMapModal: React.FC<
             {/* ============================================================ */}
             {/* RESUME                                                        */}
             {/* ============================================================ */}
-
             <div className="mt-3">
               <button
                 type="button"
                 onClick={onClose}
-                className={clsx(
-                  'group relative w-full',
-                  'cursor-pointer',
-                )}
+                style={{
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                }}
+                className="w-full flex items-center justify-center gap-2 bg-[#D9A441] hover:bg-[#E5B152] border-4 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] px-5 py-3 text-xs sm:text-sm font-black uppercase tracking-wider text-[#1A1D21] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer"
               >
-                {/* Button depth */}
-                <span
-                  className={clsx(
-                    'absolute inset-x-0 top-1.5 bottom-0',
-                    'rounded-lg',
-                    'bg-[#8A6322]',
-                    'border border-[#654A1D]',
-                  )}
+                <PlayIcon
+                  size={17}
+                  weight="fill"
                 />
-
-                {/* Button face */}
-                <span
-                  className={clsx(
-                    'relative z-10',
-                    'flex items-center justify-center',
-                    'gap-2',
-                    'rounded-lg',
-                    'border-2 border-[#F0C75E]',
-                    'bg-[#D9A441]',
-                    'px-5 py-3',
-                    'text-xs sm:text-sm',
-                    'font-black uppercase',
-                    'tracking-wide',
-                    'text-[#1A1D21]',
-                    'transition-transform duration-100',
-                    'group-hover:-translate-y-0.5',
-                    'group-hover:bg-[#E2B24D]',
-                    'group-active:translate-y-1',
-                  )}
-                >
-                  <PlayIcon
-                    size={17}
-                    weight="fill"
-                  />
-
-                  <span>
-                    Resume Game
-                  </span>
-                </span>
+                <span>Resume Exploring</span>
               </button>
             </div>
           </div>
@@ -734,42 +702,43 @@ interface ControlPanelProps {
   children: React.ReactNode;
 }
 
-const ControlPanel: React.FC<ControlPanelProps> = ({
+const ControlPanel: React.FC<
+  ControlPanelProps
+> = ({
   icon,
   title,
   children,
 }) => {
-  return (
-    <section
-      className={clsx(
-        'rounded-lg',
-        'border border-[#3B424C]',
-        'bg-[#242A32]',
-        'p-3',
-      )}
-    >
+    return (
       <div
+        style={{
+          clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+        }}
         className={clsx(
-          'mb-3',
-          'flex items-center gap-2',
-          'border-b border-[#363D46]',
-          'pb-2',
-          'text-[10px]',
-          'font-black uppercase tracking-wider',
-          'text-white',
+          'space-y-2',
+          'border-2 border-black',
+          'bg-[#1F242C]',
+          'p-3',
+          'shadow-[3px_3px_0px_rgba(0,0,0,1)]',
         )}
       >
-        <span className="text-[#D9A441]">
+        <div
+          className={clsx(
+            'flex items-center gap-1.5',
+            'text-[10px]',
+            'font-black uppercase',
+            'tracking-wider',
+            'text-[#F0C75E]',
+          )}
+        >
           {icon}
-        </span>
+          <span>{title}</span>
+        </div>
 
-        <span>{title}</span>
+        {children}
       </div>
-
-      {children}
-    </section>
-  );
-};
+    );
+  };
 
 /* ========================================================================== */
 /* CONTROL ROW                                                                */
@@ -780,52 +749,67 @@ interface ControlRowProps {
   keys: string[];
 }
 
-const ControlRow: React.FC<ControlRowProps> = ({
+const ControlRow: React.FC<
+  ControlRowProps
+> = ({
   label,
   keys,
 }) => {
-  return (
-    <div
-      className={clsx(
-        'flex items-center justify-between',
-        'py-1',
-        'text-[9px]',
-        'font-bold',
-        'text-[#9FA7B2]',
-      )}
-    >
-      <span>{label}</span>
+    return (
+      <div
+        style={{
+          clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+        }}
+        className={clsx(
+          'flex items-center justify-between',
+          'border border-black',
+          'bg-[#2A313C]',
+          'px-2.5 py-1.5',
+          'text-[9px]',
+          'shadow-[1px_1px_0px_rgba(0,0,0,0.5)]',
+        )}
+      >
+        <span
+          className={clsx(
+            'font-black uppercase',
+            'text-[#CAD1DB]',
+          )}
+        >
+          {label}
+        </span>
 
-      <div className="flex items-center gap-1">
-        {keys.map((key) => (
-          <kbd
-            key={key}
-            className={clsx(
-              'min-w-6',
-              'rounded',
-              'border border-[#505862]',
-              'bg-[#15191F]',
-              'px-1.5 py-1',
-              'text-center',
-              'text-[8px]',
-              'font-black',
-              'text-white',
-            )}
-          >
-            {key}
-          </kbd>
-        ))}
+        <div className="flex gap-1">
+          {keys.map((key) => (
+            <kbd
+              key={key}
+              style={{
+                clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+              }}
+              className={clsx(
+                'flex items-center justify-center',
+                'border-2 border-black',
+                'bg-[#1A1F26]',
+                'px-1.5 py-0.5',
+                'font-mono text-[9px]',
+                'font-black',
+                'text-[#F0C75E]',
+                'shadow-[1px_1px_0px_rgba(0,0,0,1)]',
+              )}
+            >
+              {key}
+            </kbd>
+          ))}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 /* ========================================================================== */
 /* SWITCH BUTTON                                                              */
 /* ========================================================================== */
 
 interface SwitchButtonProps {
-  active: boolean;
+  active?: boolean;
   onClick: () => void;
   children: React.ReactNode;
   small?: boolean;
@@ -843,27 +827,27 @@ const SwitchButton: React.FC<
       <button
         type="button"
         onClick={onClick}
+        style={{
+          clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+        }}
         className={clsx(
           'cursor-pointer',
-          'rounded-md',
-          'border',
+          'border-2 border-black',
           'font-black uppercase',
-          'transition-colors',
-          'active:translate-y-px',
+          'shadow-[2px_2px_0px_rgba(0,0,0,1)]',
+          'active:translate-x-px active:translate-y-px',
           small
-            ? 'px-1.5 py-1 text-[8px]'
-            : 'px-2 py-1.5 text-[9px]',
+            ? 'px-2 py-1 text-[8px]'
+            : 'px-2.5 py-1.5 text-[9px]',
           active
             ? [
-              'border-[#D9A441]',
               'bg-[#D9A441]',
               'text-[#1A1D21]',
             ]
             : [
-              'border-[#4A525D]',
-              'bg-[#30363F]',
+              'bg-[#2C3440]',
               'text-[#AAB1BA]',
-              'hover:bg-[#3A414B]',
+              'hover:bg-[#3A4350]',
               'hover:text-white',
             ],
         )}
@@ -894,21 +878,23 @@ const QuickAction: React.FC<
       <button
         type="button"
         onClick={onClick}
+        style={{
+          clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+        }}
         className={clsx(
           'group w-full',
           'flex items-center gap-2',
-          'rounded-md',
-          'border border-[#414852]',
-          'bg-[#30363F]',
+          'border-2 border-black',
+          'bg-[#2C3440]',
+          'shadow-[2px_2px_0px_rgba(0,0,0,1)]',
           'px-3 py-2',
           'text-left',
           'text-[9px]',
           'font-black uppercase',
           'text-[#D1D5DA]',
-          'transition-colors',
-          'hover:border-[#D9A441]',
-          'hover:bg-[#3A414B]',
+          'hover:bg-[#3A4350]',
           'hover:text-white',
+          'active:translate-x-px active:translate-y-px',
           'cursor-pointer',
         )}
       >

@@ -61,8 +61,13 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
   return (
     <div className="fixed inset-0 z-[160] flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md animate-in fade-in duration-200 select-none font-pixelify">
 
-      {/* MODAL CARD CONTAINER */}
-      <div className="relative w-full max-w-2xl bg-[#EFE3C3] border-4 border-[#243C6E] rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_0_2px_#D6C296] overflow-hidden flex flex-col max-h-[88vh] text-[#241F1A] animate-in zoom-in-95 duration-200">
+      {/* PIXELATED MODAL CARD CONTAINER */}
+      <div
+        style={{
+          clipPath: 'polygon(0 8px, 8px 8px, 8px 0, calc(100% - 8px) 0, calc(100% - 8px) 8px, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 8px calc(100% - 8px), 0 calc(100% - 8px))'
+        }}
+        className="relative w-full max-w-2xl bg-[#EFE3C3] border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] overflow-hidden flex flex-col max-h-[88vh] text-[#241F1A] animate-in zoom-in-95 duration-200"
+      >
 
         {/* Decorative Corner Rivets */}
         <div className="absolute top-0 left-0 w-3 h-3 bg-[#243C6E] pointer-events-none z-20" />
@@ -74,17 +79,20 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
         <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 bg-[#E8DAAF]/90 border-b-2 border-[#D6C296]">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 bg-[#243C6E] rotate-45 inline-block" />
-            <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#1F1914]">
+            <h2 className="text-xs sm:text-sm font-black uppercase tracking-wider text-[#1F1914] font-mono">
               {mode === 'project' ? 'Project Details' : 'Contact Me'}
             </h2>
           </div>
 
           <button
             onClick={onClose}
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#FAF5E6] hover:bg-[#FAF5E6]/90 border-2 border-[#243C6E] text-[#243C6E] font-extrabold flex items-center justify-center transition-all cursor-pointer"
+            style={{
+              clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+            }}
+            className="w-7 h-7 sm:w-8 sm:h-8 bg-[#FAF5E6] hover:bg-white border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] text-[#1F1914] font-black flex items-center justify-center transition-all cursor-pointer active:translate-x-px active:translate-y-px"
             title="Close [ESC]"
           >
-            <XIcon size={14} weight="duotone" />
+            <XIcon size={14} weight="bold" />
           </button>
         </div>
 
@@ -97,7 +105,12 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
 
               {/* Left Column: Thumbnail + Actions */}
               <div className="w-full sm:w-[200px] shrink-0 flex flex-col gap-3">
-                <div className="relative w-full aspect-video sm:aspect-square bg-[#FAF5E6] border-2 border-[#D5C49B] rounded-md overflow-hidden flex items-center justify-center">
+                <div
+                  style={{
+                    clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                  }}
+                  className="relative w-full aspect-video sm:aspect-square bg-[#FAF5E6] border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] overflow-hidden flex items-center justify-center"
+                >
                   {project.thumbnail ? (
                     <img
                       src={project.thumbnail}
@@ -118,13 +131,12 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
                       target="_blank"
                       rel="noreferrer"
                       style={{
-                        backgroundImage: 'url(/btns/button2_tight.png)',
-                        backgroundSize: '100% 100%',
+                        clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
                       }}
-                      className="w-full py-2 px-3 rounded-md text-[#062c3f] font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm hover:brightness-110 active:translate-y-0.5"
+                      className="w-full py-2 px-3 bg-[#D9A441] hover:bg-[#E5B152] text-[#1A1D24] font-black uppercase text-xs flex items-center justify-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px"
                     >
                       <span>Live Demo</span>
-                      <ArrowSquareOutIcon size={14} weight="duotone" />
+                      <ArrowSquareOutIcon size={14} weight="bold" />
                     </a>
                   )}
                   {(project as any).github && (
@@ -133,13 +145,12 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
                       target="_blank"
                       rel="noreferrer"
                       style={{
-                        backgroundImage: 'url(/btns/button1_tight.png)',
-                        backgroundSize: '100% 100%',
+                        clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
                       }}
-                      className="w-full py-2 px-3 rounded-md text-[#f5edf9] font-bold text-xs flex items-center justify-center gap-1.5 hover:brightness-110 active:translate-y-0.5"
+                      className="w-full py-2 px-3 bg-[#2C3440] hover:bg-[#374151] text-white font-black uppercase text-xs flex items-center justify-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px"
                     >
                       <span>View Code</span>
-                      <ArrowRightIcon size={13} weight="duotone" />
+                      <ArrowRightIcon size={13} weight="bold" />
                     </a>
                   )}
                 </div>
@@ -148,7 +159,12 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
               {/* Right Column: Info & Tech Stack */}
               <div className="flex-1 space-y-3 w-full">
                 <div>
-                  <span className="px-2 py-0.5 rounded bg-[#243C6E] text-white text-[10px] font-bold uppercase">
+                  <span
+                    style={{
+                      clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                    }}
+                    className="px-2 py-0.5 bg-[#243C6E] text-white text-[10px] font-mono font-bold uppercase border border-black shadow-[1px_1px_0_rgba(0,0,0,0.5)]"
+                  >
                     {project.category || 'Project'}
                   </span>
                   <h3 className="text-base sm:text-lg font-extrabold text-[#1F1914] mt-1">
@@ -166,7 +182,10 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
                     {project.tools?.map((tool: string) => (
                       <span
                         key={tool}
-                        className="px-2 py-0.5 bg-[#FAF5E6] border border-[#D5C49B] rounded text-[10px] font-bold text-[#3D332A]"
+                        style={{
+                          clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                        }}
+                        className="px-2 py-0.5 bg-[#FAF5E6] border border-black shadow-[1px_1px_0_rgba(0,0,0,0.5)] text-[10px] font-mono font-bold text-[#3D332A]"
                       >
                         {tool}
                       </span>
@@ -176,7 +195,12 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
 
                 {/* Architecture / Details */}
                 {project.architecture && (
-                  <div className="p-3 rounded-md bg-[#FAF5E6] border border-[#D5C49B] space-y-1">
+                  <div
+                    style={{
+                      clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                    }}
+                    className="p-3 bg-[#FAF5E6] border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,0.6)] space-y-1"
+                  >
                     <div className="text-xs font-bold text-[#1F1914]">Overview & Structure</div>
                     <p className="text-xs text-[#5C4F41] leading-relaxed">
                       {project.architecture}
@@ -191,7 +215,12 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
             <>
               {isSubmitted ? (
                 <div className="py-8 flex flex-col items-center justify-center text-center space-y-3">
-                  <div className="w-12 h-12 rounded-full bg-[#059669]/20 border-2 border-[#059669] flex items-center justify-center text-[#059669]">
+                  <div
+                    style={{
+                      clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                    }}
+                    className="w-12 h-12 bg-[#059669]/20 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] flex items-center justify-center text-[#059669]"
+                  >
                     <CheckCircleIcon size={28} weight="duotone" />
                   </div>
                   <div>
@@ -209,10 +238,9 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
                       onClose();
                     }}
                     style={{
-                      backgroundImage: 'url(/btns/button2_tight.png)',
-                      backgroundSize: '100% 100%',
+                      clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
                     }}
-                    className="py-2 px-5 rounded-md text-[#062c3f] font-extrabold text-xs shadow-sm hover:brightness-110 active:translate-y-0.5"
+                    className="py-2 px-5 bg-[#D9A441] hover:bg-[#E5B152] text-[#1A1D24] font-black uppercase text-xs border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px cursor-pointer"
                   >
                     Close
                   </button>
@@ -239,7 +267,10 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="e.g. Alex"
-                        className="w-full px-3 py-2 rounded-lg bg-[#FAF5E6] border border-[#D5C49B] text-xs font-semibold text-[#1F1914] focus:outline-none focus:border-[#243C6E]"
+                        style={{
+                          clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                        }}
+                        className="w-full px-3 py-2 bg-[#FAF5E6] border-2 border-black shadow-[1px_1px_0_rgba(0,0,0,0.5)] text-xs font-semibold text-[#1F1914] focus:outline-none focus:border-[#243C6E]"
                       />
                     </div>
 
@@ -253,7 +284,10 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="e.g. alex@example.com"
-                        className="w-full px-3 py-2 rounded-lg bg-[#FAF5E6] border border-[#D5C49B] text-xs font-semibold text-[#1F1914] focus:outline-none focus:border-[#243C6E]"
+                        style={{
+                          clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                        }}
+                        className="w-full px-3 py-2 bg-[#FAF5E6] border-2 border-black shadow-[1px_1px_0_rgba(0,0,0,0.5)] text-xs font-semibold text-[#1F1914] focus:outline-none focus:border-[#243C6E]"
                       />
                     </div>
                   </div>
@@ -267,7 +301,10 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       placeholder="e.g. Project Collaboration"
-                      className="w-full px-3 py-2 rounded-lg bg-[#FAF5E6] border border-[#D5C49B] text-xs font-semibold text-[#1F1914] focus:outline-none focus:border-[#243C6E]"
+                      style={{
+                        clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                      }}
+                      className="w-full px-3 py-2 bg-[#FAF5E6] border-2 border-black shadow-[1px_1px_0_rgba(0,0,0,0.5)] text-xs font-semibold text-[#1F1914] focus:outline-none focus:border-[#243C6E]"
                     />
                   </div>
 
@@ -281,22 +318,24 @@ export const InfoTilesetModal: React.FC<InfoTilesetModalProps> = ({
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Type your message here..."
-                      className="w-full px-3 py-2 rounded-lg bg-[#FAF5E6] border border-[#D5C49B] text-xs font-semibold text-[#1F1914] focus:outline-none focus:border-[#243C6E] resize-none"
+                      style={{
+                        clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                      }}
+                      className="w-full px-3 py-2 bg-[#FAF5E6] border-2 border-black shadow-[1px_1px_0_rgba(0,0,0,0.5)] text-xs font-semibold text-[#1F1914] focus:outline-none focus:border-[#243C6E] resize-none"
                     />
                   </div>
 
-                  <div className="pt-2 border-t border-[#D6C296] flex items-center justify-end">
+                  <div className="pt-2 border-t-2 border-black flex items-center justify-end">
                     <button
                       type="submit"
                       disabled={isSubmitting}
                       style={{
-                        backgroundImage: 'url(/btns/button2_tight.png)',
-                        backgroundSize: '100% 100%',
+                        clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
                       }}
-                      className="py-2.5 px-6 rounded-md text-[#062c3f] font-extrabold text-xs flex items-center gap-1.5 shadow-sm hover:brightness-110 active:translate-y-0.5 cursor-pointer disabled:opacity-50"
+                      className="py-2.5 px-6 bg-[#D9A441] hover:bg-[#E5B152] text-[#1A1D24] font-black uppercase text-xs flex items-center gap-2 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px cursor-pointer disabled:opacity-50"
                     >
                       <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-                      <PaperPlaneTiltIcon size={14} weight="duotone" />
+                      <PaperPlaneTiltIcon size={14} weight="bold" />
                     </button>
                   </div>
                 </form>

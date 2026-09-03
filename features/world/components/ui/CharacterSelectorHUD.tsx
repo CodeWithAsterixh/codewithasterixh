@@ -13,6 +13,7 @@ import {
   LightningIcon,
   SunIcon,
   MoonIcon,
+  CompassIcon,
 } from '@phosphor-icons/react';
 import { ControlMode, VirtualInputAction, CharacterId } from '../../types';
 import { CHARACTER_DEFS } from '../../data/characterData';
@@ -190,79 +191,107 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
       {/* ========================================================================= */}
       <div className="pointer-events-auto flex items-center justify-between gap-2 sm:gap-4 w-full">
 
-        {/* Left: Pause Button */}
+        {/* Left: Pixelated Pause / Map Button */}
         <button
           onClick={onOpenPauseMenu}
           style={{
-            backgroundImage: 'url(/btns/button2_tight.png)',
-            backgroundSize: '100% 100%',
+            clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
           }}
-          className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-[#062c3f] font-extrabold text-xs sm:text-sm flex items-center gap-2 drop-shadow-xl transition-all cursor-pointer hover:brightness-110 active:translate-y-0.5 shrink-0"
+          className="px-4 sm:px-5 py-2 sm:py-2.5 bg-[#D9A441] hover:bg-[#E5B152] active:translate-y-[2px] active:translate-x-[2px] text-[#1A1D24] font-black uppercase text-xs sm:text-sm flex items-center gap-2 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-transform shrink-0 cursor-pointer"
           title="Open Map & Controls [ESC]"
         >
-          <MapTrifoldIcon size={16} weight="duotone" />
+          <CompassIcon size={18} weight="fill" />
           <span className="hidden sm:inline">Pause / Map</span>
           <span className="sm:hidden">Map</span>
         </button>
 
         {/* Center: TOP PLAYER HEALTH BAR & RESPAWN COUNTDOWN */}
-        <div className="flex flex-col items-center gap-1.5">
-          <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-2xl bg-[#0F141F]/90 border border-white/15 shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-md">
-            {/* Heart Icon */}
-            <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-xl flex items-center justify-center text-xs sm:text-sm ${
-              playerHp <= 30
-                ? 'bg-red-500/30 border border-red-500/60 animate-bounce'
-                : 'bg-emerald-500/20 border border-emerald-500/40'
-            }`}>
-              {playerHp <= 0 ? '☠️' : '❤️'}
+        <div className="flex flex-col items-center gap-2 font-mono uppercase">
+          <div
+            className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 bg-[#0F141F] border-4 border-[#384252] shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+            style={{
+              // Creates a blocky, 1-pixel stepped corner effect (assuming 4px scale)
+              clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+            }}
+          >
+            {/* Pixelated Health Icon Wrapper */}
+            <div className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center border-2 border-black shadow-[inset_-2px_-2px_0px_rgba(0,0,0,0.3)] ${playerHp <= 30
+              ? 'bg-[#DC2626]'
+              : 'bg-[#10B981]'
+              }`}>
+              {playerHp <= 0 ? (
+                <span className="text-xl">☠️</span>
+              ) : (
+                /* Pure SVG Pixel Heart */
+                <svg viewBox="0 0 9 9" className="w-5 h-5 sm:w-6 sm:h-6 text-white fill-current" style={{ shapeRendering: 'crispEdges' }}>
+                  <rect x="1" y="1" width="2" height="2" />
+                  <rect x="6" y="1" width="2" height="2" />
+                  <rect x="0" y="3" width="9" height="2" />
+                  <rect x="1" y="5" width="7" height="1" />
+                  <rect x="2" y="6" width="5" height="1" />
+                  <rect x="3" y="7" width="3" height="1" />
+                  <rect x="4" y="8" width="1" height="1" />
+                </svg>
+              )}
             </div>
 
-            <div className="flex flex-col gap-0.5 sm:gap-1">
+            <div className="flex flex-col gap-1.5">
               {/* Top Text Row: Name + HP Count */}
-              <div className="flex items-center justify-between gap-3 text-[10px] sm:text-xs font-bold text-[#EADBCC]">
-                <span className="text-[#60A5FA] font-extrabold truncate max-w-[100px] sm:max-w-[140px]">
+              <div className="flex items-end justify-between gap-3 text-[10px] sm:text-xs font-bold tracking-wider text-white shadow-black drop-shadow-[1px_1px_0_rgba(0,0,0,1)]">
+                <span className="text-[#60A5FA] truncate max-w-[100px] sm:max-w-[140px]">
                   {characterName}
                 </span>
-                <span className={`font-mono text-[9px] sm:text-[11px] font-extrabold ${
-                  playerHp > 50 ? 'text-[#34D399]' : playerHp > 25 ? 'text-[#FBBF24]' : 'text-[#F87171] animate-pulse'
-                }`}>
-                  {Math.round(playerHp)} / {maxPlayerHp} HP
+                <span className={`text-[9px] sm:text-[10px] ${playerHp > 50 ? 'text-[#34D399]' : playerHp > 25 ? 'text-[#FBBF24]' : 'text-[#F87171] animate-pulse'
+                  }`}>
+                  {Math.round(playerHp)}/{maxPlayerHp}
                 </span>
               </div>
 
-              {/* Health Bar Track & Animated Fill */}
-              <div className="w-32 sm:w-52 h-2.5 sm:h-3 bg-black/70 rounded-full border border-white/10 overflow-hidden p-[1.5px]">
+              {/* Chunky Health Bar Track */}
+              <div className="w-32 sm:w-52 h-3.5 sm:h-4 bg-black border-2 border-[#384252] shadow-[inset_0_2px_4px_rgba(0,0,0,0.8)] relative p-[2px]">
+                {/* Flat, Solid Color Fill with Bevel */}
                 <div
-                  className={`h-full rounded-full transition-all duration-200 ${
-                    playerHp > 50
-                      ? 'bg-gradient-to-r from-[#10B981] to-[#34D399] shadow-[0_0_8px_rgba(52,211,153,0.6)]'
-                      : playerHp > 25
-                      ? 'bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] shadow-[0_0_8px_rgba(251,191,36,0.6)]'
-                      : 'bg-gradient-to-r from-[#DC2626] to-[#EF4444] shadow-[0_0_10px_rgba(239,68,68,0.9)] animate-pulse'
-                  }`}
+                  className={`h-full transition-all duration-200 shadow-[inset_0_2px_0_rgba(255,255,255,0.4)] ${playerHp > 50
+                    ? 'bg-[#10B981]'
+                    : playerHp > 25
+                      ? 'bg-[#F59E0B]'
+                      : 'bg-[#DC2626] animate-pulse'
+                    }`}
                   style={{ width: `${healthPercent}%` }}
                 />
               </div>
             </div>
 
-            {/* Quick Attack Key Hint on Desktop */}
+            {/* Blocky Quick Attack Key Hints */}
             {isCombatActive && (
-              <div className="hidden lg:flex items-center gap-1.5 pl-2 border-l border-white/10 text-[10px] text-[#EADBCC] font-bold">
-                <span className="text-red-400 font-extrabold">⚔️ ATK:</span>
-                <span className="px-1.5 py-0.5 rounded bg-white/10 text-amber-300 font-mono">[J]</span>
-                <span className="px-1.5 py-0.5 rounded bg-white/10 text-blue-300 font-mono">[K]</span>
-                <span className="px-1.5 py-0.5 rounded bg-white/10 text-purple-300 font-mono">[L]</span>
-                <span className="px-1.5 py-0.5 rounded bg-white/10 text-rose-300 font-mono">[U]</span>
+              <div className="hidden lg:flex items-center gap-1.5 pl-3 border-l-2 border-[#384252] text-[10px] text-white">
+                <span className="text-red-400 font-bold mr-1 drop-shadow-[1px_1px_0_rgba(0,0,0,1)]">ATK</span>
+                {['J', 'K', 'L', 'U'].map((key, index) => {
+                  const colors = ['text-amber-300', 'text-blue-300', 'text-purple-300', 'text-rose-300'];
+                  return (
+                    <span
+                      key={key}
+                      className={`px-2 py-1 bg-[#2C3440] border-t-2 border-l-2 border-t-white/30 border-l-white/30 border-b-2 border-r-2 border-b-black border-r-black ${colors[index]}`}
+                    >
+                      {key}
+                    </span>
+                  );
+                })}
               </div>
             )}
           </div>
 
-          {/* Under Health Bar: Respawning in X Seconds Countdown */}
+          {/* Retro Respawning Countdown */}
           {respawnCountdown !== null && respawnCountdown > 0 && (
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 bg-[#1A0505]/95 border-2 border-red-500/80 rounded-full shadow-[0_0_24px_rgba(239,68,68,0.85)] animate-pulse backdrop-blur-md">
+            <div
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-[#1A0505] border-4 border-red-500 shadow-[4px_4px_0px_#7F1D1D] animate-pulse"
+              style={{
+                clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+              }}
+            >
               <span className="text-xs">⚠️</span>
-              <span className="text-[10px] sm:text-xs font-black text-red-200 uppercase tracking-wider">
-                Respawning in <span className="text-white text-xs sm:text-sm font-mono font-black underline decoration-red-400">{respawnCountdown}s</span>
+              <span className="text-[10px] sm:text-xs font-bold text-red-200 tracking-widest drop-shadow-[1px_1px_0_rgba(0,0,0,1)]">
+                RESPAWNING IN <span className="text-white ml-1">{respawnCountdown}</span>
               </span>
             </div>
           )}
@@ -275,41 +304,43 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
             <button
               onClick={onInspectStation}
               style={{
-                backgroundImage: 'url(/btns/button2_tight.png)',
-                backgroundSize: '100% 100%',
+                clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
               }}
-              className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-[#062c3f] font-extrabold text-[11px] sm:text-xs flex items-center gap-1 shadow-lg animate-pulse transition-all cursor-pointer hover:brightness-110 active:translate-y-0.5"
+              className="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#D9A441] hover:bg-[#E5B152] text-[#1A1D24] font-black uppercase text-[10px] sm:text-xs flex items-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] animate-pulse active:translate-y-[2px] cursor-pointer"
             >
-              <EyeIcon size={14} weight="duotone" />
+              <EyeIcon size={15} weight="bold" />
               <span>{currentBiome.actionLabel ? `[E] ${currentBiome.actionLabel}` : 'Inspect [E]'}</span>
             </button>
           )}
 
-          {/* 2-Button Light / Dark Mode Toggle */}
-          <div className="flex items-center p-1 bg-[#141414]/90 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl">
+          {/* Pixelated 2-Button Light / Dark Mode Toggle */}
+          <div
+            className="flex items-center p-1 bg-[#0F141F] border-2 border-[#384252] shadow-[3px_3px_0px_rgba(0,0,0,1)]"
+            style={{
+              clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+            }}
+          >
             <button
               onClick={() => onThemeModeChange?.('light')}
-              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
-                themeMode === 'light'
-                  ? 'bg-[#E5A93C] text-[#241F1A] shadow-md'
-                  : 'text-white/60 hover:text-white hover:bg-white/5'
-              }`}
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs font-black uppercase flex items-center gap-1.5 cursor-pointer transition-all ${themeMode === 'light'
+                  ? 'bg-[#E5A93C] text-[#1A1D24] border-2 border-black shadow-[inset_1px_1px_0_rgba(255,255,255,0.4)]'
+                  : 'text-white/60 hover:text-white'
+                }`}
               title="Light Mode"
             >
-              <SunIcon size={15} weight={themeMode === 'light' ? 'fill' : 'duotone'} />
-              <span className="text-[11px] font-bold hidden sm:inline">Light</span>
+              <SunIcon size={14} weight={themeMode === 'light' ? 'fill' : 'bold'} />
+              <span className="text-[10px] font-bold hidden sm:inline">Light</span>
             </button>
             <button
               onClick={() => onThemeModeChange?.('dark')}
-              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
-                themeMode === 'dark'
-                  ? 'bg-[#5B9BF3] text-black shadow-md'
-                  : 'text-white/60 hover:text-white hover:bg-white/5'
-              }`}
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs font-black uppercase flex items-center gap-1.5 cursor-pointer transition-all ${themeMode === 'dark'
+                  ? 'bg-[#5B9BF3] text-[#1A1D24] border-2 border-black shadow-[inset_1px_1px_0_rgba(255,255,255,0.4)]'
+                  : 'text-white/60 hover:text-white'
+                }`}
               title="Dark Mode"
             >
-              <MoonIcon size={15} weight={themeMode === 'dark' ? 'fill' : 'duotone'} />
-              <span className="text-[11px] font-bold hidden sm:inline">Dark</span>
+              <MoonIcon size={14} weight={themeMode === 'dark' ? 'fill' : 'bold'} />
+              <span className="text-[10px] font-bold hidden sm:inline">Dark</span>
             </button>
           </div>
         </div>
@@ -320,180 +351,190 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
       {/* ========================================================================= */}
       {showTouchControls && (
         <div className="pointer-events-auto flex items-end justify-between gap-2">
-        {controlMode === 'joystick' ? (
-          <VirtualJoystick onVirtualInput={onVirtualInput} />
-        ) : (
-          <div className="flex items-center gap-2">
-            {/* 4-Direction Cross D-Pad */}
-            <div className="relative w-32 h-32 bg-[#1A1A1A]/90 rounded-3xl border border-white/10 shadow-2xl p-1.5 grid grid-cols-3 grid-rows-3 gap-1 touch-none select-none">
-              {/* Top: UP */}
-              <div />
-              <button
-                onPointerDown={handleStartUp}
-                onPointerUp={handleStopUp}
-                onPointerLeave={handleStopUp}
-                onPointerCancel={handleStopUp}
-                onContextMenu={(e) => e.preventDefault()}
+          {controlMode === 'joystick' ? (
+            <VirtualJoystick onVirtualInput={onVirtualInput} />
+          ) : (
+            <div className="flex items-center gap-2">
+              {/* Pixelated 4-Direction Cross D-Pad */}
+              <div
+                className="relative w-32 h-32 bg-[#0F141F] border-4 border-[#384252] shadow-[4px_4px_0px_rgba(0,0,0,1)] p-1.5 grid grid-cols-3 grid-rows-3 gap-1 touch-none select-none"
                 style={{
-                  backgroundImage: 'url(/btns/button1_tight.png)',
-                  backgroundSize: '100% 100%',
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
                 }}
-                className="w-full h-full text-[#f5edf9] font-bold rounded-lg flex items-center justify-center cursor-pointer active:brightness-90 select-none touch-none"
               >
-                <ArrowUpIcon size={18} weight="duotone" />
-              </button>
-              <div />
+                {/* Top: UP */}
+                <div />
+                <button
+                  onPointerDown={handleStartUp}
+                  onPointerUp={handleStopUp}
+                  onPointerLeave={handleStopUp}
+                  onPointerCancel={handleStopUp}
+                  onContextMenu={(e) => e.preventDefault()}
+                  className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#1E242D] text-white font-bold flex items-center justify-center border-t-2 border-l-2 border-t-white/30 border-l-white/30 border-b-2 border-r-2 border-b-black border-r-black active:border-t-black active:border-l-black active:border-b-white/30 active:border-r-white/30 cursor-pointer select-none touch-none"
+                >
+                  <ArrowUpIcon size={18} weight="bold" />
+                </button>
+                <div />
 
-              {/* Middle: LEFT, CENTER, RIGHT */}
-              <button
-                onPointerDown={handleStartLeft}
-                onPointerUp={handleStopLeft}
-                onPointerLeave={handleStopLeft}
-                onPointerCancel={handleStopLeft}
-                onContextMenu={(e) => e.preventDefault()}
-                style={{
-                  backgroundImage: 'url(/btns/button1_tight.png)',
-                  backgroundSize: '100% 100%',
-                }}
-                className="w-full h-full text-[#f5edf9] font-bold rounded-lg flex items-center justify-center cursor-pointer active:brightness-90 select-none touch-none"
-              >
-                <ArrowLeftIcon size={18} weight="duotone" />
-              </button>
-              <div className="w-full h-full rounded-md bg-white/5 flex items-center justify-center">
-                <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                {/* Middle: LEFT, CENTER, RIGHT */}
+                <button
+                  onPointerDown={handleStartLeft}
+                  onPointerUp={handleStopLeft}
+                  onPointerLeave={handleStopLeft}
+                  onPointerCancel={handleStopLeft}
+                  onContextMenu={(e) => e.preventDefault()}
+                  className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#1E242D] text-white font-bold flex items-center justify-center border-t-2 border-l-2 border-t-white/30 border-l-white/30 border-b-2 border-r-2 border-b-black border-r-black active:border-t-black active:border-l-black active:border-b-white/30 active:border-r-white/30 cursor-pointer select-none touch-none"
+                >
+                  <ArrowLeftIcon size={18} weight="bold" />
+                </button>
+                <div className="w-full h-full bg-[#1A1D24] border border-[#384252] flex items-center justify-center">
+                  <div className="w-2 h-2 bg-[#D9A441]" />
+                </div>
+                <button
+                  onPointerDown={handleStartRight}
+                  onPointerUp={handleStopRight}
+                  onPointerLeave={handleStopRight}
+                  onPointerCancel={handleStopRight}
+                  onContextMenu={(e) => e.preventDefault()}
+                  className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#1E242D] text-white font-bold flex items-center justify-center border-t-2 border-l-2 border-t-white/30 border-l-white/30 border-b-2 border-r-2 border-b-black border-r-black active:border-t-black active:border-l-black active:border-b-white/30 active:border-r-white/30 cursor-pointer select-none touch-none"
+                >
+                  <ArrowRightIcon size={18} weight="bold" />
+                </button>
+
+                {/* Bottom: DOWN */}
+                <div />
+                <button
+                  onPointerDown={handleStartDown}
+                  onPointerUp={handleStopDown}
+                  onPointerLeave={handleStopDown}
+                  onPointerCancel={handleStopDown}
+                  onContextMenu={(e) => e.preventDefault()}
+                  className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#1E242D] text-white font-bold flex items-center justify-center border-t-2 border-l-2 border-t-white/30 border-l-white/30 border-b-2 border-r-2 border-b-black border-r-black active:border-t-black active:border-l-black active:border-b-white/30 active:border-r-white/30 cursor-pointer select-none touch-none"
+                >
+                  <ArrowDownIcon size={18} weight="bold" />
+                </button>
+                <div />
               </div>
+
+              {/* Pixelated Sprint Toggle Button */}
               <button
-                onPointerDown={handleStartRight}
-                onPointerUp={handleStopRight}
-                onPointerLeave={handleStopRight}
-                onPointerCancel={handleStopRight}
+                onClick={handleToggleSprint}
                 onContextMenu={(e) => e.preventDefault()}
                 style={{
-                  backgroundImage: 'url(/btns/button1_tight.png)',
-                  backgroundSize: '100% 100%',
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
                 }}
-                className="w-full h-full text-[#f5edf9] font-bold rounded-lg flex items-center justify-center cursor-pointer active:brightness-90 select-none touch-none"
+                className={`w-14 h-14 font-black uppercase text-xs flex flex-col items-center justify-center gap-0.5 border-4 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer touch-none transition-all ${isSprintActive
+                    ? 'bg-[#E5A93C] text-[#1A1D24] shadow-[4px_4px_0px_#8A6322]'
+                    : 'bg-[#1E242D] text-white/80 border-[#384252] hover:bg-[#2C3440]'
+                  }`}
+                title="Toggle Sprint Mode"
               >
-                <ArrowRightIcon size={18} weight="duotone" />
+                <LightningIcon size={20} weight={isSprintActive ? 'fill' : 'bold'} />
+                <span className="text-[9px] tracking-wider font-mono">{isSprintActive ? 'RUN' : 'SPRINT'}</span>
+              </button>
+            </div>
+          )}
+
+          {/* Right Side Action Buttons (4 Attacks + Jump + Inspect) */}
+          <div className="flex items-center gap-2">
+            {/* Pixelated 4 Attack Combat Grid */}
+            <div
+              className="grid grid-cols-2 gap-1.5 p-1.5 bg-[#0F141F] border-4 border-[#384252] shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+              style={{
+                clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+              }}
+            >
+              {/* Attack 1 */}
+              <button
+                onPointerDown={handleAttack1}
+                onContextMenu={(e) => e.preventDefault()}
+                style={{
+                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                }}
+                className="w-12 h-12 sm:w-14 sm:h-14 bg-[#DC2626] hover:bg-[#EF4444] text-white font-black uppercase text-[10px] flex flex-col items-center justify-center gap-0 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
+                title="Attack 1 [J]"
+              >
+                <span className="text-sm leading-none">⚔️</span>
+                <span className="text-[8px] font-bold">ATK 1</span>
+                <span className="text-[7px] text-red-200 font-mono">[J]</span>
               </button>
 
-              {/* Bottom: DOWN */}
-              <div />
+              {/* Attack 2 */}
               <button
-                onPointerDown={handleStartDown}
-                onPointerUp={handleStopDown}
-                onPointerLeave={handleStopDown}
-                onPointerCancel={handleStopDown}
+                onPointerDown={handleAttack2}
                 onContextMenu={(e) => e.preventDefault()}
                 style={{
-                  backgroundImage: 'url(/btns/button1_tight.png)',
-                  backgroundSize: '100% 100%',
+                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
                 }}
-                className="w-full h-full text-[#f5edf9] font-bold rounded-lg flex items-center justify-center cursor-pointer active:brightness-90 select-none touch-none"
+                className="w-12 h-12 sm:w-14 sm:h-14 bg-[#2563EB] hover:bg-[#3B82F6] text-white font-black uppercase text-[10px] flex flex-col items-center justify-center gap-0 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
+                title="Attack 2 [K]"
               >
-                <ArrowDownIcon size={18} weight="duotone" />
+                <span className="text-sm leading-none">🗡️</span>
+                <span className="text-[8px] font-bold">ATK 2</span>
+                <span className="text-[7px] text-blue-200 font-mono">[K]</span>
               </button>
-              <div />
+
+              {/* Attack 3 */}
+              <button
+                onPointerDown={handleAttack3}
+                onContextMenu={(e) => e.preventDefault()}
+                style={{
+                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                }}
+                className="w-12 h-12 sm:w-14 sm:h-14 bg-[#7C3AED] hover:bg-[#8B5CF6] text-white font-black uppercase text-[10px] flex flex-col items-center justify-center gap-0 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
+                title="Attack 3 [L]"
+              >
+                <span className="text-sm leading-none">⚡</span>
+                <span className="text-[8px] font-bold">ATK 3</span>
+                <span className="text-[7px] text-purple-200 font-mono">[L]</span>
+              </button>
+
+              {/* Attack 4 */}
+              <button
+                onPointerDown={handleAttack4}
+                onContextMenu={(e) => e.preventDefault()}
+                style={{
+                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                }}
+                className="w-12 h-12 sm:w-14 sm:h-14 bg-[#EA580C] hover:bg-[#F97316] text-white font-black uppercase text-[10px] flex flex-col items-center justify-center gap-0 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
+                title="Attack 4 [U]"
+              >
+                <span className="text-sm leading-none">🔥</span>
+                <span className="text-[8px] font-bold">ATK 4</span>
+                <span className="text-[7px] text-orange-200 font-mono">[U]</span>
+              </button>
             </div>
 
-            {/* Dedicated Sprint Toggle Button */}
-            <button
-              onClick={handleToggleSprint}
-              onContextMenu={(e) => e.preventDefault()}
-              className={`w-14 h-14 rounded-2xl font-extrabold text-xs flex flex-col items-center justify-center gap-0.5 shadow-2xl cursor-pointer transition-all active:scale-95 touch-none ${
-                isSprintActive
-                  ? 'bg-[#E5A93C] text-[#241F1A] border-2 border-amber-300 shadow-[0_0_16px_rgba(229,169,60,0.6)] animate-pulse'
-                  : 'bg-[#1A1A1A]/90 text-[#EADBCC]/80 border border-white/10 hover:bg-[#252525]'
-              }`}
-              title="Toggle Sprint Mode"
-            >
-              <LightningIcon size={20} weight={isSprintActive ? 'fill' : 'duotone'} />
-              <span className="text-[9px] uppercase tracking-wider">{isSprintActive ? 'Sprint ON' : 'Sprint'}</span>
-            </button>
-          </div>
-        )}
+            {/* Pixelated Jump & Inspect Column */}
+            <div className="flex flex-col gap-1.5">
+              {/* Mobile Jump Button */}
+              <button
+                onPointerDown={handleJump}
+                onContextMenu={(e) => e.preventDefault()}
+                style={{
+                  clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                }}
+                className="w-14 h-12 sm:w-16 sm:h-14 bg-[#6366F1] hover:bg-[#818CF8] text-white font-black uppercase text-xs flex flex-col items-center justify-center gap-0 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
+                title="Jump [Space]"
+              >
+                <ArrowFatUpIcon size={18} weight="fill" />
+                <span className="text-[9px] font-bold">JUMP</span>
+              </button>
 
-        {/* Right Side Action Buttons (4 Attacks + Jump + Inspect) */}
-        <div className="flex items-center gap-2">
-          {/* 4 Attack Combat Grid */}
-          <div className="grid grid-cols-2 gap-1.5 p-1 bg-black/40 backdrop-blur-md rounded-2xl border border-white/10">
-            {/* Attack 1 */}
-            <button
-              onPointerDown={handleAttack1}
-              onContextMenu={(e) => e.preventDefault()}
-              className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-b from-[#EF4444] to-[#991B1B] text-white font-extrabold text-[10px] flex flex-col items-center justify-center gap-0 shadow-lg cursor-pointer hover:brightness-110 active:scale-95 touch-none border border-red-300/40"
-              title="Attack 1 [J]"
-            >
-              <span className="text-sm leading-none">⚔️</span>
-              <span className="text-[8px] uppercase font-bold">Atk 1</span>
-            </button>
-
-            {/* Attack 2 */}
-            <button
-              onPointerDown={handleAttack2}
-              onContextMenu={(e) => e.preventDefault()}
-              className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-b from-[#3B82F6] to-[#1D4ED8] text-white font-extrabold text-[10px] flex flex-col items-center justify-center gap-0 shadow-lg cursor-pointer hover:brightness-110 active:scale-95 touch-none border border-blue-300/40"
-              title="Attack 2 [K]"
-            >
-              <span className="text-sm leading-none">🗡️</span>
-              <span className="text-[8px] uppercase font-bold">Atk 2</span>
-            </button>
-
-            {/* Attack 3 */}
-            <button
-              onPointerDown={handleAttack3}
-              onContextMenu={(e) => e.preventDefault()}
-              className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-b from-[#8B5CF6] to-[#6D28D9] text-white font-extrabold text-[10px] flex flex-col items-center justify-center gap-0 shadow-lg cursor-pointer hover:brightness-110 active:scale-95 touch-none border border-purple-300/40"
-              title="Attack 3 [L]"
-            >
-              <span className="text-sm leading-none">⚡</span>
-              <span className="text-[8px] uppercase font-bold">Atk 3</span>
-            </button>
-
-            {/* Attack 4 */}
-            <button
-              onPointerDown={handleAttack4}
-              onContextMenu={(e) => e.preventDefault()}
-              className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-b from-[#F97316] to-[#C2410C] text-white font-extrabold text-[10px] flex flex-col items-center justify-center gap-0 shadow-lg cursor-pointer hover:brightness-110 active:scale-95 touch-none border border-orange-300/40"
-              title="Attack 4 [U]"
-            >
-              <span className="text-sm leading-none">🔥</span>
-              <span className="text-[8px] uppercase font-bold">Atk 4</span>
-            </button>
-          </div>
-
-          {/* Jump & Inspect Column */}
-          <div className="flex flex-col gap-1.5">
-            {/* Mobile Jump Button */}
-            <button
-              onPointerDown={handleJump}
-              onContextMenu={(e) => e.preventDefault()}
-              style={{
-                backgroundImage: 'url(/btns/button1_tight.png)',
-                backgroundSize: '100% 100%',
-              }}
-              className="w-12 h-11 sm:w-14 sm:h-12 rounded-xl text-[#f5edf9] font-extrabold text-xs flex flex-col items-center justify-center gap-0 shadow-xl cursor-pointer hover:brightness-110 active:scale-95 touch-none"
-              title="Jump [Space]"
-            >
-              <ArrowFatUpIcon size={16} weight="duotone" />
-              <span className="text-[9px]">Jump</span>
-            </button>
-
-            {/* Inspect Button */}
-            <button
-              onClick={onInspectStation}
-              style={{
-                backgroundImage: 'url(/btns/button2_tight.png)',
-                backgroundSize: '100% 100%',
-              }}
-              className="px-2.5 h-11 sm:h-12 rounded-xl text-[#062c3f] font-extrabold text-[10px] flex items-center justify-center gap-1 shadow-xl cursor-pointer hover:brightness-110 active:translate-y-0.5"
-            >
-              <EyeIcon size={15} weight="duotone" />
-              <span>Inspect</span>
-            </button>
+              {/* Inspect Button */}
+              <button
+                onClick={onInspectStation}
+                style={{
+                  clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                }}
+                className="px-3 h-12 sm:h-14 bg-[#0D9488] hover:bg-[#14B8A6] text-white font-black uppercase text-[10px] sm:text-xs flex items-center justify-center gap-1.5 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer"
+              >
+                <EyeIcon size={16} weight="bold" />
+                <span>INSPECT</span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
       )}
 
     </div>

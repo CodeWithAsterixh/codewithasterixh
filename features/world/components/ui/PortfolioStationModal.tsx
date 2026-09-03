@@ -22,6 +22,12 @@ import {
   TwitterLogoIcon,
 } from '@phosphor-icons/react';
 import projectsData from '@/data/projects.json';
+import profileData from '@/data/profile.json';
+import techStackData from '@/data/tech-stack.json';
+import experienceData from '@/data/experience.json';
+import servicesData from '@/data/services.json';
+import educationData from '@/data/education.json';
+
 
 interface PortfolioStationModalProps {
   location: MapLocationEntry;
@@ -39,20 +45,30 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-300 font-pixelify select-none">
-      {/* Modal Card */}
-      <div className="relative w-full max-w-3xl max-h-[90vh] flex flex-col bg-[#141414] border-2 border-[#323232] rounded-3xl shadow-2xl overflow-hidden text-[#EADBCC]">
+      {/* Pixelated Modal Card */}
+      <div
+        style={{
+          clipPath: 'polygon(0 8px, 8px 8px, 8px 0, calc(100% - 8px) 0, calc(100% - 8px) 8px, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 8px calc(100% - 8px), 0 calc(100% - 8px))'
+        }}
+        className="relative w-full max-w-3xl max-h-[90vh] flex flex-col bg-[#141414] border-4 border-[#384252] shadow-[8px_8px_0px_rgba(0,0,0,1)] overflow-hidden text-[#EADBCC]"
+      >
         {/* Header Bar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#262626] bg-[#1A1A1A]">
+        <div className="flex items-center justify-between px-6 py-4 border-b-2 border-black bg-[#1A1A1A]">
           <div className="flex items-center gap-3">
-            <span className={`w-9 h-9 rounded-md flex items-center justify-center font-bold shadow-md ${location.category === 'city' ? 'bg-[#5B9BF3] text-black' : 'bg-[#00e599] text-black'
-              }`}>
+            <span
+              style={{
+                clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+              }}
+              className={`w-9 h-9 flex items-center justify-center font-bold border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] ${location.category === 'city' ? 'bg-[#5B9BF3] text-black' : 'bg-[#00e599] text-black'
+              }`}
+            >
               {location.category === 'city' ? <BuildingsIcon size={20} weight="duotone" /> : <TreeIcon size={20} weight="duotone" />}
             </span>
             <div>
               <div className="text-[10px] uppercase font-bold tracking-widest text-[#94a3b8]">
                 {location.tag}
               </div>
-              <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
+              <h2 className="text-base sm:text-lg font-black uppercase text-white tracking-tight">
                 {location.featureTitle}
               </h2>
             </div>
@@ -60,17 +76,25 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
 
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-md bg-[#262626] hover:bg-[#333] active:scale-95 border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer"
+            style={{
+              clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+            }}
+            className="w-8 h-8 bg-[#2C3440] hover:bg-[#3E4856] active:translate-x-px active:translate-y-px border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] text-white flex items-center justify-center transition-all cursor-pointer"
             aria-label="Close station modal"
           >
-            <XIcon size={18} weight="duotone" />
+            <XIcon size={16} weight="bold" />
           </button>
         </div>
 
         {/* Scrollable Content Body */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6 text-sm">
           {/* Station Overview Banner */}
-          <div className="p-4 rounded-2xl bg-[#0F0F0F] border border-white/5 text-xs text-[#EADBCC]/80 leading-relaxed">
+          <div
+            style={{
+              clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+            }}
+            className="p-4 bg-[#0F0F0F] border-2 border-[#384252] shadow-[3px_3px_0px_rgba(0,0,0,1)] text-xs text-[#EADBCC]/80 leading-relaxed"
+          >
             {location.description}
           </div>
 
@@ -78,38 +102,76 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
           {location.featureType === 'about' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row gap-6 items-start">
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-[#5B9BF3] to-[#00e599] p-1 flex-shrink-0 shadow-lg">
-                  <div className="w-full h-full bg-[#141414] rounded-md flex items-center justify-center text-3xl font-black text-[#5B9BF3]">
-                    AX
-                  </div>
+                <div
+                  style={{
+                    clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                  }}
+                  className="w-24 h-24 p-0.5 flex-shrink-0 border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] bg-[#141414] overflow-hidden"
+                >
+                  <img
+                    src={profileData.images.about.src}
+                    alt={profileData.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-lg font-bold text-white">Asterixh</h3>
+                  <h3 className="text-lg font-bold text-white">{profileData.alias}</h3>
                   <p className="text-xs text-[#94a3b8]">
-                    Full-Stack Software Engineer • Interactive Graphics & Distributed Systems
+                    {profileData.role} • {profileData.headline}
                   </p>
                   <p className="text-xs text-[#EADBCC]/90 leading-relaxed">
-                    I build resilient full-stack web applications, interactive canvas & game worlds, and scalable APIs. Obsessed with high performance, clean architectures, and delightful interactive user experiences.
+                    {profileData.subtext}
                   </p>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {profileData.hero.badges.flatMap((b) => b.items).map((badge) => (
+                      <span
+                        key={badge}
+                        style={{
+                          clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                        }}
+                        className="px-2 py-0.5 bg-[#5B9BF3]/10 text-[#5B9BF3] border border-black text-[10px] font-bold"
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="p-3.5 rounded-md bg-[#1A1A1A] border border-white/5 space-y-1">
-                  <div className="text-[10px] uppercase font-bold text-[#5B9BF3]">Architecture</div>
-                  <div className="text-xs font-bold text-white">Modular & Resilient</div>
-                </div>
-                <div className="p-3.5 rounded-md bg-[#1A1A1A] border border-white/5 space-y-1">
-                  <div className="text-[10px] uppercase font-bold text-[#00e599]">Performance</div>
-                  <div className="text-xs font-bold text-white">Sub-100ms Responses</div>
-                </div>
-                <div className="p-3.5 rounded-md bg-[#1A1A1A] border border-white/5 space-y-1">
-                  <div className="text-[10px] uppercase font-bold text-[#EADBCC]">Visual Systems</div>
-                  <div className="text-xs font-bold text-white">2D/3D Canvas & WebGL</div>
-                </div>
+              <div className="grid grid-cols-3 gap-3">
+                {profileData.stats.map((stat, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                    }}
+                    className="p-3 bg-[#1A1A1A] border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] text-center"
+                  >
+                    <div className="text-lg font-black text-[#D9A441]">{stat.value}</div>
+                    <div className="text-[9px] text-[#94a3b8] uppercase leading-tight whitespace-pre-line">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div
+                style={{
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                }}
+                className="p-4 bg-[#0F0F0F] border-2 border-[#384252] space-y-1"
+              >
+                <div className="text-[10px] font-bold text-[#5B9BF3] uppercase">Mission & Focus</div>
+                <p className="text-xs text-[#EADBCC]/80 leading-relaxed italic">
+                  &ldquo;{profileData.hero.quote}&rdquo;
+                </p>
+              </div>
+
+              <div className="flex items-center gap-4 text-xs text-[#94a3b8]">
+                <span>📍 {profileData.location}</span>
+                <span>✉️ {profileData.email}</span>
               </div>
             </div>
           )}
+
 
           {location.featureType === 'projects' && (
             <div className="space-y-4">
@@ -120,11 +182,19 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
                 {featuredProjects.map((p) => (
                   <div
                     key={p.slug}
-                    className="group flex flex-col justify-between p-4 rounded-2xl bg-[#1A1A1A] border border-[#323232] hover:border-[#5B9BF3] transition-all"
+                    style={{
+                      clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                    }}
+                    className="group flex flex-col justify-between p-4 bg-[#1A1A1A] border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:border-[#5B9BF3] transition-all"
                   >
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#5B9BF3]/20 text-[#5B9BF3]">
+                        <span
+                          style={{
+                            clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                          }}
+                          className="text-[10px] font-bold px-2 py-0.5 bg-[#5B9BF3]/20 text-[#5B9BF3] border border-black shadow-[1px_1px_0_rgba(0,0,0,1)]"
+                        >
                           {p.tags[0] || 'Project'}
                         </span>
                         <a
@@ -163,36 +233,40 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
             <div className="space-y-4">
               <div className="text-xs font-bold uppercase tracking-wider text-[#94a3b8]">
                 Engineering Toolchain & Proficiencies
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {([
+                  { key: 'Technical' as const, color: '#5B9BF3', Icon: CodeIcon },
+                  { key: 'Creative & UI' as const, color: '#00e599', Icon: SparkleIcon },
+                  { key: 'Other Skills' as const, color: '#D9A441', Icon: BriefcaseIcon },
+                ]).map(({ key, color, Icon }) => (
+                  <div
+                    key={key}
+                    style={{
+                      clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                    }}
+                    className="p-4 bg-[#1A1A1A] border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] space-y-2.5"
+                  >
+                    <div className="text-xs font-bold flex items-center gap-1.5" style={{ color }}>
+                      <Icon size={16} weight="duotone" />
+                      <span>{key}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {(techStackData as Record<string, { name: string }[]>)[key]?.map((s) => (
+                        <span
+                          key={s.name}
+                          style={{
+                            clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                          }}
+                          className="px-2 py-1 bg-[#0F0F0F] text-[11px] border border-black shadow-[1px_1px_0_rgba(0,0,0,1)] text-white font-medium"
+                        >
+                          {s.name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-4 rounded-2xl bg-[#1A1A1A] border border-white/5 space-y-2.5">
-                  <div className="text-xs font-bold text-[#5B9BF3] flex items-center gap-1.5">
-                    <CodeIcon size={16} weight="duotone" />
-                    <span>Frontend & Graphics</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {['TypeScript', 'React 19', 'Next.js 16', 'Tailwind CSS', 'p5.js', 'WebGL', 'Redux', 'GSAP'].map((s) => (
-                      <span key={s} className="px-2 py-1 bg-[#0F0F0F] rounded-lg text-[11px] border border-white/10 text-white font-medium">
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-[#1A1A1A] border border-white/5 space-y-2.5">
-                  <div className="text-xs font-bold text-[#00e599] flex items-center gap-1.5">
-                    <BriefcaseIcon size={16} weight="duotone" />
-                    <span>Backend & Cloud Infrastructure</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {['Node.js', 'Express', 'MongoDB', 'PostgreSQL', 'REST / GraphQL', 'JWT / CSRF', 'Docker', 'Vercel / AWS'].map((s) => (
-                      <span key={s} className="px-2 py-1 bg-[#0F0F0F] rounded-lg text-[11px] border border-white/10 text-white font-medium">
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+      </div>
             </div>
           )}
 
@@ -202,30 +276,39 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
                 Available Capabilities & Engineering Solutions
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-4 rounded-2xl bg-[#1A1A1A] border border-[#323232] space-y-1.5">
-                  <div className="text-xs font-bold text-[#5B9BF3]">1. Full-Stack Web Applications</div>
-                  <p className="text-[11px] text-[#94a3b8] leading-relaxed">
-                    End-to-end architectures utilizing Next.js, TypeScript, robust authentication, and relational/document databases.
-                  </p>
-                </div>
-                <div className="p-4 rounded-2xl bg-[#1A1A1A] border border-[#323232] space-y-1.5">
-                  <div className="text-xs font-bold text-[#00e599]">2. Interactive 2D/3D Canvas Systems</div>
-                  <p className="text-[11px] text-[#94a3b8] leading-relaxed">
-                    Hardware-accelerated graphics engines, procedural world generation, and game loop simulations.
-                  </p>
-                </div>
-                <div className="p-4 rounded-2xl bg-[#1A1A1A] border border-[#323232] space-y-1.5">
-                  <div className="text-xs font-bold text-[#EADBCC]">3. Real-Time Distributed Services</div>
-                  <p className="text-[11px] text-[#94a3b8] leading-relaxed">
-                    WebSocket pipelines, encrypted state synchronization, and high-concurrency microservices.
-                  </p>
-                </div>
-                <div className="p-4 rounded-2xl bg-[#1A1A1A] border border-[#323232] space-y-1.5">
-                  <div className="text-xs font-bold text-[#f59e0b]">4. Performance & Core Web Vitals</div>
-                  <p className="text-[11px] text-[#94a3b8] leading-relaxed">
-                    Deep bundle auditing, sub-second TTFB optimizations, and accessible responsive interfaces.
-                  </p>
-                </div>
+                {servicesData.map((service, i) => {
+                  const colors = ['#5B9BF3', '#00e599', '#D9A441'];
+                  const color = colors[i % colors.length];
+                  return (
+                    <div
+                      key={service.label}
+                      style={{
+                        clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                      }}
+                      className="p-4 bg-[#1A1A1A] border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] space-y-1.5"
+                    >
+                      <div className="text-xs font-bold" style={{ color }}>
+                        {i + 1}. {service.label}
+                      </div>
+                      <p className="text-[11px] text-[#94a3b8] leading-relaxed">
+                        {service.description}
+                      </p>
+                      <div className="flex flex-wrap gap-1 pt-1">
+                        {service.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            style={{
+                              clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                            }}
+                            className="px-1.5 py-0.5 text-[9px] font-bold border border-black bg-[#0F0F0F] text-[#EADBCC]/70"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -236,24 +319,66 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
                 Career Milestones & Engineering Track Record
               </div>
               <div className="space-y-3">
-                <div className="p-4 rounded-2xl bg-[#1A1A1A] border border-white/5 space-y-1">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-white">Lead Full-Stack Solutions Architect</span>
-                    <span className="text-[10px] text-[#5B9BF3]">2023 – Present</span>
+                {/* Work Experience */}
+                {experienceData.map((exp, i) => {
+                  const accentColors = ['#5B9BF3', '#00e599', '#D9A441', '#f59e0b'];
+                  const color = accentColors[i % accentColors.length];
+                  const period = exp.duration.from === exp.duration.to
+                    ? `${exp.duration.from}`
+                    : `${exp.duration.from} – ${exp.duration.to}`;
+                  return (
+                    <div
+                      key={`${exp.name}-${i}`}
+                      style={{
+                        clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                      }}
+                      className="p-4 bg-[#1A1A1A] border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] space-y-1.5"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <span className="text-xs font-bold text-white">{exp.role}</span>
+                          <span className="text-[10px] text-[#94a3b8] ml-1.5">@ {exp.name}</span>
+                        </div>
+                        <span className="text-[10px] font-bold shrink-0" style={{ color }}>{period}</span>
+                      </div>
+                      <p className="text-[11px] text-[#94a3b8] leading-relaxed">{exp.description}</p>
+                      <div className="flex flex-wrap gap-1">
+                        {exp.stacks.map((stack) => (
+                          <span
+                            key={stack}
+                            style={{
+                              clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                            }}
+                            className="px-1.5 py-0.5 text-[9px] border border-black bg-[#0F0F0F] text-[#EADBCC]/60"
+                          >
+                            {stack}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+                {/* Education */}
+                {educationData.map((edu, i) => (
+                  <div
+                    key={`${edu.name}-${i}`}
+                    style={{
+                      clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                    }}
+                    className="p-4 bg-[#1A1A1A] border-2 border-[#5B9BF3]/30 shadow-[3px_3px_0px_rgba(0,0,0,1)] space-y-1"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-1.5">
+                        <GraduationCapIcon size={14} weight="duotone" className="text-[#D9A441] shrink-0" />
+                        <span className="text-xs font-bold text-white">{edu.title}</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-[#D9A441] shrink-0">
+                        {edu.duration.from} – {edu.duration.to}
+                      </span>
+                    </div>
+                    <p className="text-[10px] text-[#94a3b8]">{edu.name}</p>
                   </div>
-                  <p className="text-[11px] text-[#94a3b8]">
-                    Designing and deploying high-throughput client web systems, custom canvas simulations, and cloud deployments.
-                  </p>
-                </div>
-                <div className="p-4 rounded-2xl bg-[#1A1A1A] border border-white/5 space-y-1">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-white">Independent Software Engineer & Creator</span>
-                    <span className="text-[10px] text-[#00e599]">2021 – 2023</span>
-                  </div>
-                  <p className="text-[11px] text-[#94a3b8]">
-                    Built and shipped open-source products including Quizeen, WorldTimeSage, and interactive developer utilities.
-                  </p>
-                </div>
+                ))}
               </div>
             </div>
           )}
@@ -263,8 +388,18 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
               <div className="text-xs font-bold uppercase tracking-wider text-[#94a3b8]">
                 Dispatch Message or Schedule Consultation
               </div>
-              <div className="p-5 rounded-2xl bg-[#1A1A1A] border border-[#323232] space-y-4 text-center">
-                <div className="w-12 h-12 rounded-2xl bg-[#5B9BF3]/20 text-[#5B9BF3] mx-auto flex items-center justify-center">
+              <div
+                style={{
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                }}
+                className="p-5 bg-[#1A1A1A] border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] space-y-4 text-center"
+              >
+                <div
+                  style={{
+                    clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                  }}
+                  className="w-12 h-12 bg-[#5B9BF3]/20 text-[#5B9BF3] mx-auto flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+                >
                   <EnvelopeSimpleIcon size={24} weight="duotone" />
                 </div>
                 <div className="space-y-1">
@@ -273,19 +408,47 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
                     Reach out directly for freelance contracts, full-time architecture roles, or interactive web projects.
                   </p>
                 </div>
-                <div className="flex items-center justify-center gap-3 pt-2">
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                   <a
-                    href="mailto:contact@asterixh.dev"
-                    className="px-5 py-2.5 rounded-md bg-[#5B9BF3] text-black text-xs font-bold hover:bg-[#72adfb] transition-all shadow-md"
+                    href={`mailto:${profileData.email}`}
+                    style={{
+                      clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                    }}
+                    className="px-5 py-2.5 bg-[#5B9BF3] hover:bg-[#72adfb] text-black text-xs font-bold transition-all border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px"
                   >
-                    Send Email (contact@asterixh.dev)
+                    ✉️ {profileData.email}
                   </a>
                   <Link
                     href="/contact"
-                    className="px-5 py-2.5 rounded-md bg-[#262626] text-white text-xs font-bold hover:bg-[#333] border border-white/10 transition-all"
+                    style={{
+                      clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                    }}
+                    className="px-5 py-2.5 bg-[#262626] hover:bg-[#333] text-white text-xs font-bold border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all active:translate-x-px active:translate-y-px"
                   >
                     Open Contact Form →
                   </Link>
+                </div>
+                {/* Social Links */}
+                <div className="flex items-center justify-center gap-3 pt-2 border-t border-white/5">
+                  {profileData.socials.map((social) => {
+                    const Icon = social.icon === 'github' ? GithubLogoIcon
+                      : social.icon === 'linkedin' ? LinkedinLogoIcon
+                      : TwitterLogoIcon;
+                    return (
+                      <a
+                        key={social.icon}
+                        href={social.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                        }}
+                        className="w-9 h-9 bg-[#1A1A1A] hover:bg-[#2C3440] border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] text-[#94a3b8] hover:text-white flex items-center justify-center transition-all"
+                      >
+                        <Icon size={18} weight="duotone" />
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -293,14 +456,17 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-between px-6 py-4 border-t border-[#262626] bg-[#1A1A1A] text-xs">
+        <div className="flex items-center justify-between px-6 py-4 border-t-2 border-black bg-[#1A1A1A] text-xs">
           <div className="text-[10px] text-[#94a3b8] flex items-center gap-2">
-            <span>Press <kbd className="px-1.5 py-0.5 bg-[#0F0F0F] rounded text-white font-bold">ESC</kbd> or click Close to return to the world</span>
+            <span>Press <kbd className="px-1.5 py-0.5 bg-[#0F0F0F] border border-black shadow-[1px_1px_0_rgba(0,0,0,1)] text-white font-mono font-bold">ESC</kbd> or click Close to return to the world</span>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-md bg-[#262626] hover:bg-[#333] text-white font-bold transition-all border border-white/10 cursor-pointer"
+              style={{
+                clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+              }}
+              className="px-4 py-2 bg-[#D9A441] hover:bg-[#E5B152] text-[#1A1D24] font-black uppercase text-xs transition-all border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px cursor-pointer"
             >
               Resume Journey
             </button>

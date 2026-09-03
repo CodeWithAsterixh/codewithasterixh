@@ -143,8 +143,13 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
       {/* Ambient background glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(36,60,110,0.25)_0%,transparent_70%)] pointer-events-none" />
 
-      {/* MODAL CONTAINER */}
-      <div className="relative w-full max-w-3xl bg-[#EFE3C3] border-4 border-[#243C6E] rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.95),0_0_0_2px_#D6C296] overflow-hidden text-[#241F1A] flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-200">
+      {/* PIXELATED ONBOARDING MODAL CONTAINER */}
+      <div
+        style={{
+          clipPath: 'polygon(0 8px, 8px 8px, 8px 0, calc(100% - 8px) 0, calc(100% - 8px) 8px, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 8px calc(100% - 8px), 0 calc(100% - 8px))'
+        }}
+        className="relative w-full max-w-3xl bg-[#EFE3C3] border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] overflow-hidden text-[#241F1A] flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-200"
+      >
 
         {/* Corner Rivets */}
         <div className="absolute top-0 left-0 w-3 h-3 bg-[#243C6E] pointer-events-none z-20" />
@@ -155,38 +160,44 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
         {/* Top Header Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 px-4 sm:px-6 py-3 bg-[#E8DAAF]/90 border-b-2 border-[#D6C296]">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-md bg-[#243C6E] border border-[#D6C296] flex items-center justify-center text-white shrink-0 shadow-xs">
+            <div
+              style={{
+                clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+              }}
+              className="w-8 h-8 bg-[#243C6E] border-2 border-black shadow-[1px_1px_0px_rgba(0,0,0,1)] flex items-center justify-center text-white shrink-0"
+            >
               <SparkleIcon size={16} weight="duotone" />
             </div>
             <div className="min-w-0">
               <span className="text-[10px] uppercase font-bold tracking-wider text-[#6E5C3B] block truncate">
                 Asterixh Portfolio
               </span>
-              <h2 className="text-sm sm:text-base font-extrabold text-[#1F1914] truncate">
+              <h2 className="text-sm sm:text-base font-black uppercase text-[#1F1914] truncate font-mono">
                 {step === 1 ? 'Step 1: Select Gender' : 'Step 2: Select Character'}
               </h2>
             </div>
           </div>
-
-          <div className="flex items-center gap-1.5 self-start sm:self-auto text-xs font-bold shrink-0">
+          <div className="flex items-center gap-1.5 self-start sm:self-auto text-xs font-black shrink-0 uppercase font-mono">
             <span
               style={{
-                backgroundImage: step === 1 ? 'url(/btns/button2_tight.png)' : 'url(/btns/button1_tight.png)',
-                backgroundSize: '100% 100%',
+                clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs ${step === 1 ? 'text-[#062c3f] font-extrabold' : 'text-[#f5edf9]'}`}
+              className={`px-3 py-1.5 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] text-[10px] sm:text-xs ${
+                step === 1 ? 'bg-[#D9A441] text-[#1A1D24]' : 'bg-[#2C3440] text-white/70'
+              }`}
             >
               1. Gender
             </span>
             <span className="text-[#6E5C3B]">
-              <ArrowRightIcon size={14} weight="duotone" />
+              <ArrowRightIcon size={14} weight="bold" />
             </span>
             <span
               style={{
-                backgroundImage: step === 2 ? 'url(/btns/button2_tight.png)' : 'url(/btns/button1_tight.png)',
-                backgroundSize: '100% 100%',
+                clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs ${step === 2 ? 'text-[#062c3f] font-extrabold' : 'text-[#f5edf9]'}`}
+              className={`px-3 py-1.5 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] text-[10px] sm:text-xs ${
+                step === 2 ? 'bg-[#D9A441] text-[#1A1D24]' : 'bg-[#2C3440] text-white/70'
+              }`}
             >
               2. Character
             </span>
@@ -210,34 +221,33 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
               <button
                 type="button"
                 onClick={() => handleGenderSelect('male')}
-                className="group relative w-full cursor-pointer transition-transform active:translate-y-0.5 text-center"
+                style={{
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                }}
+                className="group relative w-full cursor-pointer transition-transform active:translate-y-0.5 text-center bg-[#FAF5E6] border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] p-4 flex flex-col items-center hover:bg-white"
               >
-                <div className="absolute inset-x-0 top-2 bottom-0 rounded-2xl bg-[#16294D] border border-[#0D1C38]" />
-                <div className="relative z-10 flex flex-col items-center p-4 rounded-2xl bg-[#FAF5E6] border-2 border-[#D5C49B] group-hover:border-[#243C6E] transition-all">
-                  <div
-                    style={{
-                      backgroundImage: 'url(/books/tile_avatar_box.png)',
-                      backgroundSize: '100% 100%',
-                      imageRendering: 'pixelated',
-                    }}
-                    className="w-40 h-36 flex items-center justify-center p-2 mb-2 group-hover:scale-105 transition-transform"
-                  >
-                    <canvas ref={maleCanvasRef} width={160} height={145} className="w-36 h-32 drop-shadow-md" />
-                  </div>
+                <div
+                  style={{
+                    backgroundImage: 'url(/books/tile_avatar_box.png)',
+                    backgroundSize: '100% 100%',
+                    imageRendering: 'pixelated',
+                  }}
+                  className="w-40 h-36 flex items-center justify-center p-2 mb-2 group-hover:scale-105 transition-transform"
+                >
+                  <canvas ref={maleCanvasRef} width={160} height={145} className="w-36 h-32 drop-shadow-md" />
+                </div>
 
-                  <h4 className="text-base font-extrabold text-[#1F1914]">Male</h4>
-                  <p className="text-xs text-[#5C4F41] mb-3">Fighter • Samurai • Shinobi</p>
+                <h4 className="text-base font-extrabold text-[#1F1914]">Male</h4>
+                <p className="text-xs text-[#5C4F41] mb-3">Fighter • Samurai • Shinobi • Xavier</p>
 
-                  <div
-                    style={{
-                      backgroundImage: 'url(/btns/button2_tight.png)',
-                      backgroundSize: '100% 100%',
-                    }}
-                    className="px-4 py-2 rounded-md text-xs font-extrabold text-[#062c3f] flex items-center gap-1.5 shadow-sm group-hover:brightness-110"
-                  >
-                    <span>Select Male</span>
-                    <ArrowRightIcon size={12} weight="duotone" />
-                  </div>
+                <div
+                  style={{
+                    clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                  }}
+                  className="px-4 py-2 bg-[#D9A441] text-[#1A1D24] font-black uppercase text-xs flex items-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] group-hover:bg-[#E5B152]"
+                >
+                  <span>Select Male</span>
+                  <ArrowRightIcon size={12} weight="bold" />
                 </div>
               </button>
 
@@ -245,33 +255,33 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
               <button
                 type="button"
                 onClick={() => handleGenderSelect('female')}
-                className="group relative w-full cursor-pointer transition-transform active:translate-y-0.5 text-center"
+                style={{
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                }}
+                className="group relative w-full cursor-pointer transition-transform active:translate-y-0.5 text-center bg-[#FAF5E6] border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] p-4 flex flex-col items-center hover:bg-white"
               >
-                <div className="absolute inset-x-0 top-2 bottom-0 rounded-2xl bg-[#16294D] border border-[#0D1C38]" />
-                <div className="relative z-10 flex flex-col items-center p-4 rounded-2xl bg-[#FAF5E6] border-2 border-[#D5C49B] group-hover:border-[#243C6E] transition-all">
-                  <div
-                    style={{
-                      backgroundImage: 'url(/books/tile_avatar_box.png)',
-                      backgroundSize: '100% 100%',
-                    }}
-                    className="w-40 h-36 flex items-center justify-center p-2 mb-2 group-hover:scale-105 transition-transform"
-                  >
-                    <canvas ref={femaleCanvasRef} width={160} height={145} className="w-36 h-32 drop-shadow-md" />
-                  </div>
+                <div
+                  style={{
+                    backgroundImage: 'url(/books/tile_avatar_box.png)',
+                    backgroundSize: '100% 100%',
+                    imageRendering: 'pixelated',
+                  }}
+                  className="w-40 h-36 flex items-center justify-center p-2 mb-2 group-hover:scale-105 transition-transform"
+                >
+                  <canvas ref={femaleCanvasRef} width={160} height={145} className="w-36 h-32 drop-shadow-md" />
+                </div>
 
-                  <h4 className="text-base font-extrabold text-[#1F1914]">Female</h4>
-                  <p className="text-xs text-[#5C4F41] mb-3">Girl 1 • Girl 2 • Girl 3</p>
+                <h4 className="text-base font-extrabold text-[#1F1914]">Female</h4>
+                <p className="text-xs text-[#5C4F41] mb-3">Countess Claire • Bridget</p>
 
-                  <div
-                    style={{
-                      backgroundImage: 'url(/btns/button2_tight.png)',
-                      backgroundSize: '100% 100%',
-                    }}
-                    className="px-4 py-2 rounded-md text-xs font-extrabold text-[#062c3f] flex items-center gap-1.5 shadow-sm group-hover:brightness-110"
-                  >
-                    <span>Select Female</span>
-                    <ArrowRightIcon size={12} weight="duotone" />
-                  </div>
+                <div
+                  style={{
+                    clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                  }}
+                  className="px-4 py-2 bg-[#D9A441] text-[#1A1D24] font-black uppercase text-xs flex items-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] group-hover:bg-[#E5B152]"
+                >
+                  <span>Select Female</span>
+                  <ArrowRightIcon size={12} weight="bold" />
                 </div>
               </button>
             </div>
@@ -289,7 +299,7 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
 
               {/* Left Column: Character List */}
               <div className="sm:col-span-7 space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wider text-[#6E5C3B]">
+                <div className="text-xs font-black uppercase tracking-wider text-[#6E5C3B] font-mono">
                   Choose Character
                 </div>
 
@@ -303,9 +313,12 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
                         key={charId}
                         type="button"
                         onClick={() => setSelectedCharId(charId)}
-                        className={`w-full text-left p-3 rounded-md border-2 transition-all flex items-center justify-between cursor-pointer ${isSelected
-                            ? 'bg-[#FAF5E6] border-[#243C6E] shadow-sm ring-1 ring-[#243C6E]'
-                            : 'bg-[#FAF5E6]/70 border-[#D5C49B] hover:bg-[#FAF5E6] hover:border-[#243C6E]'
+                        style={{
+                          clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+                        }}
+                        className={`w-full text-left p-3 border-2 border-black transition-all flex items-center justify-between cursor-pointer ${isSelected
+                            ? 'bg-[#FAF5E6] shadow-[3px_3px_0px_#243C6E] translate-x-1'
+                            : 'bg-[#FAF5E6]/70 shadow-[2px_2px_0px_rgba(0,0,0,0.6)] hover:bg-[#FAF5E6]'
                           }`}
                       >
                         <div>
@@ -321,7 +334,7 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
                         </div>
                         <ArrowRightIcon
                           size={16}
-                          weight="duotone"
+                          weight="bold"
                           className={isSelected ? 'text-[#243C6E]' : 'text-[#A09585]'}
                         />
                       </button>
@@ -331,7 +344,12 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
               </div>
 
               {/* Right Column: Preview Canvas */}
-              <div className="sm:col-span-5 flex flex-col items-center justify-center p-3 rounded-2xl bg-[#FAF5E6]/80 border-2 border-[#D5C49B]">
+              <div
+                style={{
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                }}
+                className="sm:col-span-5 flex flex-col items-center justify-center p-4 bg-[#FAF5E6] border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+              >
                 <div
                   style={{
                     backgroundImage: 'url(/books/tile_avatar_box.png)',
@@ -355,14 +373,22 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
               </div>
 
               {/* Combat Mode Activation Toggle */}
-              <div className="sm:col-span-12 flex items-center justify-between p-2.5 px-3.5 rounded-xl bg-[#FAF5E6]/90 border-2 border-[#D5C49B]">
+              <div
+                style={{
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                }}
+                className="sm:col-span-12 flex items-center justify-between p-2.5 px-3.5 bg-[#FAF5E6] border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+              >
                 <div className="flex items-center gap-2.5">
                   <div
+                    style={{
+                      clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                    }}
                     className={clsx(
-                      'w-7 h-7 rounded-lg flex items-center justify-center border text-xs font-black select-none',
+                      'w-7 h-7 flex items-center justify-center border-2 border-black shadow-[1px_1px_0_rgba(0,0,0,1)] text-xs font-black select-none',
                       isCombatActive
-                        ? 'bg-[#FF4B4B]/20 text-[#D12E2E] border-[#D12E2E]/40'
-                        : 'bg-[#363D46]/10 text-[#635547] border-[#D5C49B]'
+                        ? 'bg-[#DC2626] text-white'
+                        : 'bg-[#2C3440] text-white/70'
                     )}
                   >
                     ⚔️
@@ -371,9 +397,12 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
                     <div className="text-xs font-extrabold text-[#1F1914] flex items-center gap-1.5">
                       <span>Activate Fighting & Enemy Ninjas</span>
                       <span
+                        style={{
+                          clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                        }}
                         className={clsx(
-                          'text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider',
-                          isCombatActive ? 'bg-[#D12E2E] text-white' : 'bg-[#8F8171]/30 text-[#5C4F41]'
+                          'text-[9px] px-2 py-0.5 border border-black shadow-[1px_1px_0_rgba(0,0,0,1)] font-mono font-bold uppercase tracking-wider',
+                          isCombatActive ? 'bg-[#DC2626] text-white' : 'bg-[#4B5563] text-white'
                         )}
                       >
                         {isCombatActive ? 'Active' : 'Disabled'}
@@ -390,15 +419,18 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
                 <button
                   type="button"
                   onClick={() => setIsCombatActive(!isCombatActive)}
+                  style={{
+                    clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
+                  }}
                   className={clsx(
-                    'relative w-12 h-6 rounded-full transition-colors duration-200 cursor-pointer p-0.5 border-2',
-                    isCombatActive ? 'bg-[#D12E2E] border-[#A81F1F]' : 'bg-[#C5B391] border-[#A99775]'
+                    'relative w-14 h-7 transition-colors duration-200 cursor-pointer p-0.5 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)]',
+                    isCombatActive ? 'bg-[#DC2626]' : 'bg-[#4B5563]'
                   )}
                 >
                   <div
                     className={clsx(
-                      'w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200',
-                      isCombatActive ? 'translate-x-6' : 'translate-x-0'
+                      'w-5 h-5 bg-white border border-black transition-transform duration-200',
+                      isCombatActive ? 'translate-x-7' : 'translate-x-0'
                     )}
                   />
                 </button>
@@ -411,12 +443,11 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
                 type="button"
                 onClick={() => setStep(1)}
                 style={{
-                  backgroundImage: 'url(/btns/button1_tight.png)',
-                  backgroundSize: '100% 100%',
+                  clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
                 }}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-md text-xs font-bold text-[#f5edf9] flex items-center justify-center gap-1.5 cursor-pointer hover:brightness-110 active:translate-y-0.5"
+                className="w-full sm:w-auto px-4 py-2.5 bg-[#2C3440] hover:bg-[#374151] text-white font-black uppercase text-xs flex items-center justify-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer active:translate-x-px active:translate-y-px"
               >
-                <ArrowLeftIcon size={14} weight="duotone" />
+                <ArrowLeftIcon size={14} weight="bold" />
                 <span>Back to Gender</span>
               </button>
 
@@ -424,12 +455,11 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
                 type="button"
                 onClick={handleStartGame}
                 style={{
-                  backgroundImage: 'url(/btns/button2_tight.png)',
-                  backgroundSize: '100% 100%',
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
                 }}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-md text-xs sm:text-sm font-extrabold text-[#062c3f] flex items-center justify-center gap-2 shadow-md cursor-pointer hover:brightness-110 active:translate-y-0.5"
+                className="w-full sm:w-auto px-6 py-2.5 bg-[#D9A441] hover:bg-[#E5B152] text-[#1A1D24] font-black uppercase text-xs sm:text-sm flex items-center justify-center gap-2 border-4 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] cursor-pointer active:translate-x-[2px] active:translate-y-[2px]"
               >
-                <PlayIcon size={16} weight="duotone" />
+                <PlayIcon size={16} weight="fill" />
                 <span>Enter World with {activeCharDef.name}</span>
               </button>
             </div>

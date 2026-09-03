@@ -415,7 +415,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     }
 
     function triggerPlayerAttack(attackType: 'attack' | 'attack1' | 'attack2' | 'attack3' | 'attack4' = 'attack1') {
-      if (attackTimer > 0) return;
+      if (isModalActive || playerRespawnCountdown > 0 || attackTimer > 0) return;
       playerAction = attackType;
       attackTimer = 18;
       attackPhase = 0;
@@ -424,6 +424,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     }
 
     function updateEnemyNinja(dt: number) {
+      if (isModalActive) return;
       if (!isCombatActive) {
         activeEnemy = null;
         return;
@@ -478,7 +479,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
 
       const distX = playerBody.x - enemy.x;
       const distY = playerBody.y - enemy.y;
-      const dist = Math.hypot(distX, distY);
+      const distSq = distX * distX + distY * distY;
 
       if (enemy.state === 'dead') {
         enemy.action = 'dead';
@@ -511,7 +512,8 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
 
       // If player is currently in death state / 5s countdown, enemy runs towards player's location
       if (playerRespawnCountdown > 0) {
-        if (dist > 35) {
+        if (distSq > 1225) { // 35^2
+          const dist = Math.sqrt(distSq);
           enemy.state = 'approach';
           enemy.action = 'run';
           const speed = 4.2;
@@ -520,7 +522,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
           if (Math.abs(enemy.vx) > 0.08) {
             enemy.facing = enemy.vx > 0 ? 'right' : 'left';
           }
-          enemy.walkPhase += Math.hypot(enemy.vx, enemy.vy) * 0.07;
+          enemy.walkPhase += Math.sqrt(enemy.vx * enemy.vx + enemy.vy * enemy.vy) * 0.07;
           enemy.x += enemy.vx;
           enemy.y += enemy.vy;
           enemy.x = p.constrain(enemy.x, WORLD_BOUNDS.minX + 50, WORLD_BOUNDS.maxX - 50);
@@ -544,7 +546,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
 
         // Check if attack hits player at mid animation (EXACTLY ONCE per swing)
         if (!enemy.hasHitPlayer && enemy.stateTimer <= 0.40 && enemy.stateTimer > 0.15) {
-          if (dist <= 75 && Math.abs(distY) <= 35) {
+          if (distSq <= 5625 && Math.abs(distY) <= 35) { // 75^2 = 5625
             enemy.hasHitPlayer = true;
             const pushDir = enemy.facing === 'right' ? 1 : -1;
             playerBody.applyImpulse(pushDir * 280, 0);
@@ -590,7 +592,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         enemy.vx = retreatDir * 2.2;
         enemy.vy = 0;
         enemy.facing = enemy.vx > 0 ? 'right' : 'left';
-        enemy.walkPhase += Math.hypot(enemy.vx, enemy.vy) * 0.07;
+        enemy.walkPhase += Math.sqrt(enemy.vx * enemy.vx + enemy.vy * enemy.vy) * 0.07;
         enemy.x += enemy.vx;
         enemy.y += enemy.vy;
         if (enemy.stateTimer <= 0) {
@@ -600,8 +602,9 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       }
 
       if (enemy.state === 'approach') {
-        if (dist > 65) {
-          const isFar = dist > 180;
+        if (distSq > 4225) { // 65^2 = 4225
+          const dist = Math.sqrt(distSq);
+          const isFar = distSq > 32400; // 180^2 = 32400
           enemy.action = isFar ? 'run' : 'walk';
           const speed = isFar ? 3.8 : 2.2;
           enemy.vx = (distX / dist) * speed;
@@ -609,7 +612,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
           if (Math.abs(enemy.vx) > 0.08) {
             enemy.facing = enemy.vx > 0 ? 'right' : 'left';
           }
-          enemy.walkPhase += Math.hypot(enemy.vx, enemy.vy) * 0.07;
+          enemy.walkPhase += Math.sqrt(enemy.vx * enemy.vx + enemy.vy * enemy.vy) * 0.07;
           enemy.x += enemy.vx;
           enemy.y += enemy.vy;
 
@@ -714,47 +717,47 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     }
 
     function renderCombatParticlesAndTexts() {
-      // Particles
-      for (let i = combatParticles.length - 1; i >= 0; i--) {
+      // In-place single-pass compaction for Combat Particles (0 allocations, 0 splice shifts)
+      let pWrite = 0;
+      for (let i = 0; i < combatParticles.length; i++) {
         const cp = combatParticles[i];
         cp.x += cp.vx;
         cp.y += cp.vy;
         cp.vy += 0.12;
         cp.life++;
-        const alpha = 1 - cp.life / cp.maxLife;
 
-        if (cp.life >= cp.maxLife) {
-          combatParticles.splice(i, 1);
-          continue;
+        if (cp.life < cp.maxLife) {
+          combatParticles[pWrite++] = cp;
+          p.noStroke();
+          p.fill(cp.color);
+          p.ellipse(cp.x, cp.y, cp.size, cp.size);
         }
-
-        p.noStroke();
-        p.fill(cp.color);
-        p.ellipse(cp.x, cp.y, cp.size, cp.size);
       }
+      combatParticles.length = pWrite;
 
-      // Floating Texts
-      for (let i = floatingCombatTexts.length - 1; i >= 0; i--) {
+      // In-place single-pass compaction for Floating Texts (0 allocations, 0 splice shifts)
+      let tWrite = 0;
+      for (let i = 0; i < floatingCombatTexts.length; i++) {
         const ft = floatingCombatTexts[i];
         ft.y += ft.vy;
         ft.life++;
-        const alpha = 1 - ft.life / ft.maxLife;
 
-        if (ft.life >= ft.maxLife) {
-          floatingCombatTexts.splice(i, 1);
-          continue;
+        if (ft.life < ft.maxLife) {
+          floatingCombatTexts[tWrite++] = ft;
+          const alpha = 1 - ft.life / ft.maxLife;
+
+          p.push();
+          p.textAlign(p.CENTER, p.CENTER);
+          (p as any).textFont('Pixelify Sans');
+          p.textSize(13);
+          p.stroke(0, 0, 0, alpha * 255);
+          p.strokeWeight(3);
+          p.fill(ft.color);
+          p.text(ft.text, ft.x, ft.y);
+          p.pop();
         }
-
-        p.push();
-        p.textAlign(p.CENTER, p.CENTER);
-        (p as any).textFont('Pixelify Sans');
-        p.textSize(13);
-        p.stroke(0, 0, 0, alpha * 255);
-        p.strokeWeight(3);
-        p.fill(ft.color);
-        p.text(ft.text, ft.x, ft.y);
-        p.pop();
       }
+      floatingCombatTexts.length = tWrite;
     }
 
     function renderOffscreenEnemyIndicator() {
@@ -967,14 +970,24 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     (p as any).setModalActive = (active: boolean) => {
       isModalActive = active;
       if (active) {
-        // Clear all movement keys and drag state immediately when a modal opens
+        // Clear all movement keys, joystick and drag state immediately when a modal opens
         for (const k in keys) {
           keys[k] = false;
         }
+        joystickVector = { x: 0, y: 0 };
         isDragging = false;
-        if (playerBody.isGrounded && attackTimer <= 0) {
+        playerBody.vx = 0;
+        playerBody.vy = 0;
+        if (playerRespawnCountdown <= 0 && playerBody.isGrounded && attackTimer <= 0) {
           playerAction = 'idle';
           callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, 'idle');
+        }
+        if (activeEnemy && activeEnemy.hp > 0 && activeEnemy.state !== 'dead') {
+          activeEnemy.vx = 0;
+          activeEnemy.vy = 0;
+          if (activeEnemy.state !== 'hurt') {
+            activeEnemy.action = 'idle';
+          }
         }
       }
     };
@@ -1059,6 +1072,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       (p as any).pixelDensity(1);
       p.createCanvas(p.windowWidth, p.windowHeight);
       p.frameRate(60);
+      if (typeof (p as any).noSmooth === 'function') (p as any).noSmooth();
       p.textAlign(p.CENTER, p.CENTER);
       (p as any).textFont('Pixelify Sans');
       
@@ -1073,6 +1087,9 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
 
     p.windowResized = () => {
       p.resizeCanvas(p.windowWidth, p.windowHeight);
+      if (typeof (p as any).noSmooth === 'function') (p as any).noSmooth();
+      const ctx = (p as any).drawingContext;
+      if (ctx) ctx.imageSmoothingEnabled = false;
       targetCamY = p.height * 0.72;
     };
 
@@ -1085,9 +1102,11 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       }
       windTimer += 0.4;
 
-      // 2. Physics & Combat Simulation
-      simulatePhysics();
-      updateEnemyNinja(1 / 60);
+      // 2. Physics & Combat Simulation (Paused when any modal is open)
+      if (!isModalActive) {
+        simulatePhysics();
+        updateEnemyNinja(1 / 60);
+      }
 
       // 3. Camera Smooth Follow with strict viewport screen boundary clamping
       targetCamY = p.height * 0.72;
@@ -1215,6 +1234,8 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     }
 
     function simulatePhysics() {
+      if (isModalActive) return;
+
       if (playerRespawnCountdown > 0) {
         const dtSec = 1 / 60;
         playerRespawnCountdown -= dtSec;
@@ -1450,27 +1471,24 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     }
 
     function renderDustParticles() {
-      if (dustParticles.length > 10) {
-        dustParticles.splice(0, dustParticles.length - 10);
-      }
-
-      for (let i = dustParticles.length - 1; i >= 0; i--) {
+      let dWrite = 0;
+      for (let i = 0; i < dustParticles.length; i++) {
         const pArt = dustParticles[i];
         pArt.x += pArt.vx;
         pArt.y += pArt.vy;
         pArt.vy += 0.08;
         pArt.life++;
-        pArt.alpha = 1 - pArt.life / pArt.maxLife;
 
-        if (pArt.life >= pArt.maxLife) {
-          dustParticles.splice(i, 1);
-          continue;
+        if (pArt.life < pArt.maxLife && dWrite < 12) {
+          pArt.alpha = 1 - pArt.life / pArt.maxLife;
+          dustParticles[dWrite++] = pArt;
+
+          p.noStroke();
+          p.fill(104, 179, 90, pArt.alpha * 180);
+          p.ellipse(pArt.x, pArt.y, pArt.size / zoom, pArt.size / zoom);
         }
-
-        p.noStroke();
-        p.fill(104, 179, 90, pArt.alpha * 180);
-        p.ellipse(pArt.x, pArt.y, pArt.size / zoom, pArt.size / zoom);
       }
+      dustParticles.length = dWrite;
     }
 
     function renderPlayerCharacter() {
@@ -1660,118 +1678,131 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       }
     }
 
-    interface DepthEntity {
+    interface PooledDepthItem {
+      type: number; // 1: tree, 2: bush, 3: interactiveObj, 4: kiosk, 5: garage, 6: home, 7: mailbox, 8: lamp, 9: dust, 10: player, 11: enemy
+      index: number;
       y: number;
-      draw: () => void;
     }
+    const depthPool: PooledDepthItem[] = [];
 
     function renderDepthSortedEntities() {
       const viewLeft = (-camX) / zoom - 450;
       const viewRight = (p.width - camX) / zoom + 450;
-      const entities: DepthEntity[] = [];
+      let count = 0;
+
+      const pushEntity = (type: number, index: number, y: number) => {
+        if (count < depthPool.length) {
+          const item = depthPool[count];
+          item.type = type;
+          item.index = index;
+          item.y = y;
+        } else {
+          depthPool.push({ type, index, y });
+        }
+        count++;
+      };
 
       // 1. All Trees (rooted firmly in the grass meadow at tree.yOffset)
       for (let i = 0; i < ALL_WORLD_TREES.length; i++) {
         const tree = ALL_WORLD_TREES[i];
         if (tree.x < viewLeft || tree.x > viewRight) continue;
-        entities.push({
-          y: tree.yOffset || 0,
-          draw: () => drawSingleTree(tree),
-        });
+        pushEntity(1, i, tree.yOffset || 0);
       }
 
       // 2. All Bushes (rooted firmly in the grass meadow at bush.yOffset)
       for (let i = 0; i < ALL_WORLD_BUSHES.length; i++) {
         const bush = ALL_WORLD_BUSHES[i];
         if (bush.x < viewLeft || bush.x > viewRight) continue;
-        entities.push({
-          y: bush.yOffset || 0,
-          draw: () => drawSingleBush(bush),
-        });
+        pushEntity(2, i, bush.yOffset || 0);
       }
 
       // 3. Interactive Landmark Objects (Chest, Briefcase, Vault, Chamber, Bag)
       for (let i = 0; i < INTERACTIVE_OBJECTS.length; i++) {
         const obj = INTERACTIVE_OBJECTS[i];
         if (obj.x < viewLeft || obj.x > viewRight) continue;
-        entities.push({
-          y: (obj.yOffset || 0) + 12,
-          draw: () => drawSingleInteractiveObject(obj),
-        });
+        pushEntity(3, i, (obj.yOffset || 0) + 12);
       }
 
       // 4. Station Kiosks (only for outdoor field stations)
       for (let i = 0; i < WORLD_LOCATIONS.length; i++) {
         const loc = WORLD_LOCATIONS[i];
         if (loc.x < viewLeft || loc.x > viewRight || Math.abs(loc.x) <= 600) continue;
-        entities.push({
-          y: 0,
-          draw: () => drawSingleStationKiosk(loc),
-        });
+        pushEntity(4, i, 0);
       }
 
       // 5. Services Garage at X = -520 (beside house on the left)
       if (-520 >= viewLeft - 350 && -520 <= viewRight + 350) {
-        entities.push({
-          y: 68,
-          draw: () => renderServicesGarage(),
-        });
+        pushEntity(5, 0, 68);
       }
 
       // 6. Home Base Building at X = 0 (center)
       if (0 >= viewLeft - 400 && 0 <= viewRight + 400) {
-        entities.push({
-          y: 68,
-          draw: () => renderHomeBeacon(),
-        });
+        pushEntity(6, 0, 68);
       }
 
       // 7. Contact Mailbox at X = 220 (front right garden lawn)
       if (220 >= viewLeft - 200 && 220 <= viewRight + 200) {
-        entities.push({
-          y: 74,
-          draw: () => renderContactMailbox(),
-        });
+        pushEntity(7, 0, 74);
       }
 
       // 8. Street Lamp Posts (Sources of light illuminating the dark mode world)
       for (let i = 0; i < WORLD_LAMP_POSTS.length; i++) {
         const lamp = WORLD_LAMP_POSTS[i];
         if (lamp.x < viewLeft || lamp.x > viewRight) continue;
-        entities.push({
-          y: lamp.yOffset,
-          draw: () => drawSingleLampPost(lamp),
-        });
+        pushEntity(8, i, lamp.yOffset);
       }
 
       // 9. Dust Particles
       if (dustParticles.length > 0) {
-        entities.push({
-          y: playerBody.y - 0.5,
-          draw: () => renderDustParticles(),
-        });
+        pushEntity(9, 0, playerBody.y - 0.5);
       }
 
       // 10. Player Character
-      entities.push({
-        y: playerBody.y,
-        draw: () => renderPlayerCharacter(),
-      });
+      pushEntity(10, 0, playerBody.y);
 
       // 11. Roaming Enemy Ninja
       if (activeEnemy) {
-        entities.push({
-          y: activeEnemy.y,
-          draw: () => renderEnemyNinja(activeEnemy!),
-        });
+        pushEntity(11, 0, activeEnemy.y);
       }
 
-      // Sort entities ascending by Y coordinate (back-to-front rendering)
-      entities.sort((a, b) => a.y - b.y);
+      // Fast Sort for active items (numeric comparator)
+      const activeSlice = depthPool.slice(0, count);
+      activeSlice.sort((a, b) => a.y - b.y);
 
-      // Render each entity in sorted order
-      for (let i = 0; i < entities.length; i++) {
-        entities[i].draw();
+      // Batch scenery filter once if dark mode
+      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+      const isDark = currentThemeMode === 'dark';
+
+      if (isDark) {
+        ctx.filter = 'brightness(0.55) saturate(0.85)';
+      }
+
+      // Dispatch-based zero-closure rendering
+      for (let i = 0; i < count; i++) {
+        const ent = activeSlice[i];
+        if (ent.type === 10 || ent.type === 11) {
+          // Temporarily disable dark scenery filter for player and enemy so sprites remain crisp and vivid
+          if (isDark) ctx.filter = 'none';
+          if (ent.type === 10) renderPlayerCharacter();
+          else if (activeEnemy) renderEnemyNinja(activeEnemy);
+          if (isDark) ctx.filter = 'brightness(0.55) saturate(0.85)';
+        } else {
+          switch (ent.type) {
+            case 1: drawSingleTree(ALL_WORLD_TREES[ent.index]); break;
+            case 2: drawSingleBush(ALL_WORLD_BUSHES[ent.index]); break;
+            case 3: drawSingleInteractiveObject(INTERACTIVE_OBJECTS[ent.index]); break;
+            case 4: drawSingleStationKiosk(WORLD_LOCATIONS[ent.index]); break;
+            case 5: renderServicesGarage(); break;
+            case 6: renderHomeBeacon(); break;
+            case 7: renderContactMailbox(); break;
+            case 8: drawSingleLampPost(WORLD_LAMP_POSTS[ent.index]); break;
+            case 9: renderDustParticles(); break;
+          }
+        }
+      }
+
+      if (isDark) {
+        ctx.filter = 'none';
       }
     }
 
@@ -1792,13 +1823,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       p.fill(0, 0, 0, currentThemeMode === 'dark' ? 65 : 45);
       p.ellipse(tree.x, GROUND_Y + (tree.yOffset || 0) + 1, treeW * 0.20, 8);
 
-      if (currentThemeMode === 'dark') {
-        ctx.filter = 'brightness(0.48) saturate(0.80)';
-      }
       ctx.drawImage(img, drawX, drawY, treeW, treeH);
-      if (currentThemeMode === 'dark') {
-        ctx.filter = 'none';
-      }
     }
 
     function drawSingleBush(bush: FlatSceneryItem) {
@@ -1818,13 +1843,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       p.fill(0, 0, 0, currentThemeMode === 'dark' ? 55 : 35);
       p.ellipse(bush.x, GROUND_Y + (bush.yOffset || 0) + 1, bushW * 0.45, 6);
 
-      if (currentThemeMode === 'dark') {
-        ctx.filter = 'brightness(0.50) saturate(0.80)';
-      }
       ctx.drawImage(img, drawX, drawY, bushW, bushH);
-      if (currentThemeMode === 'dark') {
-        ctx.filter = 'none';
-      }
     }
 
     function drawSingleInteractiveObject(obj: InteractiveWorldObject) {
@@ -2033,14 +2052,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         p.fill(0, 0, 0, currentThemeMode === 'dark' ? 120 : 95);
         p.ellipse(garageX, GROUND_Y + 68, 340, 24);
 
-        if (currentThemeMode === 'dark') {
-          ctx.filter = 'brightness(0.72) saturate(0.90)';
-        }
-        ctx.imageSmoothingEnabled = false;
         ctx.drawImage(garageImg, destX, destY, drawW, drawH);
-        if (currentThemeMode === 'dark') {
-          ctx.filter = 'none';
-        }
       }
 
       // Interactive Floating Prompt Banner when Player is nearby
@@ -2084,14 +2096,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         p.fill(0, 0, 0, currentThemeMode === 'dark' ? 120 : 95);
         p.ellipse(0, GROUND_Y + 68, homeWidth * 0.78, 28);
 
-        if (currentThemeMode === 'dark') {
-          ctx.filter = 'brightness(0.72) saturate(0.90)';
-        }
-        ctx.imageSmoothingEnabled = false;
         ctx.drawImage(homeImg, destX, destY, drawW, drawH);
-        if (currentThemeMode === 'dark') {
-          ctx.filter = 'none';
-        }
       } else {
         p.stroke(91, 155, 243, 160);
         p.strokeWeight(1.5);
@@ -2140,14 +2145,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         p.fill(0, 0, 0, currentThemeMode === 'dark' ? 100 : 85);
         p.ellipse(mailboxX, GROUND_Y + 74, 75, 12);
 
-        if (currentThemeMode === 'dark') {
-          ctx.filter = 'brightness(0.72) saturate(0.90)';
-        }
-        ctx.imageSmoothingEnabled = false;
         ctx.drawImage(mailboxImg, destX, destY, drawW, drawH);
-        if (currentThemeMode === 'dark') {
-          ctx.filter = 'none';
-        }
       }
 
       // Interactive Floating Prompt Banner when Player is nearby
