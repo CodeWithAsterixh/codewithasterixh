@@ -163,11 +163,56 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
           p5Instance.setModalActive(isModalActive);
         }
 
+        // Force p5 internal _start(), loop(), and setup() to execute instantly on mount
+        if (typeof (p5Instance as any)._start === 'function') {
+          try {
+            (p5Instance as any)._start();
+          } catch (e) {}
+        }
+        if (typeof (p5Instance as any).windowResized === 'function') {
+          (p5Instance as any).windowResized();
+        }
+        if (typeof p5Instance.loop === 'function') {
+          p5Instance.loop();
+        }
+        if (typeof p5Instance.redraw === 'function') {
+          p5Instance.redraw();
+        }
+
+        requestAnimationFrame(() => {
+          if (p5InstanceRef.current) {
+            if (typeof (p5InstanceRef.current as any)._start === 'function') {
+              try { (p5InstanceRef.current as any)._start(); } catch (e) {}
+            }
+            if (typeof p5InstanceRef.current.windowResized === 'function') {
+              p5InstanceRef.current.windowResized();
+            }
+            if (typeof p5InstanceRef.current.redraw === 'function') {
+              p5InstanceRef.current.redraw();
+            }
+          }
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new Event('resize'));
+          }
+        });
+
+
+        setTimeout(() => {
+          if (p5InstanceRef.current && typeof p5InstanceRef.current.windowResized === 'function') {
+            p5InstanceRef.current.windowResized();
+          }
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new Event('resize'));
+          }
+        }, 50);
+
         setIsReady(true);
 
         if (onSketchReady) {
           onSketchReady(p5Instance);
         }
+
+
       } catch (err) {
         console.error('2D p5 initialization error:', err);
       }
@@ -186,8 +231,35 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
     };
   }, []);
 
+  // Enforce 100vw x 100vh !important CSS on canvas DOM element immediately on mount
+  useEffect(() => {
+    const enforceCanvasStyles = () => {
+      if (containerRef.current) {
+        const canvasElt = containerRef.current.querySelector('canvas');
+        if (canvasElt) {
+          canvasElt.style.cssText = 'width: 100vw !important; height: 100vh !important; position: fixed !important; top: 0px !important; left: 0px !important; display: block !important; z-index: 0 !important;';
+        }
+      }
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('resize'));
+      }
+    };
+
+    enforceCanvasStyles();
+    const timer1 = setTimeout(enforceCanvasStyles, 30);
+    const timer2 = setTimeout(enforceCanvasStyles, 100);
+    const timer3 = setTimeout(enforceCanvasStyles, 300);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
+  }, [isReady]);
+
+
   return (
-    <div className="relative w-full h-full min-h-screen overflow-hidden bg-[#0F0F0F]">
+    <div className="fixed inset-0 w-full h-full min-h-screen overflow-hidden bg-[#0F0F0F]">
       {!isReady && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#0F0F0F] text-[#EADBCC] font-pixelify gap-3">
           <div className="w-10 h-10 rounded-full border-4 border-[#5B9BF3] border-t-transparent animate-spin" />
@@ -198,10 +270,11 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
       )}
       <div
         ref={containerRef}
-        className={`w-full h-full min-h-screen overflow-hidden select-none ${
+        className={`fixed inset-0 w-full h-full min-h-screen overflow-hidden select-none [&>canvas]:fixed [&>canvas]:inset-0 [&>canvas]:w-full [&>canvas]:h-full [&>canvas]:block ${
           isModalActive ? 'pointer-events-none' : 'cursor-grab active:cursor-grabbing'
         }`}
       />
     </div>
   );
 };
+

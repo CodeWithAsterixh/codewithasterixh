@@ -270,7 +270,9 @@ for (let x = WORLD_BOUNDS.minX + 50; x <= WORLD_BOUNDS.maxX - 50; x += 120) {
 
 export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
   return (p: p5) => {
+    p.createCanvas(p.windowWidth, p.windowHeight)
     let playerGender: Gender = DEFAULT_GENDER;
+
     let playerCharacter: CharacterId = DEFAULT_CHARACTER;
     let playerAction: CharacterAction = 'idle';
     let attackTimer = 0;
@@ -1090,1306 +1092,1375 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       };
 
 
-    p.setup = () => {
-      (p as any).pixelDensity(1);
-      p.createCanvas(p.windowWidth, p.windowHeight);
-      p.frameRate(60);
-      if (typeof (p as any).noSmooth === 'function') (p as any).noSmooth();
-      p.textAlign(p.CENTER, p.CENTER);
-      (p as any).textFont('Pixelify Sans');
-      
-      const ctx = (p as any).drawingContext;
-      if (ctx) ctx.imageSmoothingEnabled = false;
+      let isSetupCalled = false;
 
-      updateAdaptiveZoom();
-      zoom = targetZoom;
-      camX = p.width / 2 - playerBody.x * zoom;
-      camY = p.height * 0.72;
-      targetCamX = camX;
-      targetCamY = camY;
-    };
+      p.setup = () => {
+        if (isSetupCalled) return;
+        isSetupCalled = true;
 
-    p.windowResized = () => {
-      p.resizeCanvas(p.windowWidth, p.windowHeight);
-      if (typeof (p as any).noSmooth === 'function') (p as any).noSmooth();
-      const ctx = (p as any).drawingContext;
-      if (ctx) ctx.imageSmoothingEnabled = false;
-      updateAdaptiveZoom();
-      targetCamY = p.height * 0.72;
-    };
+        (p as any).pixelDensity(1);
+        const initialW = typeof window !== 'undefined' && window.innerWidth > 200 ? window.innerWidth : (p.windowWidth > 200 ? p.windowWidth : 1200);
+        const initialH = typeof window !== 'undefined' && window.innerHeight > 200 ? window.innerHeight : (p.windowHeight > 200 ? p.windowHeight : 800);
+        p.createCanvas(initialW, initialH);
+        p.frameRate(60);
 
-    p.draw = () => {
-      // 1. Meadow Base Fill (Night deep forest green in dark mode, vibrant meadow in light mode)
-      if (currentThemeMode === 'dark') {
-        p.background(24, 52, 38);
-      } else {
-        p.background(78, 160, 89);
-      }
-      windTimer += 0.4;
+        if (typeof (p as any).noSmooth === 'function') (p as any).noSmooth();
+        p.textAlign(p.CENTER, p.CENTER);
+        (p as any).textFont('Pixelify Sans');
 
-      // 2. Physics & Combat Simulation (Paused when any modal is open)
-      if (!isModalActive) {
-        simulatePhysics();
-        updateEnemyNinja(1 / 60);
-      }
+        const ctx = (p as any).drawingContext;
+        if (ctx) ctx.imageSmoothingEnabled = false;
 
-      // 2.5. Telemetry callback
+        const canvasElt = (p as any).canvas;
+        if (canvasElt) {
+          canvasElt.style.setProperty('width', '100vw', 'important');
+          canvasElt.style.setProperty('height', '100vh', 'important');
+          canvasElt.style.setProperty('position', 'fixed', 'important');
+          canvasElt.style.setProperty('top', '0px', 'important');
+          canvasElt.style.setProperty('left', '0px', 'important');
+          canvasElt.style.setProperty('display', 'block', 'important');
+        }
 
-      if (typeof callbacks?.onPhysicsTelemetryChange === 'function') {
-        callbacks.onPhysicsTelemetryChange({
-          x: Math.round(playerBody.x),
-          y: Math.round(playerBody.y),
-          vx: Math.round(playerBody.vx * 10) / 10,
-          vy: Math.round(playerBody.vy * 10) / 10,
-          isGrounded: playerBody.isGrounded,
-          isMoving: Math.abs(playerBody.vx) > 0.1 || Math.abs(playerBody.vy) > 0.1,
-          action: playerAction,
-          facing: playerBody.facing,
-          cameraFollows: cameraFollowsPlayer,
-          controlMode,
-        });
-      }
+        updateAdaptiveZoom();
+        zoom = targetZoom;
+        camX = p.width / 2 - playerBody.x * zoom;
+        camY = p.height * 0.72;
+        targetCamX = camX;
+        targetCamY = camY;
+      };
 
-      // 3. Update Camera Position & Zoom
-      if ((p as any).mouseIsPressed && !isModalActive) {
+      // Force p.setup and p5 internal _start execution immediately on mount
+      setTimeout(() => {
+        if (typeof (p as any)._start === 'function') {
+          try { (p as any)._start(); } catch (e) { }
+        }
+        if (!isSetupCalled && typeof p.setup === 'function') {
+          p.setup();
+        }
+      }, 0);
 
-        if (p.mouseX < 150 && p.mouseY > p.height - 150) {
-          cameraFollowsPlayer = true;
-          isDragging = false;
+
+
+      p.windowResized = () => {
+        const realW = typeof window !== 'undefined' && window.innerWidth > 200 ? window.innerWidth : (p.windowWidth > 200 ? p.windowWidth : 1200);
+        const realH = typeof window !== 'undefined' && window.innerHeight > 200 ? window.innerHeight : (p.windowHeight > 200 ? p.windowHeight : 800);
+        p.resizeCanvas(realW, realH);
+        if (typeof (p as any).noSmooth === 'function') (p as any).noSmooth();
+        const ctx = (p as any).drawingContext;
+        if (ctx) ctx.imageSmoothingEnabled = false;
+
+        const canvasElt = (p as any).canvas;
+        if (canvasElt) {
+          canvasElt.style.setProperty('width', '100vw', 'important');
+          canvasElt.style.setProperty('height', '100vh', 'important');
+          canvasElt.style.setProperty('position', 'fixed', 'important');
+          canvasElt.style.setProperty('top', '0px', 'important');
+          canvasElt.style.setProperty('left', '0px', 'important');
+          canvasElt.style.setProperty('display', 'block', 'important');
+        }
+
+        updateAdaptiveZoom();
+        targetCamY = p.height * 0.72;
+      };
+
+
+      p.draw = () => {
+        // Auto-heal canvas size if p5 initialized at 200x200 or 0x0 during early React mount
+        if (p.width <= 300 || p.height <= 300) {
+          const realW = typeof window !== 'undefined' && window.innerWidth > 200 ? window.innerWidth : (p.windowWidth > 200 ? p.windowWidth : 1200);
+          const realH = typeof window !== 'undefined' && window.innerHeight > 200 ? window.innerHeight : (p.windowHeight > 200 ? p.windowHeight : 800);
+          if (realW > 300 && realH > 300) {
+            p.resizeCanvas(realW, realH);
+            const canvasElt = (p as any).canvas;
+            if (canvasElt) {
+              canvasElt.style.setProperty('width', '100vw', 'important');
+              canvasElt.style.setProperty('height', '100vh', 'important');
+            }
+            updateAdaptiveZoom();
+            targetCamY = p.height * 0.72;
+          }
+        }
+
+
+
+        // 1. Meadow Base Fill (Night deep forest green in dark mode, vibrant meadow in light mode)
+
+
+        if (currentThemeMode === 'dark') {
+          p.background(24, 52, 38);
+        } else {
+          p.background(78, 160, 89);
+        }
+        windTimer += 0.4;
+
+        // 2. Physics & Combat Simulation (Paused when any modal is open)
+        if (!isModalActive) {
+          simulatePhysics();
+          updateEnemyNinja(1 / 60);
+        }
+
+        // 2.5. Telemetry callback
+
+        if (typeof callbacks?.onPhysicsTelemetryChange === 'function') {
+          callbacks.onPhysicsTelemetryChange({
+            x: Math.round(playerBody.x),
+            y: Math.round(playerBody.y),
+            vx: Math.round(playerBody.vx * 10) / 10,
+            vy: Math.round(playerBody.vy * 10) / 10,
+            isGrounded: playerBody.isGrounded,
+            isMoving: Math.abs(playerBody.vx) > 0.1 || Math.abs(playerBody.vy) > 0.1,
+            action: playerAction,
+            facing: playerBody.facing,
+            cameraFollows: cameraFollowsPlayer,
+            controlMode,
+          });
+        }
+
+        // 3. Update Camera Position & Zoom
+        if ((p as any).mouseIsPressed && !isModalActive) {
+
+          if (p.mouseX < 150 && p.mouseY > p.height - 150) {
+            cameraFollowsPlayer = true;
+            isDragging = false;
+          }
+        }
+
+        if (cameraFollowsPlayer) {
+          targetCamX = p.width / 2 - playerBody.x * zoom;
+        }
+
+        // Strict viewport edge clamping: Left and right screen edges NEVER cross boundaries
+        const minCamX = p.width - WORLD_BOUNDS.maxX * zoom;
+        const maxCamX = -WORLD_BOUNDS.minX * zoom;
+        targetCamX = p.constrain(targetCamX, minCamX, maxCamX);
+
+        // Fast, responsive camera tracking for desktop & larger screens (no camera drag lag)
+        const cameraLerpSpeed = (Math.abs(playerBody.vx) > 0.1 || Math.abs(playerBody.vy) > 0.1) ? 0.35 : 0.22;
+        camX = p.lerp(camX, targetCamX, cameraLerpSpeed);
+        camY = p.lerp(camY, targetCamY, cameraLerpSpeed);
+        zoom = p.lerp(zoom, targetZoom, 0.20);
+
+        // Hard clamp current camX as well to avoid any lerp overshoot past boundaries
+        camX = p.constrain(camX, minCamX, maxCamX);
+
+        // 4. Render New Blue Sky & 3 Cloud Layers (from public/locations/world)
+        renderSkyAndClouds();
+
+        // 5. Apply 2D Camera Transformation for World Space
+        p.push();
+        p.translate(camX, camY);
+        p.scale(zoom);
+
+        // 6. Render Ground Floor & Meadow (from public/locations/world/ground.png)
+        renderMapSceneryAndFloor();
+
+        // 7. Render 2.5D Depth-Sorted World Entities (Back-to-Front Y-Sorting)
+        renderDepthSortedEntities();
+
+        // 7.5 Render Combat Particles & Floating Damage Texts
+        renderCombatParticlesAndTexts();
+
+        // 8. Render Boundary Walls
+        renderMapBoundaries();
+
+        p.pop();
+
+        // 9. Screen-Space Overlays (Off-screen Enemy Indicator)
+        renderOffscreenEnemyIndicator();
+      };
+
+      function resolveSolidObstacleCollisions() {
+        // 1. Home Base building & Garage (stops player from walking into or through the building)
+        // Garage (-520) + House (0) span x: -680 to +360 with front porch at y = 70
+        if (playerBody.x >= -680 && playerBody.x <= 360) {
+          if (playerBody.y < 70) {
+            playerBody.y = 70;
+            if (playerBody.vy < 0) playerBody.vy = 0;
+          }
+        }
+
+        // 2. Mailbox post collision at x = 220 (front right garden lawn)
+        if (Math.abs(playerBody.x - 220) < 30) {
+          resolveObstacleEllipse(220, 74, 14, 8);
+        }
+
+        // 3. Interactive Landmark Objects (Chest, Briefcase, Vault, Chamber, Bag)
+        for (let i = 0; i < INTERACTIVE_OBJECTS.length; i++) {
+          const obj = INTERACTIVE_OBJECTS[i];
+          if (Math.abs(playerBody.x - obj.x) < 70) {
+            resolveObstacleEllipse(obj.x, obj.yOffset || 0, 34, 15);
+          }
+        }
+
+        // 4. Street Lamp Posts
+        for (let i = 0; i < WORLD_LAMP_POSTS.length; i++) {
+          const lamp = WORLD_LAMP_POSTS[i];
+          if (Math.abs(playerBody.x - lamp.x) < 25) {
+            resolveObstacleEllipse(lamp.x, lamp.yOffset, 12, 6);
+          }
         }
       }
 
-      if (cameraFollowsPlayer) {
-        targetCamX = p.width / 2 - playerBody.x * zoom;
-      }
-
-      // Strict viewport edge clamping: Left and right screen edges NEVER cross boundaries
-      const minCamX = p.width - WORLD_BOUNDS.maxX * zoom;
-      const maxCamX = -WORLD_BOUNDS.minX * zoom;
-      targetCamX = p.constrain(targetCamX, minCamX, maxCamX);
-
-      // Fast, responsive camera tracking for desktop & larger screens (no camera drag lag)
-      const cameraLerpSpeed = (Math.abs(playerBody.vx) > 0.1 || Math.abs(playerBody.vy) > 0.1) ? 0.35 : 0.22;
-      camX = p.lerp(camX, targetCamX, cameraLerpSpeed);
-      camY = p.lerp(camY, targetCamY, cameraLerpSpeed);
-      zoom = p.lerp(zoom, targetZoom, 0.20);
-
-      // Hard clamp current camX as well to avoid any lerp overshoot past boundaries
-      camX = p.constrain(camX, minCamX, maxCamX);
-
-      // 4. Render New Blue Sky & 3 Cloud Layers (from public/locations/world)
-      renderSkyAndClouds();
-
-      // 5. Apply 2D Camera Transformation for World Space
-      p.push();
-      p.translate(camX, camY);
-      p.scale(zoom);
-
-      // 6. Render Ground Floor & Meadow (from public/locations/world/ground.png)
-      renderMapSceneryAndFloor();
-
-      // 7. Render 2.5D Depth-Sorted World Entities (Back-to-Front Y-Sorting)
-      renderDepthSortedEntities();
-
-      // 7.5 Render Combat Particles & Floating Damage Texts
-      renderCombatParticlesAndTexts();
-
-      // 8. Render Boundary Walls
-      renderMapBoundaries();
-
-      p.pop();
-
-      // 9. Screen-Space Overlays (Off-screen Enemy Indicator)
-      renderOffscreenEnemyIndicator();
-    };
-
-    function resolveSolidObstacleCollisions() {
-      // 1. Home Base building & Garage (stops player from walking into or through the building)
-      // Garage (-520) + House (0) span x: -680 to +360 with front porch at y = 70
-      if (playerBody.x >= -680 && playerBody.x <= 360) {
-        if (playerBody.y < 70) {
-          playerBody.y = 70;
-          if (playerBody.vy < 0) playerBody.vy = 0;
+      function resolveObstacleEllipse(ox: number, oy: number, rx: number, ry: number) {
+        const prx = 16;
+        const pry = 10;
+        const Rx = rx + prx;
+        const Ry = ry + pry;
+        const dx = playerBody.x - ox;
+        const dy = playerBody.y - oy;
+        const u = dx / Rx;
+        const v = dy / Ry;
+        const dNormSq = u * u + v * v;
+        if (dNormSq < 1.0) {
+          const dist = Math.sqrt(dNormSq);
+          if (dist > 0.001) {
+            const un = u / dist;
+            const vn = v / dist;
+            playerBody.x = ox + un * Rx;
+            playerBody.y = oy + vn * Ry;
+            // Silky smooth sliding: cancel velocity pointing into the obstacle
+            const nx = un / Rx;
+            const ny = vn / Ry;
+            const nLen = Math.hypot(nx, ny);
+            const nnx = nx / nLen;
+            const nny = ny / nLen;
+            const dot = playerBody.vx * nnx + playerBody.vy * nny;
+            if (dot < 0) {
+              playerBody.vx -= dot * nnx;
+              playerBody.vy -= dot * nny;
+            }
+          } else {
+            playerBody.y = oy + Ry;
+          }
         }
       }
 
-      // 2. Mailbox post collision at x = 220 (front right garden lawn)
-      if (Math.abs(playerBody.x - 220) < 30) {
-        resolveObstacleEllipse(220, 74, 14, 8);
-      }
+      function simulatePhysics() {
+        if (isModalActive) return;
 
-      // 3. Interactive Landmark Objects (Chest, Briefcase, Vault, Chamber, Bag)
-      for (let i = 0; i < INTERACTIVE_OBJECTS.length; i++) {
-        const obj = INTERACTIVE_OBJECTS[i];
-        if (Math.abs(playerBody.x - obj.x) < 70) {
-          resolveObstacleEllipse(obj.x, obj.yOffset || 0, 34, 15);
+        if (playerRespawnCountdown > 0) {
+          const dtSec = 1 / 60;
+          playerRespawnCountdown -= dtSec;
+          playerDeadPhase += dtSec * 5.0;
+          playerAction = 'dead';
+          playerBody.vx *= 0.85;
+          playerBody.vy *= 0.85;
+          playerBody.x += playerBody.vx;
+          playerBody.y += playerBody.vy;
+          callbacks?.onRespawnCountdownChange?.(Math.max(1, Math.ceil(playerRespawnCountdown)));
+
+          if (playerRespawnCountdown <= 0) {
+            playerRespawnCountdown = 0;
+            playerHp = maxPlayerHp;
+            playerAction = 'idle';
+            playerDeadPhase = 0;
+            playerBody.x = 0;
+            playerBody.y = 80;
+            playerBody.vx = 0;
+            playerBody.vy = 0;
+            spawnFloatingText(0, GROUND_Y + 50, 'RESPAWNED AT HOME BASE!', '#5B9BF3');
+            callbacks?.onPlayerHealthChange?.(maxPlayerHp, maxPlayerHp);
+            callbacks?.onRespawnCountdownChange?.(null);
+            callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, 'idle');
+          }
+          return;
         }
-      }
 
-      // 4. Street Lamp Posts
-      for (let i = 0; i < WORLD_LAMP_POSTS.length; i++) {
-        const lamp = WORLD_LAMP_POSTS[i];
-        if (Math.abs(playerBody.x - lamp.x) < 25) {
-          resolveObstacleEllipse(lamp.x, lamp.yOffset, 12, 6);
+        if (isModalActive) {
+          if (playerBody.isGrounded && attackTimer <= 0 && Math.hypot(playerBody.vx, playerBody.vy) < 0.2) {
+            playerAction = 'idle';
+          }
+          return;
         }
-      }
-    }
 
-    function resolveObstacleEllipse(ox: number, oy: number, rx: number, ry: number) {
-      const prx = 16;
-      const pry = 10;
-      const Rx = rx + prx;
-      const Ry = ry + pry;
-      const dx = playerBody.x - ox;
-      const dy = playerBody.y - oy;
-      const u = dx / Rx;
-      const v = dy / Ry;
-      const dNormSq = u * u + v * v;
-      if (dNormSq < 1.0) {
-        const dist = Math.sqrt(dNormSq);
-        if (dist > 0.001) {
-          const un = u / dist;
-          const vn = v / dist;
-          playerBody.x = ox + un * Rx;
-          playerBody.y = oy + vn * Ry;
-          // Silky smooth sliding: cancel velocity pointing into the obstacle
-          const nx = un / Rx;
-          const ny = vn / Ry;
-          const nLen = Math.hypot(nx, ny);
-          const nnx = nx / nLen;
-          const nny = ny / nLen;
-          const dot = playerBody.vx * nnx + playerBody.vy * nny;
-          if (dot < 0) {
-            playerBody.vx -= dot * nnx;
-            playerBody.vy -= dot * nny;
+        const charPhys = CHARACTER_DEFS[playerCharacter].physics;
+
+        const isLeft = !!(keys['KeyA'] || keys['ArrowLeft'] || keys['a'] || keys['A'] || keys['virtual_left']);
+        const isRight = !!(keys['KeyD'] || keys['ArrowRight'] || keys['d'] || keys['D'] || keys['virtual_right']);
+        const isUp = !!(keys['KeyW'] || keys['ArrowUp'] || keys['w'] || keys['W'] || keys['virtual_up']);
+        const isDown = !!(keys['KeyS'] || keys['ArrowDown'] || keys['s'] || keys['S'] || keys['virtual_down']);
+        const isJump = !!(keys['Space'] || keys['virtual_jump']);
+        const isSprint = !!(keys['ShiftLeft'] || keys['ShiftRight'] || keys['virtual_sprint']);
+
+        const stickDist = Math.hypot(joystickVector.x, joystickVector.y);
+        const isUsingJoystick = stickDist > 0.06;
+
+        let moveDirX = 0;
+        let moveDirY = 0;
+
+        if (isUsingJoystick) {
+          moveDirX = joystickVector.x;
+          moveDirY = joystickVector.y;
+          playerBody.facing = moveDirX >= 0 ? 'right' : 'left';
+        } else {
+          if (isLeft && !isRight) moveDirX = -1;
+          else if (isRight && !isLeft) moveDirX = 1;
+
+          if (isUp && !isDown) moveDirY = -1;
+          else if (isDown && !isUp) moveDirY = 1;
+
+          if (moveDirX !== 0) {
+            playerBody.facing = moveDirX > 0 ? 'right' : 'left';
+          }
+        }
+
+        const isRunning = isSprint && moveDirX !== 0;
+        const forceMag = isRunning ? charPhys.runForce : charPhys.walkForce;
+
+        // X Movement & Speed Scaling
+        if (moveDirX !== 0) {
+          if ((moveDirX > 0 && playerBody.vx < 0) || (moveDirX < 0 && playerBody.vx > 0)) {
+            playerBody.vx = 0;
+          }
+          playerBody.vx += moveDirX * (forceMag / playerBody.mass) * 0.85;
+        } else {
+          playerBody.vx *= 0.35;
+          if (Math.abs(playerBody.vx) < 0.1) playerBody.vx = 0;
+        }
+
+        // Dynamic speed scaling: If using joystick, maxSpeed scales with distance from center
+        const speedScaleX = isUsingJoystick ? Math.min(1.0, Math.max(0.20, Math.abs(moveDirX))) : 1.0;
+        const maxSpeedX = (isRunning ? 8.5 : 5.2) * speedScaleX;
+        playerBody.vx = p.constrain(playerBody.vx, -maxSpeedX, maxSpeedX);
+
+        // Y Movement & Speed Scaling (Up / Down depth axis)
+        if (moveDirY !== 0) {
+          if ((moveDirY > 0 && playerBody.vy < 0) || (moveDirY < 0 && playerBody.vy > 0)) {
+            playerBody.vy = 0;
+          }
+          playerBody.vy += moveDirY * (forceMag / playerBody.mass) * 0.55;
+        } else {
+          playerBody.vy *= 0.35;
+          if (Math.abs(playerBody.vy) < 0.1) playerBody.vy = 0;
+        }
+
+        const speedScaleY = isUsingJoystick ? Math.min(1.0, Math.max(0.20, Math.abs(moveDirY))) : 1.0;
+        const maxSpeedY = (isRunning ? 3.8 : 2.4) * speedScaleY;
+        playerBody.vy = p.constrain(playerBody.vy, -maxSpeedY, maxSpeedY);
+
+
+        // Jump Offset Simulation (Space bar / Jump button)
+        if (isJump && jumpOffset === 0) {
+          jumpVelocity = -10.2;
+          playerBody.isGrounded = false;
+          playerAction = 'jump';
+          spawnDust(playerBody.x, playerBody.y, 4, 2.0);
+          // Consume jump triggers immediately so single press = single jump
+          keys['Space'] = false;
+          keys['virtual_jump'] = false;
+        }
+
+        if (jumpOffset < 0 || jumpVelocity !== 0) {
+          jumpOffset += jumpVelocity;
+          jumpVelocity += 0.95; // Smooth natural gravity
+          if (jumpOffset >= 0) {
+            jumpOffset = 0;
+            jumpVelocity = 0;
+            playerBody.isGrounded = true;
+            spawnDust(playerBody.x, playerBody.y, 4, 1.8);
           }
         } else {
-          playerBody.y = oy + Ry;
+          playerBody.isGrounded = true;
         }
-      }
-    }
 
-    function simulatePhysics() {
-      if (isModalActive) return;
-
-      if (playerRespawnCountdown > 0) {
-        const dtSec = 1 / 60;
-        playerRespawnCountdown -= dtSec;
-        playerDeadPhase += dtSec * 5.0;
-        playerAction = 'dead';
-        playerBody.vx *= 0.85;
-        playerBody.vy *= 0.85;
+        // Apply displacement
         playerBody.x += playerBody.vx;
         playerBody.y += playerBody.vy;
-        callbacks?.onRespawnCountdownChange?.(Math.max(1, Math.ceil(playerRespawnCountdown)));
 
-        if (playerRespawnCountdown <= 0) {
-          playerRespawnCountdown = 0;
-          playerHp = maxPlayerHp;
-          playerAction = 'idle';
-          playerDeadPhase = 0;
-          playerBody.x = 0;
-          playerBody.y = 80;
-          playerBody.vx = 0;
-          playerBody.vy = 0;
-          spawnFloatingText(0, GROUND_Y + 50, 'RESPAWNED AT HOME BASE!', '#5B9BF3');
-          callbacks?.onPlayerHealthChange?.(maxPlayerHp, maxPlayerHp);
-          callbacks?.onRespawnCountdownChange?.(null);
-          callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, 'idle');
+        // Resolve solid obstacle collisions (trees, bushes, items, home base)
+        resolveSolidObstacleCollisions();
+
+        // Clamp player within ground walking corridor
+        playerBody.y = p.constrain(playerBody.y, 0, 110);
+        const playerCollisionRadius = 40;
+        if (playerBody.x <= WORLD_BOUNDS.minX + playerCollisionRadius) {
+          playerBody.x = WORLD_BOUNDS.minX + playerCollisionRadius;
+          if (playerBody.vx < 0) playerBody.vx = 0;
         }
-        return;
-      }
-
-      if (isModalActive) {
-        if (playerBody.isGrounded && attackTimer <= 0 && Math.hypot(playerBody.vx, playerBody.vy) < 0.2) {
-          playerAction = 'idle';
+        if (playerBody.x >= WORLD_BOUNDS.maxX - playerCollisionRadius) {
+          playerBody.x = WORLD_BOUNDS.maxX - playerCollisionRadius;
+          if (playerBody.vx > 0) playerBody.vx = 0;
         }
-        return;
-      }
 
-      const charPhys = CHARACTER_DEFS[playerCharacter].physics;
-
-      const isLeft = !!(keys['KeyA'] || keys['ArrowLeft'] || keys['a'] || keys['A'] || keys['virtual_left']);
-      const isRight = !!(keys['KeyD'] || keys['ArrowRight'] || keys['d'] || keys['D'] || keys['virtual_right']);
-      const isUp = !!(keys['KeyW'] || keys['ArrowUp'] || keys['w'] || keys['W'] || keys['virtual_up']);
-      const isDown = !!(keys['KeyS'] || keys['ArrowDown'] || keys['s'] || keys['S'] || keys['virtual_down']);
-      const isJump = !!(keys['Space'] || keys['virtual_jump']);
-      const isSprint = !!(keys['ShiftLeft'] || keys['ShiftRight'] || keys['virtual_sprint']);
-
-      const stickDist = Math.hypot(joystickVector.x, joystickVector.y);
-      const isUsingJoystick = stickDist > 0.06;
-
-      let moveDirX = 0;
-      let moveDirY = 0;
-
-      if (isUsingJoystick) {
-        moveDirX = joystickVector.x;
-        moveDirY = joystickVector.y;
-        playerBody.facing = moveDirX >= 0 ? 'right' : 'left';
-      } else {
-        if (isLeft && !isRight) moveDirX = -1;
-        else if (isRight && !isLeft) moveDirX = 1;
-
-        if (isUp && !isDown) moveDirY = -1;
-        else if (isDown && !isUp) moveDirY = 1;
-
-        if (moveDirX !== 0) {
-          playerBody.facing = moveDirX > 0 ? 'right' : 'left';
+        // 4 Attack Triggers
+        if (attackTimer <= 0) {
+          if (keys['Digit1'] || keys['1'] || keys['KeyJ'] || keys['j'] || keys['J'] || keys['KeyF'] || keys['f'] || keys['F']) {
+            triggerPlayerAttack('attack1');
+          } else if (keys['Digit2'] || keys['2'] || keys['KeyK'] || keys['k'] || keys['K'] || keys['KeyG'] || keys['g'] || keys['G']) {
+            triggerPlayerAttack('attack2');
+          } else if (keys['Digit3'] || keys['3'] || keys['KeyL'] || keys['l'] || keys['L'] || keys['KeyH'] || keys['h'] || keys['H']) {
+            triggerPlayerAttack('attack3');
+          } else if (keys['Digit4'] || keys['4'] || keys['Semicolon'] || keys[';'] || keys['KeyU'] || keys['u'] || keys['U'] || keys['KeyY'] || keys['y'] || keys['Y']) {
+            triggerPlayerAttack('attack4');
+          }
         }
-      }
 
-      const isRunning = isSprint && moveDirX !== 0;
-      const forceMag = isRunning ? charPhys.runForce : charPhys.walkForce;
-
-      // X Movement & Speed Scaling
-      if (moveDirX !== 0) {
-        if ((moveDirX > 0 && playerBody.vx < 0) || (moveDirX < 0 && playerBody.vx > 0)) {
-          playerBody.vx = 0;
-        }
-        playerBody.vx += moveDirX * (forceMag / playerBody.mass) * 0.85;
-      } else {
-        playerBody.vx *= 0.35;
-        if (Math.abs(playerBody.vx) < 0.1) playerBody.vx = 0;
-      }
-
-      // Dynamic speed scaling: If using joystick, maxSpeed scales with distance from center
-      const speedScaleX = isUsingJoystick ? Math.min(1.0, Math.max(0.20, Math.abs(moveDirX))) : 1.0;
-      const maxSpeedX = (isRunning ? 8.5 : 5.2) * speedScaleX;
-      playerBody.vx = p.constrain(playerBody.vx, -maxSpeedX, maxSpeedX);
-
-      // Y Movement & Speed Scaling (Up / Down depth axis)
-      if (moveDirY !== 0) {
-        if ((moveDirY > 0 && playerBody.vy < 0) || (moveDirY < 0 && playerBody.vy > 0)) {
-          playerBody.vy = 0;
-        }
-        playerBody.vy += moveDirY * (forceMag / playerBody.mass) * 0.55;
-      } else {
-        playerBody.vy *= 0.35;
-        if (Math.abs(playerBody.vy) < 0.1) playerBody.vy = 0;
-      }
-
-      const speedScaleY = isUsingJoystick ? Math.min(1.0, Math.max(0.20, Math.abs(moveDirY))) : 1.0;
-      const maxSpeedY = (isRunning ? 3.8 : 2.4) * speedScaleY;
-      playerBody.vy = p.constrain(playerBody.vy, -maxSpeedY, maxSpeedY);
-
-
-      // Jump Offset Simulation (Space bar / Jump button)
-      if (isJump && jumpOffset === 0) {
-        jumpVelocity = -10.2;
-        playerBody.isGrounded = false;
-        playerAction = 'jump';
-        spawnDust(playerBody.x, playerBody.y, 4, 2.0);
-        // Consume jump triggers immediately so single press = single jump
-        keys['Space'] = false;
-        keys['virtual_jump'] = false;
-      }
-
-      if (jumpOffset < 0 || jumpVelocity !== 0) {
-        jumpOffset += jumpVelocity;
-        jumpVelocity += 0.95; // Smooth natural gravity
-        if (jumpOffset >= 0) {
-          jumpOffset = 0;
-          jumpVelocity = 0;
-          playerBody.isGrounded = true;
-          spawnDust(playerBody.x, playerBody.y, 4, 1.8);
-        }
-      } else {
-        playerBody.isGrounded = true;
-      }
-
-      // Apply displacement
-      playerBody.x += playerBody.vx;
-      playerBody.y += playerBody.vy;
-
-      // Resolve solid obstacle collisions (trees, bushes, items, home base)
-      resolveSolidObstacleCollisions();
-
-      // Clamp player within ground walking corridor
-      playerBody.y = p.constrain(playerBody.y, 0, 110);
-      const playerCollisionRadius = 40;
-      if (playerBody.x <= WORLD_BOUNDS.minX + playerCollisionRadius) {
-        playerBody.x = WORLD_BOUNDS.minX + playerCollisionRadius;
-        if (playerBody.vx < 0) playerBody.vx = 0;
-      }
-      if (playerBody.x >= WORLD_BOUNDS.maxX - playerCollisionRadius) {
-        playerBody.x = WORLD_BOUNDS.maxX - playerCollisionRadius;
-        if (playerBody.vx > 0) playerBody.vx = 0;
-      }
-
-      // 4 Attack Triggers
-      if (attackTimer <= 0) {
-        if (keys['Digit1'] || keys['1'] || keys['KeyJ'] || keys['j'] || keys['J'] || keys['KeyF'] || keys['f'] || keys['F']) {
-          triggerPlayerAttack('attack1');
-        } else if (keys['Digit2'] || keys['2'] || keys['KeyK'] || keys['k'] || keys['K'] || keys['KeyG'] || keys['g'] || keys['G']) {
-          triggerPlayerAttack('attack2');
-        } else if (keys['Digit3'] || keys['3'] || keys['KeyL'] || keys['l'] || keys['L'] || keys['KeyH'] || keys['h'] || keys['H']) {
-          triggerPlayerAttack('attack3');
-        } else if (keys['Digit4'] || keys['4'] || keys['Semicolon'] || keys[';'] || keys['KeyU'] || keys['u'] || keys['U'] || keys['KeyY'] || keys['y'] || keys['Y']) {
-          triggerPlayerAttack('attack4');
-        }
-      }
-
-      if (keys['KeyE'] || keys['e'] || keys['Enter']) {
-        const nearbyObj = getNearbyWorldObject(playerBody.x);
-        if (nearbyObj) {
-          callbacks?.onInspectObject?.(nearbyObj);
-          keys['KeyE'] = false;
-          keys['e'] = false;
-          keys['Enter'] = false;
-        } else {
-          const nearbyKiosk = getNearbyStationKiosk(playerBody.x);
-          if (nearbyKiosk) {
-            callbacks?.onInspectStation?.(nearbyKiosk);
+        if (keys['KeyE'] || keys['e'] || keys['Enter']) {
+          const nearbyObj = getNearbyWorldObject(playerBody.x);
+          if (nearbyObj) {
+            callbacks?.onInspectObject?.(nearbyObj);
             keys['KeyE'] = false;
             keys['e'] = false;
             keys['Enter'] = false;
+          } else {
+            const nearbyKiosk = getNearbyStationKiosk(playerBody.x);
+            if (nearbyKiosk) {
+              callbacks?.onInspectStation?.(nearbyKiosk);
+              keys['KeyE'] = false;
+              keys['e'] = false;
+              keys['Enter'] = false;
+            }
           }
         }
-      }
 
-      if (attackTimer > 0) {
-        attackTimer--;
-        attackPhase += 0.45;
-        if (attackTimer === 0 && playerBody.isGrounded) {
-          const spd = Math.hypot(playerBody.vx, playerBody.vy);
-          playerAction = spd > 0.3 ? 'walk' : 'idle';
-        }
-      }
-
-      // Animation phase updates
-      const currentSpeed = Math.hypot(playerBody.vx, playerBody.vy);
-      if (jumpOffset < 0) {
-        playerAction = 'jump';
-        const normalizedJumpProgress = p.map(jumpVelocity, -17.5, 17.5, 0, 8);
-        jumpPhase = p.constrain(normalizedJumpProgress, 0, 8);
-      } else if (attackTimer <= 0) {
-        if (currentSpeed > 0.2) {
-          playerAction = isRunning ? 'run' : 'walk';
-          walkPhase += currentSpeed * 0.07;
-
-          const stepCycle = Math.floor(walkPhase);
-          if (stepCycle % 4 === 0 && (walkPhase - stepCycle) < 0.25) {
-            spawnDust(playerBody.x - (playerBody.facing === 'right' ? 14 : -14), playerBody.y, 1, 1.2);
+        if (attackTimer > 0) {
+          attackTimer--;
+          attackPhase += 0.45;
+          if (attackTimer === 0 && playerBody.isGrounded) {
+            const spd = Math.hypot(playerBody.vx, playerBody.vy);
+            playerAction = spd > 0.3 ? 'walk' : 'idle';
           }
-        } else {
-          playerAction = 'idle';
+        }
+
+        // Animation phase updates
+        const currentSpeed = Math.hypot(playerBody.vx, playerBody.vy);
+        if (jumpOffset < 0) {
+          playerAction = 'jump';
+          const normalizedJumpProgress = p.map(jumpVelocity, -17.5, 17.5, 0, 8);
+          jumpPhase = p.constrain(normalizedJumpProgress, 0, 8);
+        } else if (attackTimer <= 0) {
+          if (currentSpeed > 0.2) {
+            playerAction = isRunning ? 'run' : 'walk';
+            walkPhase += currentSpeed * 0.07;
+
+            const stepCycle = Math.floor(walkPhase);
+            if (stepCycle % 4 === 0 && (walkPhase - stepCycle) < 0.25) {
+              spawnDust(playerBody.x - (playerBody.facing === 'right' ? 14 : -14), playerBody.y, 1, 1.2);
+            }
+          } else {
+            playerAction = 'idle';
+          }
+        }
+
+        const activeLoc = getActiveMapLocation(playerBody.x);
+        const nearbyStation = getNearbyStationKiosk(playerBody.x);
+        const nearbyObject = getNearbyWorldObject(playerBody.x);
+        const isNearbyKiosk = !!nearbyStation || !!nearbyObject;
+        const currentObjId = nearbyObject?.id || '';
+
+        if (activeLoc.id !== lastReportedLocId || isNearbyKiosk !== lastNearbyState || currentObjId !== lastNearbyObjectId) {
+          lastReportedLocId = activeLoc.id;
+          lastNearbyState = isNearbyKiosk;
+          lastNearbyObjectId = currentObjId;
+
+          callbacks?.onBiomeChange?.({
+            id: activeLoc.id,
+            category: activeLoc.category,
+            name: activeLoc.name,
+            tag: nearbyObject ? 'Interactive Object' : activeLoc.tag,
+            featureType: activeLoc.featureType,
+            featureTitle: activeLoc.featureTitle,
+            description: activeLoc.description,
+            x: activeLoc.x,
+            actionLabel: nearbyObject ? nearbyObject.actionLabel : activeLoc.actionLabel,
+            isNearbyKiosk,
+            nearbyObject,
+          });
+        }
+
+        if (callbacks?.onPlayerPositionChange) {
+          callbacks.onPlayerPositionChange(playerBody.x, playerBody.y);
         }
       }
 
-      const activeLoc = getActiveMapLocation(playerBody.x);
-      const nearbyStation = getNearbyStationKiosk(playerBody.x);
-      const nearbyObject = getNearbyWorldObject(playerBody.x);
-      const isNearbyKiosk = !!nearbyStation || !!nearbyObject;
-      const currentObjId = nearbyObject?.id || '';
+      function renderDustParticles() {
+        let dWrite = 0;
+        for (let i = 0; i < dustParticles.length; i++) {
+          const pArt = dustParticles[i];
+          pArt.x += pArt.vx;
+          pArt.y += pArt.vy;
+          pArt.vy += 0.08;
+          pArt.life++;
 
-      if (activeLoc.id !== lastReportedLocId || isNearbyKiosk !== lastNearbyState || currentObjId !== lastNearbyObjectId) {
-        lastReportedLocId = activeLoc.id;
-        lastNearbyState = isNearbyKiosk;
-        lastNearbyObjectId = currentObjId;
+          if (pArt.life < pArt.maxLife && dWrite < 12) {
+            pArt.alpha = 1 - pArt.life / pArt.maxLife;
+            dustParticles[dWrite++] = pArt;
 
-        callbacks?.onBiomeChange?.({
-          id: activeLoc.id,
-          category: activeLoc.category,
-          name: activeLoc.name,
-          tag: nearbyObject ? 'Interactive Object' : activeLoc.tag,
-          featureType: activeLoc.featureType,
-          featureTitle: activeLoc.featureTitle,
-          description: activeLoc.description,
-          x: activeLoc.x,
-          actionLabel: nearbyObject ? nearbyObject.actionLabel : activeLoc.actionLabel,
-          isNearbyKiosk,
-          nearbyObject,
-        });
+            p.noStroke();
+            p.fill(104, 179, 90, pArt.alpha * 180);
+            p.ellipse(pArt.x, pArt.y, pArt.size / zoom, pArt.size / zoom);
+          }
+        }
+        dustParticles.length = dWrite;
       }
 
-      if (callbacks?.onPlayerPositionChange) {
-        callbacks.onPlayerPositionChange(playerBody.x, playerBody.y);
+      function renderPlayerCharacter() {
+        const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+        const currentTimeSec = (typeof performance !== 'undefined' ? performance.now() : (p as any).millis()) / 1000;
+
+        let activeProgress = currentTimeSec;
+        if (playerAction === 'walk' || playerAction === 'run') {
+          activeProgress = walkPhase;
+        } else if (playerAction === 'jump') {
+          activeProgress = jumpPhase;
+        } else if (playerAction === 'dead') {
+          activeProgress = playerDeadPhase;
+        } else if (
+          playerAction === 'attack' ||
+          playerAction === 'attack1' ||
+          playerAction === 'attack2' ||
+          playerAction === 'attack3' ||
+          playerAction === 'attack4'
+        ) {
+          activeProgress = attackPhase;
+        }
+
+        const activeLoc = getActiveMapLocation(playerBody.x);
+        const standingOffset = activeLoc.floor?.standingOffsetY || DEFAULT_ATMOSPHERE.floor?.standingOffsetY || 0;
+
+        // Dynamic Contact Shadow on Ground Floor
+        p.push();
+        p.noStroke();
+        const shadowAlpha = Math.max(25, 75 + jumpOffset * 0.8);
+        p.fill(0, 0, 0, shadowAlpha);
+        const shadowW = Math.max(16, (44 + jumpOffset * 0.22) / zoom);
+        const shadowH = Math.max(6, (14 + jumpOffset * 0.08) / zoom);
+        p.ellipse(playerBody.x, playerBody.y + standingOffset + 4, shadowW, shadowH);
+        p.pop();
+
+        // Render Character Sprite
+        drawCharacterFrame(
+          ctx,
+          playerCharacter,
+          playerAction,
+          playerBody.x,
+          playerBody.y + standingOffset + jumpOffset,
+          playerBody.facing,
+          activeProgress
+        );
       }
-    }
 
-    function renderDustParticles() {
-      let dWrite = 0;
-      for (let i = 0; i < dustParticles.length; i++) {
-        const pArt = dustParticles[i];
-        pArt.x += pArt.vx;
-        pArt.y += pArt.vy;
-        pArt.vy += 0.08;
-        pArt.life++;
+      // Render Sky Gradient (bg.png or bg_night.png), Moon, and Cloud Layers
+      function renderSkyAndClouds() {
+        const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+        const screenW = p.width;
+        const groundScreenY = camY;
+        const skyHeight = Math.max(200, groundScreenY + 20);
 
-        if (pArt.life < pArt.maxLife && dWrite < 12) {
-          pArt.alpha = 1 - pArt.life / pArt.maxLife;
-          dustParticles[dWrite++] = pArt;
+        const activeLoc = getActiveMapLocation(playerBody.x);
+        const skyBgSrc = currentThemeMode === 'dark'
+          ? '/locations/world/bg_night.png'
+          : (activeLoc.background || DEFAULT_ATMOSPHERE.background);
+        const cloudLayers = activeLoc.clouds || DEFAULT_ATMOSPHERE.clouds;
+
+        // 1. Draw Sky Background Texture (bg.png or bg_night.png)
+        if (skyBgSrc) {
+          const bgImg = getTexture(skyBgSrc);
+          if (bgImg.complete && bgImg.naturalWidth > 0) {
+            const aspect = bgImg.naturalWidth / bgImg.naturalHeight;
+            let targetH = skyHeight;
+            let targetW = targetH * aspect;
+            if (targetW < screenW) {
+              targetW = screenW;
+              targetH = targetW / aspect;
+            }
+
+            const parallaxOffset = (camX * 0.03);
+            let startX = (parallaxOffset % targetW);
+            if (startX > 0) startX -= targetW;
+
+            const targetY = groundScreenY - targetH;
+            let drawX = startX;
+            while (drawX < screenW) {
+              ctx.drawImage(bgImg, drawX, targetY, targetW + 1, targetH + 1);
+              drawX += targetW;
+            }
+          }
+        }
+
+        // 1.5 Draw Glowing Moon in Dark Mode
+        if (currentThemeMode === 'dark') {
+          const moonImg = getTexture(activeMoonSrc);
+          if (moonImg.complete && moonImg.naturalWidth > 0) {
+            const aspect = moonImg.naturalWidth / moonImg.naturalHeight;
+            let targetH = skyHeight;
+            let targetW = targetH * aspect;
+            if (targetW < screenW) {
+              targetW = screenW;
+              targetH = targetW / aspect;
+            }
+
+            const parallaxOffset = (camX * 0.015);
+            let startX = (parallaxOffset % targetW);
+            if (startX > 0) startX -= targetW;
+
+            const targetY = groundScreenY - targetH;
+            let drawX = startX;
+            while (drawX < screenW) {
+              ctx.drawImage(moonImg, drawX, targetY, targetW + 1, targetH + 1);
+              drawX += targetW;
+            }
+          }
+        }
+
+        // 2. Draw Cloud Layers (with subtle night tint in dark mode)
+        p.push();
+        if (currentThemeMode === 'dark') {
+          ctx.globalAlpha = 0.50;
+        }
+        for (let i = 0; i < cloudLayers.length; i++) {
+          const cloud = cloudLayers[i];
+          const cloudImg = getTexture(cloud.src);
+          if (!cloudImg.complete || cloudImg.naturalWidth === 0) continue;
+
+          const aspect = cloudImg.naturalWidth / cloudImg.naturalHeight;
+          let targetH = skyHeight * 0.88;
+          let targetW = targetH * aspect;
+          if (targetW < screenW) {
+            targetW = screenW;
+            targetH = targetW / aspect;
+          }
+
+          const parallaxOffset = (camX * cloud.parallax) + (windTimer * cloud.speed);
+          let startX = (parallaxOffset % targetW);
+          if (startX > 0) startX -= targetW;
+
+          const yOffset = cloud.yOffset !== undefined ? cloud.yOffset : -140;
+          const targetY = groundScreenY - targetH + yOffset;
+
+          let drawX = startX;
+          while (drawX < screenW) {
+            ctx.drawImage(cloudImg, drawX, targetY, targetW + 1, targetH + 1);
+            drawX += targetW;
+          }
+        }
+        p.pop();
+      }
+
+      // Render Ground Floor & Meadow (from public/locations/world/ground.png) - Stretches to bottom
+      function renderMapSceneryAndFloor() {
+        const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+
+        const viewLeft = (-camX) / zoom - 300;
+        const viewRight = (p.width - camX) / zoom + 300;
+        const viewBottom = (p.height - camY) / zoom + 400;
+
+        const groundImg = getTexture(DEFAULT_ATMOSPHERE.floor?.image || '/locations/world/ground.png');
+        if (!groundImg.complete || groundImg.naturalWidth === 0) return;
+
+        const targetH = DEFAULT_ATMOSPHERE.floor?.height || 520;
+        const aspect = 576 / 324;
+        const layerW = targetH * aspect;
+
+        // Ground path ratio in 576x324 ground.png
+        const groundSurfaceRatio = 265 / 324;
+        const drawY = GROUND_Y - targetH * groundSurfaceRatio;
+
+
+        if (currentThemeMode === 'dark') {
+          ctx.filter = 'brightness(0.65) saturate(0.90)';
+        }
+
+        let layerX = Math.floor(viewLeft / layerW) * layerW;
+        while (layerX < viewRight + layerW) {
+          // Draw top ground crest with textured grass tufts and paths
+          ctx.drawImage(groundImg, layerX, drawY, layerW + 1, targetH + 1);
+
+          // Seamlessly tile the textured lower meadow downwards to cover the entire screen bottom
+          let tileY = drawY + targetH - 2;
+          const subSliceH = 80;
+          while (tileY < viewBottom + 300) {
+            ctx.drawImage(groundImg, 0, 240, 576, 84, layerX, tileY, layerW + 1, subSliceH + 1);
+            tileY += subSliceH - 1;
+          }
+
+          layerX += layerW - 1;
+        }
+
+        if (currentThemeMode === 'dark') {
+          ctx.filter = 'none';
+        }
+      }
+
+
+
+
+      interface PooledDepthItem {
+        type: number; // 1: tree, 2: bush, 3: interactiveObj, 4: kiosk, 5: garage, 6: home, 7: mailbox, 8: lamp, 9: dust, 10: player, 11: enemy
+        index: number;
+        y: number;
+      }
+      const depthPool: PooledDepthItem[] = [];
+
+      function renderDepthSortedEntities() {
+        const viewLeft = (-camX) / zoom - 450;
+        const viewRight = (p.width - camX) / zoom + 450;
+        let count = 0;
+
+        const pushEntity = (type: number, index: number, y: number) => {
+          if (count < depthPool.length) {
+            const item = depthPool[count];
+            item.type = type;
+            item.index = index;
+            item.y = y;
+          } else {
+            depthPool.push({ type, index, y });
+          }
+          count++;
+        };
+
+        // 1. All Trees (rooted firmly in the grass meadow at tree.yOffset)
+        for (let i = 0; i < ALL_WORLD_TREES.length; i++) {
+          const tree = ALL_WORLD_TREES[i];
+          if (tree.x < viewLeft || tree.x > viewRight) continue;
+          pushEntity(1, i, tree.yOffset || 0);
+        }
+
+        // 2. All Bushes (rooted firmly in the grass meadow at bush.yOffset)
+        for (let i = 0; i < ALL_WORLD_BUSHES.length; i++) {
+          const bush = ALL_WORLD_BUSHES[i];
+          if (bush.x < viewLeft || bush.x > viewRight) continue;
+          pushEntity(2, i, bush.yOffset || 0);
+        }
+
+        // 3. Interactive Landmark Objects (Chest, Briefcase, Vault, Chamber, Bag)
+        for (let i = 0; i < INTERACTIVE_OBJECTS.length; i++) {
+          const obj = INTERACTIVE_OBJECTS[i];
+          if (obj.x < viewLeft || obj.x > viewRight) continue;
+          pushEntity(3, i, (obj.yOffset || 0) + 12);
+        }
+
+        // 4. Station Kiosks (only for outdoor field stations)
+        for (let i = 0; i < WORLD_LOCATIONS.length; i++) {
+          const loc = WORLD_LOCATIONS[i];
+          if (loc.x < viewLeft || loc.x > viewRight || Math.abs(loc.x) <= 600) continue;
+          pushEntity(4, i, 0);
+        }
+
+        // 5. Services Garage at X = -520 (beside house on the left)
+        if (-520 >= viewLeft - 350 && -520 <= viewRight + 350) {
+          pushEntity(5, 0, 68);
+        }
+
+        // 6. Home Base Building at X = 0 (center)
+        if (0 >= viewLeft - 400 && 0 <= viewRight + 400) {
+          pushEntity(6, 0, 68);
+        }
+
+        // 7. Contact Mailbox at X = 220 (front right garden lawn)
+        if (220 >= viewLeft - 200 && 220 <= viewRight + 200) {
+          pushEntity(7, 0, 74);
+        }
+
+        // 8. Street Lamp Posts (Sources of light illuminating the dark mode world)
+        for (let i = 0; i < WORLD_LAMP_POSTS.length; i++) {
+          const lamp = WORLD_LAMP_POSTS[i];
+          if (lamp.x < viewLeft || lamp.x > viewRight) continue;
+          pushEntity(8, i, lamp.yOffset);
+        }
+
+        // 9. Dust Particles
+        if (dustParticles.length > 0) {
+          pushEntity(9, 0, playerBody.y - 0.5);
+        }
+
+        // 10. Player Character
+        pushEntity(10, 0, playerBody.y);
+
+        // 11. Roaming Enemy Ninja
+        if (activeEnemy) {
+          pushEntity(11, 0, activeEnemy.y);
+        }
+
+        // Fast Sort for active items (numeric comparator)
+        const activeSlice = depthPool.slice(0, count);
+        activeSlice.sort((a, b) => a.y - b.y);
+
+        const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+        const isDark = currentThemeMode === 'dark';
+
+        if (isDark) {
+          ctx.filter = 'brightness(0.65) saturate(0.90)';
+        }
+
+        for (let i = 0; i < count; i++) {
+          const ent = activeSlice[i];
+          if (ent.type === 10 || ent.type === 11) {
+            if (isDark) ctx.filter = 'none';
+            if (ent.type === 10) renderPlayerCharacter();
+            else if (activeEnemy) renderEnemyNinja(activeEnemy);
+            if (isDark) ctx.filter = 'brightness(0.65) saturate(0.90)';
+          } else {
+            switch (ent.type) {
+              case 1: drawSingleTree(ALL_WORLD_TREES[ent.index]); break;
+              case 2: drawSingleBush(ALL_WORLD_BUSHES[ent.index]); break;
+              case 3: drawSingleInteractiveObject(INTERACTIVE_OBJECTS[ent.index]); break;
+              case 4: drawSingleStationKiosk(WORLD_LOCATIONS[ent.index]); break;
+              case 5: renderServicesGarage(); break;
+              case 6: renderHomeBeacon(); break;
+              case 7: renderContactMailbox(); break;
+              case 8: drawSingleLampPost(WORLD_LAMP_POSTS[ent.index]); break;
+              case 9: renderDustParticles(); break;
+            }
+          }
+        }
+
+        if (isDark) {
+          ctx.filter = 'none';
+        }
+      }
+
+
+
+
+      function drawSingleTree(tree: FlatSceneryItem) {
+        const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+        const img = getTexture(tree.src);
+        if (!img.complete || img.naturalWidth === 0) return;
+
+        const aspect = img.naturalWidth / img.naturalHeight; // 576 / 324
+        const treeH = tree.size;
+        const treeW = treeH * aspect;
+        const drawX = tree.x - treeW / 2;
+        // Exact trunk base pixel in tree1.png is at y = 274 / 324 (84.57% height)
+        const drawY = GROUND_Y + (tree.yOffset || 0) - treeH * (274 / 324);
+
+        // Soft Ground Contact Shadow directly under base of trunk
+        p.noStroke();
+        p.fill(0, 0, 0, currentThemeMode === 'dark' ? 65 : 45);
+        p.ellipse(tree.x, GROUND_Y + (tree.yOffset || 0) + 1, treeW * 0.20, 8);
+
+        ctx.drawImage(img, drawX, drawY, treeW, treeH);
+      }
+
+      function drawSingleBush(bush: FlatSceneryItem) {
+        const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+        const img = getTexture(bush.src);
+        if (!img.complete || img.naturalWidth === 0) return;
+
+        const aspect = img.naturalWidth / img.naturalHeight;
+        const bushH = bush.size;
+        const bushW = bushH * aspect;
+        const drawX = bush.x - bushW / 2;
+        // Bush bottom pixel is at 95% height
+        const drawY = GROUND_Y + (bush.yOffset || 0) - bushH * 0.95;
+
+        // Soft Ground Contact Shadow directly under bush base
+        p.noStroke();
+        p.fill(0, 0, 0, currentThemeMode === 'dark' ? 55 : 35);
+        p.ellipse(bush.x, GROUND_Y + (bush.yOffset || 0) + 1, bushW * 0.45, 6);
+
+        ctx.drawImage(img, drawX, drawY, bushW, bushH);
+      }
+
+      function drawSingleInteractiveObject(obj: InteractiveWorldObject) {
+        const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+        const img = getTexture(obj.image);
+        const objSize = obj.size || 140;
+        const isPlayerNearby = Math.abs(playerBody.x - obj.x) <= 110;
+        const hoverBob = Math.sin(windTimer * 0.08 + obj.x * 0.01) * 3;
+        const baseY = GROUND_Y + (obj.yOffset || 0);
+
+        p.push();
+        // 1. Soft Ground Contact Shadow
+        p.noStroke();
+        p.fill(0, 0, 0, 75);
+        p.ellipse(obj.x, baseY + 2, objSize * 0.65, 18);
+
+        // 2. Ambient Holographic Halo
+        p.noFill();
+        p.stroke(obj.glowColor || '#00e599');
+        p.strokeWeight(1.8);
+        p.ellipse(obj.x, baseY, objSize * 0.75, 22);
+
+        // 3. Draw Object Image
+        if (img.complete && img.naturalWidth > 0) {
+          const destX = obj.x - objSize / 2;
+          const destY = baseY - objSize * 0.88 + hoverBob;
+          ctx.drawImage(img, destX, destY, objSize, objSize);
+        }
+
+        // 4. Interactive Floating Prompt Banner when Player is nearby
+        if (isPlayerNearby) {
+          const promptY = baseY - objSize - 20;
+          p.fill('#0F0F0F');
+          p.stroke('#EADBCC');
+          p.strokeWeight(1.8);
+          p.rectMode(p.CENTER);
+          p.rect(obj.x, promptY, 200, 30, 8);
 
           p.noStroke();
-          p.fill(104, 179, 90, pArt.alpha * 180);
-          p.ellipse(pArt.x, pArt.y, pArt.size / zoom, pArt.size / zoom);
+          p.fill('#EADBCC');
+          (p as any).textFont('Pixelify Sans');
+          p.textSize(11);
+          p.text(`[ E ] ${obj.actionLabel}`, obj.x, promptY);
         }
-      }
-      dustParticles.length = dWrite;
-    }
-
-    function renderPlayerCharacter() {
-      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-      const currentTimeSec = (typeof performance !== 'undefined' ? performance.now() : (p as any).millis()) / 1000;
-
-      let activeProgress = currentTimeSec;
-      if (playerAction === 'walk' || playerAction === 'run') {
-        activeProgress = walkPhase;
-      } else if (playerAction === 'jump') {
-        activeProgress = jumpPhase;
-      } else if (playerAction === 'dead') {
-        activeProgress = playerDeadPhase;
-      } else if (
-        playerAction === 'attack' ||
-        playerAction === 'attack1' ||
-        playerAction === 'attack2' ||
-        playerAction === 'attack3' ||
-        playerAction === 'attack4'
-      ) {
-        activeProgress = attackPhase;
+        p.pop();
       }
 
-      const activeLoc = getActiveMapLocation(playerBody.x);
-      const standingOffset = activeLoc.floor?.standingOffsetY || DEFAULT_ATMOSPHERE.floor?.standingOffsetY || 0;
+      function drawSingleStationKiosk(loc: MapLocationEntry) {
+        const proximityRadius = 140;
+        const isPlayerNearby = Math.abs(playerBody.x - loc.x) <= proximityRadius;
+        const color = '#00e599';
+        const pulse = Math.sin((p as any).frameCount * 0.08) * 3;
 
-      // Dynamic Contact Shadow on Ground Floor
-      p.push();
-      p.noStroke();
-      const shadowAlpha = Math.max(25, 75 + jumpOffset * 0.8);
-      p.fill(0, 0, 0, shadowAlpha);
-      const shadowW = Math.max(16, (44 + jumpOffset * 0.22) / zoom);
-      const shadowH = Math.max(6, (14 + jumpOffset * 0.08) / zoom);
-      p.ellipse(playerBody.x, playerBody.y + standingOffset + 4, shadowW, shadowH);
-      p.pop();
+        p.push();
+        // 1. Ground Holo Base Disc
+        p.noFill();
+        p.stroke(color);
+        p.strokeWeight(2);
+        p.ellipse(loc.x, GROUND_Y - 4, 48 + pulse, 16 + pulse * 0.5);
 
-      // Render Character Sprite
-      drawCharacterFrame(
-        ctx,
-        playerCharacter,
-        playerAction,
-        playerBody.x,
-        playerBody.y + standingOffset + jumpOffset,
-        playerBody.facing,
-        activeProgress
-      );
-    }
+        // 2. Vertical Holo Projection Beam
+        p.stroke('rgba(0, 229, 153, 0.4)');
+        p.strokeWeight(2);
+        p.line(loc.x, GROUND_Y - 4, loc.x, GROUND_Y - 80);
 
-    // Render Sky Gradient (bg.png or bg_night.png), Moon, and Cloud Layers
-    function renderSkyAndClouds() {
-      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-      const screenW = p.width;
-      const groundScreenY = camY;
-      const skyHeight = Math.max(200, groundScreenY + 20);
+        // 3. Rotating Holographic Diamond
+        p.push();
+        p.translate(loc.x, GROUND_Y - 80);
+        p.rotate((p as any).frameCount * 0.04);
+        p.fill(color);
+        p.noStroke();
+        p.rectMode(p.CENTER);
+        p.rect(0, 0, 14, 14);
+        p.pop();
 
-      const activeLoc = getActiveMapLocation(playerBody.x);
-      const skyBgSrc = currentThemeMode === 'dark'
-        ? '/locations/world/bg_night.png'
-        : (activeLoc.background || DEFAULT_ATMOSPHERE.background);
-      const cloudLayers = activeLoc.clouds || DEFAULT_ATMOSPHERE.clouds;
+        // 4. Interactive Prompt Banner when nearby
+        if (isPlayerNearby) {
+          p.fill('#0F0F0F');
+          p.stroke('#EADBCC');
+          p.strokeWeight(1.8);
+          p.rectMode(p.CENTER);
+          p.rect(loc.x, GROUND_Y - 120, 210, 32, 8);
 
-      // 1. Draw Sky Background Texture (bg.png or bg_night.png)
-      if (skyBgSrc) {
-        const bgImg = getTexture(skyBgSrc);
-        if (bgImg.complete && bgImg.naturalWidth > 0) {
-          const aspect = bgImg.naturalWidth / bgImg.naturalHeight;
-          let targetH = skyHeight;
-          let targetW = targetH * aspect;
-          if (targetW < screenW) {
-            targetW = screenW;
-            targetH = targetW / aspect;
-          }
-
-          const parallaxOffset = (camX * 0.03);
-          let startX = (parallaxOffset % targetW);
-          if (startX > 0) startX -= targetW;
-
-          const targetY = groundScreenY - targetH;
-          let drawX = startX;
-          while (drawX < screenW) {
-            ctx.drawImage(bgImg, drawX, targetY, targetW + 1, targetH + 1);
-            drawX += targetW;
-          }
+          p.noStroke();
+          p.fill('#EADBCC');
+          (p as any).textFont('Pixelify Sans');
+          p.textSize(11);
+          p.text(`[ E ] ${loc.actionLabel || 'Inspect Station'}`, loc.x, GROUND_Y - 120);
         }
+        p.pop();
       }
 
-      // 1.5 Draw Glowing Moon in Dark Mode
-      if (currentThemeMode === 'dark') {
-        const moonImg = getTexture(activeMoonSrc);
-        if (moonImg.complete && moonImg.naturalWidth > 0) {
-          const aspect = moonImg.naturalWidth / moonImg.naturalHeight;
-          let targetH = skyHeight;
-          let targetW = targetH * aspect;
-          if (targetW < screenW) {
-            targetW = screenW;
-            targetH = targetW / aspect;
-          }
+      // Render Street Lamp Posts (Sources of light illuminating the dark mode environment)
+      function drawSingleLampPost(lamp: { x: number; yOffset: number }) {
+        const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+        const isNight = currentThemeMode === 'dark';
+        const img = getTexture(isNight ? '/objects/light_on.png' : '/objects/light_off.png');
+        if (!img.complete || img.naturalWidth === 0) return;
 
-          const parallaxOffset = (camX * 0.015);
-          let startX = (parallaxOffset % targetW);
-          if (startX > 0) startX -= targetW;
+        const lampWidth = 430;
+        const aspect = 2752 / 1536;
+        const drawW = lampWidth;
+        const drawH = lampWidth / aspect;
+        const destX = lamp.x - drawW / 2;
+        const baseY = GROUND_Y + lamp.yOffset;
+        const destY = baseY - drawH * (1534 / 1536);
 
-          const targetY = groundScreenY - targetH;
-          let drawX = startX;
-          while (drawX < screenW) {
-            ctx.drawImage(moonImg, drawX, targetY, targetW + 1, targetH + 1);
-            drawX += targetW;
-          }
-        }
-      }
+        p.push();
 
-      // 2. Draw Cloud Layers (with subtle night tint in dark mode)
-      p.push();
-      if (currentThemeMode === 'dark') {
-        ctx.globalAlpha = 0.50;
-      }
-      for (let i = 0; i < cloudLayers.length; i++) {
-        const cloud = cloudLayers[i];
-        const cloudImg = getTexture(cloud.src);
-        if (!cloudImg.complete || cloudImg.naturalWidth === 0) continue;
+        // 1. In Dark Mode: Soft lantern glow at the top of the lamp (no muddy ground discs)
+        if (isNight) {
+          const lanternHeadX = lamp.x;
+          const lanternHeadY = destY + drawH * (110 / 1536);
+          const flicker = Math.sin(windTimer * 0.15 + lamp.x * 0.05) * 0.02;
 
-        const aspect = cloudImg.naturalWidth / cloudImg.naturalHeight;
-        let targetH = skyHeight * 0.88;
-        let targetW = targetH * aspect;
-        if (targetW < screenW) {
-          targetW = screenW;
-          targetH = targetW / aspect;
+          const haloGrad = ctx.createRadialGradient(
+            lanternHeadX, lanternHeadY, 2,
+            lanternHeadX, lanternHeadY, 115
+          );
+          haloGrad.addColorStop(0, `rgba(255, 255, 230, ${0.72 + flicker})`);
+          haloGrad.addColorStop(0.25, `rgba(255, 230, 150, ${0.32 + flicker * 0.5})`);
+          haloGrad.addColorStop(0.65, `rgba(255, 205, 100, ${0.09 + flicker * 0.2})`);
+          haloGrad.addColorStop(1, 'rgba(255, 190, 80, 0)');
+
+          ctx.save();
+          ctx.fillStyle = haloGrad;
+          ctx.beginPath();
+          ctx.arc(lanternHeadX, lanternHeadY, 115, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
         }
 
-        const parallaxOffset = (camX * cloud.parallax) + (windTimer * cloud.speed);
-        let startX = (parallaxOffset % targetW);
-        if (startX > 0) startX -= targetW;
+        // 2. Clean Ground Contact Shadow under post base
+        p.noStroke();
+        p.fill(0, 0, 0, isNight ? 80 : 60);
+        p.ellipse(lamp.x, baseY + 1, 46, 10);
 
-        const yOffset = cloud.yOffset !== undefined ? cloud.yOffset : -140;
-        const targetY = groundScreenY - targetH + yOffset;
-
-        let drawX = startX;
-        while (drawX < screenW) {
-          ctx.drawImage(cloudImg, drawX, targetY, targetW + 1, targetH + 1);
-          drawX += targetW;
-        }
-      }
-      p.pop();
-    }
-
-    // Render Ground Floor & Meadow (from public/locations/world/ground.png) - Stretches to bottom
-    function renderMapSceneryAndFloor() {
-      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-
-      const viewLeft = (-camX) / zoom - 300;
-      const viewRight = (p.width - camX) / zoom + 300;
-      const viewBottom = (p.height - camY) / zoom + 400;
-
-      const groundImg = getTexture(DEFAULT_ATMOSPHERE.floor?.image || '/locations/world/ground.png');
-      if (!groundImg.complete || groundImg.naturalWidth === 0) return;
-
-      const targetH = DEFAULT_ATMOSPHERE.floor?.height || 520;
-      const aspect = 576 / 324;
-      const layerW = targetH * aspect;
-
-      // Ground path ratio in 576x324 ground.png
-      const groundSurfaceRatio = 265 / 324;
-      const drawY = GROUND_Y - targetH * groundSurfaceRatio;
-
-
-      if (currentThemeMode === 'dark') {
-        ctx.filter = 'brightness(0.65) saturate(0.90)';
-      }
-
-      let layerX = Math.floor(viewLeft / layerW) * layerW;
-      while (layerX < viewRight + layerW) {
-        // Draw top ground crest with textured grass tufts and paths
-        ctx.drawImage(groundImg, layerX, drawY, layerW + 1, targetH + 1);
-
-        // Seamlessly tile the textured lower meadow downwards to cover the entire screen bottom
-        let tileY = drawY + targetH - 2;
-        const subSliceH = 80;
-        while (tileY < viewBottom + 300) {
-          ctx.drawImage(groundImg, 0, 240, 576, 84, layerX, tileY, layerW + 1, subSliceH + 1);
-          tileY += subSliceH - 1;
-        }
-
-        layerX += layerW - 1;
-      }
-
-      if (currentThemeMode === 'dark') {
+        // 3. Draw Lamp Post Image (Explicitly UNFILTERED: 100% full radiant brightness in dark mode!)
         ctx.filter = 'none';
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(img, destX, destY, drawW, drawH);
+
+        p.pop();
       }
-    }
 
+      // Render Boundary Walls
+      function renderMapBoundaries() {
+        renderSingleBoundary(WORLD_BOUNDS.minX, 'MAP START • WESTERN BOUNDARY', true);
+        renderSingleBoundary(WORLD_BOUNDS.maxX, 'MAP END • EASTERN BOUNDARY', false);
+      }
 
+      function renderSingleBoundary(barrierX: number, label: string, isLeft: boolean) {
+        p.push();
+        const barrierHeight = 520;
 
+        p.stroke(91, 155, 243, 220);
+        p.strokeWeight(3);
+        p.line(barrierX, GROUND_Y - barrierHeight + 80, barrierX, GROUND_Y + 40);
 
-    interface PooledDepthItem {
-      type: number; // 1: tree, 2: bush, 3: interactiveObj, 4: kiosk, 5: garage, 6: home, 7: mailbox, 8: lamp, 9: dust, 10: player, 11: enemy
-      index: number;
-      y: number;
-    }
-    const depthPool: PooledDepthItem[] = [];
+        p.stroke(91, 155, 243, 45);
+        p.strokeWeight(1.5);
+        const fieldWidth = 160;
+        const step = 25;
 
-    function renderDepthSortedEntities() {
-      const viewLeft = (-camX) / zoom - 450;
-      const viewRight = (p.width - camX) / zoom + 450;
-      let count = 0;
-
-      const pushEntity = (type: number, index: number, y: number) => {
-        if (count < depthPool.length) {
-          const item = depthPool[count];
-          item.type = type;
-          item.index = index;
-          item.y = y;
-        } else {
-          depthPool.push({ type, index, y });
+        for (let y = GROUND_Y + 40; y >= GROUND_Y - barrierHeight + 80; y -= step) {
+          const xOffset = isLeft ? -fieldWidth : fieldWidth;
+          p.line(barrierX, y, barrierX + xOffset, y - 25);
         }
-        count++;
+
+        p.fill('#0F0F0F');
+        p.stroke(234, 219, 204);
+        p.strokeWeight(2);
+        p.rectMode(p.CENTER);
+        const badgeX = barrierX + (isLeft ? -100 : 100);
+        p.rect(badgeX, GROUND_Y - barrierHeight / 2, 190, 32, 8);
+
+        p.noStroke();
+        p.fill('#EADBCC');
+        (p as any).textFont('Pixelify Sans');
+        p.textSize(10);
+        p.text(label, badgeX, GROUND_Y - barrierHeight / 2);
+
+        p.pop();
+      }
+
+      // Render Services Garage at X = -520 (left of house)
+      function renderServicesGarage() {
+        const garageImg = getTexture('/objects/garage.png');
+        const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+        const garageWidth = 650;
+        const garageX = -520;
+        const isPlayerNearby = Math.abs(playerBody.x - garageX) <= 120;
+
+        p.push();
+
+        if (garageImg.complete && garageImg.naturalWidth > 0) {
+          const aspect = garageImg.naturalWidth / garageImg.naturalHeight; // 2752 / 1536
+          const drawW = garageWidth;
+          const drawH = garageWidth / aspect;
+          const destX = garageX - drawW / 2;
+          // Foundation baseline in garage.png is at y = 1304 / 1536 (84.9% height)
+          const destY = GROUND_Y + 68 - drawH * (1304 / 1536);
+
+          // Ground Contact Shadow directly under base foundation
+          p.noStroke();
+          p.fill(0, 0, 0, currentThemeMode === 'dark' ? 120 : 95);
+          p.ellipse(garageX, GROUND_Y + 68, 340, 24);
+
+          ctx.drawImage(garageImg, destX, destY, drawW, drawH);
+        }
+
+        // Interactive Floating Prompt Banner when Player is nearby
+        if (isPlayerNearby) {
+          const promptY = GROUND_Y - 45;
+          p.fill('#0F0F0F');
+          p.stroke('#EADBCC');
+          p.strokeWeight(1.8);
+          p.rectMode(p.CENTER);
+          p.rect(garageX, promptY, 175, 26, 6);
+
+          p.noStroke();
+          p.fill('#EADBCC');
+          (p as any).textFont('Pixelify Sans');
+          p.textSize(11);
+          p.text('[ E ] Inspect Services', garageX, promptY);
+        }
+
+        p.pop();
+      }
+
+
+      // Render Home Base Building at X = 0m (center)
+      function renderHomeBeacon() {
+        const homeImg = getTexture('/objects/home.png');
+        const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+        const homeWidth = 780;
+        const isPlayerNearby = Math.abs(playerBody.x) <= 80;
+
+        p.push();
+
+        if (homeImg.complete && homeImg.naturalWidth > 0) {
+          const aspect = homeImg.naturalWidth / homeImg.naturalHeight;
+          const drawW = homeWidth;
+          const drawH = homeWidth / aspect;
+          const destX = 0 - drawW / 2;
+          // Foundation baseline in home.png is at 87.1% height
+          const destY = GROUND_Y + 68 - drawH * (1338 / 1536);
+
+          // Ground Contact Shadow directly under base foundation
+          p.noStroke();
+          p.fill(0, 0, 0, currentThemeMode === 'dark' ? 120 : 95);
+          p.ellipse(0, GROUND_Y + 68, homeWidth * 0.78, 28);
+
+          ctx.drawImage(homeImg, destX, destY, drawW, drawH);
+        } else {
+          p.stroke(91, 155, 243, 160);
+          p.strokeWeight(1.5);
+          p.line(0, -180, 0, GROUND_Y);
+        }
+
+        // Interactive Floating Prompt Banner when Player is at Home Base front door
+        if (isPlayerNearby) {
+          const doorX = -90;
+          const promptY = GROUND_Y - 45;
+          p.fill('#0F0F0F');
+          p.stroke('#EADBCC');
+          p.strokeWeight(1.8);
+          p.rectMode(p.CENTER);
+          p.rect(doorX, promptY, 165, 26, 6);
+
+          p.noStroke();
+          p.fill('#EADBCC');
+          (p as any).textFont('Pixelify Sans');
+          p.textSize(11);
+          p.text('[ E ] Inspect Home', doorX, promptY);
+        }
+
+        p.pop();
+      }
+
+
+      // Render Contact Mailbox at X = 220 (front right garden lawn)
+      function renderContactMailbox() {
+        const mailboxImg = getTexture('/objects/mailbox.png');
+        const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+        const mailboxWidth = 260;
+        const mailboxX = 220;
+        const isPlayerNearby = Math.abs(playerBody.x - mailboxX) <= 70;
+
+        p.push();
+
+        if (mailboxImg.complete && mailboxImg.naturalWidth > 0) {
+          const aspect = mailboxImg.naturalWidth / mailboxImg.naturalHeight; // 2752 / 1536
+          const drawW = mailboxWidth;
+          const drawH = mailboxWidth / aspect;
+          const destX = mailboxX - drawW / 2;
+          // Post base in mailbox.png reaches the bottom (1535 / 1536)
+          const destY = GROUND_Y + 74 - drawH * (1535 / 1536);
+
+          // Ground Contact Shadow under post
+          p.noStroke();
+          p.fill(0, 0, 0, currentThemeMode === 'dark' ? 100 : 85);
+          p.ellipse(mailboxX, GROUND_Y + 74, 75, 12);
+
+          ctx.drawImage(mailboxImg, destX, destY, drawW, drawH);
+        }
+
+        // Interactive Floating Prompt Banner when Player is nearby
+        if (isPlayerNearby) {
+          const promptY = GROUND_Y - 35;
+          p.fill('#0F0F0F');
+          p.stroke('#EADBCC');
+          p.strokeWeight(1.8);
+          p.rectMode(p.CENTER);
+          p.rect(mailboxX, promptY, 220, 28, 6);
+
+          p.noStroke();
+          p.fill('#EADBCC');
+          (p as any).textFont('Pixelify Sans');
+          p.textSize(11);
+          p.text('[ E ] Contact Asterixh', mailboxX, promptY);
+        }
+
+        p.pop();
+      }
+
+
+
+      const GAME_KEYS = [
+        'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Space',
+        'KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyE',
+        'KeyJ', 'KeyK', 'KeyL', 'KeyU', 'KeyI', 'Semicolon',
+        'Digit1', 'Digit2', 'Digit3', 'Digit4'
+      ];
+      const GAME_KEY_CHARS = [
+        ' ', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+        'w', 'W', 'a', 'A', 's', 'S', 'd', 'D', 'e', 'E',
+        'j', 'J', 'k', 'K', 'l', 'L', 'u', 'U', 'i', 'I', ';',
+        '1', '2', '3', '4'
+      ];
+
+      const handleNativeKeyDown = (e: KeyboardEvent) => {
+        if (isModalActive) return;
+        if (GAME_KEYS.includes(e.code) || GAME_KEY_CHARS.includes(e.key) || e.key === 'Shift') {
+          e.preventDefault();
+        }
+        if (e.repeat) return; // Prevent browser key-repeat cluttering
+
+        const keyLower = e.key ? e.key.toLowerCase() : '';
+
+        if (e.code === 'KeyA' || e.code === 'ArrowLeft' || keyLower === 'a') {
+          keys['virtual_left'] = true;
+          cameraFollowsPlayer = true;
+        }
+        if (e.code === 'KeyD' || e.code === 'ArrowRight' || keyLower === 'd') {
+          keys['virtual_right'] = true;
+          cameraFollowsPlayer = true;
+        }
+        if (e.code === 'KeyW' || e.code === 'ArrowUp' || keyLower === 'w') {
+          keys['virtual_up'] = true;
+          cameraFollowsPlayer = true;
+        }
+        if (e.code === 'KeyS' || e.code === 'ArrowDown' || keyLower === 's') {
+          keys['virtual_down'] = true;
+          cameraFollowsPlayer = true;
+        }
+        if (e.code === 'Space' || e.key === ' ') {
+          keys['virtual_jump'] = true;
+        }
+        if (e.key === 'Shift' || e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+          keys['virtual_sprint'] = true;
+        }
+        if (e.code === 'KeyE' || keyLower === 'e') {
+          (p as any).inspectNearbyStation?.();
+        }
+
+        // Direct, instantaneous attack trigger on keypress
+        if (playerRespawnCountdown <= 0 && attackTimer <= 0) {
+          if (e.code === 'KeyJ' || keyLower === 'j' || e.code === 'Digit1' || e.key === '1') {
+            triggerPlayerAttack('attack1');
+          } else if (e.code === 'KeyK' || keyLower === 'k' || e.code === 'Digit2' || e.key === '2') {
+            triggerPlayerAttack('attack2');
+          } else if (e.code === 'KeyL' || keyLower === 'l' || e.code === 'Digit3' || e.key === '3') {
+            triggerPlayerAttack('attack3');
+          } else if (e.code === 'KeyU' || keyLower === 'u' || e.code === 'KeyI' || keyLower === 'i' || e.code === 'Semicolon' || e.key === ';' || e.code === 'Digit4' || e.key === '4') {
+            triggerPlayerAttack('attack4');
+          }
+        }
       };
 
-      // 1. All Trees (rooted firmly in the grass meadow at tree.yOffset)
-      for (let i = 0; i < ALL_WORLD_TREES.length; i++) {
-        const tree = ALL_WORLD_TREES[i];
-        if (tree.x < viewLeft || tree.x > viewRight) continue;
-        pushEntity(1, i, tree.yOffset || 0);
-      }
-
-      // 2. All Bushes (rooted firmly in the grass meadow at bush.yOffset)
-      for (let i = 0; i < ALL_WORLD_BUSHES.length; i++) {
-        const bush = ALL_WORLD_BUSHES[i];
-        if (bush.x < viewLeft || bush.x > viewRight) continue;
-        pushEntity(2, i, bush.yOffset || 0);
-      }
-
-      // 3. Interactive Landmark Objects (Chest, Briefcase, Vault, Chamber, Bag)
-      for (let i = 0; i < INTERACTIVE_OBJECTS.length; i++) {
-        const obj = INTERACTIVE_OBJECTS[i];
-        if (obj.x < viewLeft || obj.x > viewRight) continue;
-        pushEntity(3, i, (obj.yOffset || 0) + 12);
-      }
-
-      // 4. Station Kiosks (only for outdoor field stations)
-      for (let i = 0; i < WORLD_LOCATIONS.length; i++) {
-        const loc = WORLD_LOCATIONS[i];
-        if (loc.x < viewLeft || loc.x > viewRight || Math.abs(loc.x) <= 600) continue;
-        pushEntity(4, i, 0);
-      }
-
-      // 5. Services Garage at X = -520 (beside house on the left)
-      if (-520 >= viewLeft - 350 && -520 <= viewRight + 350) {
-        pushEntity(5, 0, 68);
-      }
-
-      // 6. Home Base Building at X = 0 (center)
-      if (0 >= viewLeft - 400 && 0 <= viewRight + 400) {
-        pushEntity(6, 0, 68);
-      }
-
-      // 7. Contact Mailbox at X = 220 (front right garden lawn)
-      if (220 >= viewLeft - 200 && 220 <= viewRight + 200) {
-        pushEntity(7, 0, 74);
-      }
-
-      // 8. Street Lamp Posts (Sources of light illuminating the dark mode world)
-      for (let i = 0; i < WORLD_LAMP_POSTS.length; i++) {
-        const lamp = WORLD_LAMP_POSTS[i];
-        if (lamp.x < viewLeft || lamp.x > viewRight) continue;
-        pushEntity(8, i, lamp.yOffset);
-      }
-
-      // 9. Dust Particles
-      if (dustParticles.length > 0) {
-        pushEntity(9, 0, playerBody.y - 0.5);
-      }
-
-      // 10. Player Character
-      pushEntity(10, 0, playerBody.y);
-
-      // 11. Roaming Enemy Ninja
-      if (activeEnemy) {
-        pushEntity(11, 0, activeEnemy.y);
-      }
-
-      // Fast Sort for active items (numeric comparator)
-      const activeSlice = depthPool.slice(0, count);
-      activeSlice.sort((a, b) => a.y - b.y);
-
-      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-      const isDark = currentThemeMode === 'dark';
-
-      if (isDark) {
-        ctx.filter = 'brightness(0.65) saturate(0.90)';
-      }
-
-      for (let i = 0; i < count; i++) {
-        const ent = activeSlice[i];
-        if (ent.type === 10 || ent.type === 11) {
-          if (isDark) ctx.filter = 'none';
-          if (ent.type === 10) renderPlayerCharacter();
-          else if (activeEnemy) renderEnemyNinja(activeEnemy);
-          if (isDark) ctx.filter = 'brightness(0.65) saturate(0.90)';
-        } else {
-          switch (ent.type) {
-            case 1: drawSingleTree(ALL_WORLD_TREES[ent.index]); break;
-            case 2: drawSingleBush(ALL_WORLD_BUSHES[ent.index]); break;
-            case 3: drawSingleInteractiveObject(INTERACTIVE_OBJECTS[ent.index]); break;
-            case 4: drawSingleStationKiosk(WORLD_LOCATIONS[ent.index]); break;
-            case 5: renderServicesGarage(); break;
-            case 6: renderHomeBeacon(); break;
-            case 7: renderContactMailbox(); break;
-            case 8: drawSingleLampPost(WORLD_LAMP_POSTS[ent.index]); break;
-            case 9: renderDustParticles(); break;
-          }
+      const handleNativeKeyUp = (e: KeyboardEvent) => {
+        if (GAME_KEYS.includes(e.code) || GAME_KEY_CHARS.includes(e.key) || e.key === 'Shift') {
+          e.preventDefault();
         }
-      }
 
-      if (isDark) {
-        ctx.filter = 'none';
-      }
-    }
-
-
-
-
-    function drawSingleTree(tree: FlatSceneryItem) {
-      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-      const img = getTexture(tree.src);
-      if (!img.complete || img.naturalWidth === 0) return;
-
-      const aspect = img.naturalWidth / img.naturalHeight; // 576 / 324
-      const treeH = tree.size;
-      const treeW = treeH * aspect;
-      const drawX = tree.x - treeW / 2;
-      // Exact trunk base pixel in tree1.png is at y = 274 / 324 (84.57% height)
-      const drawY = GROUND_Y + (tree.yOffset || 0) - treeH * (274 / 324);
-
-      // Soft Ground Contact Shadow directly under base of trunk
-      p.noStroke();
-      p.fill(0, 0, 0, currentThemeMode === 'dark' ? 65 : 45);
-      p.ellipse(tree.x, GROUND_Y + (tree.yOffset || 0) + 1, treeW * 0.20, 8);
-
-      ctx.drawImage(img, drawX, drawY, treeW, treeH);
-    }
-
-    function drawSingleBush(bush: FlatSceneryItem) {
-      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-      const img = getTexture(bush.src);
-      if (!img.complete || img.naturalWidth === 0) return;
-
-      const aspect = img.naturalWidth / img.naturalHeight;
-      const bushH = bush.size;
-      const bushW = bushH * aspect;
-      const drawX = bush.x - bushW / 2;
-      // Bush bottom pixel is at 95% height
-      const drawY = GROUND_Y + (bush.yOffset || 0) - bushH * 0.95;
-
-      // Soft Ground Contact Shadow directly under bush base
-      p.noStroke();
-      p.fill(0, 0, 0, currentThemeMode === 'dark' ? 55 : 35);
-      p.ellipse(bush.x, GROUND_Y + (bush.yOffset || 0) + 1, bushW * 0.45, 6);
-
-      ctx.drawImage(img, drawX, drawY, bushW, bushH);
-    }
-
-    function drawSingleInteractiveObject(obj: InteractiveWorldObject) {
-      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-      const img = getTexture(obj.image);
-      const objSize = obj.size || 140;
-      const isPlayerNearby = Math.abs(playerBody.x - obj.x) <= 110;
-      const hoverBob = Math.sin(windTimer * 0.08 + obj.x * 0.01) * 3;
-      const baseY = GROUND_Y + (obj.yOffset || 0);
-
-      p.push();
-      // 1. Soft Ground Contact Shadow
-      p.noStroke();
-      p.fill(0, 0, 0, 75);
-      p.ellipse(obj.x, baseY + 2, objSize * 0.65, 18);
-
-      // 2. Ambient Holographic Halo
-      p.noFill();
-      p.stroke(obj.glowColor || '#00e599');
-      p.strokeWeight(1.8);
-      p.ellipse(obj.x, baseY, objSize * 0.75, 22);
-
-      // 3. Draw Object Image
-      if (img.complete && img.naturalWidth > 0) {
-        const destX = obj.x - objSize / 2;
-        const destY = baseY - objSize * 0.88 + hoverBob;
-        ctx.drawImage(img, destX, destY, objSize, objSize);
-      }
-
-      // 4. Interactive Floating Prompt Banner when Player is nearby
-      if (isPlayerNearby) {
-        const promptY = baseY - objSize - 20;
-        p.fill('#0F0F0F');
-        p.stroke('#EADBCC');
-        p.strokeWeight(1.8);
-        p.rectMode(p.CENTER);
-        p.rect(obj.x, promptY, 200, 30, 8);
-
-        p.noStroke();
-        p.fill('#EADBCC');
-        (p as any).textFont('Pixelify Sans');
-        p.textSize(11);
-        p.text(`[ E ] ${obj.actionLabel}`, obj.x, promptY);
-      }
-      p.pop();
-    }
-
-    function drawSingleStationKiosk(loc: MapLocationEntry) {
-      const proximityRadius = 140;
-      const isPlayerNearby = Math.abs(playerBody.x - loc.x) <= proximityRadius;
-      const color = '#00e599';
-      const pulse = Math.sin((p as any).frameCount * 0.08) * 3;
-
-      p.push();
-      // 1. Ground Holo Base Disc
-      p.noFill();
-      p.stroke(color);
-      p.strokeWeight(2);
-      p.ellipse(loc.x, GROUND_Y - 4, 48 + pulse, 16 + pulse * 0.5);
-
-      // 2. Vertical Holo Projection Beam
-      p.stroke('rgba(0, 229, 153, 0.4)');
-      p.strokeWeight(2);
-      p.line(loc.x, GROUND_Y - 4, loc.x, GROUND_Y - 80);
-
-      // 3. Rotating Holographic Diamond
-      p.push();
-      p.translate(loc.x, GROUND_Y - 80);
-      p.rotate((p as any).frameCount * 0.04);
-      p.fill(color);
-      p.noStroke();
-      p.rectMode(p.CENTER);
-      p.rect(0, 0, 14, 14);
-      p.pop();
-
-      // 4. Interactive Prompt Banner when nearby
-      if (isPlayerNearby) {
-        p.fill('#0F0F0F');
-        p.stroke('#EADBCC');
-        p.strokeWeight(1.8);
-        p.rectMode(p.CENTER);
-        p.rect(loc.x, GROUND_Y - 120, 210, 32, 8);
-
-        p.noStroke();
-        p.fill('#EADBCC');
-        (p as any).textFont('Pixelify Sans');
-        p.textSize(11);
-        p.text(`[ E ] ${loc.actionLabel || 'Inspect Station'}`, loc.x, GROUND_Y - 120);
-      }
-      p.pop();
-    }
-
-    // Render Street Lamp Posts (Sources of light illuminating the dark mode environment)
-    function drawSingleLampPost(lamp: { x: number; yOffset: number }) {
-      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-      const isNight = currentThemeMode === 'dark';
-      const img = getTexture(isNight ? '/objects/light_on.png' : '/objects/light_off.png');
-      if (!img.complete || img.naturalWidth === 0) return;
-
-      const lampWidth = 430;
-      const aspect = 2752 / 1536;
-      const drawW = lampWidth;
-      const drawH = lampWidth / aspect;
-      const destX = lamp.x - drawW / 2;
-      const baseY = GROUND_Y + lamp.yOffset;
-      const destY = baseY - drawH * (1534 / 1536);
-
-      p.push();
-
-      // 1. In Dark Mode: Soft lantern glow at the top of the lamp (no muddy ground discs)
-      if (isNight) {
-        const lanternHeadX = lamp.x;
-        const lanternHeadY = destY + drawH * (110 / 1536);
-        const flicker = Math.sin(windTimer * 0.15 + lamp.x * 0.05) * 0.02;
-
-        const haloGrad = ctx.createRadialGradient(
-          lanternHeadX, lanternHeadY, 2,
-          lanternHeadX, lanternHeadY, 115
-        );
-        haloGrad.addColorStop(0, `rgba(255, 255, 230, ${0.72 + flicker})`);
-        haloGrad.addColorStop(0.25, `rgba(255, 230, 150, ${0.32 + flicker * 0.5})`);
-        haloGrad.addColorStop(0.65, `rgba(255, 205, 100, ${0.09 + flicker * 0.2})`);
-        haloGrad.addColorStop(1, 'rgba(255, 190, 80, 0)');
-
-        ctx.save();
-        ctx.fillStyle = haloGrad;
-        ctx.beginPath();
-        ctx.arc(lanternHeadX, lanternHeadY, 115, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-
-      // 2. Clean Ground Contact Shadow under post base
-      p.noStroke();
-      p.fill(0, 0, 0, isNight ? 80 : 60);
-      p.ellipse(lamp.x, baseY + 1, 46, 10);
-
-      // 3. Draw Lamp Post Image (Explicitly UNFILTERED: 100% full radiant brightness in dark mode!)
-      ctx.filter = 'none';
-      ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(img, destX, destY, drawW, drawH);
-
-      p.pop();
-    }
-
-    // Render Boundary Walls
-    function renderMapBoundaries() {
-      renderSingleBoundary(WORLD_BOUNDS.minX, 'MAP START • WESTERN BOUNDARY', true);
-      renderSingleBoundary(WORLD_BOUNDS.maxX, 'MAP END • EASTERN BOUNDARY', false);
-    }
-
-    function renderSingleBoundary(barrierX: number, label: string, isLeft: boolean) {
-      p.push();
-      const barrierHeight = 520;
-
-      p.stroke(91, 155, 243, 220);
-      p.strokeWeight(3);
-      p.line(barrierX, GROUND_Y - barrierHeight + 80, barrierX, GROUND_Y + 40);
-
-      p.stroke(91, 155, 243, 45);
-      p.strokeWeight(1.5);
-      const fieldWidth = 160;
-      const step = 25;
-
-      for (let y = GROUND_Y + 40; y >= GROUND_Y - barrierHeight + 80; y -= step) {
-        const xOffset = isLeft ? -fieldWidth : fieldWidth;
-        p.line(barrierX, y, barrierX + xOffset, y - 25);
-      }
-
-      p.fill('#0F0F0F');
-      p.stroke(234, 219, 204);
-      p.strokeWeight(2);
-      p.rectMode(p.CENTER);
-      const badgeX = barrierX + (isLeft ? -100 : 100);
-      p.rect(badgeX, GROUND_Y - barrierHeight / 2, 190, 32, 8);
-
-      p.noStroke();
-      p.fill('#EADBCC');
-      (p as any).textFont('Pixelify Sans');
-      p.textSize(10);
-      p.text(label, badgeX, GROUND_Y - barrierHeight / 2);
-
-      p.pop();
-    }
-
-    // Render Services Garage at X = -520 (left of house)
-    function renderServicesGarage() {
-      const garageImg = getTexture('/objects/garage.png');
-      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-      const garageWidth = 650;
-      const garageX = -520;
-      const isPlayerNearby = Math.abs(playerBody.x - garageX) <= 120;
-
-      p.push();
-
-      if (garageImg.complete && garageImg.naturalWidth > 0) {
-        const aspect = garageImg.naturalWidth / garageImg.naturalHeight; // 2752 / 1536
-        const drawW = garageWidth;
-        const drawH = garageWidth / aspect;
-        const destX = garageX - drawW / 2;
-        // Foundation baseline in garage.png is at y = 1304 / 1536 (84.9% height)
-        const destY = GROUND_Y + 68 - drawH * (1304 / 1536);
-
-        // Ground Contact Shadow directly under base foundation
-        p.noStroke();
-        p.fill(0, 0, 0, currentThemeMode === 'dark' ? 120 : 95);
-        p.ellipse(garageX, GROUND_Y + 68, 340, 24);
-
-        ctx.drawImage(garageImg, destX, destY, drawW, drawH);
-      }
-
-      // Interactive Floating Prompt Banner when Player is nearby
-      if (isPlayerNearby) {
-        const promptY = GROUND_Y + 68 - 140;
-        p.fill('#0F0F0F');
-        p.stroke('#EADBCC');
-        p.strokeWeight(1.8);
-        p.rectMode(p.CENTER);
-        p.rect(garageX, promptY, 200, 30, 8);
-
-        p.noStroke();
-        p.fill('#EADBCC');
-        (p as any).textFont('Pixelify Sans');
-        p.textSize(11);
-        p.text('[ E ] Inspect Services', garageX, promptY);
-      }
-
-      p.pop();
-    }
-
-    // Render Home Base Building at X = 0m (center)
-    function renderHomeBeacon() {
-      const homeImg = getTexture('/objects/home.png');
-      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-      const homeWidth = 780;
-      const isPlayerNearby = Math.abs(playerBody.x) <= 80;
-
-      p.push();
-
-      if (homeImg.complete && homeImg.naturalWidth > 0) {
-        const aspect = homeImg.naturalWidth / homeImg.naturalHeight;
-        const drawW = homeWidth;
-        const drawH = homeWidth / aspect;
-        const destX = 0 - drawW / 2;
-        // Foundation baseline in home.png is at 87.1% height
-        const destY = GROUND_Y + 68 - drawH * (1338 / 1536);
-
-        // Ground Contact Shadow directly under base foundation
-        p.noStroke();
-        p.fill(0, 0, 0, currentThemeMode === 'dark' ? 120 : 95);
-        p.ellipse(0, GROUND_Y + 68, homeWidth * 0.78, 28);
-
-        ctx.drawImage(homeImg, destX, destY, drawW, drawH);
-      } else {
-        p.stroke(91, 155, 243, 160);
-        p.strokeWeight(1.5);
-        p.line(0, -180, 0, GROUND_Y);
-      }
-
-      // Interactive Floating Prompt Banner when Player is at Home Base front door
-      if (isPlayerNearby) {
-        const promptY = GROUND_Y + 68 - 150;
-        p.fill('#0F0F0F');
-        p.stroke('#EADBCC');
-        p.strokeWeight(1.8);
-        p.rectMode(p.CENTER);
-        p.rect(0, promptY, 200, 30, 8);
-
-        p.noStroke();
-        p.fill('#EADBCC');
-        (p as any).textFont('Pixelify Sans');
-        p.textSize(11);
-        p.text('[ E ] Inspect Home', 0, promptY);
-      }
-
-      p.pop();
-    }
-
-    // Render Contact Mailbox at X = 220 (front right garden lawn)
-    function renderContactMailbox() {
-      const mailboxImg = getTexture('/objects/mailbox.png');
-      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-      const mailboxWidth = 260;
-      const mailboxX = 220;
-      const isPlayerNearby = Math.abs(playerBody.x - mailboxX) <= 70;
-
-      p.push();
-
-      if (mailboxImg.complete && mailboxImg.naturalWidth > 0) {
-        const aspect = mailboxImg.naturalWidth / mailboxImg.naturalHeight; // 2752 / 1536
-        const drawW = mailboxWidth;
-        const drawH = mailboxWidth / aspect;
-        const destX = mailboxX - drawW / 2;
-        // Post base in mailbox.png reaches the bottom (1535 / 1536)
-        const destY = GROUND_Y + 74 - drawH * (1535 / 1536);
-
-        // Ground Contact Shadow under post
-        p.noStroke();
-        p.fill(0, 0, 0, currentThemeMode === 'dark' ? 100 : 85);
-        p.ellipse(mailboxX, GROUND_Y + 74, 75, 12);
-
-        ctx.drawImage(mailboxImg, destX, destY, drawW, drawH);
-      }
-
-      // Interactive Floating Prompt Banner when Player is nearby
-      if (isPlayerNearby) {
-        const promptY = GROUND_Y + 74 - 100;
-        p.fill('#0F0F0F');
-        p.stroke('#EADBCC');
-        p.strokeWeight(1.8);
-        p.rectMode(p.CENTER);
-        p.rect(mailboxX, promptY, 190, 28, 8);
-
-        p.noStroke();
-        p.fill('#EADBCC');
-        (p as any).textFont('Pixelify Sans');
-        p.textSize(11);
-        p.text('[ E ] Contact Asterixh', mailboxX, promptY);
-      }
-
-      p.pop();
-    }
-
-    const GAME_KEYS = [
-      'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Space',
-      'KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyE',
-      'KeyJ', 'KeyK', 'KeyL', 'KeyU', 'KeyI', 'Semicolon',
-      'Digit1', 'Digit2', 'Digit3', 'Digit4'
-    ];
-    const GAME_KEY_CHARS = [
-      ' ', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
-      'w', 'W', 'a', 'A', 's', 'S', 'd', 'D', 'e', 'E',
-      'j', 'J', 'k', 'K', 'l', 'L', 'u', 'U', 'i', 'I', ';',
-      '1', '2', '3', '4'
-    ];
-
-    const handleNativeKeyDown = (e: KeyboardEvent) => {
-      if (isModalActive) return;
-      if (GAME_KEYS.includes(e.code) || GAME_KEY_CHARS.includes(e.key) || e.key === 'Shift') {
-        e.preventDefault();
-      }
-      if (e.repeat) return; // Prevent browser key-repeat cluttering
-
-      const keyLower = e.key ? e.key.toLowerCase() : '';
-
-      if (e.code === 'KeyA' || e.code === 'ArrowLeft' || keyLower === 'a') {
-        keys['virtual_left'] = true;
-        cameraFollowsPlayer = true;
-      }
-      if (e.code === 'KeyD' || e.code === 'ArrowRight' || keyLower === 'd') {
-        keys['virtual_right'] = true;
-        cameraFollowsPlayer = true;
-      }
-      if (e.code === 'KeyW' || e.code === 'ArrowUp' || keyLower === 'w') {
-        keys['virtual_up'] = true;
-        cameraFollowsPlayer = true;
-      }
-      if (e.code === 'KeyS' || e.code === 'ArrowDown' || keyLower === 's') {
-        keys['virtual_down'] = true;
-        cameraFollowsPlayer = true;
-      }
-      if (e.code === 'Space' || e.key === ' ') {
-        keys['virtual_jump'] = true;
-      }
-      if (e.key === 'Shift' || e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
-        keys['virtual_sprint'] = true;
-      }
-      if (e.code === 'KeyE' || keyLower === 'e') {
-        (p as any).inspectNearbyStation?.();
-      }
-
-      // Direct, instantaneous attack trigger on keypress
-      if (playerRespawnCountdown <= 0 && attackTimer <= 0) {
-        if (e.code === 'KeyJ' || keyLower === 'j' || e.code === 'Digit1' || e.key === '1') {
-          triggerPlayerAttack('attack1');
-        } else if (e.code === 'KeyK' || keyLower === 'k' || e.code === 'Digit2' || e.key === '2') {
-          triggerPlayerAttack('attack2');
-        } else if (e.code === 'KeyL' || keyLower === 'l' || e.code === 'Digit3' || e.key === '3') {
-          triggerPlayerAttack('attack3');
-        } else if (e.code === 'KeyU' || keyLower === 'u' || e.code === 'KeyI' || keyLower === 'i' || e.code === 'Semicolon' || e.key === ';' || e.code === 'Digit4' || e.key === '4') {
-          triggerPlayerAttack('attack4');
+        const keyLower = e.key ? e.key.toLowerCase() : '';
+
+        if (e.code === 'KeyA' || e.code === 'ArrowLeft' || keyLower === 'a') {
+          keys['virtual_left'] = false;
+          keys['KeyA'] = false;
+          keys['ArrowLeft'] = false;
+          keys['a'] = false;
+          keys['A'] = false;
         }
-      }
-    };
-
-    const handleNativeKeyUp = (e: KeyboardEvent) => {
-      if (GAME_KEYS.includes(e.code) || GAME_KEY_CHARS.includes(e.key) || e.key === 'Shift') {
-        e.preventDefault();
-      }
-
-      const keyLower = e.key ? e.key.toLowerCase() : '';
-
-      if (e.code === 'KeyA' || e.code === 'ArrowLeft' || keyLower === 'a') {
-        keys['virtual_left'] = false;
-        keys['KeyA'] = false;
-        keys['ArrowLeft'] = false;
-        keys['a'] = false;
-        keys['A'] = false;
-      }
-      if (e.code === 'KeyD' || e.code === 'ArrowRight' || keyLower === 'd') {
-        keys['virtual_right'] = false;
-        keys['KeyD'] = false;
-        keys['ArrowRight'] = false;
-        keys['d'] = false;
-        keys['D'] = false;
-      }
-      if (e.code === 'KeyW' || e.code === 'ArrowUp' || keyLower === 'w') {
-        keys['virtual_up'] = false;
-        keys['KeyW'] = false;
-        keys['ArrowUp'] = false;
-        keys['w'] = false;
-        keys['W'] = false;
-      }
-      if (e.code === 'KeyS' || e.code === 'ArrowDown' || keyLower === 's') {
-        keys['virtual_down'] = false;
-        keys['KeyS'] = false;
-        keys['ArrowDown'] = false;
-        keys['s'] = false;
-        keys['S'] = false;
-      }
-      if (e.code === 'Space' || e.key === ' ') {
-        keys['virtual_jump'] = false;
-        keys['Space'] = false;
-        keys[' '] = false;
-      }
-      if (e.key === 'Shift' || e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
-        keys['virtual_sprint'] = false;
-      }
-    };
+        if (e.code === 'KeyD' || e.code === 'ArrowRight' || keyLower === 'd') {
+          keys['virtual_right'] = false;
+          keys['KeyD'] = false;
+          keys['ArrowRight'] = false;
+          keys['d'] = false;
+          keys['D'] = false;
+        }
+        if (e.code === 'KeyW' || e.code === 'ArrowUp' || keyLower === 'w') {
+          keys['virtual_up'] = false;
+          keys['KeyW'] = false;
+          keys['ArrowUp'] = false;
+          keys['w'] = false;
+          keys['W'] = false;
+        }
+        if (e.code === 'KeyS' || e.code === 'ArrowDown' || keyLower === 's') {
+          keys['virtual_down'] = false;
+          keys['KeyS'] = false;
+          keys['ArrowDown'] = false;
+          keys['s'] = false;
+          keys['S'] = false;
+        }
+        if (e.code === 'Space' || e.key === ' ') {
+          keys['virtual_jump'] = false;
+          keys['Space'] = false;
+          keys[' '] = false;
+        }
+        if (e.key === 'Shift' || e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+          keys['virtual_sprint'] = false;
+        }
+      };
 
 
-    if (typeof window !== 'undefined') {
-      window.addEventListener('keydown', handleNativeKeyDown);
-      window.addEventListener('keyup', handleNativeKeyUp);
-    }
-
-    (p as any).cleanup = () => {
       if (typeof window !== 'undefined') {
-        window.removeEventListener('keydown', handleNativeKeyDown);
-        window.removeEventListener('keyup', handleNativeKeyUp);
+        window.addEventListener('keydown', handleNativeKeyDown);
+        window.addEventListener('keyup', handleNativeKeyUp);
       }
+
+      (p as any).cleanup = () => {
+        if (typeof window !== 'undefined') {
+          window.removeEventListener('keydown', handleNativeKeyDown);
+          window.removeEventListener('keyup', handleNativeKeyUp);
+        }
+      };
+
+      p.mousePressed = (e?: MouseEvent | TouchEvent) => {
+        if (isModalActive) return;
+        if (e && (e as any).target && (e as any).target !== (p as any).canvas) {
+          return;
+        }
+        isDragging = true;
+        prevMouseX = p.mouseX;
+        prevMouseY = p.mouseY;
+      };
+
+      p.mouseDragged = (e?: MouseEvent | TouchEvent) => {
+        if (isModalActive || !isDragging) return;
+        if (e && (e as any).target && (e as any).target !== (p as any).canvas) {
+          return;
+        }
+        if (
+          Math.abs(playerBody.vx) > 0.08 ||
+          Math.abs(playerBody.vy) > 0.08 ||
+          Math.hypot(joystickVector.x, joystickVector.y) > 0.05 ||
+          keys['virtual_left'] ||
+          keys['virtual_right'] ||
+          keys['virtual_up'] ||
+          keys['virtual_down']
+        ) {
+          cameraFollowsPlayer = true;
+          return;
+        }
+
+        const dx = p.mouseX - prevMouseX;
+        prevMouseX = p.mouseX;
+        prevMouseY = p.mouseY;
+
+        cameraFollowsPlayer = false;
+        targetCamX += dx * 0.85;
+
+        const minCamX = p.width / 2 - WORLD_BOUNDS.maxX * zoom;
+        const maxCamX = p.width / 2 - WORLD_BOUNDS.minX * zoom;
+        targetCamX = p.constrain(targetCamX, minCamX, maxCamX);
+      };
+
+      p.mouseReleased = () => {
+        isDragging = false;
+      };
+
+      (p as any).mouseWheel = (e: WheelEvent) => {
+        if (isModalActive) {
+          return true;
+        }
+
+        const zoomFactor = e.deltaY < 0 ? 1.04 : 0.96;
+        const newTargetZoom = p.constrain(targetZoom * zoomFactor, MIN_ZOOM, MAX_ZOOM);
+
+        if (newTargetZoom !== targetZoom) {
+          const mouseWorldX = (p.mouseX - targetCamX) / targetZoom;
+          targetCamX = p.mouseX - mouseWorldX * newTargetZoom;
+          targetZoom = newTargetZoom;
+        }
+
+        return false;
+      };
     };
-
-    p.mousePressed = (e?: MouseEvent | TouchEvent) => {
-      if (isModalActive) return;
-      if (e && (e as any).target && (e as any).target !== (p as any).canvas) {
-        return;
-      }
-      isDragging = true;
-      prevMouseX = p.mouseX;
-      prevMouseY = p.mouseY;
-    };
-
-    p.mouseDragged = (e?: MouseEvent | TouchEvent) => {
-      if (isModalActive || !isDragging) return;
-      if (e && (e as any).target && (e as any).target !== (p as any).canvas) {
-        return;
-      }
-      if (
-        Math.abs(playerBody.vx) > 0.08 ||
-        Math.abs(playerBody.vy) > 0.08 ||
-        Math.hypot(joystickVector.x, joystickVector.y) > 0.05 ||
-        keys['virtual_left'] ||
-        keys['virtual_right'] ||
-        keys['virtual_up'] ||
-        keys['virtual_down']
-      ) {
-        cameraFollowsPlayer = true;
-        return;
-      }
-
-      const dx = p.mouseX - prevMouseX;
-      prevMouseX = p.mouseX;
-      prevMouseY = p.mouseY;
-
-      cameraFollowsPlayer = false;
-      targetCamX += dx * 0.85;
-
-      const minCamX = p.width / 2 - WORLD_BOUNDS.maxX * zoom;
-      const maxCamX = p.width / 2 - WORLD_BOUNDS.minX * zoom;
-      targetCamX = p.constrain(targetCamX, minCamX, maxCamX);
-    };
-
-    p.mouseReleased = () => {
-      isDragging = false;
-    };
-
-    (p as any).mouseWheel = (e: WheelEvent) => {
-      if (isModalActive) {
-        return true;
-      }
-
-      const zoomFactor = e.deltaY < 0 ? 1.04 : 0.96;
-      const newTargetZoom = p.constrain(targetZoom * zoomFactor, MIN_ZOOM, MAX_ZOOM);
-
-      if (newTargetZoom !== targetZoom) {
-        const mouseWorldX = (p.mouseX - targetCamX) / targetZoom;
-        targetCamX = p.mouseX - mouseWorldX * newTargetZoom;
-        targetZoom = newTargetZoom;
-      }
-
-      return false;
-    };
-  };
-}
+  }
 }
 
 

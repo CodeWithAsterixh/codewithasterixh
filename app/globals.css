@@ -10,7 +10,7 @@
   --color-beige: #EADBCC;
   --color-beige-light: #F7F3EE;
   --color-beige-dark: #C5B3A1;
-  
+
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
   --font-pixelify: "Pixelify Sans", sans-serif;
@@ -53,8 +53,13 @@ body {
 
 /* Marquee Animation */
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-marquee {
@@ -71,3 +76,8 @@ body {
   font-style: normal;
 }
 
+
+#defaultCanvas0 {
+  width: 100dvw;
+  height: 100dvh;
+}

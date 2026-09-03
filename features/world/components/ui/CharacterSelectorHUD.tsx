@@ -211,135 +211,26 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
     <div className="fixed inset-0 pointer-events-none z-30 flex flex-col justify-between p-3 sm:p-6 font-pixelify select-none">
 
       {/* ========================================================================= */}
-      {/* 1. TOP BAR: PAUSE (LEFT) + PLAYER HEALTH BAR (CENTER) + THEME & PROXIMITY */}
+      {/* 1. TOP BAR: MAP (LEFT), THEME (RIGHT), HEALTH & PROXIMITY BADGE          */}
       {/* ========================================================================= */}
-      <div className="pointer-events-auto flex items-center justify-between gap-2 sm:gap-4 w-full">
-
-        {/* Left: Pixelated Pause / Map Button */}
-        <button
-          onClick={onOpenPauseMenu}
-          style={{
-            clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
-          }}
-          className="px-4 sm:px-5 py-2 sm:py-2.5 bg-[#D9A441] hover:bg-[#E5B152] active:translate-y-[2px] active:translate-x-[2px] text-[#1A1D24] font-black uppercase text-xs sm:text-sm flex items-center gap-2 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-transform shrink-0 cursor-pointer"
-          title="Open Map & Controls [ESC]"
-        >
-          <CompassIcon size={18} weight="fill" />
-          <span className="hidden sm:inline">Pause / Map</span>
-          <span className="sm:hidden">Map</span>
-        </button>
-
-        {/* Center: TOP PLAYER HEALTH BAR & RESPAWN COUNTDOWN */}
-        <div className="flex flex-col items-center gap-2 font-mono uppercase">
-          <div
-            className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 bg-[#0F141F] border-4 border-[#384252] shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+      <div className="pointer-events-auto flex flex-col gap-2.5 w-full">
+        {/* Top Control Bar: Left Map Button + Right Theme Toggle */}
+        <div className="flex items-center justify-between w-full">
+          {/* Left: Pixelated Pause / Map Button */}
+          <button
+            onClick={onOpenPauseMenu}
             style={{
-              // Creates a blocky, 1-pixel stepped corner effect (assuming 4px scale)
               clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
             }}
+            className="px-3 sm:px-5 py-1.5 sm:py-2 bg-[#D9A441] hover:bg-[#E5B152] active:translate-y-[2px] active:translate-x-[2px] text-[#1A1D24] font-black uppercase text-xs sm:text-sm flex items-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-transform shrink-0 cursor-pointer"
+            title="Open Map & Controls [ESC]"
           >
-            {/* Pixelated Health Icon Wrapper */}
-            <div className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center border-2 border-black shadow-[inset_-2px_-2px_0px_rgba(0,0,0,0.3)] ${playerHp <= 30
-              ? 'bg-[#DC2626]'
-              : 'bg-[#10B981]'
-              }`}>
-              {playerHp <= 0 ? (
-                <span className="text-xl">☠️</span>
-              ) : (
-                /* Pure SVG Pixel Heart */
-                <svg viewBox="0 0 9 9" className="w-5 h-5 sm:w-6 sm:h-6 text-white fill-current" style={{ shapeRendering: 'crispEdges' }}>
-                  <rect x="1" y="1" width="2" height="2" />
-                  <rect x="6" y="1" width="2" height="2" />
-                  <rect x="0" y="3" width="9" height="2" />
-                  <rect x="1" y="5" width="7" height="1" />
-                  <rect x="2" y="6" width="5" height="1" />
-                  <rect x="3" y="7" width="3" height="1" />
-                  <rect x="4" y="8" width="1" height="1" />
-                </svg>
-              )}
-            </div>
+            <CompassIcon size={18} weight="fill" />
+            <span className="hidden sm:inline">Pause / Map</span>
+            <span className="sm:hidden">Map</span>
+          </button>
 
-            <div className="flex flex-col gap-1.5">
-              {/* Top Text Row: Name + HP Count */}
-              <div className="flex items-end justify-between gap-3 text-[10px] sm:text-xs font-bold tracking-wider text-white shadow-black drop-shadow-[1px_1px_0_rgba(0,0,0,1)]">
-                <span className="text-[#60A5FA] truncate max-w-[100px] sm:max-w-[140px]">
-                  {characterName}
-                </span>
-                <span className={`text-[9px] sm:text-[10px] ${playerHp > 50 ? 'text-[#34D399]' : playerHp > 25 ? 'text-[#FBBF24]' : 'text-[#F87171] animate-pulse'
-                  }`}>
-                  {Math.round(playerHp)}/{maxPlayerHp}
-                </span>
-              </div>
-
-              {/* Chunky Health Bar Track */}
-              <div className="w-32 sm:w-52 h-3.5 sm:h-4 bg-black border-2 border-[#384252] shadow-[inset_0_2px_4px_rgba(0,0,0,0.8)] relative p-[2px]">
-                {/* Flat, Solid Color Fill with Bevel */}
-                <div
-                  className={`h-full transition-all duration-200 shadow-[inset_0_2px_0_rgba(255,255,255,0.4)] ${playerHp > 50
-                    ? 'bg-[#10B981]'
-                    : playerHp > 25
-                      ? 'bg-[#F59E0B]'
-                      : 'bg-[#DC2626] animate-pulse'
-                    }`}
-                  style={{ width: `${healthPercent}%` }}
-                />
-              </div>
-            </div>
-
-            {/* Blocky Quick Attack Key Hints */}
-            {isCombatActive && (
-              <div className="hidden lg:flex items-center gap-1.5 pl-3 border-l-2 border-[#384252] text-[10px] text-white">
-                <span className="text-red-400 font-bold mr-1 drop-shadow-[1px_1px_0_rgba(0,0,0,1)]">ATK</span>
-                {['J', 'K', 'L', 'U'].map((key, index) => {
-                  const colors = ['text-amber-300', 'text-blue-300', 'text-purple-300', 'text-rose-300'];
-                  return (
-                    <span
-                      key={key}
-                      className={`px-2 py-1 bg-[#2C3440] border-t-2 border-l-2 border-t-white/30 border-l-white/30 border-b-2 border-r-2 border-b-black border-r-black ${colors[index]}`}
-                    >
-                      {key}
-                    </span>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* Retro Respawning Countdown */}
-          {respawnCountdown !== null && respawnCountdown > 0 && (
-            <div
-              className="flex items-center justify-center gap-2 px-4 py-2 bg-[#1A0505] border-4 border-red-500 shadow-[4px_4px_0px_#7F1D1D] animate-pulse"
-              style={{
-                clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
-              }}
-            >
-              <span className="text-xs">⚠️</span>
-              <span className="text-[10px] sm:text-xs font-bold text-red-200 tracking-widest drop-shadow-[1px_1px_0_rgba(0,0,0,1)]">
-                RESPAWNING IN <span className="text-white ml-1">{respawnCountdown}</span>
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* Right: Proximity Badge + 2-Button Light / Dark Mode Toggle */}
-        <div className="flex items-center gap-1 sm:gap-3 shrink-0 max-w-[45vw] sm:max-w-none overflow-hidden justify-end">
-          {/* Minimal Nearby Object Inspect Button (Only visible when standing near an object) */}
-          {currentBiome?.isNearbyKiosk && (
-            <button
-              onClick={onInspectStation}
-              style={{
-                clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
-              }}
-              className="px-2 sm:px-4 py-1 sm:py-2 bg-[#D9A441] hover:bg-[#E5B152] text-[#1A1D24] font-black uppercase text-[9px] sm:text-xs flex items-center gap-1 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] animate-pulse shrink-0 cursor-pointer"
-            >
-              <EyeIcon size={14} weight="bold" />
-              <span className="truncate max-w-[80px] sm:max-w-none">
-                {currentBiome.actionLabel ? `[E] ${currentBiome.actionLabel}` : 'Inspect [E]'}
-              </span>
-            </button>
-          )}
-
-          {/* Pixelated 2-Button Light / Dark Mode Toggle */}
+          {/* Right: Pixelated 2-Button Light / Dark Mode Toggle */}
           <div
             className="flex items-center p-0.5 sm:p-1 bg-[#0F141F] border-2 border-[#384252] shadow-[2px_2px_0px_rgba(0,0,0,1)] shrink-0"
             style={{
@@ -348,29 +239,135 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
           >
             <button
               onClick={() => onThemeModeChange?.('light')}
-              className={`px-1.5 sm:px-3 py-1 sm:py-1.5 text-xs font-black uppercase flex items-center gap-1 cursor-pointer transition-all ${themeMode === 'light'
-                  ? 'bg-[#E5A93C] text-[#1A1D24] border border-black'
+              className={`px-2 sm:px-3 py-1 text-xs font-black uppercase flex items-center gap-1 cursor-pointer transition-all ${themeMode === 'light'
+                  ? 'bg-[#E5A93C] text-[#1A1D24] border border-black shadow-[inset_1px_1px_0_rgba(255,255,255,0.4)]'
                   : 'text-white/60 hover:text-white'
                 }`}
               title="Light Mode"
             >
               <SunIcon size={14} weight={themeMode === 'light' ? 'fill' : 'bold'} />
-              <span className="text-[10px] font-bold hidden sm:inline">Light</span>
+              <span className="text-[10px] font-bold">Light</span>
             </button>
             <button
               onClick={() => onThemeModeChange?.('dark')}
-              className={`px-1.5 sm:px-3 py-1 sm:py-1.5 text-xs font-black uppercase flex items-center gap-1 cursor-pointer transition-all ${themeMode === 'dark'
-                  ? 'bg-[#5B9BF3] text-[#1A1D24] border border-black'
+              className={`px-2 sm:px-3 py-1 text-xs font-black uppercase flex items-center gap-1 cursor-pointer transition-all ${themeMode === 'dark'
+                  ? 'bg-[#5B9BF3] text-[#1A1D24] border border-black shadow-[inset_1px_1px_0_rgba(255,255,255,0.4)]'
                   : 'text-white/60 hover:text-white'
                 }`}
               title="Dark Mode"
             >
               <MoonIcon size={14} weight={themeMode === 'dark' ? 'fill' : 'bold'} />
+              <span className="text-[10px] font-bold">Dark</span>
             </button>
           </div>
         </div>
-      </div>
 
+        {/* Second Row: Health Bar (Center) & Proximity Inspect Button */}
+        <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-2 w-full">
+          {/* Health Bar */}
+          <div className="flex flex-col items-center gap-2 font-mono uppercase mx-auto sm:mx-0">
+            <div
+              className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#0F141F] border-4 border-[#384252] shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+              style={{
+                clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+              }}
+            >
+              {/* Pixelated Health Icon Wrapper */}
+              <div className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center border-2 border-black shadow-[inset_-2px_-2px_0px_rgba(0,0,0,0.3)] ${playerHp <= 30
+                ? 'bg-[#DC2626]'
+                : 'bg-[#10B981]'
+                }`}>
+                {playerHp <= 0 ? (
+                  <span className="text-lg">☠️</span>
+                ) : (
+                  <svg viewBox="0 0 9 9" className="w-4 h-4 sm:w-5 sm:h-5 text-white fill-current" style={{ shapeRendering: 'crispEdges' }}>
+                    <rect x="1" y="1" width="2" height="2" />
+                    <rect x="6" y="1" width="2" height="2" />
+                    <rect x="0" y="3" width="9" height="2" />
+                    <rect x="1" y="5" width="7" height="1" />
+                    <rect x="2" y="6" width="5" height="1" />
+                    <rect x="3" y="7" width="3" height="1" />
+                    <rect x="4" y="8" width="1" height="1" />
+                  </svg>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-1">
+                {/* Top Text Row: Name + HP Count */}
+                <div className="flex items-end justify-between gap-3 text-[10px] sm:text-xs font-bold tracking-wider text-white shadow-black drop-shadow-[1px_1px_0_rgba(0,0,0,1)]">
+                  <span className="text-[#60A5FA]">
+                    {characterName}
+                  </span>
+                  <span className={`text-[9px] sm:text-[10px] ${playerHp > 50 ? 'text-[#34D399]' : playerHp > 25 ? 'text-[#FBBF24]' : 'text-[#F87171] animate-pulse'
+                    }`}>
+                    {Math.round(playerHp)}/{maxPlayerHp}
+                  </span>
+                </div>
+
+                {/* Chunky Health Bar Track */}
+                <div className="w-32 sm:w-52 h-3 sm:h-3.5 bg-black border-2 border-[#384252] shadow-[inset_0_2px_4px_rgba(0,0,0,0.8)] relative p-[2px]">
+                  <div
+                    className={`h-full transition-all duration-200 shadow-[inset_0_2px_0_rgba(255,255,255,0.4)] ${playerHp > 50
+                      ? 'bg-[#10B981]'
+                      : playerHp > 25
+                        ? 'bg-[#F59E0B]'
+                        : 'bg-[#DC2626] animate-pulse'
+                      }`}
+                    style={{ width: `${healthPercent}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Blocky Quick Attack Key Hints */}
+              {isCombatActive && (
+                <div className="hidden lg:flex items-center gap-1.5 pl-3 border-l-2 border-[#384252] text-[10px] text-white">
+                  <span className="text-red-400 font-bold mr-1 drop-shadow-[1px_1px_0_rgba(0,0,0,1)]">ATK</span>
+                  {['J', 'K', 'L', 'U'].map((key, index) => {
+                    const colors = ['text-amber-300', 'text-blue-300', 'text-purple-300', 'text-rose-300'];
+                    return (
+                      <span
+                        key={key}
+                        className={`px-2 py-1 bg-[#2C3440] border-t-2 border-l-2 border-t-white/30 border-l-white/30 border-b-2 border-r-2 border-b-black border-r-black ${colors[index]}`}
+                      >
+                        {key}
+                      </span>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Retro Respawning Countdown */}
+            {respawnCountdown !== null && respawnCountdown > 0 && (
+              <div
+                className="flex items-center justify-center gap-2 px-4 py-1.5 bg-[#1A0505] border-4 border-red-500 shadow-[4px_4px_0px_#7F1D1D] animate-pulse"
+                style={{
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                }}
+              >
+                <span className="text-xs">⚠️</span>
+                <span className="text-[10px] sm:text-xs font-bold text-red-200 tracking-widest drop-shadow-[1px_1px_0_rgba(0,0,0,1)]">
+                  RESPAWNING IN <span className="text-white ml-1">{respawnCountdown}</span>
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Minimal Nearby Object Inspect Button */}
+          {currentBiome?.isNearbyKiosk && (
+            <button
+              onClick={onInspectStation}
+              style={{
+                clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
+              }}
+              className="px-3.5 py-1.5 sm:py-2 bg-[#D9A441] hover:bg-[#E5B152] text-[#1A1D24] font-black uppercase text-xs flex items-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] animate-pulse shrink-0 cursor-pointer mx-auto sm:mx-0"
+            >
+              <EyeIcon size={15} weight="bold" />
+              <span>{currentBiome.actionLabel ? `[E] ${currentBiome.actionLabel}` : 'Inspect [E]'}</span>
+            </button>
+          )}
+        </div>
+      </div>
 
       {/* ========================================================================= */}
       {/* 2. BOTTOM BAR: CONTROLS (SHOWN IF NO KEYBOARD OR ON TOUCH DEVICE)         */}

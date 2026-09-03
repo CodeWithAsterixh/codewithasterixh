@@ -6,12 +6,9 @@ let sharp: any = null;
 try {
   sharp = require('sharp');
 } catch (e) {
-  try {
-    sharp = require('next/dist/compiled/sharp');
-  } catch (e2) {
-    sharp = null;
-  }
+  sharp = null;
 }
+
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
