@@ -121,37 +121,61 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
 
   const handleStartLeft = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if ('setPointerCapture' in e.target && (e as any).pointerId !== undefined) {
+      try { (e.target as HTMLElement).setPointerCapture((e as any).pointerId); } catch {}
+    }
     onVirtualInput('left_start');
   };
   const handleStopLeft = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if ('releasePointerCapture' in e.target && (e as any).pointerId !== undefined) {
+      try { (e.target as HTMLElement).releasePointerCapture((e as any).pointerId); } catch {}
+    }
     onVirtualInput('left_stop');
   };
 
   const handleStartRight = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if ('setPointerCapture' in e.target && (e as any).pointerId !== undefined) {
+      try { (e.target as HTMLElement).setPointerCapture((e as any).pointerId); } catch {}
+    }
     onVirtualInput('right_start');
   };
   const handleStopRight = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if ('releasePointerCapture' in e.target && (e as any).pointerId !== undefined) {
+      try { (e.target as HTMLElement).releasePointerCapture((e as any).pointerId); } catch {}
+    }
     onVirtualInput('right_stop');
   };
 
   const handleStartUp = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if ('setPointerCapture' in e.target && (e as any).pointerId !== undefined) {
+      try { (e.target as HTMLElement).setPointerCapture((e as any).pointerId); } catch {}
+    }
     onVirtualInput('up_start');
   };
   const handleStopUp = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if ('releasePointerCapture' in e.target && (e as any).pointerId !== undefined) {
+      try { (e.target as HTMLElement).releasePointerCapture((e as any).pointerId); } catch {}
+    }
     onVirtualInput('up_stop');
   };
 
   const handleStartDown = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if ('setPointerCapture' in e.target && (e as any).pointerId !== undefined) {
+      try { (e.target as HTMLElement).setPointerCapture((e as any).pointerId); } catch {}
+    }
     onVirtualInput('down_start');
   };
   const handleStopDown = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if ('releasePointerCapture' in e.target && (e as any).pointerId !== undefined) {
+      try { (e.target as HTMLElement).releasePointerCapture((e as any).pointerId); } catch {}
+    }
     onVirtualInput('down_stop');
   };
 
@@ -298,7 +322,7 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
         </div>
 
         {/* Right: Proximity Badge + 2-Button Light / Dark Mode Toggle */}
-        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        <div className="flex items-center gap-1 sm:gap-3 shrink-0 max-w-[45vw] sm:max-w-none overflow-hidden justify-end">
           {/* Minimal Nearby Object Inspect Button (Only visible when standing near an object) */}
           {currentBiome?.isNearbyKiosk && (
             <button
@@ -306,24 +330,26 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
               style={{
                 clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
               }}
-              className="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#D9A441] hover:bg-[#E5B152] text-[#1A1D24] font-black uppercase text-[10px] sm:text-xs flex items-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] animate-pulse active:translate-y-[2px] cursor-pointer"
+              className="px-2 sm:px-4 py-1 sm:py-2 bg-[#D9A441] hover:bg-[#E5B152] text-[#1A1D24] font-black uppercase text-[9px] sm:text-xs flex items-center gap-1 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] animate-pulse shrink-0 cursor-pointer"
             >
-              <EyeIcon size={15} weight="bold" />
-              <span>{currentBiome.actionLabel ? `[E] ${currentBiome.actionLabel}` : 'Inspect [E]'}</span>
+              <EyeIcon size={14} weight="bold" />
+              <span className="truncate max-w-[80px] sm:max-w-none">
+                {currentBiome.actionLabel ? `[E] ${currentBiome.actionLabel}` : 'Inspect [E]'}
+              </span>
             </button>
           )}
 
           {/* Pixelated 2-Button Light / Dark Mode Toggle */}
           <div
-            className="flex items-center p-1 bg-[#0F141F] border-2 border-[#384252] shadow-[3px_3px_0px_rgba(0,0,0,1)]"
+            className="flex items-center p-0.5 sm:p-1 bg-[#0F141F] border-2 border-[#384252] shadow-[2px_2px_0px_rgba(0,0,0,1)] shrink-0"
             style={{
               clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
             }}
           >
             <button
               onClick={() => onThemeModeChange?.('light')}
-              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs font-black uppercase flex items-center gap-1.5 cursor-pointer transition-all ${themeMode === 'light'
-                  ? 'bg-[#E5A93C] text-[#1A1D24] border-2 border-black shadow-[inset_1px_1px_0_rgba(255,255,255,0.4)]'
+              className={`px-1.5 sm:px-3 py-1 sm:py-1.5 text-xs font-black uppercase flex items-center gap-1 cursor-pointer transition-all ${themeMode === 'light'
+                  ? 'bg-[#E5A93C] text-[#1A1D24] border border-black'
                   : 'text-white/60 hover:text-white'
                 }`}
               title="Light Mode"
@@ -333,18 +359,18 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
             </button>
             <button
               onClick={() => onThemeModeChange?.('dark')}
-              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs font-black uppercase flex items-center gap-1.5 cursor-pointer transition-all ${themeMode === 'dark'
-                  ? 'bg-[#5B9BF3] text-[#1A1D24] border-2 border-black shadow-[inset_1px_1px_0_rgba(255,255,255,0.4)]'
+              className={`px-1.5 sm:px-3 py-1 sm:py-1.5 text-xs font-black uppercase flex items-center gap-1 cursor-pointer transition-all ${themeMode === 'dark'
+                  ? 'bg-[#5B9BF3] text-[#1A1D24] border border-black'
                   : 'text-white/60 hover:text-white'
                 }`}
               title="Dark Mode"
             >
               <MoonIcon size={14} weight={themeMode === 'dark' ? 'fill' : 'bold'} />
-              <span className="text-[10px] font-bold hidden sm:inline">Dark</span>
             </button>
           </div>
         </div>
       </div>
+
 
       {/* ========================================================================= */}
       {/* 2. BOTTOM BAR: CONTROLS (SHOWN IF NO KEYBOARD OR ON TOUCH DEVICE)         */}
@@ -367,8 +393,10 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
                 <button
                   onPointerDown={handleStartUp}
                   onPointerUp={handleStopUp}
-                  onPointerLeave={handleStopUp}
                   onPointerCancel={handleStopUp}
+                  onTouchStart={handleStartUp}
+                  onTouchEnd={handleStopUp}
+                  onTouchCancel={handleStopUp}
                   onContextMenu={(e) => e.preventDefault()}
                   className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#1E242D] text-white font-bold flex items-center justify-center border-t-2 border-l-2 border-t-white/30 border-l-white/30 border-b-2 border-r-2 border-b-black border-r-black active:border-t-black active:border-l-black active:border-b-white/30 active:border-r-white/30 cursor-pointer select-none touch-none"
                 >
@@ -380,8 +408,10 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
                 <button
                   onPointerDown={handleStartLeft}
                   onPointerUp={handleStopLeft}
-                  onPointerLeave={handleStopLeft}
                   onPointerCancel={handleStopLeft}
+                  onTouchStart={handleStartLeft}
+                  onTouchEnd={handleStopLeft}
+                  onTouchCancel={handleStopLeft}
                   onContextMenu={(e) => e.preventDefault()}
                   className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#1E242D] text-white font-bold flex items-center justify-center border-t-2 border-l-2 border-t-white/30 border-l-white/30 border-b-2 border-r-2 border-b-black border-r-black active:border-t-black active:border-l-black active:border-b-white/30 active:border-r-white/30 cursor-pointer select-none touch-none"
                 >
@@ -393,8 +423,10 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
                 <button
                   onPointerDown={handleStartRight}
                   onPointerUp={handleStopRight}
-                  onPointerLeave={handleStopRight}
                   onPointerCancel={handleStopRight}
+                  onTouchStart={handleStartRight}
+                  onTouchEnd={handleStopRight}
+                  onTouchCancel={handleStopRight}
                   onContextMenu={(e) => e.preventDefault()}
                   className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#1E242D] text-white font-bold flex items-center justify-center border-t-2 border-l-2 border-t-white/30 border-l-white/30 border-b-2 border-r-2 border-b-black border-r-black active:border-t-black active:border-l-black active:border-b-white/30 active:border-r-white/30 cursor-pointer select-none touch-none"
                 >
@@ -406,13 +438,16 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
                 <button
                   onPointerDown={handleStartDown}
                   onPointerUp={handleStopDown}
-                  onPointerLeave={handleStopDown}
                   onPointerCancel={handleStopDown}
+                  onTouchStart={handleStartDown}
+                  onTouchEnd={handleStopDown}
+                  onTouchCancel={handleStopDown}
                   onContextMenu={(e) => e.preventDefault()}
                   className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#1E242D] text-white font-bold flex items-center justify-center border-t-2 border-l-2 border-t-white/30 border-l-white/30 border-b-2 border-r-2 border-b-black border-r-black active:border-t-black active:border-l-black active:border-b-white/30 active:border-r-white/30 cursor-pointer select-none touch-none"
                 >
                   <ArrowDownIcon size={18} weight="bold" />
                 </button>
+
                 <div />
               </div>
 

@@ -11,10 +11,14 @@ import {
   BriefcaseIcon,
   ArrowSquareOutIcon,
   SparkleIcon,
+  MailboxIcon,
+  MapPinIcon,
 } from '@phosphor-icons/react';
 import projectsData from '@/data/projects.json';
 import profileData from '@/data/profile.json';
 import techStackData from '@/data/tech-stack.json';
+import { getOptimizedImageUrl } from '@/features/world/utils/imageProxy';
+
 
 export interface BookModalProps {
   isOpen: boolean;
@@ -504,10 +508,12 @@ export const BookModal: React.FC<BookModalProps> = ({
                         className="w-fit max-w-md h-auto aspect-square overflow-hidden shrink-0"
                       >
                         <img
-                          src={profileData.images.about.src || '/images/profile/about.png'}
+                          src={getOptimizedImageUrl(profileData.images.about.src || '/images/profile/about.png')}
                           alt={profileData.name}
                           className="w-full h-auto max-h-32 object-contain object-center"
                         />
+
+
                       </div>
 
                       {/* Name / Role / Handle */}
@@ -660,7 +666,7 @@ export const BookModal: React.FC<BookModalProps> = ({
                     >
                       <div className="text-[9.5px] font-bold text-[#1F1914] uppercase">Standards & Contact</div>
                       <p className="text-[8.5px] text-[#5C4F41] leading-tight">
-                        📍 {profileData.location} &bull; ✉️ {profileData.email}
+                        <MapPinIcon /> {profileData.location} &bull; <MailboxIcon /> {profileData.email}
                       </p>
                       <p className="text-[8px] text-[#7A6E5F] leading-tight">
                         Clean code, modular architecture, responsive designs, and test-driven development.

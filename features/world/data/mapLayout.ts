@@ -181,10 +181,6 @@ export function getActiveMapLocation(playerX: number): MapLocationEntry {
   let minDistance = Infinity;
 
   for (const loc of WORLD_LOCATIONS) {
-    const halfW = loc.width / 2;
-    if (playerX >= loc.x - halfW && playerX <= loc.x + halfW) {
-      return loc;
-    }
     const dist = Math.abs(playerX - loc.x);
     if (dist < minDistance) {
       minDistance = dist;
@@ -196,16 +192,22 @@ export function getActiveMapLocation(playerX: number): MapLocationEntry {
 }
 
 export function getNearbyStationKiosk(playerX: number, customRadius?: number): MapLocationEntry | null {
+  let closest: MapLocationEntry | null = null;
+  let minDistance = Infinity;
+
   for (const loc of WORLD_LOCATIONS) {
-    let radius = 130;
-    if (loc.featureType === 'about') radius = 80;
-    if (loc.featureType === 'services') radius = 110;
-    if (loc.featureType === 'contact') radius = 90;
+    let radius = 180;
+    if (loc.featureType === 'about') radius = 120;
+    if (loc.featureType === 'services') radius = 140;
+    if (loc.featureType === 'contact') radius = 120;
     if (customRadius !== undefined) radius = customRadius;
 
-    if (Math.abs(playerX - loc.x) <= radius) {
-      return loc;
+    const dist = Math.abs(playerX - loc.x);
+    if (dist <= radius && dist < minDistance) {
+      minDistance = dist;
+      closest = loc;
     }
   }
-  return null;
+  return closest;
 }
+

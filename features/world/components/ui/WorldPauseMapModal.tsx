@@ -209,7 +209,7 @@ export const WorldPauseMapModal: React.FC<
                     'text-white',
                   )}
                 >
-                  World Map
+                  Game Menu
                 </h2>
 
                 <p
@@ -220,8 +220,9 @@ export const WorldPauseMapModal: React.FC<
                     'text-[#9BA3AE]',
                   )}
                 >
-                  Select a location to fast travel
+                  Controls, character selection & fast travel
                 </p>
+
               </div>
             </div>
 
@@ -257,415 +258,220 @@ export const WorldPauseMapModal: React.FC<
             {/* MAP                                                           */}
             {/* ============================================================ */}
 
+            {/* FAST TRAVEL LOCATIONS BAR */}
             <section
               style={{
                 clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
               }}
-              className={clsx(
-                'relative overflow-hidden',
-                'border-4 border-[#3E4650]',
-                'bg-[#0D1014]',
-                'shadow-[4px_4px_0px_rgba(0,0,0,1)]',
-              )}
+              className="border-4 border-[#3E4650] bg-[#11151C] p-3 shadow-[4px_4px_0px_rgba(0,0,0,1)] space-y-2 mb-4"
             >
-              {/* Map */}
-              <div className="relative aspect-[16/8] min-h-[220px]">
-                <img
-                  src="/maps/world_map.jpg"
-                  alt="Asterixh World Map"
-                  className={clsx(
-                    'absolute inset-0',
-                    'h-full w-full',
-                    'object-cover',
-                  )}
-                />
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-black uppercase text-[#D9A441] tracking-wider flex items-center gap-1.5">
+                  <MapPinIcon size={16} weight="fill" />
+                  Fast Travel Locations
+                </span>
+                <span className="text-[10px] text-[#9BA3AE] font-mono">
+                  Click location to teleport
+                </span>
+              </div>
 
-                {/* Dark game-style map overlay */}
-                <div
-                  className={clsx(
-                    'absolute inset-0',
-                    'bg-[#10151B]/15',
-                    'pointer-events-none',
-                  )}
-                />
-
-                {/* Location Nodes */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {mapLocations.map((location) => {
-                  const isCurrent =
-                    Math.abs(playerX - location.x) < 300;
-
+                  const isCurrent = Math.abs(playerX - location.x) < 300;
                   return (
                     <button
                       key={location.id}
                       type="button"
-                      onClick={() =>
-                        handleTravel(location.x)
-                      }
+                      onClick={() => handleTravel(location.x)}
                       style={{
-                        left: location.left,
+                        clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
                       }}
                       className={clsx(
-                        'absolute bottom-4',
-                        'z-10',
-                        '-translate-x-1/2',
-                        'cursor-pointer',
-                        'group',
+                        'flex flex-col items-start p-2 border-2 transition-all cursor-pointer text-left',
+                        isCurrent
+                          ? 'bg-[#D9A441] text-[#1A1D21] border-black shadow-[2px_2px_0px_rgba(0,0,0,1)]'
+                          : 'bg-[#20252D] text-white border-black hover:bg-[#2C3440] shadow-[2px_2px_0px_rgba(0,0,0,1)]'
                       )}
                     >
-                      {/* Marker */}
-                      <div
-                        className={clsx(
-                          'flex flex-col items-center',
-                          'transition-transform duration-100',
-                          'group-hover:-translate-y-1',
-                        )}
-                      >
-                        {/* Label */}
-                        <div
-                          style={{
-                            clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
-                          }}
-                          className={clsx(
-                            'mb-1',
-                            'whitespace-nowrap',
-                            'border-2 border-black',
-                            'px-2 py-1',
-                            'text-[8px] sm:text-[9px]',
-                            'font-black uppercase',
-                            'shadow-[2px_2px_0px_rgba(0,0,0,1)]',
-                            isCurrent
-                              ? [
-                                'bg-[#252B34]',
-                                'text-[#F3C65B]',
-                              ]
-                              : [
-                                'bg-[#20252D]/95',
-                                'text-white',
-                              ],
-                          )}
-                        >
+                      <div className="flex items-center justify-between w-full">
+                        <span className="text-[11px] font-black uppercase tracking-tight truncate">
                           {location.name}
-                        </div>
-
-                        {/* Pin */}
-                        <div
-                          style={{
-                            clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
-                          }}
-                          className={clsx(
-                            'relative',
-                            'flex h-7 w-7',
-                            'items-center justify-center',
-                            'border-2 border-black',
-                            'shadow-[2px_2px_0px_rgba(0,0,0,1)]',
-                            isCurrent
-                              ? [
-                                'bg-[#E0A936]',
-                                'scale-110',
-                              ]
-                              : [
-                                'bg-[#2E3742]',
-                                'group-hover:bg-[#E0A936]',
-                              ],
-                          )}
-                        >
-                          <MapPinIcon
-                            size={14}
-                            weight="fill"
-                            className={clsx(
-                              isCurrent
-                                ? 'text-[#20252D]'
-                                : 'text-white',
-                              'group-hover:text-[#20252D]',
-                            )}
-                          />
-                        </div>
-
-                        {/* Current indicator */}
+                        </span>
                         {isCurrent && (
-                          <span
-                            className={clsx(
-                              'absolute -bottom-5',
-                              'whitespace-nowrap',
-                              'text-[7px]',
-                              'font-black uppercase',
-                              'tracking-wider',
-                              'text-white',
-                            )}
-                          >
-                            You are here
+                          <span className="text-[8px] bg-black/30 text-black font-extrabold px-1 rounded">
+                            HERE
                           </span>
                         )}
                       </div>
+                      <span className={clsx('text-[9px] font-mono truncate', isCurrent ? 'text-[#1A1D21]/80' : 'text-[#9BA3AE]')}>
+                        {location.sub}
+                      </span>
                     </button>
                   );
                 })}
               </div>
-
-              {/* Map HUD */}
-              <div
-                style={{
-                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
-                }}
-                className={clsx(
-                  'absolute left-3 top-3',
-                  'border-2 border-black',
-                  'bg-[#15191F]/90',
-                  'px-2.5 py-1.5',
-                  'text-[8px]',
-                  'font-black uppercase',
-                  'tracking-wider',
-                  'text-white',
-                  'shadow-[2px_2px_0px_rgba(0,0,0,1)]'
-                )}
-              >
-                Asterixh World
-              </div>
-
-              <div
-                style={{
-                  clipPath: 'polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px))'
-                }}
-                className={clsx(
-                  'absolute bottom-3 right-3',
-                  'hidden sm:block',
-                  'border-2 border-black',
-                  'bg-[#15191F]/90',
-                  'px-2.5 py-1.5',
-                  'text-[8px]',
-                  'font-bold',
-                  'text-[#B5BDC7]',
-                  'shadow-[2px_2px_0px_rgba(0,0,0,1)]'
-                )}
-              >
-                CLICK A LANDMARK TO TRAVEL
-              </div>
             </section>
+
 
             {/* ============================================================ */}
             {/* QUICK CONTROLS                                                */}
             {/* ============================================================ */}
 
-            <div
-              className={clsx(
-                'mt-3',
-                'grid grid-cols-1',
-                'gap-3',
-                'md:grid-cols-3',
-              )}
-            >
+            {/* ROW 1: CONTROLS & LAYOUT (FULL WIDTH) */}
+            <div className="mt-3">
               <ControlPanel
-                icon={
-                  <CompassIcon
-                    size={16}
-                    weight="duotone"
-                  />
-                }
+                icon={<CompassIcon size={16} weight="duotone" />}
                 title="Controls & Layout"
               >
-                {/* Control Scheme Option Toggle */}
-                <div className="mb-2.5 pb-2 border-b border-white/10">
-                  <div className="text-[8px] uppercase font-bold text-white/50 mb-1.5 tracking-wider">
-                    Control Scheme
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {/* Control Scheme Option Toggle */}
+                  <div className="space-y-2.5 bg-[#171A21]/60 p-2.5 border border-white/5 flex flex-col justify-between">
+                    <div>
+                      <div className="text-[8px] uppercase font-bold text-[#D9A441] mb-1.5 tracking-wider">
+                        Control Scheme
+                      </div>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        <SwitchButton
+                          active={controlMode === 'arrow'}
+                          onClick={() => onSelectControlMode?.('arrow')}
+                        >
+                          <span className="flex items-center justify-center gap-1">
+                            <ArrowsLeftRightIcon size={12} weight="duotone" />
+                            <span>Arrow + Key</span>
+                          </span>
+                        </SwitchButton>
+
+                        <SwitchButton
+                          active={controlMode === 'joystick'}
+                          onClick={() => onSelectControlMode?.('joystick')}
+                        >
+                          <span className="flex items-center justify-center gap-1">
+                            <GameControllerIcon size={12} weight="duotone" />
+                            <span>Joystick + Key</span>
+                          </span>
+                        </SwitchButton>
+                      </div>
+                    </div>
+
+                    {onToggleCombat && (
+                      <div className="pt-2 border-t border-[#363D46]/80 flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-[#CAD1DB] flex items-center gap-1">
+                          <span>⚔️ Combat Mode</span>
+                        </span>
+                        <SwitchButton
+                          small
+                          active={isCombatActive}
+                          onClick={onToggleCombat}
+                        >
+                          {isCombatActive ? 'Active' : 'Disabled'}
+                        </SwitchButton>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Keybindings Grid */}
+                  <div className="md:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                    <ControlRow label="Move" keys={['A / D']} />
+                    <ControlRow label="Sprint" keys={['SHIFT']} />
+                    <ControlRow label="Jump" keys={['SPACE']} />
+                    <ControlRow label="Inspect" keys={['E']} />
+                    <ControlRow label="Attack 1" keys={['J']} />
+                    <ControlRow label="Attack 2" keys={['K']} />
+                    <ControlRow label="Attack 3" keys={['L']} />
+                    <ControlRow label="Attack 4" keys={['U']} />
+                  </div>
+                </div>
+              </ControlPanel>
+            </div>
+
+            {/* ROW 2: CHARACTER SELECTION & QUICK PAGES */}
+            <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+              {/* CHARACTER SELECTION */}
+              <ControlPanel
+                icon={<UserIcon size={16} weight="fill" />}
+                title="Character"
+              >
+                <div className="space-y-2">
+                  <div className="text-[8px] uppercase font-bold text-white/50 tracking-wider">
+                    Select Gender
                   </div>
                   <div className="grid grid-cols-2 gap-1.5">
                     <SwitchButton
-                      active={controlMode === 'arrow'}
-                      onClick={() => onSelectControlMode?.('arrow')}
+                      active={gender === 'male'}
+                      onClick={() => onSelectGender('male')}
                     >
-                      <span className="flex items-center justify-center gap-1">
-                        <ArrowsLeftRightIcon size={12} weight="duotone" />
-                        <span>Arrow + Key</span>
-                      </span>
+                      Male
                     </SwitchButton>
 
                     <SwitchButton
-                      active={controlMode === 'joystick'}
-                      onClick={() => onSelectControlMode?.('joystick')}
+                      active={gender === 'female'}
+                      onClick={() => onSelectGender('female')}
                     >
-                      <span className="flex items-center justify-center gap-1">
-                        <GameControllerIcon size={12} weight="duotone" />
-                        <span>Joystick + Key</span>
-                      </span>
+                      Female
                     </SwitchButton>
                   </div>
-                </div>
 
-                <ControlRow
-                  label="Move"
-                  keys={['A / D']}
-                />
-
-                <ControlRow
-                  label="Sprint"
-                  keys={['SHIFT']}
-                />
-
-                <ControlRow
-                  label="Jump"
-                  keys={['SPACE']}
-                />
-
-                <ControlRow
-                  label="Attack 1"
-                  keys={['J']}
-                />
-
-                <ControlRow
-                  label="Attack 2"
-                  keys={['K']}
-                />
-
-                <ControlRow
-                  label="Attack 3"
-                  keys={['L']}
-                />
-
-                <ControlRow
-                  label="Attack 4"
-                  keys={['U']}
-                />
-
-                <ControlRow
-                  label="Inspect"
-                  keys={['E']}
-                />
-
-                {onToggleCombat && (
-                  <div className="mt-2 pt-2 border-t border-[#363D46]/80 flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-[#CAD1DB] flex items-center gap-1">
-                      <span>⚔️ Combat Mode</span>
-                    </span>
-                    <SwitchButton
-                      small
-                      active={isCombatActive}
-                      onClick={onToggleCombat}
-                    >
-                      {isCombatActive ? 'Active' : 'Disabled'}
-                    </SwitchButton>
+                  <div className="text-[8px] uppercase font-bold text-white/50 tracking-wider pt-1">
+                    Select Fighter Class
                   </div>
-                )}
-              </ControlPanel>
-
-              <ControlPanel
-                icon={
-                  <UserIcon
-                    size={16}
-                    weight="fill"
-                  />
-                }
-                title="Character"
-              >
-                <div className="grid grid-cols-2 gap-1.5">
-                  <SwitchButton
-                    active={gender === 'male'}
-                    onClick={() =>
-                      onSelectGender('male')
-                    }
-                  >
-                    Male
-                  </SwitchButton>
-
-                  <SwitchButton
-                    active={gender === 'female'}
-                    onClick={() =>
-                      onSelectGender('female')
-                    }
-                  >
-                    Female
-                  </SwitchButton>
-                </div>
-
-                <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-1.5">
-                  {availableCharacters.map(
-                    (charId) => {
-                      const def =
-                        CHARACTER_DEFS[charId];
-
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                    {availableCharacters.map((charId) => {
+                      const def = CHARACTER_DEFS[charId];
                       return (
                         <SwitchButton
                           key={charId}
                           small
-                          active={
-                            characterId === charId
-                          }
-                          onClick={() =>
-                            onSelectCharacter(charId)
-                          }
+                          active={characterId === charId}
+                          onClick={() => onSelectCharacter(charId)}
                         >
                           {def.name}
                         </SwitchButton>
                       );
-                    },
-                  )}
-                </div>
+                    })}
+                  </div>
 
-                <div
-                  className={clsx(
-                    'mt-2',
-                    'border-t border-[#363D46]',
-                    'pt-2',
-                    'text-[8px]',
-                    'font-bold uppercase',
-                    'text-[#7F8995]',
-                  )}
-                >
-                  Current: {activeCharacter.name}
+                  <div className="border-t border-[#363D46] pt-1.5 text-[9px] font-bold uppercase text-[#D9A441]">
+                    Active Character: {activeCharacter.name} ({gender})
+                  </div>
                 </div>
               </ControlPanel>
 
+              {/* QUICK PAGES */}
               <ControlPanel
-                icon={
-                  <CaretRightIcon
-                    size={16}
-                    weight="fill"
-                  />
-                }
+                icon={<CaretRightIcon size={16} weight="fill" />}
                 title="Quick Pages"
               >
-                <QuickAction
-                  icon={
-                    <BookOpenIcon
-                      size={14}
-                      weight="fill"
-                    />
-                  }
-                  label="About Developer"
-                  onClick={() => {
-                    onClose();
-                    onOpenAbout();
-                  }}
-                />
+                <div className="space-y-1.5">
+                  <QuickAction
+                    icon={<BookOpenIcon size={14} weight="fill" />}
+                    label="About Developer"
+                    onClick={() => {
+                      onClose();
+                      onOpenAbout();
+                    }}
+                  />
 
-                <QuickAction
-                  icon={
-                    <BriefcaseIcon
-                      size={14}
-                      weight="fill"
-                    />
-                  }
-                  label="Projects"
-                  onClick={() => {
-                    onClose();
-                    onOpenProjects();
-                  }}
-                />
+                  <QuickAction
+                    icon={<BriefcaseIcon size={14} weight="fill" />}
+                    label="Projects"
+                    onClick={() => {
+                      onClose();
+                      onOpenProjects();
+                    }}
+                  />
 
-                <QuickAction
-                  icon={
-                    <PaperPlaneTiltIcon
-                      size={14}
-                      weight="fill"
-                    />
-                  }
-                  label="Contact"
-                  onClick={() => {
-                    onClose();
-                    onOpenContact();
-                  }}
-                />
+                  <QuickAction
+                    icon={<PaperPlaneTiltIcon size={14} weight="fill" />}
+                    label="Contact"
+                    onClick={() => {
+                      onClose();
+                      onOpenContact();
+                    }}
+                  />
+                </div>
               </ControlPanel>
             </div>
+
 
             {/* ============================================================ */}
             {/* RESUME                                                        */}

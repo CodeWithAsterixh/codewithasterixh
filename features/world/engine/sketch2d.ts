@@ -1,5 +1,5 @@
 import type p5 from 'p5';
-import { Gender, CharacterId, CharacterAction, LocationCategory, NinjaType } from '../types';
+import { Gender, CharacterId, CharacterAction, LocationCategory, NinjaType, ControlMode } from '../types';
 import { DEFAULT_GENDER, DEFAULT_CHARACTER, CHARACTER_DEFS, NINJA_DEFS, NINJA_TYPES } from '../data/characterData';
 import {
   WORLD_BOUNDS,
@@ -15,14 +15,18 @@ import { drawCharacterFrame, drawNinjaFrame, characterSpriteManager } from './ch
 import { PhysicsBody2D, PhysicsDustParticle, DEFAULT_WORLD_PHYSICS } from './physicsEngine';
 
 export interface PhysicsTelemetry {
-  mass: number;
-  speed: number;
+  x: number;
+  y: number;
   vx: number;
   vy: number;
-  ax: number;
-  ay: number;
   isGrounded: boolean;
+  isMoving: boolean;
+  action: CharacterAction;
+  facing: 'left' | 'right';
+  cameraFollows: boolean;
+  controlMode: ControlMode;
 }
+
 
 export interface CurrentBiomeInfo {
   id: string;
@@ -55,10 +59,16 @@ function getTexture(src: string): HTMLImageElement {
     return textureCache.get(src)!;
   }
   const img = new Image();
-  img.src = src;
+  // Route all world asset images through our image-proxy API to reduce asset quality & graphics memory load
+  const proxiedUrl = (src.startsWith('/') || src.startsWith('http'))
+    ? `/api/image-proxy?url=${encodeURIComponent(src)}&q=35&w=480`
+    : src;
+  img.src = proxiedUrl;
   textureCache.set(src, img);
   return img;
 }
+
+
 
 interface FlatSceneryItem {
   x: number;
@@ -268,6 +278,8 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     let currentThemeMode: 'light' | 'dark' = 'light';
     let activeMoonSrc = '/locations/world/beige_moon.png';
     let isCombatActive = false;
+    let controlMode: ControlMode = 'arrow';
+
 
     let playerHp = 100;
     const maxPlayerHp = 100;
@@ -1065,8 +1077,18 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         keys['S'] = false;
         keys['Space'] = false;
         keys[' '] = false;
-      }
-    };
+      };
+
+      const updateAdaptiveZoom = () => {
+        if (p.width >= 1600) {
+          targetZoom = 1.35;
+        } else if (p.width >= 1200) {
+          targetZoom = 1.20;
+        } else {
+          targetZoom = 1.0;
+        }
+      };
+
 
     p.setup = () => {
       (p as any).pixelDensity(1);
@@ -1079,10 +1101,12 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const ctx = (p as any).drawingContext;
       if (ctx) ctx.imageSmoothingEnabled = false;
 
-      camX = p.width / 2;
+      updateAdaptiveZoom();
+      zoom = targetZoom;
+      camX = p.width / 2 - playerBody.x * zoom;
       camY = p.height * 0.72;
-      targetCamX = p.width / 2;
-      targetCamY = p.height * 0.72;
+      targetCamX = camX;
+      targetCamY = camY;
     };
 
     p.windowResized = () => {
@@ -1090,6 +1114,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       if (typeof (p as any).noSmooth === 'function') (p as any).noSmooth();
       const ctx = (p as any).drawingContext;
       if (ctx) ctx.imageSmoothingEnabled = false;
+      updateAdaptiveZoom();
       targetCamY = p.height * 0.72;
     };
 
@@ -1108,21 +1133,30 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         updateEnemyNinja(1 / 60);
       }
 
-      // 3. Camera Smooth Follow with strict viewport screen boundary clamping
-      targetCamY = p.height * 0.72;
+      // 2.5. Telemetry callback
 
-      const isPlayerActivelyMoving =
-        Math.abs(playerBody.vx) > 0.05 ||
-        Math.abs(playerBody.vy) > 0.05 ||
-        Math.hypot(joystickVector.x, joystickVector.y) > 0.05 ||
-        keys['virtual_left'] ||
-        keys['virtual_right'] ||
-        keys['virtual_up'] ||
-        keys['virtual_down'];
+      if (typeof callbacks?.onPhysicsTelemetryChange === 'function') {
+        callbacks.onPhysicsTelemetryChange({
+          x: Math.round(playerBody.x),
+          y: Math.round(playerBody.y),
+          vx: Math.round(playerBody.vx * 10) / 10,
+          vy: Math.round(playerBody.vy * 10) / 10,
+          isGrounded: playerBody.isGrounded,
+          isMoving: Math.abs(playerBody.vx) > 0.1 || Math.abs(playerBody.vy) > 0.1,
+          action: playerAction,
+          facing: playerBody.facing,
+          cameraFollows: cameraFollowsPlayer,
+          controlMode,
+        });
+      }
 
-      if (isPlayerActivelyMoving) {
-        cameraFollowsPlayer = true;
-        isDragging = false;
+      // 3. Update Camera Position & Zoom
+      if ((p as any).mouseIsPressed && !isModalActive) {
+
+        if (p.mouseX < 150 && p.mouseY > p.height - 150) {
+          cameraFollowsPlayer = true;
+          isDragging = false;
+        }
       }
 
       if (cameraFollowsPlayer) {
@@ -1134,9 +1168,11 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const maxCamX = -WORLD_BOUNDS.minX * zoom;
       targetCamX = p.constrain(targetCamX, minCamX, maxCamX);
 
-      camX = p.lerp(camX, targetCamX, 0.10);
-      camY = p.lerp(camY, targetCamY, 0.10);
-      zoom = p.lerp(zoom, targetZoom, 0.10);
+      // Fast, responsive camera tracking for desktop & larger screens (no camera drag lag)
+      const cameraLerpSpeed = (Math.abs(playerBody.vx) > 0.1 || Math.abs(playerBody.vy) > 0.1) ? 0.35 : 0.22;
+      camX = p.lerp(camX, targetCamX, cameraLerpSpeed);
+      camY = p.lerp(camY, targetCamY, cameraLerpSpeed);
+      zoom = p.lerp(zoom, targetZoom, 0.20);
 
       // Hard clamp current camX as well to avoid any lerp overshoot past boundaries
       camX = p.constrain(camX, minCamX, maxCamX);
@@ -1307,34 +1343,35 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
 
       // X Movement & Speed Scaling
       if (moveDirX !== 0) {
-        if ((moveDirX > 0 && playerBody.vx < -0.3) || (moveDirX < 0 && playerBody.vx > 0.3)) {
-          playerBody.vx *= 0.2;
+        if ((moveDirX > 0 && playerBody.vx < 0) || (moveDirX < 0 && playerBody.vx > 0)) {
+          playerBody.vx = 0;
         }
-        playerBody.vx += moveDirX * (forceMag / playerBody.mass) * 0.22;
+        playerBody.vx += moveDirX * (forceMag / playerBody.mass) * 0.85;
       } else {
-        playerBody.vx *= 0.80;
-        if (Math.abs(playerBody.vx) < 0.05) playerBody.vx = 0;
+        playerBody.vx *= 0.35;
+        if (Math.abs(playerBody.vx) < 0.1) playerBody.vx = 0;
       }
 
       // Dynamic speed scaling: If using joystick, maxSpeed scales with distance from center
       const speedScaleX = isUsingJoystick ? Math.min(1.0, Math.max(0.20, Math.abs(moveDirX))) : 1.0;
-      const maxSpeedX = (isRunning ? 6.2 : 3.6) * speedScaleX;
+      const maxSpeedX = (isRunning ? 8.5 : 5.2) * speedScaleX;
       playerBody.vx = p.constrain(playerBody.vx, -maxSpeedX, maxSpeedX);
 
       // Y Movement & Speed Scaling (Up / Down depth axis)
       if (moveDirY !== 0) {
-        if ((moveDirY > 0 && playerBody.vy < -0.3) || (moveDirY < 0 && playerBody.vy > 0.3)) {
-          playerBody.vy *= 0.2;
+        if ((moveDirY > 0 && playerBody.vy < 0) || (moveDirY < 0 && playerBody.vy > 0)) {
+          playerBody.vy = 0;
         }
-        playerBody.vy += moveDirY * (forceMag / playerBody.mass) * 0.12;
+        playerBody.vy += moveDirY * (forceMag / playerBody.mass) * 0.55;
       } else {
-        playerBody.vy *= 0.80;
-        if (Math.abs(playerBody.vy) < 0.05) playerBody.vy = 0;
+        playerBody.vy *= 0.35;
+        if (Math.abs(playerBody.vy) < 0.1) playerBody.vy = 0;
       }
 
       const speedScaleY = isUsingJoystick ? Math.min(1.0, Math.max(0.20, Math.abs(moveDirY))) : 1.0;
-      const maxSpeedY = (isRunning ? 2.6 : 1.7) * speedScaleY;
+      const maxSpeedY = (isRunning ? 3.8 : 2.4) * speedScaleY;
       playerBody.vy = p.constrain(playerBody.vy, -maxSpeedY, maxSpeedY);
+
 
       // Jump Offset Simulation (Space bar / Jump button)
       if (isJump && jumpOffset === 0) {
@@ -1654,6 +1691,10 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const drawY = GROUND_Y - targetH * groundSurfaceRatio;
 
 
+      if (currentThemeMode === 'dark') {
+        ctx.filter = 'brightness(0.65) saturate(0.90)';
+      }
+
       let layerX = Math.floor(viewLeft / layerW) * layerW;
       while (layerX < viewRight + layerW) {
         // Draw top ground crest with textured grass tufts and paths
@@ -1670,13 +1711,12 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         layerX += layerW - 1;
       }
 
-      // In dark mode: overlay a cheap dark tint over the entire ground area
-      // (much cheaper than ctx.filter which triggers GPU recomposite every frame)
       if (currentThemeMode === 'dark') {
-        ctx.fillStyle = 'rgba(0, 5, 20, 0.45)';
-        ctx.fillRect(Math.floor(viewLeft), drawY, (viewRight - viewLeft) + layerW * 2, viewBottom - drawY + 400);
+        ctx.filter = 'none';
       }
     }
+
+
 
 
     interface PooledDepthItem {
@@ -1773,13 +1813,17 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
       const isDark = currentThemeMode === 'dark';
 
-      // Dispatch-based zero-closure rendering (no ctx.filter toggling — overlay tint applied per-pass instead)
+      if (isDark) {
+        ctx.filter = 'brightness(0.65) saturate(0.90)';
+      }
+
       for (let i = 0; i < count; i++) {
         const ent = activeSlice[i];
-        if (ent.type === 10) {
-          renderPlayerCharacter();
-        } else if (ent.type === 11) {
-          if (activeEnemy) renderEnemyNinja(activeEnemy);
+        if (ent.type === 10 || ent.type === 11) {
+          if (isDark) ctx.filter = 'none';
+          if (ent.type === 10) renderPlayerCharacter();
+          else if (activeEnemy) renderEnemyNinja(activeEnemy);
+          if (isDark) ctx.filter = 'brightness(0.65) saturate(0.90)';
         } else {
           switch (ent.type) {
             case 1: drawSingleTree(ALL_WORLD_TREES[ent.index]); break;
@@ -1795,16 +1839,12 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         }
       }
 
-      // After all entities: apply a single dark tint overlay for trees/bushes/objects in night mode
       if (isDark) {
-        const viewLeft = (-camX) / zoom - 450;
-        const viewRight = (p.width - camX) / zoom + 450;
-        const viewTop = (-camY) / zoom - 200;
-        const viewBottom = (p.height - camY) / zoom + 400;
-        ctx.fillStyle = 'rgba(0, 5, 20, 0.30)';
-        ctx.fillRect(viewLeft, viewTop, viewRight - viewLeft, viewBottom - viewTop);
+        ctx.filter = 'none';
       }
     }
+
+
 
 
     function drawSingleTree(tree: FlatSceneryItem) {
@@ -2183,67 +2223,98 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
 
     const handleNativeKeyDown = (e: KeyboardEvent) => {
       if (isModalActive) return;
-      if (GAME_KEYS.includes(e.code) || GAME_KEY_CHARS.includes(e.key)) {
+      if (GAME_KEYS.includes(e.code) || GAME_KEY_CHARS.includes(e.key) || e.key === 'Shift') {
         e.preventDefault();
       }
-      if (e.code) keys[e.code] = true;
-      if (e.key) keys[e.key] = true;
-      cameraFollowsPlayer = true;
+      if (e.repeat) return; // Prevent browser key-repeat cluttering
+
+      const keyLower = e.key ? e.key.toLowerCase() : '';
+
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft' || keyLower === 'a') {
+        keys['virtual_left'] = true;
+        cameraFollowsPlayer = true;
+      }
+      if (e.code === 'KeyD' || e.code === 'ArrowRight' || keyLower === 'd') {
+        keys['virtual_right'] = true;
+        cameraFollowsPlayer = true;
+      }
+      if (e.code === 'KeyW' || e.code === 'ArrowUp' || keyLower === 'w') {
+        keys['virtual_up'] = true;
+        cameraFollowsPlayer = true;
+      }
+      if (e.code === 'KeyS' || e.code === 'ArrowDown' || keyLower === 's') {
+        keys['virtual_down'] = true;
+        cameraFollowsPlayer = true;
+      }
+      if (e.code === 'Space' || e.key === ' ') {
+        keys['virtual_jump'] = true;
+      }
+      if (e.key === 'Shift' || e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+        keys['virtual_sprint'] = true;
+      }
+      if (e.code === 'KeyE' || keyLower === 'e') {
+        (p as any).inspectNearbyStation?.();
+      }
 
       // Direct, instantaneous attack trigger on keypress
       if (playerRespawnCountdown <= 0 && attackTimer <= 0) {
-        if (e.code === 'KeyJ' || e.key === 'j' || e.key === 'J' || e.code === 'Digit1' || e.key === '1') {
+        if (e.code === 'KeyJ' || keyLower === 'j' || e.code === 'Digit1' || e.key === '1') {
           triggerPlayerAttack('attack1');
-        } else if (e.code === 'KeyK' || e.key === 'k' || e.key === 'K' || e.code === 'Digit2' || e.key === '2') {
+        } else if (e.code === 'KeyK' || keyLower === 'k' || e.code === 'Digit2' || e.key === '2') {
           triggerPlayerAttack('attack2');
-        } else if (e.code === 'KeyL' || e.key === 'l' || e.key === 'L' || e.code === 'Digit3' || e.key === '3') {
+        } else if (e.code === 'KeyL' || keyLower === 'l' || e.code === 'Digit3' || e.key === '3') {
           triggerPlayerAttack('attack3');
-        } else if (e.code === 'KeyU' || e.key === 'u' || e.key === 'U' || e.code === 'KeyI' || e.key === 'i' || e.key === 'I' || e.code === 'Semicolon' || e.key === ';' || e.code === 'Digit4' || e.key === '4') {
+        } else if (e.code === 'KeyU' || keyLower === 'u' || e.code === 'KeyI' || keyLower === 'i' || e.code === 'Semicolon' || e.key === ';' || e.code === 'Digit4' || e.key === '4') {
           triggerPlayerAttack('attack4');
         }
       }
     };
 
     const handleNativeKeyUp = (e: KeyboardEvent) => {
-      if (GAME_KEYS.includes(e.code) || GAME_KEY_CHARS.includes(e.key)) {
+      if (GAME_KEYS.includes(e.code) || GAME_KEY_CHARS.includes(e.key) || e.key === 'Shift') {
         e.preventDefault();
       }
-      if (e.code) keys[e.code] = false;
-      if (e.key) keys[e.key] = false;
 
-      if (e.key === 'ArrowLeft' || e.code === 'ArrowLeft' || e.key === 'a' || e.key === 'A' || e.code === 'KeyA') {
-        keys['ArrowLeft'] = false;
+      const keyLower = e.key ? e.key.toLowerCase() : '';
+
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft' || keyLower === 'a') {
+        keys['virtual_left'] = false;
         keys['KeyA'] = false;
+        keys['ArrowLeft'] = false;
         keys['a'] = false;
         keys['A'] = false;
       }
-      if (e.key === 'ArrowRight' || e.code === 'ArrowRight' || e.key === 'd' || e.key === 'D' || e.code === 'KeyD') {
-        keys['ArrowRight'] = false;
+      if (e.code === 'KeyD' || e.code === 'ArrowRight' || keyLower === 'd') {
+        keys['virtual_right'] = false;
         keys['KeyD'] = false;
+        keys['ArrowRight'] = false;
         keys['d'] = false;
         keys['D'] = false;
       }
-      if (e.key === 'ArrowUp' || e.code === 'ArrowUp' || e.key === 'w' || e.key === 'W' || e.code === 'KeyW') {
-        keys['ArrowUp'] = false;
+      if (e.code === 'KeyW' || e.code === 'ArrowUp' || keyLower === 'w') {
+        keys['virtual_up'] = false;
         keys['KeyW'] = false;
+        keys['ArrowUp'] = false;
         keys['w'] = false;
         keys['W'] = false;
       }
-      if (e.key === 'ArrowDown' || e.code === 'ArrowDown' || e.key === 's' || e.key === 'S' || e.code === 'KeyS') {
-        keys['ArrowDown'] = false;
+      if (e.code === 'KeyS' || e.code === 'ArrowDown' || keyLower === 's') {
+        keys['virtual_down'] = false;
         keys['KeyS'] = false;
+        keys['ArrowDown'] = false;
         keys['s'] = false;
         keys['S'] = false;
       }
       if (e.code === 'Space' || e.key === ' ') {
+        keys['virtual_jump'] = false;
         keys['Space'] = false;
         keys[' '] = false;
       }
-      if (e.code === 'Digit1' || e.key === '1') { keys['Digit1'] = false; keys['1'] = false; }
-      if (e.code === 'Digit2' || e.key === '2') { keys['Digit2'] = false; keys['2'] = false; }
-      if (e.code === 'Digit3' || e.key === '3') { keys['Digit3'] = false; keys['3'] = false; }
-      if (e.code === 'Digit4' || e.key === '4') { keys['Digit4'] = false; keys['4'] = false; }
+      if (e.key === 'Shift' || e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+        keys['virtual_sprint'] = false;
+      }
     };
+
 
     if (typeof window !== 'undefined') {
       window.addEventListener('keydown', handleNativeKeyDown);
@@ -2319,3 +2390,6 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     };
   };
 }
+}
+
+

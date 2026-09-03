@@ -4,8 +4,9 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Gender, CharacterId, CharacterAction, ControlMode, VirtualInputAction } from "@/features/world/types";
 import { DEFAULT_GENDER, DEFAULT_CHARACTER } from "@/features/world/data/characterData";
-import { MapLocationEntry, getActiveMapLocation } from "@/features/world/data/mapLayout";
-import { InteractiveWorldObject } from "@/features/world/data/mapObjects";
+import { MapLocationEntry, getActiveMapLocation, getNearbyStationKiosk } from "@/features/world/data/mapLayout";
+import { InteractiveWorldObject, getNearbyWorldObject } from "@/features/world/data/mapObjects";
+
 import { CharacterSelectorHUD } from "@/features/world/components/ui/CharacterSelectorHUD";
 import { CharacterOnboardingScreen } from "@/features/world/components/ui/CharacterOnboardingScreen";
 import { WorldPauseMapModal } from "@/features/world/components/ui/WorldPauseMapModal";
@@ -178,7 +179,14 @@ export const Home: React.FC = () => {
 
   // Inspect station or home
   const handleInspectStation = useCallback((loc?: MapLocationEntry) => {
-    const targetLoc = loc || getActiveMapLocation(playerXRef.current);
+    // Check if standing right next to an interactive object (Chest, Briefcase, Vault, Chamber)
+    const nearbyObj = getNearbyWorldObject(playerXRef.current);
+    if (nearbyObj && !loc) {
+      handleInspectObject(nearbyObj);
+      return;
+    }
+
+    const targetLoc = loc || getNearbyStationKiosk(playerXRef.current) || getActiveMapLocation(playerXRef.current);
     
     if (targetLoc.id === 'station_home' || targetLoc.featureType === 'about') {
       setBookModalState({ isOpen: true, mode: 'about' });
@@ -189,7 +197,8 @@ export const Home: React.FC = () => {
     } else {
       setActiveStationModal(targetLoc);
     }
-  }, []);
+  }, [handleInspectObject]);
+
 
   // Top navigation shortcuts
   const handleOpenAboutBook = useCallback(() => {

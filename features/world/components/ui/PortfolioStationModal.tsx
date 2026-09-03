@@ -27,6 +27,8 @@ import techStackData from '@/data/tech-stack.json';
 import experienceData from '@/data/experience.json';
 import servicesData from '@/data/services.json';
 import educationData from '@/data/education.json';
+import { getOptimizedImageUrl } from '@/features/world/utils/imageProxy';
+
 
 
 interface PortfolioStationModalProps {
@@ -109,10 +111,12 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
                   className="w-24 h-24 p-0.5 flex-shrink-0 border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] bg-[#141414] overflow-hidden"
                 >
                   <img
-                    src={profileData.images.about.src}
+                    src={getOptimizedImageUrl(profileData.images.about.src)}
                     alt={profileData.name}
                     className="w-full h-full object-cover"
                   />
+
+
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-lg font-bold text-white">{profileData.alias}</h3>
