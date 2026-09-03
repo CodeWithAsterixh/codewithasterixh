@@ -14,7 +14,7 @@ import {
 import clsx from 'clsx';
 
 interface CharacterOnboardingScreenProps {
-  onComplete: (gender: Gender, characterId: CharacterId) => void;
+  onComplete: (gender: Gender, characterId: CharacterId, isCombatActive: boolean) => void;
 }
 
 const CHARACTER_BIOS: Record<CharacterId, { role: string; desc: string; trait: string }> = {
@@ -33,20 +33,20 @@ const CHARACTER_BIOS: Record<CharacterId, { role: string; desc: string; trait: s
     desc: 'Optimizes microservices, real-time networking, and high-speed APIs.',
     trait: 'APIs & Data',
   },
-  Girl_1: {
-    role: 'Frontend Engineer',
-    desc: 'Builds responsive interfaces, interactive canvas widgets, and web apps.',
+  Xavier: {
+    role: 'DevSecOps & Platform',
+    desc: 'Secures infrastructure, enforces cryptographic protocols, and hardening.',
+    trait: 'Security & Cloud',
+  },
+  Countess_claire: {
+    role: 'Frontend Architect',
+    desc: 'Crafts responsive interfaces, interactive canvas engines, and UI systems.',
     trait: 'Frontend & UI',
   },
-  Girl_2: {
-    role: 'Cloud & DevOps',
-    desc: 'Handles deployments, CI/CD automation, and cloud infrastructure.',
-    trait: 'DevOps & Cloud',
-  },
-  Girl_3: {
-    role: 'UI / UX Developer',
-    desc: 'Crafts intuitive design systems, animations, and accessible experiences.',
-    trait: 'UI & Design',
+  bridget: {
+    role: 'Creative Developer',
+    desc: 'Designs engaging web experiences, fluid animations, and visual storytelling.',
+    trait: 'Creative & UX',
   },
 };
 
@@ -56,6 +56,7 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
   const [step, setStep] = useState<1 | 2>(1);
   const [selectedGender, setSelectedGender] = useState<Gender>('male');
   const [selectedCharId, setSelectedCharId] = useState<CharacterId>('Fighter');
+  const [isCombatActive, setIsCombatActive] = useState<boolean>(false);
 
   // Canvas refs for live sprite animation
   const maleCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -66,7 +67,7 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
   // Preload initial characters
   useEffect(() => {
     characterSpriteManager.preloadCharacter('Fighter');
-    characterSpriteManager.preloadCharacter('Girl_1');
+    characterSpriteManager.preloadCharacter('Countess_claire');
     GENDER_CHARACTERS[selectedGender].forEach((charId) => {
       characterSpriteManager.preloadCharacter(charId);
     });
@@ -94,7 +95,7 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
           const ctx = femaleCanvas.getContext('2d');
           if (ctx) {
             ctx.clearRect(0, 0, femaleCanvas.width, femaleCanvas.height);
-            drawCharacterPortrait(ctx, 'Girl_1', femaleCanvas.width, femaleCanvas.height, elapsedSec, 130);
+            drawCharacterPortrait(ctx, 'Countess_claire', femaleCanvas.width, femaleCanvas.height, elapsedSec, 130);
           }
         }
       } else if (step === 2) {
@@ -120,13 +121,13 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
 
   const handleGenderSelect = (gender: Gender) => {
     setSelectedGender(gender);
-    const defaultChar = gender === 'male' ? 'Fighter' : 'Girl_1';
+    const defaultChar = gender === 'male' ? 'Fighter' : 'Countess_claire';
     setSelectedCharId(defaultChar);
     setStep(2);
   };
 
   const handleStartGame = () => {
-    onComplete(selectedGender, selectedCharId);
+    onComplete(selectedGender, selectedCharId, isCombatActive);
   };
 
   const activeCharDef = CHARACTER_DEFS[selectedCharId];
@@ -351,6 +352,56 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
                 <p className="text-[11px] text-[#5C4F41] text-center mt-1">
                   {activeCharBio.desc}
                 </p>
+              </div>
+
+              {/* Combat Mode Activation Toggle */}
+              <div className="sm:col-span-12 flex items-center justify-between p-2.5 px-3.5 rounded-xl bg-[#FAF5E6]/90 border-2 border-[#D5C49B]">
+                <div className="flex items-center gap-2.5">
+                  <div
+                    className={clsx(
+                      'w-7 h-7 rounded-lg flex items-center justify-center border text-xs font-black select-none',
+                      isCombatActive
+                        ? 'bg-[#FF4B4B]/20 text-[#D12E2E] border-[#D12E2E]/40'
+                        : 'bg-[#363D46]/10 text-[#635547] border-[#D5C49B]'
+                    )}
+                  >
+                    ⚔️
+                  </div>
+                  <div>
+                    <div className="text-xs font-extrabold text-[#1F1914] flex items-center gap-1.5">
+                      <span>Activate Fighting & Enemy Ninjas</span>
+                      <span
+                        className={clsx(
+                          'text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider',
+                          isCombatActive ? 'bg-[#D12E2E] text-white' : 'bg-[#8F8171]/30 text-[#5C4F41]'
+                        )}
+                      >
+                        {isCombatActive ? 'Active' : 'Disabled'}
+                      </span>
+                    </div>
+                    <p className="text-[10px] text-[#635547]">
+                      {isCombatActive
+                        ? 'Enemy shadow ninjas will spawn periodically in the wild to challenge you!'
+                        : 'Peaceful exploration mode (default: no enemies will spawn).'}
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setIsCombatActive(!isCombatActive)}
+                  className={clsx(
+                    'relative w-12 h-6 rounded-full transition-colors duration-200 cursor-pointer p-0.5 border-2',
+                    isCombatActive ? 'bg-[#D12E2E] border-[#A81F1F]' : 'bg-[#C5B391] border-[#A99775]'
+                  )}
+                >
+                  <div
+                    className={clsx(
+                      'w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200',
+                      isCombatActive ? 'translate-x-6' : 'translate-x-0'
+                    )}
+                  />
+                </button>
               </div>
             </div>
 

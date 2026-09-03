@@ -18,13 +18,31 @@ export type VirtualInputAction =
   | 'jump_start'
   | 'jump_stop'
   | 'attack'
+  | 'attack1'
+  | 'attack2'
+  | 'attack3'
+  | 'attack4'
   | 'stop';
 
-export type MaleCharacter = 'Fighter' | 'Samurai' | 'Shinobi';
-export type FemaleCharacter = 'Girl_1' | 'Girl_2' | 'Girl_3';
+export type MaleCharacter = 'Fighter' | 'Samurai' | 'Shinobi' | 'Xavier';
+export type FemaleCharacter = 'Countess_claire' | 'bridget';
 export type CharacterId = MaleCharacter | FemaleCharacter;
 
-export type CharacterAction = 'idle' | 'walk' | 'run' | 'jump' | 'attack' | 'shield' | 'dead';
+export type NinjaType = 'Kunoichi' | 'Ninja_Monk' | 'Ninja_Peasant';
+
+export type CharacterAction =
+  | 'idle'
+  | 'walk'
+  | 'run'
+  | 'jump'
+  | 'attack'
+  | 'attack1'
+  | 'attack2'
+  | 'attack3'
+  | 'attack4'
+  | 'shield'
+  | 'dead'
+  | 'hurt';
 
 export type LocationCategory = 'city' | 'nature';
 

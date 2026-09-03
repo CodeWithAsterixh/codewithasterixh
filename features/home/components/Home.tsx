@@ -19,6 +19,9 @@ const World2DCanvas = dynamic(
   { ssr: false }
 );
 
+const MOON_TYPES = ['beige', 'normal', 'red'] as const;
+type MoonType = typeof MOON_TYPES[number];
+
 export const Home: React.FC = () => {
   // Onboarding Start Screen State
   const [isOnboarding, setIsOnboarding] = useState<boolean>(true);
@@ -28,9 +31,24 @@ export const Home: React.FC = () => {
 
   // Control Mode: 'arrow' (Arrow Buttons + Keyboard) or 'joystick' (Virtual Joystick + Keyboard)
   const [controlMode, setControlMode] = useState<ControlMode>('arrow');
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
+  const [moonType, setMoonType] = useState<MoonType>('beige');
+  const [isCombatActive, setIsCombatActive] = useState<boolean>(false);
+
+  const handleThemeModeChange = useCallback((newMode: 'light' | 'dark') => {
+    if (newMode === 'dark') {
+      // Pick a random moon color on switch to dark mode
+      const randomMoon = MOON_TYPES[Math.floor(Math.random() * MOON_TYPES.length)];
+      setMoonType(randomMoon);
+    }
+    setThemeMode(newMode);
+  }, []);
 
   const [gender, setGender] = useState<Gender>(DEFAULT_GENDER);
   const [characterId, setCharacterId] = useState<CharacterId>(DEFAULT_CHARACTER);
+  const [playerHp, setPlayerHp] = useState<number>(100);
+  const [maxPlayerHp, setMaxPlayerHp] = useState<number>(100);
+  const [respawnCountdown, setRespawnCountdown] = useState<number | null>(null);
   const [currentBiome, setCurrentBiome] = useState<CurrentBiomeInfo | undefined>(undefined);
   const [playerX, setPlayerX] = useState<number>(0);
 
@@ -93,9 +111,10 @@ export const Home: React.FC = () => {
     }
   }, [characterId, isAnyModalOpen]);
 
-  const handleOnboardingComplete = useCallback((selectedGender: Gender, selectedCharId: CharacterId) => {
+  const handleOnboardingComplete = useCallback((selectedGender: Gender, selectedCharId: CharacterId, combatActive: boolean) => {
     setGender(selectedGender);
     setCharacterId(selectedCharId);
+    setIsCombatActive(combatActive);
     setIsOnboarding(false);
 
     if (p5SketchRef.current) {
@@ -105,12 +124,15 @@ export const Home: React.FC = () => {
       if (typeof p5SketchRef.current.setCharacter === 'function') {
         p5SketchRef.current.setCharacter(selectedCharId);
       }
+      if (typeof p5SketchRef.current.setCombatActive === 'function') {
+        p5SketchRef.current.setCombatActive(combatActive);
+      }
     }
   }, []);
 
   const handleSelectGender = useCallback((newGender: Gender) => {
     setGender(newGender);
-    const newChar = newGender === 'male' ? 'Fighter' : 'Girl_1';
+    const newChar = newGender === 'male' ? 'Fighter' : 'Countess_claire';
     setCharacterId(newChar);
     if (p5SketchRef.current && typeof p5SketchRef.current.setGender === 'function') {
       p5SketchRef.current.setGender(newGender);
@@ -200,18 +222,33 @@ export const Home: React.FC = () => {
       {/* 2. 2D WORLD CANVAS */}
       <World2DCanvas
         isModalActive={isAnyModalOpen}
+        themeMode={themeMode}
+        moonType={moonType}
+        isCombatActive={isCombatActive}
         onSketchReady={handleSketchReady}
         onPlayerPositionChange={handlePlayerPositionChange}
+        onPlayerHealthChange={(hp, max) => {
+          setPlayerHp(hp);
+          setMaxPlayerHp(max);
+        }}
+        onRespawnCountdownChange={setRespawnCountdown}
         onBiomeChange={handleBiomeChange}
         onInspectStation={handleInspectStation}
         onInspectObject={handleInspectObject}
       />
 
-      {/* 3. SIMPLIFIED FLOATING HUD: Single Clean Pause/Map Button */}
+      {/* 3. SIMPLIFIED FLOATING HUD: Single Clean Pause/Map Button, Top Health Bar & Light/Dark Switch */}
       {!isOnboarding && (
         <CharacterSelectorHUD
           currentBiome={currentBiome}
           controlMode={controlMode}
+          themeMode={themeMode}
+          characterId={characterId}
+          playerHp={playerHp}
+          maxPlayerHp={maxPlayerHp}
+          respawnCountdown={respawnCountdown}
+          isCombatActive={isCombatActive}
+          onThemeModeChange={handleThemeModeChange}
           onOpenPauseMenu={handleOpenPauseMenu}
           onInspectStation={() => handleInspectStation()}
           onVirtualInput={handleVirtualInput}
@@ -225,6 +262,16 @@ export const Home: React.FC = () => {
         characterId={characterId}
         playerX={playerX}
         controlMode={controlMode}
+        isCombatActive={isCombatActive}
+        onToggleCombat={() => {
+          setIsCombatActive((prev) => {
+            const next = !prev;
+            if (p5SketchRef.current?.setCombatActive) {
+              p5SketchRef.current.setCombatActive(next);
+            }
+            return next;
+          });
+        }}
         onClose={() => setIsPauseModalOpen(false)}
         onNavigateToLocation={handleNavigateToLocation}
         onSelectGender={handleSelectGender}

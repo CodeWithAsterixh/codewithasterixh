@@ -26,6 +26,8 @@ interface WorldPauseMapModalProps {
   characterId: CharacterId;
   playerX: number;
   controlMode?: ControlMode;
+  isCombatActive?: boolean;
+  onToggleCombat?: () => void;
   onClose: () => void;
   onNavigateToLocation: (x: number) => void;
   onSelectGender: (gender: Gender) => void;
@@ -49,14 +51,14 @@ const mapLocations = [
     name: 'WorkUp',
     sub: 'Card Generator',
     x: -1600,
-    left: '25%',
+    left: '24%',
   },
   {
-    id: 'loc_anonfly',
-    name: 'AnonFly',
-    sub: 'Messaging App',
-    x: -800,
-    left: '38%',
+    id: 'loc_garage',
+    name: 'Services Garage',
+    sub: 'Services',
+    x: -520,
+    left: '42%',
   },
   {
     id: 'loc_origin',
@@ -66,25 +68,32 @@ const mapLocations = [
     left: '50%',
   },
   {
+    id: 'loc_mailbox',
+    name: 'Contact Mailbox',
+    sub: 'Contact',
+    x: 220,
+    left: '54%',
+  },
+  {
     id: 'loc_time',
     name: 'WorldTimeSage',
     sub: 'Timezone App',
     x: 800,
-    left: '63%',
+    left: '68%',
   },
   {
     id: 'loc_sms',
     name: 'School Portal',
     sub: 'Admin Portal',
     x: 1800,
-    left: '76%',
+    left: '78%',
   },
   {
     id: 'loc_astermail',
     name: 'AsterMail',
     sub: 'Email App',
     x: 3200,
-    left: '88%',
+    left: '90%',
   },
 ];
 
@@ -96,6 +105,8 @@ export const WorldPauseMapModal: React.FC<
   characterId,
   playerX,
   controlMode = 'arrow',
+  isCombatActive = false,
+  onToggleCombat,
   onClose,
   onNavigateToLocation,
   onSelectGender,
@@ -479,7 +490,7 @@ export const WorldPauseMapModal: React.FC<
 
                 <ControlRow
                   label="Move"
-                  keys={['A', 'D', '←', '→']}
+                  keys={['A / D']}
                 />
 
                 <ControlRow
@@ -489,13 +500,48 @@ export const WorldPauseMapModal: React.FC<
 
                 <ControlRow
                   label="Jump"
-                  keys={['SPACE', 'W', '↑']}
+                  keys={['SPACE']}
+                />
+
+                <ControlRow
+                  label="Attack 1"
+                  keys={['J']}
+                />
+
+                <ControlRow
+                  label="Attack 2"
+                  keys={['K']}
+                />
+
+                <ControlRow
+                  label="Attack 3"
+                  keys={['L']}
+                />
+
+                <ControlRow
+                  label="Attack 4"
+                  keys={['U']}
                 />
 
                 <ControlRow
                   label="Inspect"
                   keys={['E']}
                 />
+
+                {onToggleCombat && (
+                  <div className="mt-2 pt-2 border-t border-[#363D46]/80 flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-[#CAD1DB] flex items-center gap-1">
+                      <span>⚔️ Combat Mode</span>
+                    </span>
+                    <SwitchButton
+                      small
+                      active={isCombatActive}
+                      onClick={onToggleCombat}
+                    >
+                      {isCombatActive ? 'Active' : 'Disabled'}
+                    </SwitchButton>
+                  </div>
+                )}
               </ControlPanel>
 
               <ControlPanel
@@ -527,7 +573,7 @@ export const WorldPauseMapModal: React.FC<
                   </SwitchButton>
                 </div>
 
-                <div className="mt-2 grid grid-cols-3 gap-1.5">
+                <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                   {availableCharacters.map(
                     (charId) => {
                       const def =

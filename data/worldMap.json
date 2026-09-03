@@ -44,26 +44,23 @@
   },
   "decorations": {
     "trees": [
-      { "src": "/locations/world/tree1.png", "relX": -820, "size": 340, "yOffset": -30, "depth": "back" },
-      { "src": "/locations/world/tree1.png", "relX": -620, "size": 420, "yOffset": -10, "depth": "back" },
-      { "src": "/locations/world/tree1.png", "relX": -420, "size": 520, "yOffset": 35, "depth": "front" },
-      { "src": "/locations/world/tree1.png", "relX": -220, "size": 360, "yOffset": -25, "depth": "back" },
-      { "src": "/locations/world/tree1.png", "relX": 180, "size": 400, "yOffset": -5, "depth": "back" },
-      { "src": "/locations/world/tree1.png", "relX": 420, "size": 540, "yOffset": 40, "depth": "front" },
-      { "src": "/locations/world/tree1.png", "relX": 660, "size": 330, "yOffset": -35, "depth": "back" },
-      { "src": "/locations/world/tree1.png", "relX": 790, "size": 510, "yOffset": 30, "depth": "front" },
-      { "src": "/locations/world/tree1.png", "relX": 1190, "size": 490, "yOffset": 25, "depth": "front" }
+      { "src": "/locations/world/tree1.png", "relX": -960, "size": 380, "yOffset": -30, "depth": "back" },
+      { "src": "/locations/world/tree1.png", "relX": -820, "size": 420, "yOffset": -10, "depth": "back" },
+      { "src": "/locations/world/tree1.png", "relX": 820, "size": 400, "yOffset": -10, "depth": "back" },
+      { "src": "/locations/world/tree1.png", "relX": 980, "size": 500, "yOffset": 30, "depth": "front" },
+      { "src": "/locations/world/tree1.png", "relX": 1200, "size": 490, "yOffset": 25, "depth": "front" }
     ],
     "bushes": [
       { "src": "/locations/world/Bush3_1.png", "relX": -860, "size": 75, "yOffset": -10, "depth": "back" },
       { "src": "/locations/world/Bush4_1.png", "relX": -720, "size": 110, "yOffset": 25, "depth": "front" },
-      { "src": "/locations/world/Bush3_2.png", "relX": -560, "size": 85, "yOffset": 0, "depth": "back" },
-      { "src": "/locations/world/Bush4_2.png", "relX": -460, "size": 120, "yOffset": 35, "depth": "front" },
-      { "src": "/locations/world/Bush3_3.png", "relX": -320, "size": 80, "yOffset": -5, "depth": "back" },
-      { "src": "/locations/world/Bush4_3.png", "relX": -190, "size": 115, "yOffset": 24, "depth": "front" },
-      { "src": "/locations/world/Bush3_4.png", "relX": 220, "size": 70, "yOffset": -8, "depth": "back" },
-      { "src": "/locations/world/Bush4_4.png", "relX": 340, "size": 115, "yOffset": 30, "depth": "front" },
-      { "src": "/locations/world/Bush3_1.png", "relX": 520, "size": 90, "yOffset": 5, "depth": "back" },
+      { "src": "/locations/world/Bush3_1.png", "relX": -340, "size": 85, "yOffset": 38, "depth": "front" },
+      { "src": "/locations/world/Bush3_2.png", "relX": -240, "size": 95, "yOffset": 42, "depth": "front" },
+      { "src": "/locations/world/Bush3_3.png", "relX": -140, "size": 80, "yOffset": 36, "depth": "front" },
+      { "src": "/locations/world/Bush3_4.png", "relX": 140, "size": 80, "yOffset": 36, "depth": "front" },
+      { "src": "/locations/world/Bush3_1.png", "relX": 240, "size": 95, "yOffset": 42, "depth": "front" },
+      { "src": "/locations/world/Bush3_2.png", "relX": 340, "size": 85, "yOffset": 38, "depth": "front" },
+      { "src": "/locations/world/Bush3_3.png", "relX": -540, "size": 90, "yOffset": 40, "depth": "front" },
+      { "src": "/locations/world/Bush3_4.png", "relX": 420, "size": 75, "yOffset": 38, "depth": "front" },
       { "src": "/locations/world/Bush4_1.png", "relX": 680, "size": 125, "yOffset": 38, "depth": "front" },
       { "src": "/locations/world/Bush3_2.png", "relX": 780, "size": 95, "yOffset": 15, "depth": "front" },
       { "src": "/locations/world/Bush4_2.png", "relX": 820, "size": 110, "yOffset": 26, "depth": "front" },
@@ -132,6 +129,16 @@
         },
         {
           "index": 2,
+          "x": -520,
+          "name": "Services Garage",
+          "tag": "Services",
+          "featureType": "services",
+          "featureTitle": "Services & Capabilities",
+          "description": "Fullstack web development, API engineering, UI design, and consulting.",
+          "actionLabel": "Inspect Services"
+        },
+        {
+          "index": 3,
           "x": 0,
           "name": "Home Base",
           "tag": "Home (0m)",
@@ -141,22 +148,12 @@
           "actionLabel": "Inspect Home Base"
         },
         {
-          "index": 3,
-          "x": 2000,
-          "name": "Services Station",
-          "tag": "Services",
-          "featureType": "services",
-          "featureTitle": "Services & Capabilities",
-          "description": "Fullstack web development, API engineering, UI design, and consulting.",
-          "actionLabel": "View Services"
-        },
-        {
           "index": 4,
-          "x": 4000,
-          "name": "Contact Station",
+          "x": 220,
+          "name": "Contact Mailbox",
           "tag": "Contact",
           "featureType": "contact",
-          "featureTitle": "Contact Me",
+          "featureTitle": "Contact Asterixh",
           "description": "Have a project or opportunity? Send a direct message to Asterixh.",
           "actionLabel": "Contact Asterixh"
         }

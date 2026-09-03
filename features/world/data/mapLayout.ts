@@ -125,30 +125,49 @@ function expandLocations(rawConfigs: RawLocationConfig[]): MapLocationEntry[] {
   const result: MapLocationEntry[] = [];
 
   for (const raw of rawConfigs) {
-    const repeatCount = raw.repeatCount || 1;
-    const startX = raw.startX !== undefined ? raw.startX : (raw.x || 0);
-    const spacing = raw.spacing !== undefined ? raw.spacing : raw.width;
+    if (raw.stations && raw.stations.length > 0) {
+      for (const s of raw.stations) {
+        result.push({
+          id: `${raw.id}_station_${s.featureType}_${s.index}`,
+          name: s.name,
+          category: raw.category,
+          x: s.x,
+          width: raw.width,
+          tag: s.tag,
+          featureType: s.featureType,
+          featureTitle: s.featureTitle,
+          description: s.description,
+          actionLabel: s.actionLabel,
+          background: raw.background,
+          clouds: raw.clouds,
+          floor: raw.floor,
+          layers: raw.layers,
+        });
+      }
+    } else {
+      const repeatCount = raw.repeatCount || 1;
+      const startX = raw.startX !== undefined ? raw.startX : (raw.x || 0);
+      const spacing = raw.spacing !== undefined ? raw.spacing : raw.width;
 
-    for (let i = 0; i < repeatCount; i++) {
-      const posX = startX + i * spacing;
-      const stationInfo = raw.stations?.find((s) => s.index === i || s.x === posX);
-
-      result.push({
-        id: stationInfo ? `${raw.id}_station_${i + 1}` : `${raw.id}_rep_${i + 1}`,
-        name: stationInfo?.name || `${raw.name} • Part ${i + 1}`,
-        category: raw.category,
-        x: posX,
-        width: raw.width,
-        tag: stationInfo?.tag || raw.tag || `Region ${i + 1}`,
-        featureType: stationInfo?.featureType || raw.featureType || 'about',
-        featureTitle: stationInfo?.featureTitle || raw.featureTitle || raw.name,
-        description: stationInfo?.description || raw.description || '',
-        actionLabel: stationInfo?.actionLabel || raw.actionLabel,
-        background: raw.background,
-        clouds: raw.clouds,
-        floor: raw.floor,
-        layers: raw.layers,
-      });
+      for (let i = 0; i < repeatCount; i++) {
+        const posX = startX + i * spacing;
+        result.push({
+          id: `${raw.id}_rep_${i + 1}`,
+          name: `${raw.name} • Part ${i + 1}`,
+          category: raw.category,
+          x: posX,
+          width: raw.width,
+          tag: raw.tag || `Region ${i + 1}`,
+          featureType: raw.featureType || 'about',
+          featureTitle: raw.featureTitle || raw.name,
+          description: raw.description || '',
+          actionLabel: raw.actionLabel,
+          background: raw.background,
+          clouds: raw.clouds,
+          floor: raw.floor,
+          layers: raw.layers,
+        });
+      }
     }
   }
 
@@ -178,8 +197,12 @@ export function getActiveMapLocation(playerX: number): MapLocationEntry {
 
 export function getNearbyStationKiosk(playerX: number, customRadius?: number): MapLocationEntry | null {
   for (const loc of WORLD_LOCATIONS) {
-    const isHome = loc.x === 0 || loc.id.includes('station_3') || loc.name.toLowerCase().includes('home');
-    const radius = customRadius !== undefined ? customRadius : (isHome ? 70 : 140);
+    let radius = 130;
+    if (loc.featureType === 'about') radius = 80;
+    if (loc.featureType === 'services') radius = 110;
+    if (loc.featureType === 'contact') radius = 90;
+    if (customRadius !== undefined) radius = customRadius;
+
     if (Math.abs(playerX - loc.x) <= radius) {
       return loc;
     }

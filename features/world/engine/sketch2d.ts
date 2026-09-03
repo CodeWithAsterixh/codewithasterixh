@@ -1,6 +1,6 @@
 import type p5 from 'p5';
-import { Gender, CharacterId, CharacterAction, LocationCategory } from '../types';
-import { DEFAULT_GENDER, DEFAULT_CHARACTER, CHARACTER_DEFS } from '../data/characterData';
+import { Gender, CharacterId, CharacterAction, LocationCategory, NinjaType } from '../types';
+import { DEFAULT_GENDER, DEFAULT_CHARACTER, CHARACTER_DEFS, NINJA_DEFS, NINJA_TYPES } from '../data/characterData';
 import {
   WORLD_BOUNDS,
   WORLD_LOCATIONS,
@@ -11,7 +11,7 @@ import {
   getNearbyStationKiosk,
 } from '../data/mapLayout';
 import { INTERACTIVE_OBJECTS, getNearbyWorldObject, InteractiveWorldObject } from '../data/mapObjects';
-import { drawCharacterFrame, characterSpriteManager } from './characterAnimator';
+import { drawCharacterFrame, drawNinjaFrame, characterSpriteManager } from './characterAnimator';
 import { PhysicsBody2D, PhysicsDustParticle, DEFAULT_WORLD_PHYSICS } from './physicsEngine';
 
 export interface PhysicsTelemetry {
@@ -40,6 +40,8 @@ export interface CurrentBiomeInfo {
 
 export interface Sketch2DCallbacks {
   onPlayerPositionChange?: (x: number, y: number) => void;
+  onPlayerHealthChange?: (hp: number, maxHp: number) => void;
+  onRespawnCountdownChange?: (seconds: number | null) => void;
   onCharacterStateChange?: (gender: Gender, characterId: CharacterId, action: CharacterAction) => void;
   onPhysicsTelemetryChange?: (telemetry: PhysicsTelemetry) => void;
   onBiomeChange?: (biome: CurrentBiomeInfo) => void;
@@ -72,43 +74,189 @@ const FOREGROUND_TREES: FlatSceneryItem[] = [];
 const BACKGROUND_BUSHES: FlatSceneryItem[] = [];
 const FOREGROUND_BUSHES: FlatSceneryItem[] = [];
 
-WORLD_LOCATIONS.forEach((loc) => {
-  WORLD_DECORATIONS.trees.forEach((tree) => {
-    const treeX = loc.x + tree.relX;
-    if (Math.abs(treeX) >= 380) {
-      const item: FlatSceneryItem = {
-        x: treeX,
-        src: tree.src,
-        size: tree.size || 380,
-        yOffset: tree.yOffset || 0,
-      };
-      ALL_WORLD_TREES.push(item);
-      if (tree.depth === 'front') {
-        FOREGROUND_TREES.push(item);
-      } else {
-        BACKGROUND_TREES.push(item);
-      }
-    }
-  });
+// Deterministic 32-bit Seeded PRNG (Mulberry32) for unique, consistent plant distribution
+function createSeededRandom(seed: number) {
+  let s = seed >>> 0;
+  return function nextFloat(): number {
+    s = (s + 0x6d2b79f5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
-  WORLD_DECORATIONS.bushes.forEach((bush) => {
-    const bushX = loc.x + bush.relX;
-    if (Math.abs(bushX) >= 380) {
-      const item: FlatSceneryItem = {
-        x: bushX,
-        src: bush.src,
-        size: bush.size || 80,
-        yOffset: bush.yOffset || 0,
+const BUSH_ASSETS = [
+  '/locations/world/Bush3_1.png',
+  '/locations/world/Bush3_2.png',
+  '/locations/world/Bush3_3.png',
+  '/locations/world/Bush3_4.png',
+  '/locations/world/Bush4_1.png',
+  '/locations/world/Bush4_2.png',
+  '/locations/world/Bush4_3.png',
+  '/locations/world/Bush4_4.png',
+];
+
+// Street Lamp Posts across the world (providing ambient lighting in dark mode)
+const WORLD_LAMP_POSTS: Array<{ x: number; yOffset: number }> = [
+  // Western World Region
+  { x: -4700, yOffset: 46 },
+  { x: -4350, yOffset: 42 },
+  { x: -4000, yOffset: 48 }, // Near Skills Station
+  { x: -3650, yOffset: 44 },
+  { x: -3300, yOffset: 46 },
+  { x: -2950, yOffset: 42 },
+  { x: -2600, yOffset: 48 }, // Near Quizeen
+  { x: -2250, yOffset: 44 },
+  { x: -1900, yOffset: 46 }, // Near Projects Station
+  { x: -1550, yOffset: 42 }, // Near WorkUp
+  { x: -1200, yOffset: 46 },
+  { x: -950, yOffset: 44 },  // Near AnonFly
+
+  // House Complex (3 dedicated lamps: 1 beside garage, 2 beside house left & right)
+  { x: -800, yOffset: 70 }, // 1. Beside garage on the left
+  { x: -200, yOffset: 70 }, // 2. Beside house on the left (between garage and porch)
+  { x: 350, yOffset: 72 },  // 3. Beside house on the right (by mailbox)
+
+  // Eastern World Region
+  { x: 650, yOffset: 46 },
+  { x: 950, yOffset: 42 },  // Near WorldTimeSage
+  { x: 1300, yOffset: 46 },
+  { x: 1650, yOffset: 44 },
+  { x: 1950, yOffset: 48 }, // Near School Portal
+  { x: 2300, yOffset: 44 },
+  { x: 2650, yOffset: 46 },
+  { x: 3000, yOffset: 42 },
+  { x: 3350, yOffset: 48 }, // Near AsterMail
+  { x: 3700, yOffset: 44 },
+  { x: 4050, yOffset: 46 },
+  { x: 4400, yOffset: 42 },
+  { x: 4750, yOffset: 46 },
+];
+
+// 1. Procedural Tree Distribution across entire map (from WEST to EAST boundary)
+const treeRng = createSeededRandom(104729);
+for (let x = WORLD_BOUNDS.minX + 80; x <= WORLD_BOUNDS.maxX - 80; x += 190) {
+  const jx = Math.round(x + (treeRng() - 0.5) * 100);
+  const isHouseZone = jx >= -680 && jx <= 520;
+  const isNearInteractive = INTERACTIVE_OBJECTS.some((obj) => Math.abs(jx - obj.x) < 170);
+  const isNearLamp = WORLD_LAMP_POSTS.some((lp) => Math.abs(jx - lp.x) < 55);
+
+  if (isNearLamp && !isHouseZone) {
+    continue;
+  }
+
+  if (isHouseZone) {
+    // Only spawn trees BEHIND the house and garage (firmly rooted on meadow ground behind the building)
+    if (treeRng() > 0.40) {
+      const backTree: FlatSceneryItem = {
+        x: jx,
+        src: '/locations/world/tree1.png',
+        size: Math.round(410 + treeRng() * 60),
+        yOffset: Math.round(18 + treeRng() * 14), // Roots grounded at y = 18-32 behind the house
       };
-      ALL_WORLD_BUSHES.push(item);
-      if (bush.depth === 'front') {
-        FOREGROUND_BUSHES.push(item);
-      } else {
-        BACKGROUND_BUSHES.push(item);
-      }
+      ALL_WORLD_TREES.push(backTree);
+      BACKGROUND_TREES.push(backTree);
     }
-  });
+  } else if (isNearInteractive) {
+    // Keep clear open space right around interactive landmark objects
+    if (!INTERACTIVE_OBJECTS.some((obj) => Math.abs(jx - obj.x) < 100)) {
+      const backTree: FlatSceneryItem = {
+        x: jx,
+        src: '/locations/world/tree1.png',
+        size: 360,
+        yOffset: 12,
+      };
+      ALL_WORLD_TREES.push(backTree);
+      BACKGROUND_TREES.push(backTree);
+    }
+  } else {
+    const isFront = treeRng() > 0.58;
+    const treeSize = Math.round(360 + treeRng() * 140);
+    const treeYOffset = isFront
+      ? Math.round(55 + treeRng() * 25)
+      : Math.round(8 + treeRng() * 16);
+
+    const treeItem: FlatSceneryItem = {
+      x: jx,
+      src: '/locations/world/tree1.png',
+      size: treeSize,
+      yOffset: treeYOffset,
+    };
+    ALL_WORLD_TREES.push(treeItem);
+    if (isFront) {
+      FOREGROUND_TREES.push(treeItem);
+    } else {
+      BACKGROUND_TREES.push(treeItem);
+    }
+  }
+}
+
+// 2. Front-Yard Landscaped Bushes for House, Garage, and Mailbox
+const HOUSE_FRONT_BUSHES = [
+  { x: -540, src: '/locations/world/Bush3_3.png', size: 90, yOffset: 74 },
+  { x: -380, src: '/locations/world/Bush3_1.png', size: 85, yOffset: 72 },
+  { x: -280, src: '/locations/world/Bush3_2.png', size: 95, yOffset: 74 },
+  { x: -120, src: '/locations/world/Bush3_3.png', size: 80, yOffset: 72 },
+  { x: 120, src: '/locations/world/Bush3_4.png', size: 80, yOffset: 72 },
+  { x: 270, src: '/locations/world/Bush3_1.png', size: 90, yOffset: 74 },
+  { x: 440, src: '/locations/world/Bush3_2.png', size: 80, yOffset: 72 },
+];
+HOUSE_FRONT_BUSHES.forEach((b) => {
+  ALL_WORLD_BUSHES.push(b);
+  FOREGROUND_BUSHES.push(b);
 });
+
+// 3. Small Flanking Accent Bushes for Interactive Landmark Objects
+INTERACTIVE_OBJECTS.forEach((obj, idx) => {
+  const leftBush: FlatSceneryItem = {
+    x: obj.x - 72,
+    src: idx % 2 === 0 ? '/locations/world/Bush3_3.png' : '/locations/world/Bush3_4.png',
+    size: 55,
+    yOffset: (obj.yOffset || 0) + 16,
+  };
+  const rightBush: FlatSceneryItem = {
+    x: obj.x + 75,
+    src: idx % 2 === 0 ? '/locations/world/Bush3_4.png' : '/locations/world/Bush3_1.png',
+    size: 58,
+    yOffset: (obj.yOffset || 0) + 18,
+  };
+  ALL_WORLD_BUSHES.push(leftBush, rightBush);
+  FOREGROUND_BUSHES.push(leftBush, rightBush);
+});
+
+// 4. Procedural Bush Scatter across entire world (from WEST to EAST boundary)
+const bushRng = createSeededRandom(7919);
+for (let x = WORLD_BOUNDS.minX + 50; x <= WORLD_BOUNDS.maxX - 50; x += 120) {
+  const jx = Math.round(x + (bushRng() - 0.5) * 60);
+  const isHouseZone = jx >= -680 && jx <= 520;
+  const isNearInteractive = INTERACTIVE_OBJECTS.some((obj) => Math.abs(jx - obj.x) < 75);
+  const isNearTreeTrunk = ALL_WORLD_TREES.some((t) => Math.abs(jx - t.x) < 45);
+  const isNearLamp = WORLD_LAMP_POSTS.some((lp) => Math.abs(jx - lp.x) < 35);
+
+  if (isHouseZone || isNearInteractive || isNearTreeTrunk || isNearLamp) {
+    continue;
+  }
+
+  const assetIdx = Math.floor(bushRng() * BUSH_ASSETS.length);
+  const isFront = bushRng() > 0.42;
+  const bushSize = Math.round(65 + bushRng() * 50);
+  const bushYOffset = isFront
+    ? Math.round(45 + bushRng() * 25)
+    : Math.round(8 + bushRng() * 16);
+
+  const bushItem: FlatSceneryItem = {
+    x: jx,
+    src: BUSH_ASSETS[assetIdx],
+    size: bushSize,
+    yOffset: bushYOffset,
+  };
+  ALL_WORLD_BUSHES.push(bushItem);
+  if (isFront) {
+    FOREGROUND_BUSHES.push(bushItem);
+  } else {
+    BACKGROUND_BUSHES.push(bushItem);
+  }
+}
 
 export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
   return (p: p5) => {
@@ -116,6 +264,528 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     let playerCharacter: CharacterId = DEFAULT_CHARACTER;
     let playerAction: CharacterAction = 'idle';
     let attackTimer = 0;
+
+    let currentThemeMode: 'light' | 'dark' = 'light';
+    let activeMoonSrc = '/locations/world/beige_moon.png';
+    let isCombatActive = false;
+
+    let playerHp = 100;
+    const maxPlayerHp = 100;
+    let lastPlayerDamageTime = 0;
+    let playerRespawnCountdown = 0;
+    let playerDeadPhase = 0;
+
+    interface EnemyNinjaState {
+      id: string;
+      type: NinjaType;
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      facing: 'left' | 'right';
+      action: 'idle' | 'walk' | 'run' | 'jump' | 'attack' | 'hurt' | 'dead';
+      walkPhase: number;
+      attackPhase: number;
+      hurtPhase: number;
+      deadPhase: number;
+      hasHitPlayer: boolean;
+      animTimer: number;
+      hp: number;
+      maxHp: number;
+      state: 'approach' | 'attack' | 'retreat' | 'hurt' | 'dead';
+      stateTimer: number;
+      attackCooldown: number;
+      hurtTimer: number;
+      deadTimer: number;
+    }
+
+    let activeEnemy: EnemyNinjaState | null = null;
+    let lastEnemySpawnTime = 0;
+
+    interface CombatParticle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      life: number;
+      maxLife: number;
+      color: string;
+      size: number;
+    }
+
+    interface FloatingCombatText {
+      x: number;
+      y: number;
+      vy: number;
+      text: string;
+      color: string;
+      life: number;
+      maxLife: number;
+    }
+
+    const combatParticles: CombatParticle[] = [];
+    const floatingCombatTexts: FloatingCombatText[] = [];
+
+    function spawnCombatParticles(x: number, y: number, color: string, count: number = 8) {
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 3.5 + 1.2;
+        combatParticles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 1.2,
+          life: 0,
+          maxLife: Math.floor(Math.random() * 14 + 10),
+          color,
+          size: Math.random() * 4 + 2,
+        });
+      }
+    }
+
+    function spawnFloatingText(x: number, y: number, text: string, color: string = '#FFD700') {
+      floatingCombatTexts.push({
+        x,
+        y,
+        vy: -1.4,
+        text,
+        color,
+        life: 0,
+        maxLife: 38,
+      });
+    }
+
+    function checkPlayerAttackHit(attackType: string = 'attack1') {
+      if (!isCombatActive || !activeEnemy || activeEnemy.state === 'dead') {
+        return;
+      }
+
+      const enemy = activeEnemy;
+      const distX = enemy.x - playerBody.x;
+      const distY = Math.abs(enemy.y - playerBody.y);
+
+      const isFacingEnemy =
+        (playerBody.facing === 'right' && distX >= -15 && distX <= 95) ||
+        (playerBody.facing === 'left' && distX <= 15 && distX >= -95);
+
+      if (isFacingEnemy && distY <= 40) {
+        let baseDamage = 35;
+        let knockback = 5.5;
+        let particleColor = '#FFD700';
+
+        if (attackType === 'attack2') {
+          baseDamage = 40;
+          knockback = 6.2;
+          particleColor = '#60A5FA';
+        } else if (attackType === 'attack3') {
+          baseDamage = 45;
+          knockback = 7.0;
+          particleColor = '#A855F7';
+        } else if (attackType === 'attack4') {
+          baseDamage = 52;
+          knockback = 8.0;
+          particleColor = '#EF4444';
+        }
+
+        const damage = Math.floor(Math.random() * 8 + baseDamage);
+        enemy.hp -= damage;
+        const pushDir = playerBody.facing === 'right' ? 1 : -1;
+        enemy.vx = pushDir * knockback;
+
+        spawnCombatParticles(enemy.x, GROUND_Y + enemy.y - 30, particleColor, 12);
+        spawnFloatingText(enemy.x, GROUND_Y + enemy.y - 80, `-${damage}`, particleColor);
+
+        if (enemy.hp <= 0) {
+          enemy.hp = 0;
+          enemy.state = 'dead';
+          enemy.action = 'dead';
+          enemy.deadTimer = 0;
+          enemy.deadPhase = 0;
+          enemy.animTimer = 0;
+          spawnCombatParticles(enemy.x, GROUND_Y + enemy.y - 30, '#FF4B4B', 16);
+          spawnFloatingText(enemy.x, GROUND_Y + enemy.y - 95, 'DEFEATED!', '#FF3B30');
+        } else {
+          enemy.state = 'hurt';
+          enemy.action = 'hurt';
+          enemy.hurtTimer = 0.32;
+          enemy.hurtPhase = 0;
+          enemy.animTimer = 0;
+        }
+      }
+    }
+
+    function triggerPlayerAttack(attackType: 'attack' | 'attack1' | 'attack2' | 'attack3' | 'attack4' = 'attack1') {
+      if (attackTimer > 0) return;
+      playerAction = attackType;
+      attackTimer = 18;
+      attackPhase = 0;
+      checkPlayerAttackHit(attackType);
+      callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, playerAction);
+    }
+
+    function updateEnemyNinja(dt: number) {
+      if (!isCombatActive) {
+        activeEnemy = null;
+        return;
+      }
+
+      const now = performance.now();
+
+      // Only 1 enemy spawned at a time.
+      // A new one will not spawn until 10 secs after the old one was spawned.
+      if (!activeEnemy) {
+        if (now - lastEnemySpawnTime >= 10000) {
+          const side = Math.random() < 0.5 ? -1 : 1;
+          const dist = 100 + Math.random() * 400; // random between 100 and 500
+          const rawX = playerBody.x + side * dist;
+          const spawnX = p.constrain(rawX, WORLD_BOUNDS.minX + 200, WORLD_BOUNDS.maxX - 200);
+          const spawnY = p.constrain(playerBody.y + (Math.random() * 30 - 15), 25, 95);
+          const ninjaType = NINJA_TYPES[Math.floor(Math.random() * NINJA_TYPES.length)];
+
+          activeEnemy = {
+            id: `ninja_${Date.now()}`,
+            type: ninjaType,
+            x: spawnX,
+            y: spawnY,
+            vx: 0,
+            vy: 0,
+            facing: spawnX < playerBody.x ? 'right' : 'left',
+            action: 'run',
+            walkPhase: 0,
+            attackPhase: 0,
+            hurtPhase: 0,
+            deadPhase: 0,
+            hasHitPlayer: false,
+            animTimer: 0,
+            hp: 100,
+            maxHp: 100,
+            state: 'approach',
+            stateTimer: 0,
+            attackCooldown: 1.0,
+            hurtTimer: 0,
+            deadTimer: 0,
+          };
+          lastEnemySpawnTime = now;
+          characterSpriteManager.preloadNinja(ninjaType);
+          spawnFloatingText(spawnX, GROUND_Y + spawnY - 80, '⚠️ ENEMY SPAWNED!', '#FF4B4B');
+        }
+        return;
+      }
+
+      const enemy = activeEnemy;
+      enemy.animTimer += dt;
+      if (enemy.attackCooldown > 0) enemy.attackCooldown -= dt;
+
+      const distX = playerBody.x - enemy.x;
+      const distY = playerBody.y - enemy.y;
+      const dist = Math.hypot(distX, distY);
+
+      if (enemy.state === 'dead') {
+        enemy.action = 'dead';
+        enemy.vx = 0;
+        enemy.vy = 0;
+        enemy.deadPhase += dt * 5.0;
+        enemy.deadTimer += dt;
+        if (enemy.deadTimer >= 2.6) {
+          activeEnemy = null;
+        }
+        return;
+      }
+
+      if (enemy.state === 'hurt') {
+        enemy.action = 'hurt';
+        enemy.hurtPhase += dt * 6.0;
+        enemy.hurtTimer -= dt;
+        enemy.vx *= 0.85;
+        enemy.vy *= 0.85;
+        enemy.x += enemy.vx;
+        enemy.y += enemy.vy;
+        if (Math.abs(enemy.vx) > 0.2) {
+          enemy.facing = enemy.vx > 0 ? 'right' : 'left';
+        }
+        if (enemy.hurtTimer <= 0) {
+          enemy.state = 'approach';
+        }
+        return;
+      }
+
+      // If player is currently in death state / 5s countdown, enemy runs towards player's location
+      if (playerRespawnCountdown > 0) {
+        if (dist > 35) {
+          enemy.state = 'approach';
+          enemy.action = 'run';
+          const speed = 4.2;
+          enemy.vx = (distX / dist) * speed;
+          enemy.vy = (distY / dist) * (speed * 0.4);
+          if (Math.abs(enemy.vx) > 0.08) {
+            enemy.facing = enemy.vx > 0 ? 'right' : 'left';
+          }
+          enemy.walkPhase += Math.hypot(enemy.vx, enemy.vy) * 0.07;
+          enemy.x += enemy.vx;
+          enemy.y += enemy.vy;
+          enemy.x = p.constrain(enemy.x, WORLD_BOUNDS.minX + 50, WORLD_BOUNDS.maxX - 50);
+          enemy.y = p.constrain(enemy.y, 20, 100);
+        } else {
+          enemy.action = 'idle';
+          enemy.facing = distX >= 0 ? 'right' : 'left';
+          enemy.vx = 0;
+          enemy.vy = 0;
+        }
+        return;
+      }
+
+      if (enemy.state === 'attack') {
+        enemy.action = 'attack';
+        enemy.attackPhase += 0.45;
+        enemy.facing = distX >= 0 ? 'right' : 'left';
+        enemy.vx = 0;
+        enemy.vy = 0;
+        enemy.stateTimer -= dt;
+
+        // Check if attack hits player at mid animation (EXACTLY ONCE per swing)
+        if (!enemy.hasHitPlayer && enemy.stateTimer <= 0.40 && enemy.stateTimer > 0.15) {
+          if (dist <= 75 && Math.abs(distY) <= 35) {
+            enemy.hasHitPlayer = true;
+            const pushDir = enemy.facing === 'right' ? 1 : -1;
+            playerBody.applyImpulse(pushDir * 280, 0);
+
+            const damage = Math.floor(Math.random() * 5 + 14); // 14-18 damage per hit
+            playerHp = Math.max(0, playerHp - damage);
+            lastPlayerDamageTime = performance.now();
+            callbacks?.onPlayerHealthChange?.(playerHp, maxPlayerHp);
+
+            spawnCombatParticles(playerBody.x, GROUND_Y + playerBody.y - 25, '#FF4B4B', 8);
+            spawnFloatingText(playerBody.x, GROUND_Y + playerBody.y - 65, `-${damage}`, '#FF3B30');
+
+            if (playerHp <= 0) {
+              // Player defeat: initiate 5s countdown & death animation
+              playerHp = 0;
+              playerAction = 'dead';
+              playerDeadPhase = 0;
+              playerRespawnCountdown = 5.0;
+              callbacks?.onPlayerHealthChange?.(0, maxPlayerHp);
+              callbacks?.onRespawnCountdownChange?.(5);
+              callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, 'dead');
+              spawnCombatParticles(playerBody.x, GROUND_Y + playerBody.y - 25, '#FF4B4B', 16);
+              spawnFloatingText(playerBody.x, GROUND_Y + playerBody.y - 65, 'DEFEATED!', '#FF3B30');
+            }
+          }
+        }
+
+        if (enemy.stateTimer <= 0) {
+          enemy.state = 'retreat';
+          enemy.stateTimer = 0.8;
+          enemy.attackCooldown = 1.8;
+          enemy.attackPhase = 0;
+          enemy.hasHitPlayer = false;
+        }
+        return;
+      }
+
+      if (enemy.state === 'retreat') {
+        enemy.action = 'walk';
+        enemy.stateTimer -= dt;
+        // Move away from player and face in the exact direction of travel (never moonwalk)
+        const retreatDir = distX >= 0 ? -1 : 1;
+        enemy.vx = retreatDir * 2.2;
+        enemy.vy = 0;
+        enemy.facing = enemy.vx > 0 ? 'right' : 'left';
+        enemy.walkPhase += Math.hypot(enemy.vx, enemy.vy) * 0.07;
+        enemy.x += enemy.vx;
+        enemy.y += enemy.vy;
+        if (enemy.stateTimer <= 0) {
+          enemy.state = 'approach';
+        }
+        return;
+      }
+
+      if (enemy.state === 'approach') {
+        if (dist > 65) {
+          const isFar = dist > 180;
+          enemy.action = isFar ? 'run' : 'walk';
+          const speed = isFar ? 3.8 : 2.2;
+          enemy.vx = (distX / dist) * speed;
+          enemy.vy = (distY / dist) * (speed * 0.4);
+          if (Math.abs(enemy.vx) > 0.08) {
+            enemy.facing = enemy.vx > 0 ? 'right' : 'left';
+          }
+          enemy.walkPhase += Math.hypot(enemy.vx, enemy.vy) * 0.07;
+          enemy.x += enemy.vx;
+          enemy.y += enemy.vy;
+
+          enemy.x = p.constrain(enemy.x, WORLD_BOUNDS.minX + 50, WORLD_BOUNDS.maxX - 50);
+          enemy.y = p.constrain(enemy.y, 20, 100);
+        } else {
+          if (enemy.attackCooldown <= 0) {
+            enemy.state = 'attack';
+            enemy.action = 'attack';
+            enemy.facing = distX >= 0 ? 'right' : 'left';
+            enemy.stateTimer = 0.65;
+            enemy.attackPhase = 0;
+            enemy.hasHitPlayer = false;
+            enemy.vx = 0;
+            enemy.vy = 0;
+          } else {
+            enemy.action = 'idle';
+            enemy.facing = distX >= 0 ? 'right' : 'left';
+            enemy.vx = 0;
+            enemy.vy = 0;
+          }
+        }
+      }
+
+      // Out-of-combat Player Health Regeneration (after 4s without taking damage)
+      if (playerHp < maxPlayerHp && performance.now() - lastPlayerDamageTime > 4000) {
+        playerHp = Math.min(maxPlayerHp, playerHp + dt * 3.5);
+        callbacks?.onPlayerHealthChange?.(Math.round(playerHp), maxPlayerHp);
+      }
+    }
+
+    function renderEnemyNinja(enemy: EnemyNinjaState) {
+      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+      const groundY = GROUND_Y + enemy.y;
+      const currentTimeSec = (typeof performance !== 'undefined' ? performance.now() : (p as any).millis()) / 1000;
+
+      let enemyProgress = currentTimeSec;
+      if (enemy.action === 'walk' || enemy.action === 'run') {
+        enemyProgress = enemy.walkPhase;
+      } else if (enemy.action === 'attack') {
+        enemyProgress = enemy.attackPhase;
+      } else if (enemy.action === 'hurt') {
+        enemyProgress = enemy.hurtPhase;
+      } else if (enemy.action === 'dead') {
+        enemyProgress = enemy.deadPhase;
+      }
+
+      // Contact shadow
+      p.push();
+      p.noStroke();
+      p.fill(0, 0, 0, currentThemeMode === 'dark' ? 100 : 75);
+      p.ellipse(enemy.x, groundY, 40, 10);
+      p.pop();
+
+      // Enemy Sprite
+      drawNinjaFrame(
+        ctx,
+        enemy.type,
+        enemy.action,
+        enemy.x,
+        groundY,
+        enemy.facing,
+        enemyProgress,
+        undefined,
+        enemy.state === 'hurt'
+      );
+
+      // Floating HP Bar & Title Tag (while alive)
+      if (enemy.state !== 'dead') {
+        const barW = 82;
+        const barH = 7;
+        const barX = enemy.x;
+        const barY = groundY - 105;
+
+        p.push();
+        p.rectMode((p as any).CENTER);
+
+        // Background card
+        p.fill(10, 13, 20, 220);
+        p.stroke('#D5C49B');
+        p.strokeWeight(1.2);
+        p.rect(barX, barY, barW + 4, barH + 4, 3);
+
+        // Health Fill
+        p.noStroke();
+        const hpPct = p.constrain(enemy.hp / enemy.maxHp, 0, 1);
+        const fillW = barW * hpPct;
+        p.fill(255, 75, 75);
+        p.rectMode((p as any).CORNER);
+        p.rect(barX - barW / 2, barY - barH / 2, fillW, barH, 2);
+
+        // Text Tag
+        p.fill('#FFFFFF');
+        p.noStroke();
+        p.textAlign((p as any).CENTER, (p as any).BOTTOM);
+        (p as any).textFont('Pixelify Sans');
+        p.textSize(9);
+        const ninjaDef = NINJA_DEFS[enemy.type];
+        p.text(`⚔️ ${ninjaDef.name}`, barX, barY - 5);
+        p.pop();
+      }
+    }
+
+    function renderCombatParticlesAndTexts() {
+      // Particles
+      for (let i = combatParticles.length - 1; i >= 0; i--) {
+        const cp = combatParticles[i];
+        cp.x += cp.vx;
+        cp.y += cp.vy;
+        cp.vy += 0.12;
+        cp.life++;
+        const alpha = 1 - cp.life / cp.maxLife;
+
+        if (cp.life >= cp.maxLife) {
+          combatParticles.splice(i, 1);
+          continue;
+        }
+
+        p.noStroke();
+        p.fill(cp.color);
+        p.ellipse(cp.x, cp.y, cp.size, cp.size);
+      }
+
+      // Floating Texts
+      for (let i = floatingCombatTexts.length - 1; i >= 0; i--) {
+        const ft = floatingCombatTexts[i];
+        ft.y += ft.vy;
+        ft.life++;
+        const alpha = 1 - ft.life / ft.maxLife;
+
+        if (ft.life >= ft.maxLife) {
+          floatingCombatTexts.splice(i, 1);
+          continue;
+        }
+
+        p.push();
+        p.textAlign(p.CENTER, p.CENTER);
+        (p as any).textFont('Pixelify Sans');
+        p.textSize(13);
+        p.stroke(0, 0, 0, alpha * 255);
+        p.strokeWeight(3);
+        p.fill(ft.color);
+        p.text(ft.text, ft.x, ft.y);
+        p.pop();
+      }
+    }
+
+    function renderOffscreenEnemyIndicator() {
+      if (!isCombatActive || !activeEnemy || activeEnemy.state === 'dead') return;
+
+      const screenW = p.width;
+      const screenH = p.height;
+      const enemyScreenX = activeEnemy.x * zoom + camX;
+
+      if (enemyScreenX < 40 || enemyScreenX > screenW - 40) {
+        const isLeft = enemyScreenX < 40;
+        const indX = isLeft ? 35 : screenW - 35;
+        const indY = screenH / 2;
+        const distMeters = Math.round(Math.abs(activeEnemy.x - playerBody.x));
+
+        p.push();
+        p.fill('#0F0F0F');
+        p.stroke('#FF4B4B');
+        p.strokeWeight(1.5);
+        p.rectMode(p.CENTER);
+        p.rect(indX, indY, 50, 24, 6);
+
+        p.noStroke();
+        p.fill('#FF4B4B');
+        (p as any).textFont('Pixelify Sans');
+        p.textSize(9);
+        p.textAlign(p.CENTER, p.CENTER);
+        p.text(isLeft ? `◀ ${distMeters}m` : `${distMeters}m ▶`, indX, indY);
+        p.pop();
+      }
+    }
 
     let lastReportedLocId = '';
     let lastNearbyState = false;
@@ -164,7 +834,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       });
     }
 
-    // Preload new world assets exclusively from public/locations/world
+    // Preload world assets exclusively from public/locations/world
     if (typeof window !== 'undefined') {
       characterSpriteManager.preloadCharacter(DEFAULT_CHARACTER);
 
@@ -179,6 +849,12 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         loc.layers?.forEach((layerSrc) => getTexture(layerSrc));
       });
 
+      // Preload Night Mode assets
+      getTexture('/locations/world/bg_night.png');
+      getTexture('/locations/world/normal_moon.png');
+      getTexture('/locations/world/beige_moon.png');
+      getTexture('/locations/world/red_moon.png');
+
       // Preload tree and bush decorations
       WORLD_DECORATIONS.trees.forEach((t) => getTexture(t.src));
       WORLD_DECORATIONS.bushes.forEach((b) => getTexture(b.src));
@@ -186,6 +862,10 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       // Preload interactive work objects and home base
       INTERACTIVE_OBJECTS.forEach((obj) => getTexture(obj.image));
       getTexture('/objects/home.png');
+      getTexture('/objects/garage.png');
+      getTexture('/objects/mailbox.png');
+      getTexture('/objects/light_on.png');
+      getTexture('/objects/light_off.png');
     }
 
     function spawnDust(x: number, y: number, count: number = 2, maxSpeed: number = 1.5) {
@@ -204,9 +884,28 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       }
     }
 
+    (p as any).setThemeMode = (mode: 'light' | 'dark') => {
+      currentThemeMode = mode;
+    };
+
+    (p as any).setMoonType = (type: 'beige' | 'normal' | 'red') => {
+      if (type === 'normal') activeMoonSrc = '/locations/world/normal_moon.png';
+      else if (type === 'red') activeMoonSrc = '/locations/world/red_moon.png';
+      else activeMoonSrc = '/locations/world/beige_moon.png';
+    };
+
+    (p as any).setCombatActive = (active: boolean) => {
+      isCombatActive = active;
+      if (!active) {
+        activeEnemy = null;
+      } else {
+        lastEnemySpawnTime = performance.now() - 7000; // spawn shortly after activation
+      }
+    };
+
     (p as any).setGender = (gender: Gender) => {
       playerGender = gender;
-      playerCharacter = gender === 'male' ? 'Fighter' : 'Girl_1';
+      playerCharacter = gender === 'male' ? 'Fighter' : 'Countess_claire';
       playerBody.setAttributes(CHARACTER_DEFS[playerCharacter].physics);
       characterSpriteManager.preloadCharacter(playerCharacter);
       callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, playerAction);
@@ -235,10 +934,14 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
 
     (p as any).triggerAction = (action: CharacterAction) => {
       const charPhys = CHARACTER_DEFS[playerCharacter].physics;
-      if (action === 'attack') {
-        playerAction = 'attack';
-        attackTimer = 18;
-        attackPhase = 0;
+      if (
+        action === 'attack' ||
+        action === 'attack1' ||
+        action === 'attack2' ||
+        action === 'attack3' ||
+        action === 'attack4'
+      ) {
+        triggerPlayerAttack(action as any);
       } else if (action === 'jump' && playerBody.isGrounded) {
         playerBody.applyImpulse(0, charPhys.jumpImpulse);
         spawnDust(playerBody.x, playerBody.y, 5, 2.5);
@@ -316,12 +1019,14 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         keys['virtual_jump'] = true;
       } else if (action === 'jump_stop') {
         keys['virtual_jump'] = false;
-      } else if (action === 'attack') {
-        if (attackTimer <= 0) {
-          playerAction = 'attack';
-          attackTimer = 18;
-          attackPhase = 0;
-        }
+      } else if (
+        action === 'attack' ||
+        action === 'attack1' ||
+        action === 'attack2' ||
+        action === 'attack3' ||
+        action === 'attack4'
+      ) {
+        triggerPlayerAttack(action as any);
       } else if (action === 'stop') {
         joystickVector = { x: 0, y: 0 };
         keys['virtual_left'] = false;
@@ -372,12 +1077,17 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     };
 
     p.draw = () => {
-      // 1. Lush Green Base Meadow Fill
-      p.background(78, 160, 89);
+      // 1. Meadow Base Fill (Night deep forest green in dark mode, vibrant meadow in light mode)
+      if (currentThemeMode === 'dark') {
+        p.background(24, 52, 38);
+      } else {
+        p.background(78, 160, 89);
+      }
       windTimer += 0.4;
 
-      // 2. Physics Simulation
+      // 2. Physics & Combat Simulation
       simulatePhysics();
+      updateEnemyNinja(1 / 60);
 
       // 3. Camera Smooth Follow with strict viewport screen boundary clamping
       targetCamY = p.height * 0.72;
@@ -426,26 +1136,46 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       // 7. Render 2.5D Depth-Sorted World Entities (Back-to-Front Y-Sorting)
       renderDepthSortedEntities();
 
+      // 7.5 Render Combat Particles & Floating Damage Texts
+      renderCombatParticlesAndTexts();
+
       // 8. Render Boundary Walls
       renderMapBoundaries();
 
       p.pop();
+
+      // 9. Screen-Space Overlays (Off-screen Enemy Indicator)
+      renderOffscreenEnemyIndicator();
     };
 
     function resolveSolidObstacleCollisions() {
-      // 1. Home Base building (stops player from walking into the building in the background)
-      if (Math.abs(playerBody.x) < 380) {
-        if (playerBody.y < -12) {
-          playerBody.y = -12;
+      // 1. Home Base building & Garage (stops player from walking into or through the building)
+      // Garage (-520) + House (0) span x: -680 to +360 with front porch at y = 70
+      if (playerBody.x >= -680 && playerBody.x <= 360) {
+        if (playerBody.y < 70) {
+          playerBody.y = 70;
           if (playerBody.vy < 0) playerBody.vy = 0;
         }
       }
 
-      // 2. Interactive Landmark Objects (Chest, Briefcase, Vault, Chamber, Bag)
+      // 2. Mailbox post collision at x = 220 (front right garden lawn)
+      if (Math.abs(playerBody.x - 220) < 30) {
+        resolveObstacleEllipse(220, 74, 14, 8);
+      }
+
+      // 3. Interactive Landmark Objects (Chest, Briefcase, Vault, Chamber, Bag)
       for (let i = 0; i < INTERACTIVE_OBJECTS.length; i++) {
         const obj = INTERACTIVE_OBJECTS[i];
         if (Math.abs(playerBody.x - obj.x) < 70) {
           resolveObstacleEllipse(obj.x, obj.yOffset || 0, 34, 15);
+        }
+      }
+
+      // 4. Street Lamp Posts
+      for (let i = 0; i < WORLD_LAMP_POSTS.length; i++) {
+        const lamp = WORLD_LAMP_POSTS[i];
+        if (Math.abs(playerBody.x - lamp.x) < 25) {
+          resolveObstacleEllipse(lamp.x, lamp.yOffset, 12, 6);
         }
       }
     }
@@ -485,6 +1215,34 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     }
 
     function simulatePhysics() {
+      if (playerRespawnCountdown > 0) {
+        const dtSec = 1 / 60;
+        playerRespawnCountdown -= dtSec;
+        playerDeadPhase += dtSec * 5.0;
+        playerAction = 'dead';
+        playerBody.vx *= 0.85;
+        playerBody.vy *= 0.85;
+        playerBody.x += playerBody.vx;
+        playerBody.y += playerBody.vy;
+        callbacks?.onRespawnCountdownChange?.(Math.max(1, Math.ceil(playerRespawnCountdown)));
+
+        if (playerRespawnCountdown <= 0) {
+          playerRespawnCountdown = 0;
+          playerHp = maxPlayerHp;
+          playerAction = 'idle';
+          playerDeadPhase = 0;
+          playerBody.x = 0;
+          playerBody.y = 80;
+          playerBody.vx = 0;
+          playerBody.vy = 0;
+          spawnFloatingText(0, GROUND_Y + 50, 'RESPAWNED AT HOME BASE!', '#5B9BF3');
+          callbacks?.onPlayerHealthChange?.(maxPlayerHp, maxPlayerHp);
+          callbacks?.onRespawnCountdownChange?.(null);
+          callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, 'idle');
+        }
+        return;
+      }
+
       if (isModalActive) {
         if (playerBody.isGrounded && attackTimer <= 0 && Math.hypot(playerBody.vx, playerBody.vy) < 0.2) {
           playerAction = 'idle';
@@ -498,7 +1256,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const isRight = !!(keys['KeyD'] || keys['ArrowRight'] || keys['d'] || keys['D'] || keys['virtual_right']);
       const isUp = !!(keys['KeyW'] || keys['ArrowUp'] || keys['w'] || keys['W'] || keys['virtual_up']);
       const isDown = !!(keys['KeyS'] || keys['ArrowDown'] || keys['s'] || keys['S'] || keys['virtual_down']);
-      const isJump = !!(keys['Space'] || keys['KeyK'] || keys['k'] || keys['K'] || keys['virtual_jump']);
+      const isJump = !!(keys['Space'] || keys['virtual_jump']);
       const isSprint = !!(keys['ShiftLeft'] || keys['ShiftRight'] || keys['virtual_sprint']);
 
       const stickDist = Math.hypot(joystickVector.x, joystickVector.y);
@@ -565,9 +1323,6 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         spawnDust(playerBody.x, playerBody.y, 4, 2.0);
         // Consume jump triggers immediately so single press = single jump
         keys['Space'] = false;
-        keys['KeyK'] = false;
-        keys['k'] = false;
-        keys['K'] = false;
         keys['virtual_jump'] = false;
       }
 
@@ -592,7 +1347,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       resolveSolidObstacleCollisions();
 
       // Clamp player within ground walking corridor
-      playerBody.y = p.constrain(playerBody.y, -18, 30);
+      playerBody.y = p.constrain(playerBody.y, 0, 110);
       const playerCollisionRadius = 40;
       if (playerBody.x <= WORLD_BOUNDS.minX + playerCollisionRadius) {
         playerBody.x = WORLD_BOUNDS.minX + playerCollisionRadius;
@@ -603,11 +1358,17 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         if (playerBody.vx > 0) playerBody.vx = 0;
       }
 
-      // Attack trigger
-      if ((keys['KeyJ'] || keys['KeyF'] || keys['j']) && attackTimer <= 0) {
-        playerAction = 'attack';
-        attackTimer = 18;
-        attackPhase = 0;
+      // 4 Attack Triggers
+      if (attackTimer <= 0) {
+        if (keys['Digit1'] || keys['1'] || keys['KeyJ'] || keys['j'] || keys['J'] || keys['KeyF'] || keys['f'] || keys['F']) {
+          triggerPlayerAttack('attack1');
+        } else if (keys['Digit2'] || keys['2'] || keys['KeyK'] || keys['k'] || keys['K'] || keys['KeyG'] || keys['g'] || keys['G']) {
+          triggerPlayerAttack('attack2');
+        } else if (keys['Digit3'] || keys['3'] || keys['KeyL'] || keys['l'] || keys['L'] || keys['KeyH'] || keys['h'] || keys['H']) {
+          triggerPlayerAttack('attack3');
+        } else if (keys['Digit4'] || keys['4'] || keys['Semicolon'] || keys[';'] || keys['KeyU'] || keys['u'] || keys['U'] || keys['KeyY'] || keys['y'] || keys['Y']) {
+          triggerPlayerAttack('attack4');
+        }
       }
 
       if (keys['KeyE'] || keys['e'] || keys['Enter']) {
@@ -646,8 +1407,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       } else if (attackTimer <= 0) {
         if (currentSpeed > 0.2) {
           playerAction = isRunning ? 'run' : 'walk';
-          const strideSpeedFactor = playerAction === 'run' ? 0.15 : 0.11;
-          walkPhase += currentSpeed * strideSpeedFactor;
+          walkPhase += currentSpeed * 0.07;
 
           const stepCycle = Math.floor(walkPhase);
           if (stepCycle % 4 === 0 && (walkPhase - stepCycle) < 0.25) {
@@ -722,7 +1482,15 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         activeProgress = walkPhase;
       } else if (playerAction === 'jump') {
         activeProgress = jumpPhase;
-      } else if (playerAction === 'attack') {
+      } else if (playerAction === 'dead') {
+        activeProgress = playerDeadPhase;
+      } else if (
+        playerAction === 'attack' ||
+        playerAction === 'attack1' ||
+        playerAction === 'attack2' ||
+        playerAction === 'attack3' ||
+        playerAction === 'attack4'
+      ) {
         activeProgress = attackPhase;
       }
 
@@ -747,12 +1515,11 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         playerBody.x,
         playerBody.y + standingOffset + jumpOffset,
         playerBody.facing,
-        activeProgress,
-        140
+        activeProgress
       );
     }
 
-    // Render Sky Gradient (bg.png) and Cloud Layers from public/locations/world
+    // Render Sky Gradient (bg.png or bg_night.png), Moon, and Cloud Layers
     function renderSkyAndClouds() {
       const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
       const screenW = p.width;
@@ -760,10 +1527,12 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const skyHeight = Math.max(200, groundScreenY + 20);
 
       const activeLoc = getActiveMapLocation(playerBody.x);
-      const skyBgSrc = activeLoc.background || DEFAULT_ATMOSPHERE.background;
+      const skyBgSrc = currentThemeMode === 'dark'
+        ? '/locations/world/bg_night.png'
+        : (activeLoc.background || DEFAULT_ATMOSPHERE.background);
       const cloudLayers = activeLoc.clouds || DEFAULT_ATMOSPHERE.clouds;
 
-      // 1. Draw Sky Background Texture (bg.png)
+      // 1. Draw Sky Background Texture (bg.png or bg_night.png)
       if (skyBgSrc) {
         const bgImg = getTexture(skyBgSrc);
         if (bgImg.complete && bgImg.naturalWidth > 0) {
@@ -788,7 +1557,36 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         }
       }
 
-      // 2. Draw Cloud Layers (only active visible clouds)
+      // 1.5 Draw Glowing Moon in Dark Mode
+      if (currentThemeMode === 'dark') {
+        const moonImg = getTexture(activeMoonSrc);
+        if (moonImg.complete && moonImg.naturalWidth > 0) {
+          const aspect = moonImg.naturalWidth / moonImg.naturalHeight;
+          let targetH = skyHeight;
+          let targetW = targetH * aspect;
+          if (targetW < screenW) {
+            targetW = screenW;
+            targetH = targetW / aspect;
+          }
+
+          const parallaxOffset = (camX * 0.015);
+          let startX = (parallaxOffset % targetW);
+          if (startX > 0) startX -= targetW;
+
+          const targetY = groundScreenY - targetH;
+          let drawX = startX;
+          while (drawX < screenW) {
+            ctx.drawImage(moonImg, drawX, targetY, targetW + 1, targetH + 1);
+            drawX += targetW;
+          }
+        }
+      }
+
+      // 2. Draw Cloud Layers (with subtle night tint in dark mode)
+      p.push();
+      if (currentThemeMode === 'dark') {
+        ctx.globalAlpha = 0.50;
+      }
       for (let i = 0; i < cloudLayers.length; i++) {
         const cloud = cloudLayers[i];
         const cloudImg = getTexture(cloud.src);
@@ -815,20 +1613,16 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
           drawX += targetW;
         }
       }
+      p.pop();
     }
 
-    // Render Ground Floor & Meadow (from public/locations/world/ground.png) - Fast Culled
+    // Render Ground Floor & Meadow (from public/locations/world/ground.png) - Stretches to bottom
     function renderMapSceneryAndFloor() {
       const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
 
       const viewLeft = (-camX) / zoom - 300;
       const viewRight = (p.width - camX) / zoom + 300;
-      const viewBottom = (p.height - camY) / zoom + 200;
-
-      // 1. Solid Nature Meadow Fill below ground line (matches ground.png palette)
-      p.noStroke();
-      p.fill(62, 131, 53);
-      p.rect(viewLeft - 100, GROUND_Y - 2, viewRight - viewLeft + 200, Math.max(400, viewBottom - GROUND_Y + 200));
+      const viewBottom = (p.height - camY) / zoom + 400;
 
       const groundImg = getTexture(DEFAULT_ATMOSPHERE.floor?.image || '/locations/world/ground.png');
       if (!groundImg.complete || groundImg.naturalWidth === 0) return;
@@ -841,10 +1635,28 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const groundSurfaceRatio = 265 / 324;
       const drawY = GROUND_Y - targetH * groundSurfaceRatio;
 
+      if (currentThemeMode === 'dark') {
+        ctx.filter = 'brightness(0.50) saturate(0.85)';
+      }
+
       let layerX = Math.floor(viewLeft / layerW) * layerW;
       while (layerX < viewRight + layerW) {
+        // Draw top ground crest with textured grass tufts and paths
         ctx.drawImage(groundImg, layerX, drawY, layerW + 1, targetH + 1);
+
+        // Seamlessly tile the textured lower meadow downwards to cover the entire screen bottom
+        let tileY = drawY + targetH - 2;
+        const subSliceH = 80;
+        while (tileY < viewBottom + 300) {
+          ctx.drawImage(groundImg, 0, 240, 576, 84, layerX, tileY, layerW + 1, subSliceH + 1);
+          tileY += subSliceH - 1;
+        }
+
         layerX += layerW - 1;
+      }
+
+      if (currentThemeMode === 'dark') {
+        ctx.filter = 'none';
       }
     }
 
@@ -858,24 +1670,22 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const viewRight = (p.width - camX) / zoom + 450;
       const entities: DepthEntity[] = [];
 
-      // 1. All Trees (rooted firmly in the grass meadow)
+      // 1. All Trees (rooted firmly in the grass meadow at tree.yOffset)
       for (let i = 0; i < ALL_WORLD_TREES.length; i++) {
         const tree = ALL_WORLD_TREES[i];
         if (tree.x < viewLeft || tree.x > viewRight) continue;
-        const treeBaseY = (tree.yOffset || 0) + (tree.size > 450 ? 25 : -10);
         entities.push({
-          y: treeBaseY,
+          y: tree.yOffset || 0,
           draw: () => drawSingleTree(tree),
         });
       }
 
-      // 2. All Bushes (rooted in the grass meadow)
+      // 2. All Bushes (rooted firmly in the grass meadow at bush.yOffset)
       for (let i = 0; i < ALL_WORLD_BUSHES.length; i++) {
         const bush = ALL_WORLD_BUSHES[i];
         if (bush.x < viewLeft || bush.x > viewRight) continue;
-        const bushBaseY = (bush.yOffset || 0) + (bush.size > 90 ? 20 : -8);
         entities.push({
-          y: bushBaseY,
+          y: bush.yOffset || 0,
           draw: () => drawSingleBush(bush),
         });
       }
@@ -890,25 +1700,51 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         });
       }
 
-      // 4. Station Kiosks
+      // 4. Station Kiosks (only for outdoor field stations)
       for (let i = 0; i < WORLD_LOCATIONS.length; i++) {
         const loc = WORLD_LOCATIONS[i];
-        if (loc.x < viewLeft || loc.x > viewRight || loc.x === 0 || loc.id === 'station_home') continue;
+        if (loc.x < viewLeft || loc.x > viewRight || Math.abs(loc.x) <= 600) continue;
         entities.push({
-          y: -4,
+          y: 0,
           draw: () => drawSingleStationKiosk(loc),
         });
       }
 
-      // 5. Home Base Building at X = 0 (baseline at y = -6)
-      if (0 >= viewLeft && 0 <= viewRight) {
+      // 5. Services Garage at X = -520 (beside house on the left)
+      if (-520 >= viewLeft - 350 && -520 <= viewRight + 350) {
         entities.push({
-          y: -6,
+          y: 68,
+          draw: () => renderServicesGarage(),
+        });
+      }
+
+      // 6. Home Base Building at X = 0 (center)
+      if (0 >= viewLeft - 400 && 0 <= viewRight + 400) {
+        entities.push({
+          y: 68,
           draw: () => renderHomeBeacon(),
         });
       }
 
-      // 6. Dust Particles
+      // 7. Contact Mailbox at X = 220 (front right garden lawn)
+      if (220 >= viewLeft - 200 && 220 <= viewRight + 200) {
+        entities.push({
+          y: 74,
+          draw: () => renderContactMailbox(),
+        });
+      }
+
+      // 8. Street Lamp Posts (Sources of light illuminating the dark mode world)
+      for (let i = 0; i < WORLD_LAMP_POSTS.length; i++) {
+        const lamp = WORLD_LAMP_POSTS[i];
+        if (lamp.x < viewLeft || lamp.x > viewRight) continue;
+        entities.push({
+          y: lamp.yOffset,
+          draw: () => drawSingleLampPost(lamp),
+        });
+      }
+
+      // 9. Dust Particles
       if (dustParticles.length > 0) {
         entities.push({
           y: playerBody.y - 0.5,
@@ -916,11 +1752,19 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         });
       }
 
-      // 7. Player Character
+      // 10. Player Character
       entities.push({
         y: playerBody.y,
         draw: () => renderPlayerCharacter(),
       });
+
+      // 11. Roaming Enemy Ninja
+      if (activeEnemy) {
+        entities.push({
+          y: activeEnemy.y,
+          draw: () => renderEnemyNinja(activeEnemy!),
+        });
+      }
 
       // Sort entities ascending by Y coordinate (back-to-front rendering)
       entities.sort((a, b) => a.y - b.y);
@@ -936,14 +1780,25 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const img = getTexture(tree.src);
       if (!img.complete || img.naturalWidth === 0) return;
 
-      const aspect = img.naturalWidth / img.naturalHeight;
+      const aspect = img.naturalWidth / img.naturalHeight; // 576 / 324
       const treeH = tree.size;
       const treeW = treeH * aspect;
       const drawX = tree.x - treeW / 2;
-      // Trunk base firmly planted in the grass meadow
-      const drawY = GROUND_Y - treeH * 0.74 + (tree.yOffset || 0);
+      // Exact trunk base pixel in tree1.png is at y = 274 / 324 (84.57% height)
+      const drawY = GROUND_Y + (tree.yOffset || 0) - treeH * (274 / 324);
 
+      // Soft Ground Contact Shadow directly under base of trunk
+      p.noStroke();
+      p.fill(0, 0, 0, currentThemeMode === 'dark' ? 65 : 45);
+      p.ellipse(tree.x, GROUND_Y + (tree.yOffset || 0) + 1, treeW * 0.20, 8);
+
+      if (currentThemeMode === 'dark') {
+        ctx.filter = 'brightness(0.48) saturate(0.80)';
+      }
       ctx.drawImage(img, drawX, drawY, treeW, treeH);
+      if (currentThemeMode === 'dark') {
+        ctx.filter = 'none';
+      }
     }
 
     function drawSingleBush(bush: FlatSceneryItem) {
@@ -955,9 +1810,21 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       const bushH = bush.size;
       const bushW = bushH * aspect;
       const drawX = bush.x - bushW / 2;
-      const drawY = GROUND_Y - bushH * 0.78 + (bush.yOffset || 0);
+      // Bush bottom pixel is at 95% height
+      const drawY = GROUND_Y + (bush.yOffset || 0) - bushH * 0.95;
 
+      // Soft Ground Contact Shadow directly under bush base
+      p.noStroke();
+      p.fill(0, 0, 0, currentThemeMode === 'dark' ? 55 : 35);
+      p.ellipse(bush.x, GROUND_Y + (bush.yOffset || 0) + 1, bushW * 0.45, 6);
+
+      if (currentThemeMode === 'dark') {
+        ctx.filter = 'brightness(0.50) saturate(0.80)';
+      }
       ctx.drawImage(img, drawX, drawY, bushW, bushH);
+      if (currentThemeMode === 'dark') {
+        ctx.filter = 'none';
+      }
     }
 
     function drawSingleInteractiveObject(obj: InteractiveWorldObject) {
@@ -1050,6 +1917,59 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       p.pop();
     }
 
+    // Render Street Lamp Posts (Sources of light illuminating the dark mode environment)
+    function drawSingleLampPost(lamp: { x: number; yOffset: number }) {
+      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+      const isNight = currentThemeMode === 'dark';
+      const img = getTexture(isNight ? '/objects/light_on.png' : '/objects/light_off.png');
+      if (!img.complete || img.naturalWidth === 0) return;
+
+      const lampWidth = 430;
+      const aspect = 2752 / 1536;
+      const drawW = lampWidth;
+      const drawH = lampWidth / aspect;
+      const destX = lamp.x - drawW / 2;
+      const baseY = GROUND_Y + lamp.yOffset;
+      const destY = baseY - drawH * (1534 / 1536);
+
+      p.push();
+
+      // 1. In Dark Mode: Soft lantern glow at the top of the lamp (no muddy ground discs)
+      if (isNight) {
+        const lanternHeadX = lamp.x;
+        const lanternHeadY = destY + drawH * (110 / 1536);
+        const flicker = Math.sin(windTimer * 0.15 + lamp.x * 0.05) * 0.02;
+
+        const haloGrad = ctx.createRadialGradient(
+          lanternHeadX, lanternHeadY, 2,
+          lanternHeadX, lanternHeadY, 115
+        );
+        haloGrad.addColorStop(0, `rgba(255, 255, 230, ${0.72 + flicker})`);
+        haloGrad.addColorStop(0.25, `rgba(255, 230, 150, ${0.32 + flicker * 0.5})`);
+        haloGrad.addColorStop(0.65, `rgba(255, 205, 100, ${0.09 + flicker * 0.2})`);
+        haloGrad.addColorStop(1, 'rgba(255, 190, 80, 0)');
+
+        ctx.save();
+        ctx.fillStyle = haloGrad;
+        ctx.beginPath();
+        ctx.arc(lanternHeadX, lanternHeadY, 115, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // 2. Clean Ground Contact Shadow under post base
+      p.noStroke();
+      p.fill(0, 0, 0, isNight ? 80 : 60);
+      p.ellipse(lamp.x, baseY + 1, 46, 10);
+
+      // 3. Draw Lamp Post Image (Explicitly UNFILTERED: 100% full radiant brightness in dark mode!)
+      ctx.filter = 'none';
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(img, destX, destY, drawW, drawH);
+
+      p.pop();
+    }
+
     // Render Boundary Walls
     function renderMapBoundaries() {
       renderSingleBoundary(WORLD_BOUNDS.minX, 'MAP START • WESTERN BOUNDARY', true);
@@ -1090,11 +2010,64 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       p.pop();
     }
 
-    // Render Home Base Building at X = 0m
+    // Render Services Garage at X = -520 (left of house)
+    function renderServicesGarage() {
+      const garageImg = getTexture('/objects/garage.png');
+      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+      const garageWidth = 650;
+      const garageX = -520;
+      const isPlayerNearby = Math.abs(playerBody.x - garageX) <= 120;
+
+      p.push();
+
+      if (garageImg.complete && garageImg.naturalWidth > 0) {
+        const aspect = garageImg.naturalWidth / garageImg.naturalHeight; // 2752 / 1536
+        const drawW = garageWidth;
+        const drawH = garageWidth / aspect;
+        const destX = garageX - drawW / 2;
+        // Foundation baseline in garage.png is at y = 1304 / 1536 (84.9% height)
+        const destY = GROUND_Y + 68 - drawH * (1304 / 1536);
+
+        // Ground Contact Shadow directly under base foundation
+        p.noStroke();
+        p.fill(0, 0, 0, currentThemeMode === 'dark' ? 120 : 95);
+        p.ellipse(garageX, GROUND_Y + 68, 340, 24);
+
+        if (currentThemeMode === 'dark') {
+          ctx.filter = 'brightness(0.72) saturate(0.90)';
+        }
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(garageImg, destX, destY, drawW, drawH);
+        if (currentThemeMode === 'dark') {
+          ctx.filter = 'none';
+        }
+      }
+
+      // Interactive Floating Prompt Banner when Player is nearby
+      if (isPlayerNearby) {
+        const promptY = GROUND_Y + 68 - 140;
+        p.fill('#0F0F0F');
+        p.stroke('#EADBCC');
+        p.strokeWeight(1.8);
+        p.rectMode(p.CENTER);
+        p.rect(garageX, promptY, 200, 30, 8);
+
+        p.noStroke();
+        p.fill('#EADBCC');
+        (p as any).textFont('Pixelify Sans');
+        p.textSize(11);
+        p.text('[ E ] Inspect Services', garageX, promptY);
+      }
+
+      p.pop();
+    }
+
+    // Render Home Base Building at X = 0m (center)
     function renderHomeBeacon() {
       const homeImg = getTexture('/objects/home.png');
       const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
       const homeWidth = 780;
+      const isPlayerNearby = Math.abs(playerBody.x) <= 80;
 
       p.push();
 
@@ -1104,26 +2077,110 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         const drawH = homeWidth / aspect;
         const destX = 0 - drawW / 2;
         // Foundation baseline in home.png is at 87.1% height
-        const destY = GROUND_Y - drawH * (1338 / 1536) + 4;
+        const destY = GROUND_Y + 68 - drawH * (1338 / 1536);
 
         // Ground Contact Shadow directly under base foundation
         p.noStroke();
-        p.fill(0, 0, 0, 95);
-        p.ellipse(0, GROUND_Y + 4, homeWidth * 0.78, 28);
+        p.fill(0, 0, 0, currentThemeMode === 'dark' ? 120 : 95);
+        p.ellipse(0, GROUND_Y + 68, homeWidth * 0.78, 28);
 
+        if (currentThemeMode === 'dark') {
+          ctx.filter = 'brightness(0.72) saturate(0.90)';
+        }
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(homeImg, destX, destY, drawW, drawH);
+        if (currentThemeMode === 'dark') {
+          ctx.filter = 'none';
+        }
       } else {
         p.stroke(91, 155, 243, 160);
         p.strokeWeight(1.5);
         p.line(0, -180, 0, GROUND_Y);
       }
 
+      // Interactive Floating Prompt Banner when Player is at Home Base front door
+      if (isPlayerNearby) {
+        const promptY = GROUND_Y + 68 - 150;
+        p.fill('#0F0F0F');
+        p.stroke('#EADBCC');
+        p.strokeWeight(1.8);
+        p.rectMode(p.CENTER);
+        p.rect(0, promptY, 200, 30, 8);
+
+        p.noStroke();
+        p.fill('#EADBCC');
+        (p as any).textFont('Pixelify Sans');
+        p.textSize(11);
+        p.text('[ E ] Inspect Home', 0, promptY);
+      }
+
       p.pop();
     }
 
-    const GAME_KEYS = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Space', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyJ', 'KeyF', 'KeyE'];
-    const GAME_KEY_CHARS = [' ', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'w', 'W', 'a', 'A', 's', 'S', 'd', 'D', 'e', 'E', 'j', 'J', 'f', 'F'];
+    // Render Contact Mailbox at X = 220 (front right garden lawn)
+    function renderContactMailbox() {
+      const mailboxImg = getTexture('/objects/mailbox.png');
+      const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
+      const mailboxWidth = 260;
+      const mailboxX = 220;
+      const isPlayerNearby = Math.abs(playerBody.x - mailboxX) <= 70;
+
+      p.push();
+
+      if (mailboxImg.complete && mailboxImg.naturalWidth > 0) {
+        const aspect = mailboxImg.naturalWidth / mailboxImg.naturalHeight; // 2752 / 1536
+        const drawW = mailboxWidth;
+        const drawH = mailboxWidth / aspect;
+        const destX = mailboxX - drawW / 2;
+        // Post base in mailbox.png reaches the bottom (1535 / 1536)
+        const destY = GROUND_Y + 74 - drawH * (1535 / 1536);
+
+        // Ground Contact Shadow under post
+        p.noStroke();
+        p.fill(0, 0, 0, currentThemeMode === 'dark' ? 100 : 85);
+        p.ellipse(mailboxX, GROUND_Y + 74, 75, 12);
+
+        if (currentThemeMode === 'dark') {
+          ctx.filter = 'brightness(0.72) saturate(0.90)';
+        }
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(mailboxImg, destX, destY, drawW, drawH);
+        if (currentThemeMode === 'dark') {
+          ctx.filter = 'none';
+        }
+      }
+
+      // Interactive Floating Prompt Banner when Player is nearby
+      if (isPlayerNearby) {
+        const promptY = GROUND_Y + 74 - 100;
+        p.fill('#0F0F0F');
+        p.stroke('#EADBCC');
+        p.strokeWeight(1.8);
+        p.rectMode(p.CENTER);
+        p.rect(mailboxX, promptY, 190, 28, 8);
+
+        p.noStroke();
+        p.fill('#EADBCC');
+        (p as any).textFont('Pixelify Sans');
+        p.textSize(11);
+        p.text('[ E ] Contact Asterixh', mailboxX, promptY);
+      }
+
+      p.pop();
+    }
+
+    const GAME_KEYS = [
+      'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Space',
+      'KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyE',
+      'KeyJ', 'KeyK', 'KeyL', 'KeyU', 'KeyI', 'Semicolon',
+      'Digit1', 'Digit2', 'Digit3', 'Digit4'
+    ];
+    const GAME_KEY_CHARS = [
+      ' ', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+      'w', 'W', 'a', 'A', 's', 'S', 'd', 'D', 'e', 'E',
+      'j', 'J', 'k', 'K', 'l', 'L', 'u', 'U', 'i', 'I', ';',
+      '1', '2', '3', '4'
+    ];
 
     const handleNativeKeyDown = (e: KeyboardEvent) => {
       if (isModalActive) return;
@@ -1133,6 +2190,19 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       if (e.code) keys[e.code] = true;
       if (e.key) keys[e.key] = true;
       cameraFollowsPlayer = true;
+
+      // Direct, instantaneous attack trigger on keypress
+      if (playerRespawnCountdown <= 0 && attackTimer <= 0) {
+        if (e.code === 'KeyJ' || e.key === 'j' || e.key === 'J' || e.code === 'Digit1' || e.key === '1') {
+          triggerPlayerAttack('attack1');
+        } else if (e.code === 'KeyK' || e.key === 'k' || e.key === 'K' || e.code === 'Digit2' || e.key === '2') {
+          triggerPlayerAttack('attack2');
+        } else if (e.code === 'KeyL' || e.key === 'l' || e.key === 'L' || e.code === 'Digit3' || e.key === '3') {
+          triggerPlayerAttack('attack3');
+        } else if (e.code === 'KeyU' || e.key === 'u' || e.key === 'U' || e.code === 'KeyI' || e.key === 'i' || e.key === 'I' || e.code === 'Semicolon' || e.key === ';' || e.code === 'Digit4' || e.key === '4') {
+          triggerPlayerAttack('attack4');
+        }
+      }
     };
 
     const handleNativeKeyUp = (e: KeyboardEvent) => {
@@ -1170,6 +2240,10 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         keys['Space'] = false;
         keys[' '] = false;
       }
+      if (e.code === 'Digit1' || e.key === '1') { keys['Digit1'] = false; keys['1'] = false; }
+      if (e.code === 'Digit2' || e.key === '2') { keys['Digit2'] = false; keys['2'] = false; }
+      if (e.code === 'Digit3' || e.key === '3') { keys['Digit3'] = false; keys['3'] = false; }
+      if (e.code === 'Digit4' || e.key === '4') { keys['Digit4'] = false; keys['4'] = false; }
     };
 
     if (typeof window !== 'undefined') {

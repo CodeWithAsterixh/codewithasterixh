@@ -13,7 +13,12 @@ export const CHARACTER_DEFS: Record<CharacterId, CharacterDef> = {
       run: 'Run.png',
       jump: 'Jump.png',
       attack: 'Attack_1.png',
+      attack1: 'Attack_1.png',
+      attack2: 'Attack_2.png',
+      attack3: 'Attack_3.png',
+      attack4: 'Attack_1.png',
       shield: 'Shield.png',
+      hurt: 'Hurt.png',
       dead: 'Dead.png',
     },
     physics: {
@@ -37,7 +42,12 @@ export const CHARACTER_DEFS: Record<CharacterId, CharacterDef> = {
       run: 'Run.png',
       jump: 'Jump.png',
       attack: 'Attack_1.png',
+      attack1: 'Attack_1.png',
+      attack2: 'Attack_2.png',
+      attack3: 'Attack_3.png',
+      attack4: 'Attack_2.png',
       shield: 'Shield.png',
+      hurt: 'Hurt.png',
       dead: 'Dead.png',
     },
     physics: {
@@ -61,7 +71,12 @@ export const CHARACTER_DEFS: Record<CharacterId, CharacterDef> = {
       run: 'Run.png',
       jump: 'Jump.png',
       attack: 'Attack_1.png',
+      attack1: 'Attack_1.png',
+      attack2: 'Attack_2.png',
+      attack3: 'Attack_3.png',
+      attack4: 'Attack_3.png',
       shield: 'Shield.png',
+      hurt: 'Hurt.png',
       dead: 'Dead.png',
     },
     physics: {
@@ -74,86 +89,171 @@ export const CHARACTER_DEFS: Record<CharacterId, CharacterDef> = {
       dragCoefficient: 0.30,
     },
   },
-
-  // Female Characters
-  Girl_1: {
-    id: 'Girl_1',
-    name: 'Girl 1',
-    gender: 'female',
-    folderPath: '/characters/female/Girl_1',
+  Xavier: {
+    id: 'Xavier',
+    name: 'Xavier',
+    gender: 'male',
+    folderPath: '/characters/male/Xavier',
     actions: {
       idle: 'Idle.png',
       walk: 'Walk.png',
       run: 'Run.png',
       jump: 'Jump.png',
-      attack: 'Attack.png',
-      shield: 'Protection.png',
+      attack: 'Attack_1.png',
+      attack1: 'Attack_1.png',
+      attack2: 'Attack_2.png',
+      attack3: 'Attack_3.png',
+      attack4: 'Attack_1.png',
+      shield: 'Protect.png',
+      hurt: 'Hurt.png',
       dead: 'Dead.png',
     },
     physics: {
-      mass: 54,
-      walkForce: 440,
-      runForce: 840,
-      jumpImpulse: -1555, // 103.7 km/h
-      maxJumpHeight: 30, // 30m
+      mass: 70,
+      walkForce: 500,
+      runForce: 920,
+      jumpImpulse: -2000,
+      maxJumpHeight: 32,
       restitution: 0.0,
-      dragCoefficient: 0.32,
+      dragCoefficient: 0.33,
     },
   },
-  Girl_2: {
-    id: 'Girl_2',
-    name: 'Girl 2',
+
+  // Female Characters
+  Countess_claire: {
+    id: 'Countess_claire',
+    name: 'Countess Claire',
     gender: 'female',
-    folderPath: '/characters/female/Girl_2',
+    folderPath: '/characters/female/Countess_claire',
     actions: {
       idle: 'Idle.png',
       walk: 'Walk.png',
       run: 'Run.png',
       jump: 'Jump.png',
-      attack: 'Attack.png',
-      shield: 'Protection.png',
+      attack: 'Attack_1.png',
+      attack1: 'Attack_1.png',
+      attack2: 'Attack_2.png',
+      attack3: 'Attack_3.png',
+      attack4: 'Attack_4.png',
+      shield: 'Idle.png',
+      hurt: 'Hurt.png',
       dead: 'Dead.png',
     },
     physics: {
       mass: 52,
-      walkForce: 430,
-      runForce: 820,
-      jumpImpulse: -1498, // 103.7 km/h
-      maxJumpHeight: 30, // 30m
+      walkForce: 460,
+      runForce: 870,
+      jumpImpulse: -1550,
+      maxJumpHeight: 30,
       restitution: 0.0,
       dragCoefficient: 0.30,
     },
   },
-  Girl_3: {
-    id: 'Girl_3',
-    name: 'Girl 3',
+  bridget: {
+    id: 'bridget',
+    name: 'Bridget',
     gender: 'female',
-    folderPath: '/characters/female/Girl_3',
+    folderPath: '/characters/female/bridget',
     actions: {
       idle: 'Idle.png',
       walk: 'Walk.png',
       run: 'Run.png',
       jump: 'Jump.png',
-      attack: 'Attack.png',
-      shield: 'Protection.png',
+      attack: 'Attack_1.png',
+      attack1: 'Attack_1.png',
+      attack2: 'Attack_2.png',
+      attack3: 'Attack_3.png',
+      attack4: 'Attack_4.png',
+      shield: 'Idle.png',
+      hurt: 'Hurt.png',
       dead: 'Dead.png',
     },
     physics: {
-      mass: 50,
-      walkForce: 420,
-      runForce: 800,
-      jumpImpulse: -1440, // 103.7 km/h
-      maxJumpHeight: 30, // 30m
+      mass: 54,
+      walkForce: 470,
+      runForce: 880,
+      jumpImpulse: -1580,
+      maxJumpHeight: 30,
       restitution: 0.0,
-      dragCoefficient: 0.28,
+      dragCoefficient: 0.30,
     },
   },
 };
 
 export const GENDER_CHARACTERS: Record<Gender, CharacterId[]> = {
-  male: ['Fighter', 'Samurai', 'Shinobi'],
-  female: ['Girl_1', 'Girl_2', 'Girl_3'],
+  male: ['Fighter', 'Samurai', 'Shinobi', 'Xavier'],
+  female: ['Countess_claire', 'bridget'],
 };
 
 export const DEFAULT_GENDER: Gender = 'male';
 export const DEFAULT_CHARACTER: CharacterId = 'Fighter';
+
+export interface NinjaDef {
+  type: import('../types').NinjaType;
+  name: string;
+  folderPath: string;
+  actions: {
+    idle: string;
+    walk: string;
+    run: string;
+    jump: string;
+    attack: string;
+    attack1: string;
+    attack2: string;
+    hurt: string;
+    dead: string;
+  };
+}
+
+export const NINJA_DEFS: Record<import('../types').NinjaType, NinjaDef> = {
+  Kunoichi: {
+    type: 'Kunoichi',
+    name: 'Shadow Kunoichi',
+    folderPath: '/characters/ninja/Kunoichi',
+    actions: {
+      idle: 'Idle.png',
+      walk: 'Walk.png',
+      run: 'Run.png',
+      jump: 'Jump.png',
+      attack: 'Attack_1.png',
+      attack1: 'Attack_1.png',
+      attack2: 'Attack_2.png',
+      hurt: 'Hurt.png',
+      dead: 'Dead.png',
+    },
+  },
+  Ninja_Monk: {
+    type: 'Ninja_Monk',
+    name: 'Iron Monk',
+    folderPath: '/characters/ninja/Ninja_Monk',
+    actions: {
+      idle: 'Idle.png',
+      walk: 'Walk.png',
+      run: 'Run.png',
+      jump: 'Jump.png',
+      attack: 'Attack_1.png',
+      attack1: 'Attack_1.png',
+      attack2: 'Attack_2.png',
+      hurt: 'Hurt.png',
+      dead: 'Dead.png',
+    },
+  },
+  Ninja_Peasant: {
+    type: 'Ninja_Peasant',
+    name: 'Rogue Peasant',
+    folderPath: '/characters/ninja/Ninja_Peasant',
+    actions: {
+      idle: 'Idle.png',
+      walk: 'Walk.png',
+      run: 'Run.png',
+      jump: 'Jump.png',
+      attack: 'Attack_1.png',
+      attack1: 'Attack_1.png',
+      attack2: 'Attack_2.png',
+      hurt: 'Hurt.png',
+      dead: 'Dead.png',
+    },
+  },
+};
+
+export const NINJA_TYPES: import('../types').NinjaType[] = ['Kunoichi', 'Ninja_Monk', 'Ninja_Peasant'];

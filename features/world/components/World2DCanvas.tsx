@@ -8,8 +8,13 @@ import { InteractiveWorldObject } from '../data/mapObjects';
 
 interface World2DCanvasProps {
   isModalActive?: boolean;
+  themeMode?: 'light' | 'dark';
+  moonType?: 'beige' | 'normal' | 'red';
+  isCombatActive?: boolean;
   onSketchReady?: (instance: any) => void;
   onPlayerPositionChange?: (x: number, y: number) => void;
+  onPlayerHealthChange?: (hp: number, maxHp: number) => void;
+  onRespawnCountdownChange?: (seconds: number | null) => void;
   onCharacterStateChange?: (gender: Gender, characterId: CharacterId, action: CharacterAction) => void;
   onPhysicsTelemetryChange?: (telemetry: PhysicsTelemetry) => void;
   onBiomeChange?: (biome: CurrentBiomeInfo) => void;
@@ -19,8 +24,13 @@ interface World2DCanvasProps {
 
 export const World2DCanvas: React.FC<World2DCanvasProps> = ({
   isModalActive = false,
+  themeMode = 'dark',
+  moonType = 'beige',
+  isCombatActive = false,
   onSketchReady,
   onPlayerPositionChange,
+  onPlayerHealthChange,
+  onRespawnCountdownChange,
   onCharacterStateChange,
   onPhysicsTelemetryChange,
   onBiomeChange,
@@ -34,6 +44,8 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
   // Stable mutable ref for callbacks to avoid re-initializing sketch on parent re-renders
   const callbacksRef = useRef<Sketch2DCallbacks>({
     onPlayerPositionChange,
+    onPlayerHealthChange,
+    onRespawnCountdownChange,
     onCharacterStateChange,
     onPhysicsTelemetryChange,
     onBiomeChange,
@@ -45,6 +57,8 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
   useEffect(() => {
     callbacksRef.current = {
       onPlayerPositionChange,
+      onPlayerHealthChange,
+      onRespawnCountdownChange,
       onCharacterStateChange,
       onPhysicsTelemetryChange,
       onBiomeChange,
@@ -59,6 +73,27 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
       p5InstanceRef.current.setModalActive(isModalActive);
     }
   }, [isModalActive]);
+
+  // Sync theme mode (light vs dark)
+  useEffect(() => {
+    if (p5InstanceRef.current && typeof p5InstanceRef.current.setThemeMode === 'function') {
+      p5InstanceRef.current.setThemeMode(themeMode);
+    }
+  }, [themeMode]);
+
+  // Sync moon type
+  useEffect(() => {
+    if (p5InstanceRef.current && typeof p5InstanceRef.current.setMoonType === 'function') {
+      p5InstanceRef.current.setMoonType(moonType);
+    }
+  }, [moonType]);
+
+  // Sync combat active mode
+  useEffect(() => {
+    if (p5InstanceRef.current && typeof p5InstanceRef.current.setCombatActive === 'function') {
+      p5InstanceRef.current.setCombatActive(isCombatActive);
+    }
+  }, [isCombatActive]);
 
   useEffect(() => {
     let isMounted = true;
@@ -112,6 +147,7 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
         // Forward sketch events to the stable mutable callback ref
         const stableCallbacks: Sketch2DCallbacks = {
           onPlayerPositionChange: (x, y) => callbacksRef.current.onPlayerPositionChange?.(x, y),
+          onPlayerHealthChange: (hp, max) => callbacksRef.current.onPlayerHealthChange?.(hp, max),
           onCharacterStateChange: (g, c, a) => callbacksRef.current.onCharacterStateChange?.(g, c, a),
           onPhysicsTelemetryChange: (t) => callbacksRef.current.onPhysicsTelemetryChange?.(t),
           onBiomeChange: (b) => callbacksRef.current.onBiomeChange?.(b),
