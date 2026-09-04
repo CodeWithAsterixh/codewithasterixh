@@ -1,29 +1,113 @@
 {
   "Technical": [
-    { "name": "Next.js 15+", "icon": "nextjs", "proficiency": 95 },
-    { "name": "React 19", "icon": "react", "proficiency": 98 },
-    { "name": "TypeScript", "icon": "typescript", "proficiency": 95 },
-    { "name": "Node.js (Express)", "icon": "nodejs", "proficiency": 92 },
-    { "name": "MongoDB (Mongoose)", "icon": "mongodb", "proficiency": 90 },
-    { "name": "Supabase & PostgreSQL", "icon": "supabase", "proficiency": 85 },
-    { "name": "Redis (Caching)", "icon": "redis", "proficiency": 80 },
-    { "name": "WebSockets (ws) & SSE", "icon": "websocket", "proficiency": 88 },
-    { "name": "Python (FastAPI)", "icon": "python", "proficiency": 80 }
+    {
+      "name": "Next.js 15+",
+      "icon": "nextjs",
+      "url": "https://nextjs.org"
+    },
+    {
+      "name": "React 19",
+      "icon": "react",
+      "url": "https://react.dev"
+    },
+    {
+      "name": "TypeScript",
+      "icon": "typescript",
+      "url": "https://www.typescriptlang.org"
+    },
+    {
+      "name": "Node.js (Express)",
+      "icon": "nodejs",
+      "url": "https://nodejs.org"
+    },
+    {
+      "name": "MongoDB (Mongoose)",
+      "icon": "mongodb",
+      "url": "https://www.mongodb.com"
+    },
+    {
+      "name": "Supabase & PostgreSQL",
+      "icon": "supabase",
+      "url": "https://supabase.com"
+    },
+    {
+      "name": "Redis (Caching)",
+      "icon": "redis",
+      "url": "https://redis.io"
+    },
+    {
+      "name": "WebSockets (ws) & SSE",
+      "icon": "websocket",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API"
+    },
+    {
+      "name": "Python (FastAPI)",
+      "icon": "python",
+      "url": "https://fastapi.tiangolo.com"
+    }
   ],
   "Creative & UI": [
-    { "name": "Tailwind CSS v4", "icon": "tailwindcss", "proficiency": 98 },
-    { "name": "GSAP (Animations)", "icon": "gsap", "proficiency": 85 },
-    { "name": "Framer Motion", "icon": "framer", "proficiency": 90 },
-    { "name": "Shadcn/UI", "icon": "shadcnui", "proficiency": 95 },
-    { "name": "Figma (UI/UX Design)", "icon": "figma", "proficiency": 75 },
-    { "name": "Responsive Design", "icon": "responsive", "proficiency": 100 }
+    {
+      "name": "Tailwind CSS v4",
+      "icon": "tailwindcss",
+      "url": "https://tailwindcss.com"
+    },
+    {
+      "name": "GSAP (Animations)",
+      "icon": "gsap",
+      "url": "https://gsap.com"
+    },
+    {
+      "name": "Framer Motion",
+      "icon": "framer",
+      "url": "https://motion.dev"
+    },
+    {
+      "name": "Shadcn/UI",
+      "icon": "shadcnui",
+      "url": "https://ui.shadcn.com"
+    },
+    {
+      "name": "Figma (UI/UX Design)",
+      "icon": "figma",
+      "url": "https://www.figma.com"
+    },
+    {
+      "name": "Responsive Design",
+      "icon": "responsive",
+      "url": "https://web.dev/responsive-web-design-basics"
+    }
   ],
   "Other Skills": [
-    { "name": "System Architecture", "icon": "architecture", "proficiency": 85 },
-    { "name": "API Design (REST)", "icon": "api", "proficiency": 95 },
-    { "name": "E2E Encryption", "icon": "security", "proficiency": 80 },
-    { "name": "PWA Development", "icon": "pwa", "proficiency": 85 },
-    { "name": "Git & Team Workflow", "icon": "git", "proficiency": 95 },
-    { "name": "Technical Documentation", "icon": "docs", "proficiency": 90 }
+    {
+      "name": "System Architecture",
+      "icon": "architecture",
+      "url": "https://martinfowler.com/architecture"
+    },
+    {
+      "name": "API Design (REST)",
+      "icon": "api",
+      "url": "https://restfulapi.net"
+    },
+    {
+      "name": "E2E Encryption",
+      "icon": "security",
+      "url": "https://www.cloudflare.com/learning/ssl/what-is-end-to-end-encryption"
+    },
+    {
+      "name": "PWA Development",
+      "icon": "pwa",
+      "url": "https://web.dev/explore/progressive-web-apps"
+    },
+    {
+      "name": "Git & Team Workflow",
+      "icon": "git",
+      "url": "https://git-scm.com"
+    },
+    {
+      "name": "Technical Documentation",
+      "icon": "docs",
+      "url": "https://www.writethedocs.org/guide/writing/beginners-guide-to-docs"
+    }
   ]
 }

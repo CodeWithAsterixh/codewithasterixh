@@ -23,6 +23,7 @@
     "sharp": "^0.35.4",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
+    "tech-stack-icons": "^3.7.1",
     "zod": "^4.3.6"
   },
   "devDependencies": {

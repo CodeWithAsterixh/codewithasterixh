@@ -62,6 +62,37 @@
     "outcome": "A lightweight business-card builder with multiple templates, live customization, and zero-server image generation."
   },
   {
+    "title": "Anonfly – Private Real-Time Messaging Ecosystem",
+    "category": "Software Engineering",
+    "excerpt": "Anonfly is a privacy-first messaging ecosystem spread across a backend service, a React client, and an SDK monorepo. Together they cover anonymous identity flows, encrypted real-time chat over WebSockets and SSE, PostgreSQL and Redis-backed backend services, and reusable SDK packages for core, React, Next.js, and CLI integrations.",
+    "thumbnail": "/images/projects/anonfly.svg",
+    "tags": [
+      "Privacy",
+      "Real-time",
+      "SDK"
+    ],
+    "tools": [
+      "Express 5 + TypeScript",
+      "PostgreSQL",
+      "Redis",
+      "WebSockets + SSE",
+      "React Router 7",
+      "Tailwind CSS 4",
+      "Turborepo",
+      "Changesets"
+    ],
+    "url": "https://anonfly.vercel.app",
+    "slug": "anonfly-anonymous-encrypted-messaging",
+    "problem": "Anonymous communication products need strong privacy guarantees, reliable real-time delivery, and developer-friendly integration paths if they are going to be used beyond a single app.",
+    "goal": "Build Anonfly as both an end-user messaging product and a reusable platform, with separate service, client, and SDK layers that support secure anonymous communication.",
+    "architecture": "The service repo handles authentication, rooms, messaging, SSE streams, billing-related integrations, and persistence. The client repo manages browser-side identity, chat UX, and encrypted session flows. The SDK monorepo publishes core, React, Next.js, and CLI packages for external integrations.",
+    "challenges": "Coordinating anonymous auth, room presence, and real-time delivery across multiple repos without sacrificing security or developer experience.",
+    "solutions": "Separated the ecosystem into backend, client, and package layers, used PostgreSQL and Redis for service-side coordination, and wrapped common integration logic into reusable packages and CLI commands.",
+    "tradeOffs": "The multi-repo setup makes the platform more flexible and reusable, but adds release coordination overhead between the app and SDK packages.",
+    "lessons": "Security-heavy products benefit from strong boundaries between infrastructure, user-facing clients, and integration libraries.",
+    "outcome": "A privacy-first messaging platform that works both as a finished product and as a developer platform for building anonymous real-time applications."
+  },
+  {
     "title": "WorldTimeSage – Global Timezone Dashboard",
     "category": "Web Development",
     "excerpt": "WorldTimeSage is a timezone dashboard and reference app for browsing countries, inspecting regional timezones, and saving clocks for multiple locations. The codebase includes searchable world clock views, country detail screens, offline mode, settings, help pages, and installable PWA support.",
@@ -143,37 +174,6 @@
     ],
     "url": "https://geemex.vercel.app/",
     "slug": "geemex-gaming-landing-page-template"
-  },
-  {
-    "title": "Anonfly – Private Real-Time Messaging Ecosystem",
-    "category": "Software Engineering",
-    "excerpt": "Anonfly is a privacy-first messaging ecosystem spread across a backend service, a React client, and an SDK monorepo. Together they cover anonymous identity flows, encrypted real-time chat over WebSockets and SSE, PostgreSQL and Redis-backed backend services, and reusable SDK packages for core, React, Next.js, and CLI integrations.",
-    "thumbnail": "/images/projects/anonfly.svg",
-    "tags": [
-      "Privacy",
-      "Real-time",
-      "SDK"
-    ],
-    "tools": [
-      "Express 5 + TypeScript",
-      "PostgreSQL",
-      "Redis",
-      "WebSockets + SSE",
-      "React Router 7",
-      "Tailwind CSS 4",
-      "Turborepo",
-      "Changesets"
-    ],
-    "url": "https://anonfly.vercel.app",
-    "slug": "anonfly-anonymous-encrypted-messaging",
-    "problem": "Anonymous communication products need strong privacy guarantees, reliable real-time delivery, and developer-friendly integration paths if they are going to be used beyond a single app.",
-    "goal": "Build Anonfly as both an end-user messaging product and a reusable platform, with separate service, client, and SDK layers that support secure anonymous communication.",
-    "architecture": "The service repo handles authentication, rooms, messaging, SSE streams, billing-related integrations, and persistence. The client repo manages browser-side identity, chat UX, and encrypted session flows. The SDK monorepo publishes core, React, Next.js, and CLI packages for external integrations.",
-    "challenges": "Coordinating anonymous auth, room presence, and real-time delivery across multiple repos without sacrificing security or developer experience.",
-    "solutions": "Separated the ecosystem into backend, client, and package layers, used PostgreSQL and Redis for service-side coordination, and wrapped common integration logic into reusable packages and CLI commands.",
-    "tradeOffs": "The multi-repo setup makes the platform more flexible and reusable, but adds release coordination overhead between the app and SDK packages.",
-    "lessons": "Security-heavy products benefit from strong boundaries between infrastructure, user-facing clients, and integration libraries.",
-    "outcome": "A privacy-first messaging platform that works both as a finished product and as a developer platform for building anonymous real-time applications."
   },
   {
     "title": "Asterixh School – School Website & Admissions Portal",
