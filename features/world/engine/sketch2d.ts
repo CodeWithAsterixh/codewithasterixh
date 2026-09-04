@@ -262,26 +262,48 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
 
     let currentThemeMode: 'light' | 'dark' = 'light';
 
-    function getTexture(src: string): HTMLImageElement {
-      if (textureCache.has(src)) {
-        return textureCache.get(src)!;
+    function resolveAssetPath(src: string, mode: 'light' | 'dark'): string {
+      if (!src) return src;
+      if (src.startsWith('/dark/')) return src;
+      if (mode === 'dark') {
+        if (src.startsWith('/objects/')) {
+          return '/dark' + src;
+        }
+        if (src.startsWith('/locations/')) {
+          return '/dark' + src;
+        }
+      }
+      return src;
+    }
+
+    function getTexture(src: string, mode?: 'light' | 'dark'): HTMLImageElement {
+      const effectiveMode = mode || currentThemeMode;
+      const targetSrc = resolveAssetPath(src, effectiveMode);
+
+      if (textureCache.has(targetSrc)) {
+        return textureCache.get(targetSrc)!;
       }
       const img = new Image();
       img.onload = () => {
-        console.log(`[sketch2d:getTexture] Loaded: ${src}`);
         if (p && typeof p.draw === 'function') {
           try { p.draw(); } catch (e) { }
         }
       };
       img.onerror = (err) => {
-        console.error(`[sketch2d:getTexture] Failed to load asset: ${src}`, err);
+        console.error(`[sketch2d:getTexture] Failed to load asset (${effectiveMode}): ${targetSrc}`, err);
+        if (targetSrc !== src && !(img as any)._fallbackTried) {
+          (img as any)._fallbackTried = true;
+          const proxiedFallback = (src.startsWith('/') || src.startsWith('http'))
+            ? `/api/image-proxy?url=${encodeURIComponent(src)}&q=35&w=480`
+            : src;
+          img.src = proxiedFallback;
+        }
       };
-      // Route all world asset images through our image-proxy API to reduce asset quality & graphics memory load
-      const proxiedUrl = (src.startsWith('/') || src.startsWith('http'))
-        ? `/api/image-proxy?url=${encodeURIComponent(src)}&q=35&w=480`
-        : src;
+      const proxiedUrl = (targetSrc.startsWith('/') || targetSrc.startsWith('http'))
+        ? `/api/image-proxy?url=${encodeURIComponent(targetSrc)}&q=35&w=480`
+        : targetSrc;
       img.src = proxiedUrl;
-      textureCache.set(src, img);
+      textureCache.set(targetSrc, img);
       return img;
     }
 
@@ -2152,38 +2174,42 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       });
     }
 
-    // Preload world assets from public/locations/world and public/objects
+    // Preload world assets from public/locations/world and public/objects (Dual-Mode: Light + Dark)
     if (typeof window !== 'undefined') {
       characterSpriteManager.preloadCharacter(DEFAULT_CHARACTER);
 
-      if (DEFAULT_ATMOSPHERE.background) getTexture(DEFAULT_ATMOSPHERE.background);
-      DEFAULT_ATMOSPHERE.clouds.forEach((c) => getTexture(c.src));
-      if (DEFAULT_ATMOSPHERE.floor?.image) getTexture(DEFAULT_ATMOSPHERE.floor.image);
+      const themeModes: Array<'light' | 'dark'> = ['light', 'dark'];
 
-      WORLD_LOCATIONS.forEach((loc) => {
-        if (loc.background) getTexture(loc.background);
-        loc.clouds?.forEach((c) => getTexture(c.src));
-        if (loc.floor?.image) getTexture(loc.floor.image);
-        loc.layers?.forEach((layerSrc) => getTexture(layerSrc));
+      themeModes.forEach((mode) => {
+        if (DEFAULT_ATMOSPHERE.background) getTexture(DEFAULT_ATMOSPHERE.background, mode);
+        DEFAULT_ATMOSPHERE.clouds.forEach((c) => getTexture(c.src, mode));
+        if (DEFAULT_ATMOSPHERE.floor?.image) getTexture(DEFAULT_ATMOSPHERE.floor.image, mode);
+
+        WORLD_LOCATIONS.forEach((loc) => {
+          if (loc.background) getTexture(loc.background, mode);
+          loc.clouds?.forEach((c) => getTexture(c.src, mode));
+          if (loc.floor?.image) getTexture(loc.floor.image, mode);
+          loc.layers?.forEach((layerSrc) => getTexture(layerSrc, mode));
+        });
+
+        // Preload Night Mode assets
+        getTexture('/locations/world/bg_night.png', mode);
+        getTexture('/locations/world/normal_moon.png', mode);
+        getTexture('/locations/world/beige_moon.png', mode);
+        getTexture('/locations/world/red_moon.png', mode);
+
+        // Preload tree and bush decorations
+        WORLD_DECORATIONS.trees.forEach((t) => getTexture(t.src, mode));
+        WORLD_DECORATIONS.bushes.forEach((b) => getTexture(b.src, mode));
+
+        // Preload interactive work objects and home base
+        INTERACTIVE_OBJECTS.forEach((obj) => getTexture(obj.image, mode));
+        getTexture('/objects/home.png', mode);
+        getTexture('/objects/garage.png', mode);
+        getTexture('/objects/mailbox.png', mode);
+        getTexture('/objects/light_on.png', mode);
+        getTexture('/objects/light_off.png', mode);
       });
-
-      // Preload Night Mode assets
-      getTexture('/locations/world/bg_night.png');
-      getTexture('/locations/world/normal_moon.png');
-      getTexture('/locations/world/beige_moon.png');
-      getTexture('/locations/world/red_moon.png');
-
-      // Preload tree and bush decorations
-      WORLD_DECORATIONS.trees.forEach((t) => getTexture(t.src));
-      WORLD_DECORATIONS.bushes.forEach((b) => getTexture(b.src));
-
-      // Preload interactive work objects and home base
-      INTERACTIVE_OBJECTS.forEach((obj) => getTexture(obj.image));
-      getTexture('/objects/home.png');
-      getTexture('/objects/garage.png');
-      getTexture('/objects/mailbox.png');
-      getTexture('/objects/light_on.png');
-      getTexture('/objects/light_off.png');
     }
 
 
