@@ -1,8 +1,11 @@
 [
   {
-    "duration": { "from": 2021, "to": 2025 },
+    "duration": {
+      "from": 2021,
+      "to": 2026
+    },
     "name": "Global Wealth University",
     "title": "Bachelor of Science in Computer Science",
-    "description": "Currently pursuing a Bachelor of Science in Computer Science, focusing on software engineering principles, algorithms, and full-stack development. Gaining hands-on experience through various academic projects and practical implementations of modern web technologies."
+    "description": "Studied software engineering principles, data structures, algorithms, and full-stack web development, with hands-on coursework across distributed systems and modern web frameworks."
   }
 ]

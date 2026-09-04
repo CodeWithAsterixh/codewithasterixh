@@ -5,10 +5,10 @@
     "role": "Freelance Web Developer",
     "workType": "Freelance",
     "stacks": ["Frontend", "UI/UX", "Responsive Design"],
-    "description": "Worked with frontend team to deliver clean and accessible UI. Built responsive pages and improved usability across devices.",
+    "description": "Collaborated with the frontend team to build responsive layouts and improve usability across mobile and desktop screens.",
     "achievements": [
-      "Worked with frontend team to deliver clean and accessible UI.",
-      "Built responsive pages and improved usability across devices."
+      "Built clean, accessible interface components matching design specifications.",
+      "Refactored layout styles to improve mobile responsiveness and usability."
     ]
   },
   {
@@ -17,11 +17,11 @@
     "role": "Freelance Web Developer",
     "workType": "Freelance",
     "stacks": ["React", "UI/UX", "Responsive Design", "Reusable Components"],
-    "description": "Collaborated with designers to build user-focused interfaces. Improved conversion rate by 5% within one month. Developed responsive layouts and reusable components.",
+    "description": "Collaborated with designers to deliver user-focused web interfaces with reusable React components and improved checkout flows.",
     "achievements": [
-      "Collaborated with designers to build user-focused interfaces.",
-      "Improved conversion rate by 5% within one month.",
-      "Developed responsive layouts and reusable components."
+      "Developed modular React components for landing and product pages.",
+      "Helped increase conversion rates by 5% within one month through clearer page hierarchy.",
+      "Implemented responsive layouts tested across multiple browser viewports."
     ]
   },
   {
@@ -30,11 +30,11 @@
     "role": "Freelance Web Developer",
     "workType": "Freelance",
     "stacks": ["React", "SEO", "UI/UX", "Email Integration"],
-    "description": "Built a high-performing website to increase traffic, sales, and subscribers. Built a mobile-first responsive website with modern UI using React and optimized performance. Integrated secure contact forms and emailing system.",
+    "description": "Developed a fast, mobile-friendly brand website with React, structured SEO tags, and an automated contact form pipeline.",
     "achievements": [
-      "Built a high-performing website to increase traffic, sales, and subscribers.",
-      "Built a mobile-first responsive website with modern UI using React and optimized performance.",
-      "Integrated secure contact forms and emailing system."
+      "Built a mobile-first website using React with optimized asset delivery and fast load times.",
+      "Configured on-page SEO metadata and semantic markup to improve search rankings.",
+      "Integrated transactional contact forms with automated email dispatch."
     ]
   },
   {
@@ -43,10 +43,10 @@
     "role": "Programming Tutor",
     "workType": "Full-time",
     "stacks": ["Web Development", "Programming Fundamentals", "Frontend Concepts"],
-    "description": "Teach programming fundamentals with focus on problem solving. Guide students on web development and frontend concepts.",
+    "description": "Taught programming fundamentals and frontend web development with a focus on problem-solving, clean code, and practical projects.",
     "achievements": [
-      "Teach programming fundamentals with focus on problem solving.",
-      "Guide students on web development and frontend concepts."
+      "Taught HTML, CSS, JavaScript, and programming basics through structured project assignments.",
+      "Guided students in debugging, algorithmic thinking, and building their first web applications."
     ]
   }
 ]

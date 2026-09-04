@@ -1,17 +1,17 @@
 [
   {
     "label": "Software Engineering",
-    "description": "I design and engineer scalable backend systems from the ground up. My approach emphasizes secure API design, optimized database architecture, and robust error handling. I take full ownership through conceptualization and deployment, ensuring your platform is production-ready, performs reliably, and scales as your business grows.",
+    "description": "I build backend services and APIs designed for reliable data flow and security. From database schema modeling in PostgreSQL or MongoDB to auth workflows and background workers, I deliver production systems that handle user traffic without bottlenecks.",
     "tags": ["System Architecture", "API Design", "Database Modeling", "Backend Optimization", "Clean Code"]
   },
   {
     "label": "Web Development",
-    "description": "I collaborate to engineer responsive, high-performing interfaces using React and Next.js. I focus on user-centered design and ensure your site works flawlessly across all devices. Every detail is crafted to turn visitors into engaged users and drive measurable outcomes.",
+    "description": "I develop responsive frontend applications using React, Next.js, and TypeScript. I focus on clean component structure, fast initial page loads, Core Web Vitals optimization, and consistent rendering across mobile and desktop viewports.",
     "tags": ["React & Next.js", "Responsive Design", "UI/UX Development", "SEO Strategy", "Performance Focused"]
   },
   {
     "label": "Website Management",
-    "description": "I provide ongoing support and optimization for your live platforms, including proactive security monitoring, performance tuning, dependency updates, and collaborative troubleshooting. I stay committed to keeping your systems healthy and performant as your needs evolve.",
+    "description": "I maintain live web applications with regular dependency upgrades, security audits, database backups, and uptime monitoring, resolving performance regressions and bugs before they affect visitors.",
     "tags": ["Updates", "Security Checks", "Backups", "Performance Monitoring"]
   }
 ]

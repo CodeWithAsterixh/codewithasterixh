@@ -1,6 +1,6 @@
 [
   {
-    "title": "Quizeen – Secure Quiz Platform",
+    "title": "Quizeen: Secure Quiz Platform",
     "category": "Software Engineering",
     "excerpt": "Quizeen is a full-stack quiz platform for creating, taking, and reviewing timed quizzes. The codebase combines Next.js App Router pages and API routes, MongoDB models, JWT-based authentication with refresh and CSRF flows, and Redux-powered client state for quiz progress, settings, and results.",
     "thumbnail": "/images/projects/quizeen-interactive-quiz-platform.png",
@@ -31,7 +31,7 @@
     "outcome": "A production-style quiz platform with account flows, timed quiz sessions, result reporting, and admin quiz creation endpoints."
   },
   {
-    "title": "WorkUp Cards – Business Card Generator",
+    "title": "WorkUp Cards: Business Card Generator",
     "category": "Web Development",
     "excerpt": "WorkUp Cards is a template-driven business card generator that lets users browse designs, customize front and back card content, preview updates in real time, and download or share generated card images directly from the browser.",
     "thumbnail": "/images/projects/workup-cards-business-card-generator.png",
@@ -62,7 +62,7 @@
     "outcome": "A lightweight business-card builder with multiple templates, live customization, and zero-server image generation."
   },
   {
-    "title": "Anonfly – Private Real-Time Messaging Ecosystem",
+    "title": "Anonfly: Private Real-Time Messaging Ecosystem",
     "category": "Software Engineering",
     "excerpt": "Anonfly is a privacy-first messaging ecosystem spread across a backend service, a React client, and an SDK monorepo. Together they cover anonymous identity flows, encrypted real-time chat over WebSockets and SSE, PostgreSQL and Redis-backed backend services, and reusable SDK packages for core, React, Next.js, and CLI integrations.",
     "thumbnail": "/images/projects/anonfly.svg",
@@ -93,7 +93,7 @@
     "outcome": "A privacy-first messaging platform that works both as a finished product and as a developer platform for building anonymous real-time applications."
   },
   {
-    "title": "WorldTimeSage – Global Timezone Dashboard",
+    "title": "WorldTimeSage: Global Timezone Dashboard",
     "category": "Web Development",
     "excerpt": "WorldTimeSage is a timezone dashboard and reference app for browsing countries, inspecting regional timezones, and saving clocks for multiple locations. The codebase includes searchable world clock views, country detail screens, offline mode, settings, help pages, and installable PWA support.",
     "thumbnail": "/images/projects/worldtimesage.png",
@@ -124,7 +124,7 @@
     "outcome": "A richer world clock experience with search, multi-location viewing, country-level timezone details, and offline-aware navigation."
   },
   {
-    "title": "AsterMail – Dynamic Email Delivery API",
+    "title": "AsterMail: Dynamic Email Delivery API",
     "category": "Software Engineering",
     "excerpt": "AsterMail is a backend email service for sending messages through dynamic SMTP configuration. The codebase exposes API endpoints for email dispatch, validation, transport setup, request logging, caching, and consistent error handling for transactional or custom email workflows.",
     "thumbnail": null,
@@ -155,7 +155,7 @@
     "outcome": "A reusable email delivery service suitable for custom transactional workflows and SMTP-driven integrations."
   },
   {
-    "title": "Geemex – Gaming Landing Page Template",
+    "title": "Geemex: Gaming Landing Page Template",
     "category": "Web Development",
     "excerpt": "Geemex is a gaming landing page template built with Vue 3 and Vite. It is organized around reusable hero, character, pricing, FAQ, and call-to-action sections for promoting a game, community, or gaming brand with a polished single-page experience.",
     "thumbnail": "/images/projects/geemex.png",
@@ -176,7 +176,7 @@
     "slug": "geemex-gaming-landing-page-template"
   },
   {
-    "title": "Asterixh School – School Website & Admissions Portal",
+    "title": "Asterixh School: School Website & Admissions Portal",
     "category": "Web Development",
     "excerpt": "Asterixh School is a public-facing school website that presents academics, admissions, news, and contact information in a clean multi-page experience. The codebase includes a notice board, hero content, curriculum and admissions sections, registration and contact forms, and reusable navigation and footer components.",
     "thumbnail": "/images/projects/asterixh-school.png",
@@ -196,7 +196,7 @@
     "slug": "asterixh-school-portal-educational-hub"
   },
   {
-    "title": "SMS – School Management System",
+    "title": "SMS: School Management System",
     "category": "Software Engineering",
     "excerpt": "SMS is a full-stack school management system split into separate frontend and backend repos. It supports dashboards, student records, attendance, users, permissions, conduct, and financial workflows, with React Query and Zustand on the client and Express permission middleware plus PostgreSQL and Supabase integrations on the server.",
     "thumbnail": "/images/projects/sms-fe.png",
@@ -227,7 +227,7 @@
     "outcome": "A structured school operations platform covering core administrative workflows from student data to attendance and role-based access control."
   },
   {
-    "title": "motion-lyte.js – Declarative Web Animation Library",
+    "title": "motion-lyte.js: Declarative Web Animation Library",
     "category": "Software Engineering",
     "excerpt": "motion-lyte.js is a lightweight animation library for the web built around declarative `data-*` attributes. It supports hover, scroll, toggle, and play-triggered effects, exposes a React hook and Vite plugin, and packages reusable animation primitives like underline, character, and dynamic toggle behaviors.",
     "thumbnail": null,
@@ -257,7 +257,7 @@
     "outcome": "A publishable animation package with reusable triggers, a React hook, Vite support, and a modular internal animation registry."
   },
   {
-    "title": "Catalyst Consultant – Business Consulting Landing Page",
+    "title": "Catalyst Consultant: Business Consulting Landing Page",
     "category": "Web Development",
     "excerpt": "Catalyst Consultant is a marketing landing page for a consulting brand, built as a static Vite site with Tailwind browser utilities and custom CSS. The page covers hero messaging, services, team, testimonials, pricing, articles, FAQ, and repeated consultation CTAs, while using `motion-lyte.js` to power scroll, hover, and toggle animations across the experience.",
     "thumbnail": null,
@@ -286,7 +286,7 @@
     "outcome": "A responsive consulting landing page that also doubles as a practical showcase for the `motion-lyte.js` animation library."
   },
   {
-    "title": "Resin Art – Creative Portfolio & Catalog",
+    "title": "Resin Art: Creative Portfolio & Catalog",
     "category": "Web Development",
     "excerpt": "Resin Art is a Next.js storefront-style portfolio for showcasing handcrafted resin products and collecting customer inquiries. The codebase combines JSON-driven marketing sections, a product catalog, testimonials, Instagram and WhatsApp-driven engagement, and a contact flow backed by a mail API for custom orders and quote requests.",
     "thumbnail": "/images/projects/resin-art.png",
