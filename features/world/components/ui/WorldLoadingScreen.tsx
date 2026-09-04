@@ -6,13 +6,16 @@ import profileData from '@/data/profile.json';
 
 interface WorldLoadingScreenProps {
   isReady?: boolean;
+  isLoading?: boolean;
   onStart?: () => void;
 }
 
 export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
   isReady = true,
+  isLoading = false,
   onStart,
 }) => {
+  const isWorldCurrentlyLoading = isLoading || !isReady;
   const [isSoundOn, setIsSoundOn] = useState<boolean>(false);
   const [imgSrc, setImgSrc] = useState<string>(profileData.images.about.src || '/images/me.png');
   const [isMobileSocialOpen, setIsMobileSocialOpen] = useState<boolean>(false);
@@ -217,6 +220,7 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
   };
 
   const handlePlayClick = () => {
+    if (isWorldCurrentlyLoading) return;
     if (isSoundOn) {
       playRetroSoundEffect('start');
     }
@@ -351,48 +355,55 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5 sm:gap-3 md:gap-4 mt-0.5 sm:mt-1 md:mt-2 w-full">
                   {/* ENTER WORLD BUTTON (Directly anchored, flies down to bottom dock without fading) */}
                   <div ref={buttonAnchorRef} className="relative inline-block">
-                    {isReady ? (
-                      <motion.button
-                        onClick={handlePlayClick}
-                        style={{
-                          x: buttonX,
-                          y: buttonY,
-                          rotateZ: buttonRotateZ,
-                          rotateX: buttonRotateX,
-                          scale: buttonScale,
-                          boxShadow: buttonShadow,
-                          transformPerspective: 1000,
-                        }}
-                        className="group relative z-40 inline-flex items-center justify-center gap-2 md:gap-3 px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-[#8C6D53] hover:bg-[#72553E] active:bg-[#5C4033] text-[#F4EADA] font-black text-xs sm:text-sm md:text-xl lg:text-2xl tracking-wider md:tracking-widest uppercase border-2 md:border-4 border-[#3E2B1D] transition-colors cursor-pointer select-none whitespace-nowrap"
-                        title="Enter World"
-                      >
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#F4EADA] fill-current" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
-                          <path d="M4 2v12l10-6z" />
-                        </svg>
-                        <span className="flex items-center">
-                          <span>ENTER&nbsp;</span>
-                          <motion.span
-                            style={{
-                              width: myWordWidth,
-                              opacity: myWordOpacity,
-                              display: 'inline-block',
-                              overflow: 'hidden',
-                              whiteSpace: 'nowrap',
-                            }}
-                          >
-                            MY&nbsp;
-                          </motion.span>
-                          <span>WORLD</span>
+                    <motion.button
+                      onClick={isWorldCurrentlyLoading ? undefined : handlePlayClick}
+                      disabled={isWorldCurrentlyLoading}
+                      style={{
+                        x: buttonX,
+                        y: buttonY,
+                        rotateZ: buttonRotateZ,
+                        rotateX: buttonRotateX,
+                        scale: buttonScale,
+                        boxShadow: buttonShadow,
+                        transformPerspective: 1000,
+                      }}
+                      className={`group relative z-40 inline-flex items-center justify-center gap-2 md:gap-3 px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 font-black text-xs sm:text-sm md:text-xl lg:text-2xl tracking-wider md:tracking-widest uppercase border-2 md:border-4 border-[#3E2B1D] transition-colors select-none whitespace-nowrap ${
+                        isWorldCurrentlyLoading
+                          ? 'bg-[#A89078] text-[#F4EADA]/90 cursor-wait'
+                          : 'bg-[#8C6D53] hover:bg-[#72553E] active:bg-[#5C4033] text-[#F4EADA] cursor-pointer'
+                      }`}
+                      title={isWorldCurrentlyLoading ? 'Loading World...' : 'Enter World'}
+                    >
+                      {isWorldCurrentlyLoading ? (
+                        <span className="flex items-center gap-2 md:gap-2.5">
+                          <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#F4EADA] fill-current animate-spin" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                            <path d="M7 1h2v3H7V1zm0 11h2v3H7v-3zM1 7h3v2H1V7zm11 0h3v2h-3V7z" />
+                          </svg>
+                          <span className="animate-pulse">LOADING WORLD...</span>
                         </span>
-                      </motion.button>
-                    ) : (
-                      <button
-                        disabled
-                        className="px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-[#C8B8A6] text-[#7C6A5A] font-black text-xs sm:text-sm md:text-xl tracking-wider uppercase border-2 md:border-4 border-[#3E2B1D] cursor-not-allowed opacity-80 whitespace-nowrap"
-                      >
-                        LOADING WORLD...
-                      </button>
-                    )}
+                      ) : (
+                        <>
+                          <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#F4EADA] fill-current" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                            <path d="M4 2v12l10-6z" />
+                          </svg>
+                          <span className="flex items-center">
+                            <span>ENTER&nbsp;</span>
+                            <motion.span
+                              style={{
+                                width: myWordWidth,
+                                opacity: myWordOpacity,
+                                display: 'inline-block',
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
+                              MY&nbsp;
+                            </motion.span>
+                            <span>WORLD</span>
+                          </span>
+                        </>
+                      )}
+                    </motion.button>
                   </div>
 
                   {/* SEE RESUME BUTTON (Directly anchored, flies beside ENTER WORLD to bottom dock) */}
@@ -578,12 +589,12 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
             <div className="relative flex items-center gap-2 sm:gap-3">
               {/* Dock Slot 1: ENTER WORLD */}
               <div ref={targetSlotRef} className="relative flex items-center">
-                {/* Invisible footprint matching exact docked dimensions of ENTER WORLD */}
-                <div className="invisible pointer-events-none inline-flex items-center justify-center gap-2 md:gap-3 px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 font-black text-xs sm:text-sm md:text-xl lg:text-2xl tracking-wider md:tracking-widest uppercase border-2 md:border-4 select-none whitespace-nowrap">
+                {/* Invisible footprint matching exact docked dimensions of ENTER WORLD / LOADING WORLD */}
+                <div className="invisible pointer-events-none inline-flex items-center justify-center gap-2 md:gap-3 px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 font-black text-xs sm:text-sm md:text-xl lg:text-2xl tracking-wider md:tracking-widest uppercase border-2 md:border-4 select-none whitespace-nowrap min-w-[190px] sm:min-w-[220px] md:min-w-[260px]">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
                     <path d="M4 2v12l10-6z" />
                   </svg>
-                  <span>ENTER WORLD</span>
+                  <span>{isWorldCurrentlyLoading ? 'LOADING WORLD...' : 'ENTER WORLD'}</span>
                 </div>
               </div>
 

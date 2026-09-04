@@ -27,8 +27,11 @@ type MoonType = typeof MOON_TYPES[number];
 const ONBOARDING_STORAGE_KEY = 'codewithasterixh_onboarding_v1';
 
 export const Home: React.FC = () => {
-  // World loading screen state (shown first while 2D Canvas mounts and loads)
+  // World loading screen state (shown first while user views splash screen)
   const [isWorldLoading, setIsWorldLoading] = useState<boolean>(true);
+
+  // User clicked Enter World to trigger world canvas loading
+  const [isEnteringWorld, setIsEnteringWorld] = useState<boolean>(false);
 
   // Onboarding Start Screen State (shown after game finishes initial load)
   const [isOnboarding, setIsOnboarding] = useState<boolean>(true);
@@ -142,6 +145,20 @@ export const Home: React.FC = () => {
     // Canvas is ready
     setIsCanvasReady(true);
   }, [characterId, isAnyModalOpen]);
+
+  const handleStartEnterWorld = useCallback(() => {
+    setIsEnteringWorld(true);
+  }, []);
+
+  // When world loading was triggered and canvas is fully ready, dismiss loading screen
+  useEffect(() => {
+    if (isEnteringWorld && isCanvasReady) {
+      const timer = setTimeout(() => {
+        setIsWorldLoading(false);
+      }, 350);
+      return () => clearTimeout(timer);
+    }
+  }, [isEnteringWorld, isCanvasReady]);
 
   const handleOnboardingComplete = useCallback((selectedGender: Gender, selectedCharId: CharacterId, combatActive: boolean) => {
     setGender(selectedGender);
@@ -289,8 +306,8 @@ export const Home: React.FC = () => {
       {/* 1. INITIAL WORLD LOADING SCREEN (Full-screen game title screen shown first) */}
       {isWorldLoading && (
         <WorldLoadingScreen
-          isReady={isCanvasReady}
-          onStart={() => setIsWorldLoading(false)}
+          isLoading={isEnteringWorld && !isCanvasReady}
+          onStart={handleStartEnterWorld}
         />
       )}
 
@@ -300,26 +317,28 @@ export const Home: React.FC = () => {
       )}
 
 
-      {/* 2. 2D WORLD CANVAS */}
-      <World2DCanvas
-        isModalActive={isAnyModalOpen}
-        themeMode={themeMode}
-        moonType={moonType}
-        isCombatActive={isCombatActive}
-        onSketchReady={handleSketchReady}
-        onPlayerPositionChange={handlePlayerPositionChange}
-        onPlayerHealthChange={(hp, max) => {
-          setPlayerHp(hp);
-          setMaxPlayerHp(max);
-        }}
-        onRespawnCountdownChange={setRespawnCountdown}
-        onBiomeChange={handleBiomeChange}
-        onInspectStation={handleInspectStation}
-        onInspectObject={handleInspectObject}
-      />
+      {/* 2. 2D WORLD CANVAS (Only mounted and loaded after user clicks Enter World) */}
+      {isEnteringWorld && (
+        <World2DCanvas
+          isModalActive={isAnyModalOpen}
+          themeMode={themeMode}
+          moonType={moonType}
+          isCombatActive={isCombatActive}
+          onSketchReady={handleSketchReady}
+          onPlayerPositionChange={handlePlayerPositionChange}
+          onPlayerHealthChange={(hp, max) => {
+            setPlayerHp(hp);
+            setMaxPlayerHp(max);
+          }}
+          onRespawnCountdownChange={setRespawnCountdown}
+          onBiomeChange={handleBiomeChange}
+          onInspectStation={handleInspectStation}
+          onInspectObject={handleInspectObject}
+        />
+      )}
 
       {/* 3. SIMPLIFIED FLOATING HUD: Single Clean Pause/Map Button, Top Health Bar & Light/Dark Switch */}
-      {!isOnboarding && (
+      {!isWorldLoading && !isOnboarding && (
         <CharacterSelectorHUD
           currentBiome={currentBiome}
           controlMode={controlMode}
