@@ -259,36 +259,32 @@ for (let x = WORLD_BOUNDS.minX + 50; x <= WORLD_BOUNDS.maxX - 50; x += 120) {
 export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
   return (p: p5) => {
     console.warn('[p5.js] SKETCH INSTANTIATED IN BROWSER');
-    p.createCanvas(p.windowWidth, p.windowHeight);
 
     let currentThemeMode: 'light' | 'dark' = 'light';
 
-    function getTexture(src: string, forceDark?: boolean): HTMLImageElement {
-      let resolvedSrc = src;
-      const isDark = forceDark !== undefined ? forceDark : (currentThemeMode === 'dark');
-      if (isDark) {
-        if (resolvedSrc.startsWith('/objects/')) {
-          resolvedSrc = resolvedSrc.replace('/objects/', '/dark/objects/');
-        } else if (resolvedSrc.startsWith('/locations/')) {
-          resolvedSrc = resolvedSrc.replace('/locations/', '/dark/locations/');
-        } else if (resolvedSrc.includes('/objects/') && !resolvedSrc.includes('/dark/objects/')) {
-          resolvedSrc = resolvedSrc.replace('/objects/', '/dark/objects/');
-        } else if (resolvedSrc.includes('/locations/') && !resolvedSrc.includes('/dark/locations/')) {
-          resolvedSrc = resolvedSrc.replace('/locations/', '/dark/locations/');
-        }
-      }
-
-      if (textureCache.has(resolvedSrc)) {
-        return textureCache.get(resolvedSrc)!;
+    function getTexture(src: string): HTMLImageElement {
+      if (textureCache.has(src)) {
+        return textureCache.get(src)!;
       }
       const img = new Image();
-      const proxiedUrl = (resolvedSrc.startsWith('/') || resolvedSrc.startsWith('http'))
-        ? `/api/image-proxy?url=${encodeURIComponent(resolvedSrc)}&q=35&w=480`
-        : resolvedSrc;
+      img.onload = () => {
+        console.log(`[sketch2d:getTexture] Loaded: ${src}`);
+        if (p && typeof p.draw === 'function') {
+          try { p.draw(); } catch (e) { }
+        }
+      };
+      img.onerror = (err) => {
+        console.error(`[sketch2d:getTexture] Failed to load asset: ${src}`, err);
+      };
+      // Route all world asset images through our image-proxy API to reduce asset quality & graphics memory load
+      const proxiedUrl = (src.startsWith('/') || src.startsWith('http'))
+        ? `/api/image-proxy?url=${encodeURIComponent(src)}&q=35&w=480`
+        : src;
       img.src = proxiedUrl;
-      textureCache.set(resolvedSrc, img);
+      textureCache.set(src, img);
       return img;
     }
+
 
     let playerGender: Gender = DEFAULT_GENDER;
 
@@ -500,7 +496,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
           };
           lastEnemySpawnTime = now;
           characterSpriteManager.preloadNinja(ninjaType);
-          spawnFloatingText(spawnX, GROUND_Y + spawnY - 80, '⚠️ ENEMY SPAWNED!', '#FF4B4B');
+          spawnFloatingText(spawnX, GROUND_Y + spawnY - 80, 'ENEMY SPAWNED!', '#FF4B4B');
         }
         return;
       }
@@ -743,7 +739,7 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         (p as any).textFont('Pixelify Sans');
         p.textSize(9);
         const ninjaDef = NINJA_DEFS[enemy.type];
-        p.text(`⚔️ ${ninjaDef.name}`, barX, barY - 5);
+        p.text(ninjaDef.name, barX, barY - 5);
         p.pop();
       }
     }
@@ -859,352 +855,94 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
 
     const keys: Record<string, boolean> = {};
 
-    // Clear stuck keys when browser loses focus
-    if (typeof window !== 'undefined') {
-      window.addEventListener('blur', () => {
-        for (const k in keys) {
-          keys[k] = false;
-        }
-        isDragging = false;
-      });
-    }
+    const getRealW = () => (typeof window !== 'undefined' && window.innerWidth > 50 ? window.innerWidth : (p.windowWidth > 50 ? p.windowWidth : 1200));
+    const getRealH = () => (typeof window !== 'undefined' && window.innerHeight > 50 ? window.innerHeight : (p.windowHeight > 50 ? p.windowHeight : 800));
 
-    // Preload light and dark mode world assets from public/locations/world and public/dark/
-    if (typeof window !== 'undefined') {
-      characterSpriteManager.preloadCharacter(DEFAULT_CHARACTER);
-
-      [false, true].forEach((isDark) => {
-        if (DEFAULT_ATMOSPHERE.background) getTexture(DEFAULT_ATMOSPHERE.background, isDark);
-        DEFAULT_ATMOSPHERE.clouds.forEach((c) => getTexture(c.src, isDark));
-        if (DEFAULT_ATMOSPHERE.floor?.image) getTexture(DEFAULT_ATMOSPHERE.floor.image, isDark);
-
-        WORLD_LOCATIONS.forEach((loc) => {
-          if (loc.background) getTexture(loc.background, isDark);
-          loc.clouds?.forEach((c) => getTexture(c.src, isDark));
-          if (loc.floor?.image) getTexture(loc.floor.image, isDark);
-          loc.layers?.forEach((layerSrc) => getTexture(layerSrc, isDark));
-        });
-
-        // Preload Night Mode assets
-        getTexture('/locations/world/bg_night.png', isDark);
-        getTexture('/locations/world/normal_moon.png', isDark);
-        getTexture('/locations/world/beige_moon.png', isDark);
-        getTexture('/locations/world/red_moon.png', isDark);
-
-        // Preload tree and bush decorations
-        WORLD_DECORATIONS.trees.forEach((t) => getTexture(t.src, isDark));
-        WORLD_DECORATIONS.bushes.forEach((b) => getTexture(b.src, isDark));
-
-        // Preload interactive work objects and home base
-        INTERACTIVE_OBJECTS.forEach((obj) => getTexture(obj.image, isDark));
-        getTexture('/objects/home.png', isDark);
-        getTexture('/objects/garage.png', isDark);
-        getTexture('/objects/mailbox.png', isDark);
-        getTexture('/objects/light_on.png', isDark);
-        getTexture('/objects/light_off.png', isDark);
-      });
-    }
-
-
-    function spawnDust(x: number, y: number, count: number = 2, maxSpeed: number = 1.5) {
-      for (let i = 0; i < count; i++) {
-        dustParticles.push({
-          x: x + (Math.random() - 0.5) * 16,
-          y: y - 2 + Math.random() * 2,
-          vx: (Math.random() - 0.5) * maxSpeed,
-          vy: -Math.random() * 1.8 - 0.2,
-          size: Math.random() * 5 + 3,
-          alpha: 0.6,
-          life: 0,
-          maxLife: Math.floor(Math.random() * 15 + 12),
-          color: Math.random() > 0.4 ? '#68B35A' : '#3E8335',
-        });
+    const forceCanvasFullStyles = () => {
+      const elt = (p as any).canvas;
+      if (elt && elt.style) {
+        elt.style.setProperty('width', '100vw', 'important');
+        elt.style.setProperty('height', '100vh', 'important');
+        elt.style.setProperty('position', 'fixed', 'important');
+        elt.style.setProperty('top', '0px', 'important');
+        elt.style.setProperty('left', '0px', 'important');
+        elt.style.setProperty('display', 'block', 'important');
+        elt.style.setProperty('z-index', '0', 'important');
       }
-    }
-
-    (p as any).setThemeMode = (mode: 'light' | 'dark') => {
-      currentThemeMode = mode;
     };
 
-    (p as any).setMoonType = (type: 'beige' | 'normal' | 'red') => {
-      if (type === 'normal') activeMoonSrc = '/locations/world/normal_moon.png';
-      else if (type === 'red') activeMoonSrc = '/locations/world/red_moon.png';
-      else activeMoonSrc = '/locations/world/beige_moon.png';
-    };
-
-    (p as any).setCombatActive = (active: boolean) => {
-      isCombatActive = active;
-      if (!active) {
-        activeEnemy = null;
+    const updateAdaptiveZoom = () => {
+      const w = getRealW();
+      if (w >= 1600) {
+        targetZoom = 1.35;
+      } else if (w >= 1200) {
+        targetZoom = 1.20;
       } else {
-        lastEnemySpawnTime = performance.now() - 7000; // spawn shortly after activation
+        targetZoom = 1.0;
       }
     };
 
-    (p as any).setGender = (gender: Gender) => {
-      playerGender = gender;
-      playerCharacter = gender === 'male' ? 'Fighter' : 'Countess_claire';
-      playerBody.setAttributes(CHARACTER_DEFS[playerCharacter].physics);
-      characterSpriteManager.preloadCharacter(playerCharacter);
-      callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, playerAction);
+    p.setup = () => {
+      (p as any).pixelDensity(1);
+      const w = getRealW();
+      const h = getRealH();
+      console.log(`[sketch2d:setup] p5 setup initialized canvas (${w}x${h})`);
+      p.createCanvas(w, h);
+      p.frameRate(60);
+      if (typeof (p as any).noSmooth === 'function') (p as any).noSmooth();
+      p.textAlign(p.CENTER, p.CENTER);
+      (p as any).textFont('Pixelify Sans');
+
+      const ctx = (p as any).drawingContext;
+      if (ctx) ctx.imageSmoothingEnabled = false;
+
+      forceCanvasFullStyles();
+      updateAdaptiveZoom();
+      zoom = targetZoom;
+      camX = w / 2 - playerBody.x * zoom;
+      camY = h * 0.72;
+      targetCamX = camX;
+      targetCamY = camY;
     };
 
-    (p as any).setCharacter = (charId: CharacterId) => {
-      playerCharacter = charId;
-      playerGender = CHARACTER_DEFS[charId]?.gender || 'male';
-      playerBody.setAttributes(CHARACTER_DEFS[charId].physics);
-      characterSpriteManager.preloadCharacter(playerCharacter);
-      callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, playerAction);
+    p.windowResized = () => {
+      const w = getRealW();
+      const h = getRealH();
+      p.resizeCanvas(w, h);
+      if (typeof (p as any).noSmooth === 'function') (p as any).noSmooth();
+      const ctx = (p as any).drawingContext;
+      if (ctx) ctx.imageSmoothingEnabled = false;
+
+      forceCanvasFullStyles();
+      updateAdaptiveZoom();
+      camX = w / 2 - playerBody.x * zoom;
+      camY = h * 0.72;
+      targetCamX = camX;
+      targetCamY = camY;
     };
-
-    (p as any).teleportTo = (x: number) => {
-      const playerCollisionRadius = 40;
-      playerBody.x = Math.max(WORLD_BOUNDS.minX + playerCollisionRadius, Math.min(WORLD_BOUNDS.maxX - playerCollisionRadius, x));
-      playerBody.vx = 0;
-      playerBody.vy = 0;
-      targetCamX = p.width / 2 - playerBody.x * zoom;
-      const minCamX = p.width - WORLD_BOUNDS.maxX * zoom;
-      const maxCamX = -WORLD_BOUNDS.minX * zoom;
-      targetCamX = p.constrain(targetCamX, minCamX, maxCamX);
-      camX = targetCamX;
-      callbacks?.onPlayerPositionChange?.(playerBody.x, playerBody.y);
-    };
-
-    (p as any).triggerAction = (action: CharacterAction) => {
-      const charPhys = CHARACTER_DEFS[playerCharacter].physics;
-      if (
-        action === 'attack' ||
-        action === 'attack1' ||
-        action === 'attack2' ||
-        action === 'attack3' ||
-        action === 'attack4'
-      ) {
-        triggerPlayerAttack(action as any);
-      } else if (action === 'jump' && playerBody.isGrounded) {
-        playerBody.applyImpulse(0, charPhys.jumpImpulse);
-        spawnDust(playerBody.x, playerBody.y, 5, 2.5);
-        playerAction = 'jump';
-      } else {
-        playerAction = action;
-      }
-      callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, playerAction);
-    };
-
-    (p as any).inspectNearbyStation = () => {
-      const nearbyObj = getNearbyWorldObject(playerBody.x);
-      if (nearbyObj) {
-        callbacks?.onInspectObject?.(nearbyObj);
-        return;
-      }
-      const nearbyKiosk = getNearbyStationKiosk(playerBody.x);
-      if (nearbyKiosk) {
-        callbacks?.onInspectStation?.(nearbyKiosk);
-      }
-    };
-
-    (p as any).setModalActive = (active: boolean) => {
-      isModalActive = active;
-      if (active) {
-        // Clear all movement keys, joystick and drag state immediately when a modal opens
-        for (const k in keys) {
-          keys[k] = false;
-        }
-        joystickVector = { x: 0, y: 0 };
-        isDragging = false;
-        playerBody.vx = 0;
-        playerBody.vy = 0;
-        if (playerRespawnCountdown <= 0 && playerBody.isGrounded && attackTimer <= 0) {
-          playerAction = 'idle';
-          callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, 'idle');
-        }
-        if (activeEnemy && activeEnemy.hp > 0 && activeEnemy.state !== 'dead') {
-          activeEnemy.vx = 0;
-          activeEnemy.vy = 0;
-          if (activeEnemy.state !== 'hurt') {
-            activeEnemy.action = 'idle';
-          }
-        }
-      }
-    };
-
-    let joystickVector = { x: 0, y: 0 };
-
-    (p as any).handleVirtualInput = (action: string, payload?: any) => {
-      if (isModalActive) return;
-
-      if (action === 'joystick_vector' && payload) {
-        joystickVector = { x: payload.x || 0, y: payload.y || 0 };
-        if (Math.hypot(joystickVector.x, joystickVector.y) > 0.05) {
-          cameraFollowsPlayer = true;
-        }
-      } else if (action === 'sprint_start') {
-        keys['virtual_sprint'] = true;
-      } else if (action === 'sprint_stop') {
-        keys['virtual_sprint'] = false;
-      } else if (action === 'sprint_toggle') {
-        keys['virtual_sprint'] = !keys['virtual_sprint'];
-      } else if (action === 'left' || action === 'left_start') {
-        keys['virtual_left'] = true;
-        cameraFollowsPlayer = true;
-      } else if (action === 'left_stop') {
-        keys['virtual_left'] = false;
-      } else if (action === 'right' || action === 'right_start') {
-        keys['virtual_right'] = true;
-        cameraFollowsPlayer = true;
-      } else if (action === 'right_stop') {
-        keys['virtual_right'] = false;
-      } else if (action === 'up' || action === 'up_start') {
-        keys['virtual_up'] = true;
-        cameraFollowsPlayer = true;
-      } else if (action === 'up_stop') {
-        keys['virtual_up'] = false;
-      } else if (action === 'down' || action === 'down_start') {
-        keys['virtual_down'] = true;
-        cameraFollowsPlayer = true;
-      } else if (action === 'down_stop') {
-        keys['virtual_down'] = false;
-      } else if (action === 'jump' || action === 'jump_start') {
-        keys['virtual_jump'] = true;
-      } else if (action === 'jump_stop') {
-        keys['virtual_jump'] = false;
-      } else if (
-        action === 'attack' ||
-        action === 'attack1' ||
-        action === 'attack2' ||
-        action === 'attack3' ||
-        action === 'attack4'
-      ) {
-        triggerPlayerAttack(action as any);
-      } else if (action === 'stop') {
-        joystickVector = { x: 0, y: 0 };
-        keys['virtual_left'] = false;
-        keys['virtual_right'] = false;
-        keys['virtual_up'] = false;
-        keys['virtual_down'] = false;
-        keys['virtual_jump'] = false;
-        keys['ArrowLeft'] = false;
-        keys['ArrowRight'] = false;
-        keys['ArrowUp'] = false;
-        keys['ArrowDown'] = false;
-        keys['KeyA'] = false;
-        keys['KeyD'] = false;
-        keys['KeyW'] = false;
-        keys['KeyS'] = false;
-        keys['a'] = false;
-        keys['A'] = false;
-        keys['d'] = false;
-        keys['D'] = false;
-        keys['w'] = false;
-        keys['W'] = false;
-        keys['s'] = false;
-        keys['S'] = false;
-        keys['Space'] = false;
-        keys[' '] = false;
-      };
-
-      const updateAdaptiveZoom = () => {
-        if (p.width >= 1600) {
-          targetZoom = 1.35;
-        } else if (p.width >= 1200) {
-          targetZoom = 1.20;
-        } else {
-          targetZoom = 1.0;
-        }
-      };
-
-
-      let isSetupCalled = false;
-
-      p.setup = () => {
-        if (isSetupCalled) return;
-        isSetupCalled = true;
-
-        (p as any).pixelDensity(1);
-        const initialW = typeof window !== 'undefined' && window.innerWidth > 200 ? window.innerWidth : (p.windowWidth > 200 ? p.windowWidth : 1200);
-        const initialH = typeof window !== 'undefined' && window.innerHeight > 200 ? window.innerHeight : (p.windowHeight > 200 ? p.windowHeight : 800);
-        p.createCanvas(initialW, initialH);
-        p.frameRate(60);
-
-        if (typeof (p as any).noSmooth === 'function') (p as any).noSmooth();
-        p.textAlign(p.CENTER, p.CENTER);
-        (p as any).textFont('Pixelify Sans');
-
-        const ctx = (p as any).drawingContext;
-        if (ctx) ctx.imageSmoothingEnabled = false;
-
-        const canvasElt = (p as any).canvas;
-        if (canvasElt) {
-          canvasElt.style.setProperty('width', '100vw', 'important');
-          canvasElt.style.setProperty('height', '100vh', 'important');
-          canvasElt.style.setProperty('position', 'fixed', 'important');
-          canvasElt.style.setProperty('top', '0px', 'important');
-          canvasElt.style.setProperty('left', '0px', 'important');
-          canvasElt.style.setProperty('display', 'block', 'important');
-        }
-
-        updateAdaptiveZoom();
-        zoom = targetZoom;
-        camX = p.width / 2 - playerBody.x * zoom;
-        camY = p.height * 0.72;
-        targetCamX = camX;
-        targetCamY = camY;
-      };
-
-      // Force p.setup and p5 internal _start execution immediately on mount
-      setTimeout(() => {
-        if (typeof (p as any)._start === 'function') {
-          try { (p as any)._start(); } catch (e) { }
-        }
-        if (!isSetupCalled && typeof p.setup === 'function') {
-          p.setup();
-        }
-      }, 0);
-
-
-
-      p.windowResized = () => {
-        const realW = typeof window !== 'undefined' && window.innerWidth > 200 ? window.innerWidth : (p.windowWidth > 200 ? p.windowWidth : 1200);
-        const realH = typeof window !== 'undefined' && window.innerHeight > 200 ? window.innerHeight : (p.windowHeight > 200 ? p.windowHeight : 800);
-        p.resizeCanvas(realW, realH);
-        if (typeof (p as any).noSmooth === 'function') (p as any).noSmooth();
-        const ctx = (p as any).drawingContext;
-        if (ctx) ctx.imageSmoothingEnabled = false;
-
-        const canvasElt = (p as any).canvas;
-        if (canvasElt) {
-          canvasElt.style.setProperty('width', '100vw', 'important');
-          canvasElt.style.setProperty('height', '100vh', 'important');
-          canvasElt.style.setProperty('position', 'fixed', 'important');
-          canvasElt.style.setProperty('top', '0px', 'important');
-          canvasElt.style.setProperty('left', '0px', 'important');
-          canvasElt.style.setProperty('display', 'block', 'important');
-        }
-
-        updateAdaptiveZoom();
-        targetCamY = p.height * 0.72;
-      };
-
-
+      let frameCounter = 0;
       p.draw = () => {
-        // Auto-heal canvas size if p5 initialized at 200x200 or 0x0 during early React mount
+        frameCounter++;
+        if (frameCounter === 1 || frameCounter % 300 === 0) {
+          console.log(`[sketch2d:draw] Frame ${frameCounter} rendered. Canvas dims: ${p.width}x${p.height}`);
+        }
+        forceCanvasFullStyles();
+        // Auto-correct camera and canvas size if p5 initialized with 200px fallback on frame 0
         if (p.width <= 300 || p.height <= 300) {
-          const realW = typeof window !== 'undefined' && window.innerWidth > 200 ? window.innerWidth : (p.windowWidth > 200 ? p.windowWidth : 1200);
-          const realH = typeof window !== 'undefined' && window.innerHeight > 200 ? window.innerHeight : (p.windowHeight > 200 ? p.windowHeight : 800);
-          if (realW > 300 && realH > 300) {
-            p.resizeCanvas(realW, realH);
-            const canvasElt = (p as any).canvas;
-            if (canvasElt) {
-              canvasElt.style.setProperty('width', '100vw', 'important');
-              canvasElt.style.setProperty('height', '100vh', 'important');
-            }
+          const w = getRealW();
+          const h = getRealH();
+          if (w > 300 && h > 300) {
+            p.resizeCanvas(w, h);
             updateAdaptiveZoom();
-            targetCamY = p.height * 0.72;
+            camX = w / 2 - playerBody.x * zoom;
+            camY = h * 0.72;
+            targetCamX = camX;
+            targetCamY = camY;
           }
         }
-
-
 
         // 1. Meadow Base Fill (Night deep forest green in dark mode, vibrant meadow in light mode)
+
 
 
         if (currentThemeMode === 'dark') {
@@ -2401,6 +2139,248 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
           window.removeEventListener('keydown', handleNativeKeyDown);
           window.removeEventListener('keyup', handleNativeKeyUp);
         }
+      };
+
+
+    // Clear stuck keys when browser loses focus
+    if (typeof window !== 'undefined') {
+      window.addEventListener('blur', () => {
+        for (const k in keys) {
+          keys[k] = false;
+        }
+        isDragging = false;
+      });
+    }
+
+    // Preload world assets from public/locations/world and public/objects
+    if (typeof window !== 'undefined') {
+      characterSpriteManager.preloadCharacter(DEFAULT_CHARACTER);
+
+      if (DEFAULT_ATMOSPHERE.background) getTexture(DEFAULT_ATMOSPHERE.background);
+      DEFAULT_ATMOSPHERE.clouds.forEach((c) => getTexture(c.src));
+      if (DEFAULT_ATMOSPHERE.floor?.image) getTexture(DEFAULT_ATMOSPHERE.floor.image);
+
+      WORLD_LOCATIONS.forEach((loc) => {
+        if (loc.background) getTexture(loc.background);
+        loc.clouds?.forEach((c) => getTexture(c.src));
+        if (loc.floor?.image) getTexture(loc.floor.image);
+        loc.layers?.forEach((layerSrc) => getTexture(layerSrc));
+      });
+
+      // Preload Night Mode assets
+      getTexture('/locations/world/bg_night.png');
+      getTexture('/locations/world/normal_moon.png');
+      getTexture('/locations/world/beige_moon.png');
+      getTexture('/locations/world/red_moon.png');
+
+      // Preload tree and bush decorations
+      WORLD_DECORATIONS.trees.forEach((t) => getTexture(t.src));
+      WORLD_DECORATIONS.bushes.forEach((b) => getTexture(b.src));
+
+      // Preload interactive work objects and home base
+      INTERACTIVE_OBJECTS.forEach((obj) => getTexture(obj.image));
+      getTexture('/objects/home.png');
+      getTexture('/objects/garage.png');
+      getTexture('/objects/mailbox.png');
+      getTexture('/objects/light_on.png');
+      getTexture('/objects/light_off.png');
+    }
+
+
+    function spawnDust(x: number, y: number, count: number = 2, maxSpeed: number = 1.5) {
+      for (let i = 0; i < count; i++) {
+        dustParticles.push({
+          x: x + (Math.random() - 0.5) * 16,
+          y: y - 2 + Math.random() * 2,
+          vx: (Math.random() - 0.5) * maxSpeed,
+          vy: -Math.random() * 1.8 - 0.2,
+          size: Math.random() * 5 + 3,
+          alpha: 0.6,
+          life: 0,
+          maxLife: Math.floor(Math.random() * 15 + 12),
+          color: Math.random() > 0.4 ? '#68B35A' : '#3E8335',
+        });
+      }
+    }
+
+    (p as any).setThemeMode = (mode: 'light' | 'dark') => {
+      currentThemeMode = mode;
+    };
+
+    (p as any).setMoonType = (type: 'beige' | 'normal' | 'red') => {
+      if (type === 'normal') activeMoonSrc = '/locations/world/normal_moon.png';
+      else if (type === 'red') activeMoonSrc = '/locations/world/red_moon.png';
+      else activeMoonSrc = '/locations/world/beige_moon.png';
+    };
+
+    (p as any).setCombatActive = (active: boolean) => {
+      isCombatActive = active;
+      if (!active) {
+        activeEnemy = null;
+      } else {
+        lastEnemySpawnTime = performance.now() - 7000; // spawn shortly after activation
+      }
+    };
+
+    (p as any).setGender = (gender: Gender) => {
+      playerGender = gender;
+      playerCharacter = gender === 'male' ? 'Fighter' : 'Countess_claire';
+      playerBody.setAttributes(CHARACTER_DEFS[playerCharacter].physics);
+      characterSpriteManager.preloadCharacter(playerCharacter);
+      callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, playerAction);
+    };
+
+    (p as any).setCharacter = (charId: CharacterId) => {
+      playerCharacter = charId;
+      playerGender = CHARACTER_DEFS[charId]?.gender || 'male';
+      playerBody.setAttributes(CHARACTER_DEFS[charId].physics);
+      characterSpriteManager.preloadCharacter(playerCharacter);
+      callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, playerAction);
+    };
+
+    (p as any).teleportTo = (x: number) => {
+      const playerCollisionRadius = 40;
+      playerBody.x = Math.max(WORLD_BOUNDS.minX + playerCollisionRadius, Math.min(WORLD_BOUNDS.maxX - playerCollisionRadius, x));
+      playerBody.vx = 0;
+      playerBody.vy = 0;
+      targetCamX = p.width / 2 - playerBody.x * zoom;
+      const minCamX = p.width - WORLD_BOUNDS.maxX * zoom;
+      const maxCamX = -WORLD_BOUNDS.minX * zoom;
+      targetCamX = p.constrain(targetCamX, minCamX, maxCamX);
+      camX = targetCamX;
+      callbacks?.onPlayerPositionChange?.(playerBody.x, playerBody.y);
+    };
+
+    (p as any).triggerAction = (action: CharacterAction) => {
+      const charPhys = CHARACTER_DEFS[playerCharacter].physics;
+      if (
+        action === 'attack' ||
+        action === 'attack1' ||
+        action === 'attack2' ||
+        action === 'attack3' ||
+        action === 'attack4'
+      ) {
+        triggerPlayerAttack(action as any);
+      } else if (action === 'jump' && playerBody.isGrounded) {
+        playerBody.applyImpulse(0, charPhys.jumpImpulse);
+        spawnDust(playerBody.x, playerBody.y, 5, 2.5);
+        playerAction = 'jump';
+      } else {
+        playerAction = action;
+      }
+      callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, playerAction);
+    };
+
+    (p as any).inspectNearbyStation = () => {
+      const nearbyObj = getNearbyWorldObject(playerBody.x);
+      if (nearbyObj) {
+        callbacks?.onInspectObject?.(nearbyObj);
+        return;
+      }
+      const nearbyKiosk = getNearbyStationKiosk(playerBody.x);
+      if (nearbyKiosk) {
+        callbacks?.onInspectStation?.(nearbyKiosk);
+      }
+    };
+
+    (p as any).setModalActive = (active: boolean) => {
+      isModalActive = active;
+      if (active) {
+        // Clear all movement keys, joystick and drag state immediately when a modal opens
+        for (const k in keys) {
+          keys[k] = false;
+        }
+        joystickVector = { x: 0, y: 0 };
+        isDragging = false;
+        playerBody.vx = 0;
+        playerBody.vy = 0;
+        if (playerRespawnCountdown <= 0 && playerBody.isGrounded && attackTimer <= 0) {
+          playerAction = 'idle';
+          callbacks?.onCharacterStateChange?.(playerGender, playerCharacter, 'idle');
+        }
+        if (activeEnemy && activeEnemy.hp > 0 && activeEnemy.state !== 'dead') {
+          activeEnemy.vx = 0;
+          activeEnemy.vy = 0;
+          if (activeEnemy.state !== 'hurt') {
+            activeEnemy.action = 'idle';
+          }
+        }
+      }
+    };
+
+    let joystickVector = { x: 0, y: 0 };
+
+    (p as any).handleVirtualInput = (action: string, payload?: any) => {
+      if (isModalActive) return;
+
+      if (action === 'joystick_vector' && payload) {
+        joystickVector = { x: payload.x || 0, y: payload.y || 0 };
+        if (Math.hypot(joystickVector.x, joystickVector.y) > 0.05) {
+          cameraFollowsPlayer = true;
+        }
+      } else if (action === 'sprint_start') {
+        keys['virtual_sprint'] = true;
+      } else if (action === 'sprint_stop') {
+        keys['virtual_sprint'] = false;
+      } else if (action === 'sprint_toggle') {
+        keys['virtual_sprint'] = !keys['virtual_sprint'];
+      } else if (action === 'left' || action === 'left_start') {
+        keys['virtual_left'] = true;
+        cameraFollowsPlayer = true;
+      } else if (action === 'left_stop') {
+        keys['virtual_left'] = false;
+      } else if (action === 'right' || action === 'right_start') {
+        keys['virtual_right'] = true;
+        cameraFollowsPlayer = true;
+      } else if (action === 'right_stop') {
+        keys['virtual_right'] = false;
+      } else if (action === 'up' || action === 'up_start') {
+        keys['virtual_up'] = true;
+        cameraFollowsPlayer = true;
+      } else if (action === 'up_stop') {
+        keys['virtual_up'] = false;
+      } else if (action === 'down' || action === 'down_start') {
+        keys['virtual_down'] = true;
+        cameraFollowsPlayer = true;
+      } else if (action === 'down_stop') {
+        keys['virtual_down'] = false;
+      } else if (action === 'jump' || action === 'jump_start') {
+        keys['virtual_jump'] = true;
+      } else if (action === 'jump_stop') {
+        keys['virtual_jump'] = false;
+      } else if (
+        action === 'attack' ||
+        action === 'attack1' ||
+        action === 'attack2' ||
+        action === 'attack3' ||
+        action === 'attack4'
+      ) {
+        triggerPlayerAttack(action as any);
+      } else if (action === 'stop') {
+        joystickVector = { x: 0, y: 0 };
+        keys['virtual_left'] = false;
+        keys['virtual_right'] = false;
+        keys['virtual_up'] = false;
+        keys['virtual_down'] = false;
+        keys['virtual_jump'] = false;
+        keys['ArrowLeft'] = false;
+        keys['ArrowRight'] = false;
+        keys['ArrowUp'] = false;
+        keys['ArrowDown'] = false;
+        keys['KeyA'] = false;
+        keys['KeyD'] = false;
+        keys['KeyW'] = false;
+        keys['KeyS'] = false;
+        keys['a'] = false;
+        keys['A'] = false;
+        keys['d'] = false;
+        keys['D'] = false;
+        keys['w'] = false;
+        keys['W'] = false;
+        keys['s'] = false;
+        keys['S'] = false;
+        keys['Space'] = false;
+        keys[' '] = false;
       };
 
       p.mousePressed = (e?: MouseEvent | TouchEvent) => {

@@ -170,8 +170,18 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
               </div>
 
               <div className="flex items-center gap-4 text-xs text-[#94a3b8]">
-                <span>📍 {profileData.location}</span>
-                <span>✉️ {profileData.email}</span>
+                <span className="flex items-center gap-1.5">
+                  <svg className="w-3.5 h-3.5 fill-current text-[#5B9BF3]" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                    <path d="M6 1h4v1h2v2h1v4h-1v2h-2v2h-1v2H7v-2H6v-2H4V8H3V4h1V2h2V1zm1 3v3h2V4H7z" />
+                  </svg>
+                  {profileData.location}
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <svg className="w-3.5 h-3.5 fill-current text-[#5B9BF3]" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                    <path d="M1 3h14v10H1V3zm2 2v1h2v1h2v1h2V7h2V6h2V5H3zm0 6h10V7h-2v1h-2v1H7V8H5V7H3v4z" />
+                  </svg>
+                  {profileData.email}
+                </span>
               </div>
             </div>
           )}
@@ -418,9 +428,12 @@ export const PortfolioStationModal: React.FC<PortfolioStationModalProps> = ({
                     style={{
                       clipPath: 'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))'
                     }}
-                    className="px-5 py-2.5 bg-[#5B9BF3] hover:bg-[#72adfb] text-black text-xs font-bold transition-all border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-[#5B9BF3] hover:bg-[#72adfb] text-black text-xs font-bold transition-all border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px"
                   >
-                    ✉️ {profileData.email}
+                    <svg className="w-3.5 h-3.5 fill-current text-black" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                      <path d="M1 3h14v10H1V3zm2 2v1h2v1h2v1h2V7h2V6h2V5H3zm0 6h10V7h-2v1h-2v1H7V8H5V7H3v4z" />
+                    </svg>
+                    {profileData.email}
                   </a>
                   {onOpenContact ? (
                     <button

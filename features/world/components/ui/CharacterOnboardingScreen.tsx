@@ -391,7 +391,9 @@ export const CharacterOnboardingScreen: React.FC<CharacterOnboardingScreenProps>
                         : 'bg-[#2C3440] text-white/70'
                     )}
                   >
-                    ⚔️
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                      <path d="M1 1h2v2H1V1zm2 2h2v2H3V3zm2 2h2v2H5V5zm4 0h2v2H9V5zm2-2h2v2h-2V3zm2-2h2v2h-2V1zm-4 6h2v2H9V7zm-2 2h2v2H7V9zm-2 2h2v2H5v-2zm-2 2h2v2H3v-2zm-2 2h2v2H1v-2zm12-4h2v2h-2v-2zm-2 2h2v2h-2v-2zm-2 2h2v2h-2v-2zm-2 2h2v2H9v-2z" />
+                    </svg>
                   </div>
                   <div>
                     <div className="text-xs font-extrabold text-[#1F1914] flex items-center gap-1.5">

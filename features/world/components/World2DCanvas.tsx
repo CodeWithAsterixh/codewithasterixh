@@ -22,6 +22,41 @@ interface World2DCanvasProps {
   onInspectObject?: (object: InteractiveWorldObject) => void;
 }
 
+async function getP5Constructor(): Promise<any> {
+  try {
+    const p5Mod = await import('p5');
+    return p5Mod.default || p5Mod;
+  } catch (e) {}
+
+  if (typeof window !== 'undefined' && (window as any).p5) {
+    return (window as any).p5;
+  }
+
+  return new Promise((resolve, reject) => {
+    if (typeof window === 'undefined') return reject('No window');
+    const existingScript = document.getElementById('p5-cdn-script');
+    if (existingScript) {
+      existingScript.addEventListener('load', () => resolve((window as any).p5));
+      if ((window as any).p5) resolve((window as any).p5);
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.id = 'p5-cdn-script';
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js';
+    script.async = true;
+    script.onload = () => {
+      if ((window as any).p5) {
+        resolve((window as any).p5);
+      } else {
+        reject('p5 failed to load');
+      }
+    };
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
 export const World2DCanvas: React.FC<World2DCanvasProps> = ({
   isModalActive = false,
   themeMode = 'dark',
@@ -96,52 +131,22 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
   }, [isCombatActive]);
 
   useEffect(() => {
-    let isMounted = true;
-
-    async function getP5Constructor(): Promise<any> {
-      try {
-        const p5Mod = await import('p5');
-        return p5Mod.default || p5Mod;
-      } catch (e) {}
-
-      if (typeof window !== 'undefined' && (window as any).p5) {
-        return (window as any).p5;
-      }
-
-      return new Promise((resolve, reject) => {
-        if (typeof window === 'undefined') return reject('No window');
-        const existingScript = document.getElementById('p5-cdn-script');
-        if (existingScript) {
-          existingScript.addEventListener('load', () => resolve((window as any).p5));
-          if ((window as any).p5) resolve((window as any).p5);
-          return;
-        }
-
-        const script = document.createElement('script');
-        script.id = 'p5-cdn-script';
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js';
-        script.async = true;
-        script.onload = () => {
-          if ((window as any).p5) {
-            resolve((window as any).p5);
-          } else {
-            reject('p5 failed to load');
-          }
-        };
-        script.onerror = reject;
-        document.head.appendChild(script);
-      });
-    }
-
     async function initSketch() {
       if (!containerRef.current || typeof window === 'undefined') return;
+      console.log('[World2DCanvas] initSketch started');
 
       try {
         const P5 = await getP5Constructor();
-        if (!isMounted || !containerRef.current || !P5) return;
+        // Verify container ref is still present in DOM after async P5 module loading
+        if (!containerRef.current || !P5 || !document.body.contains(containerRef.current)) {
+          console.warn('[World2DCanvas] initSketch cancelled: container containerRef no longer attached to DOM');
+          return;
+        }
 
         if (p5InstanceRef.current) {
+          console.log('[World2DCanvas] Removing previous p5 instance');
           p5InstanceRef.current.remove();
+          p5InstanceRef.current = null;
         }
 
         // Forward sketch events to the stable mutable callback ref
@@ -155,6 +160,7 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
           onInspectObject: (obj) => callbacksRef.current.onInspectObject?.(obj),
         };
 
+        console.log('[World2DCanvas] Instantiating new P5 sketch instance');
         const sketch = create2DSideViewSketch(stableCallbacks);
         const p5Instance = new P5(sketch, containerRef.current);
         p5InstanceRef.current = p5Instance;
@@ -163,55 +169,12 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
           p5Instance.setModalActive(isModalActive);
         }
 
-        // Force p5 internal _start(), loop(), and setup() to execute instantly on mount
-        if (typeof (p5Instance as any)._start === 'function') {
-          try {
-            (p5Instance as any)._start();
-          } catch (e) {}
-        }
-        if (typeof (p5Instance as any).windowResized === 'function') {
-          (p5Instance as any).windowResized();
-        }
-        if (typeof p5Instance.loop === 'function') {
-          p5Instance.loop();
-        }
-        if (typeof p5Instance.redraw === 'function') {
-          p5Instance.redraw();
-        }
-
-        requestAnimationFrame(() => {
-          if (p5InstanceRef.current) {
-            if (typeof (p5InstanceRef.current as any)._start === 'function') {
-              try { (p5InstanceRef.current as any)._start(); } catch (e) {}
-            }
-            if (typeof p5InstanceRef.current.windowResized === 'function') {
-              p5InstanceRef.current.windowResized();
-            }
-            if (typeof p5InstanceRef.current.redraw === 'function') {
-              p5InstanceRef.current.redraw();
-            }
-          }
-          if (typeof window !== 'undefined') {
-            window.dispatchEvent(new Event('resize'));
-          }
-        });
-
-
-        setTimeout(() => {
-          if (p5InstanceRef.current && typeof p5InstanceRef.current.windowResized === 'function') {
-            p5InstanceRef.current.windowResized();
-          }
-          if (typeof window !== 'undefined') {
-            window.dispatchEvent(new Event('resize'));
-          }
-        }, 50);
-
+        console.log('[World2DCanvas] Sketch ready, setting isReady = true');
         setIsReady(true);
 
         if (onSketchReady) {
           onSketchReady(p5Instance);
         }
-
 
       } catch (err) {
         console.error('2D p5 initialization error:', err);
@@ -221,23 +184,23 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
     initSketch();
 
     return () => {
-      isMounted = false;
       if (p5InstanceRef.current) {
         if (typeof p5InstanceRef.current.cleanup === 'function') {
           p5InstanceRef.current.cleanup();
         }
         p5InstanceRef.current.remove();
+        p5InstanceRef.current = null;
       }
     };
   }, []);
 
-  // Enforce 100vw x 100vh !important CSS on canvas DOM element immediately on mount
+  // Enforce 100% width and height on canvas DOM element
   useEffect(() => {
     const enforceCanvasStyles = () => {
       if (containerRef.current) {
         const canvasElt = containerRef.current.querySelector('canvas');
         if (canvasElt) {
-          canvasElt.style.cssText = 'width: 100vw !important; height: 100vh !important; position: fixed !important; top: 0px !important; left: 0px !important; display: block !important; z-index: 0 !important;';
+          canvasElt.style.cssText = 'width: 100% !important; height: 100% !important; position: absolute !important; top: 0px !important; left: 0px !important; display: block !important; z-index: 0 !important;';
         }
       }
       if (typeof window !== 'undefined') {
@@ -259,22 +222,15 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
 
 
   return (
-    <div className="fixed inset-0 w-full h-full min-h-screen overflow-hidden bg-[#0F0F0F]">
-      {!isReady && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#0F0F0F] text-[#EADBCC] font-pixelify gap-3">
-          <div className="w-10 h-10 rounded-full border-4 border-[#5B9BF3] border-t-transparent animate-spin" />
-          <div className="text-xs font-bold tracking-widest uppercase animate-pulse">
-            Loading 2D Portfolio World...
-          </div>
-        </div>
-      )}
+    <div className="fixed inset-0 z-0 w-full h-full min-h-screen overflow-hidden">
       <div
         ref={containerRef}
-        className={`fixed inset-0 w-full h-full min-h-screen overflow-hidden select-none [&>canvas]:fixed [&>canvas]:inset-0 [&>canvas]:w-full [&>canvas]:h-full [&>canvas]:block ${
+        className={`absolute inset-0 z-0 w-full h-full min-h-screen overflow-hidden select-none [&>canvas]:absolute [&>canvas]:inset-0 [&>canvas]:w-full [&>canvas]:h-full [&>canvas]:block ${
           isModalActive ? 'pointer-events-none' : 'cursor-grab active:cursor-grabbing'
         }`}
       />
     </div>
   );
 };
+
 

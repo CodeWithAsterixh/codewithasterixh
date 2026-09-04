@@ -7,6 +7,7 @@ import { DEFAULT_GENDER, DEFAULT_CHARACTER } from "@/features/world/data/charact
 import { MapLocationEntry, getActiveMapLocation, getNearbyStationKiosk } from "@/features/world/data/mapLayout";
 import { InteractiveWorldObject, getNearbyWorldObject } from "@/features/world/data/mapObjects";
 
+import { WorldLoadingScreen } from "@/features/world/components/ui/WorldLoadingScreen";
 import { CharacterSelectorHUD } from "@/features/world/components/ui/CharacterSelectorHUD";
 import { CharacterOnboardingScreen } from "@/features/world/components/ui/CharacterOnboardingScreen";
 import { WorldPauseMapModal } from "@/features/world/components/ui/WorldPauseMapModal";
@@ -23,8 +24,13 @@ const World2DCanvas = dynamic(
 const MOON_TYPES = ['beige', 'normal', 'red'] as const;
 type MoonType = typeof MOON_TYPES[number];
 
+const ONBOARDING_STORAGE_KEY = 'codewithasterixh_onboarding_v1';
+
 export const Home: React.FC = () => {
-  // Onboarding Start Screen State
+  // World loading screen state (shown first while 2D Canvas mounts and loads)
+  const [isWorldLoading, setIsWorldLoading] = useState<boolean>(true);
+
+  // Onboarding Start Screen State (shown after game finishes initial load)
   const [isOnboarding, setIsOnboarding] = useState<boolean>(true);
 
   // Pause Map Modal State
@@ -36,6 +42,33 @@ export const Home: React.FC = () => {
   const [moonType, setMoonType] = useState<MoonType>('beige');
   const [isCombatActive, setIsCombatActive] = useState<boolean>(false);
 
+  const [gender, setGender] = useState<Gender>(DEFAULT_GENDER);
+  const [characterId, setCharacterId] = useState<CharacterId>(DEFAULT_CHARACTER);
+  const [playerHp, setPlayerHp] = useState<number>(100);
+  const [maxPlayerHp, setMaxPlayerHp] = useState<number>(100);
+  const [respawnCountdown, setRespawnCountdown] = useState<number | null>(null);
+  const [currentBiome, setCurrentBiome] = useState<CurrentBiomeInfo | undefined>(undefined);
+  const [playerX, setPlayerX] = useState<number>(0);
+
+  // Load saved onboarding & character preferences from localStorage on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const saved = localStorage.getItem(ONBOARDING_STORAGE_KEY);
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (data && data.completed) {
+          setIsOnboarding(false);
+          if (data.gender) setGender(data.gender);
+          if (data.characterId) setCharacterId(data.characterId);
+          if (typeof data.combatActive === 'boolean') setIsCombatActive(data.combatActive);
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to load onboarding preferences from localStorage:', e);
+    }
+  }, []);
+
   const handleThemeModeChange = useCallback((newMode: 'light' | 'dark') => {
     if (newMode === 'dark') {
       // Pick a random moon color on switch to dark mode
@@ -44,14 +77,6 @@ export const Home: React.FC = () => {
     }
     setThemeMode(newMode);
   }, []);
-
-  const [gender, setGender] = useState<Gender>(DEFAULT_GENDER);
-  const [characterId, setCharacterId] = useState<CharacterId>(DEFAULT_CHARACTER);
-  const [playerHp, setPlayerHp] = useState<number>(100);
-  const [maxPlayerHp, setMaxPlayerHp] = useState<number>(100);
-  const [respawnCountdown, setRespawnCountdown] = useState<number | null>(null);
-  const [currentBiome, setCurrentBiome] = useState<CurrentBiomeInfo | undefined>(undefined);
-  const [playerX, setPlayerX] = useState<number>(0);
 
   // Modal States
   const [activeStationModal, setActiveStationModal] = useState<MapLocationEntry | null>(null);
@@ -75,7 +100,7 @@ export const Home: React.FC = () => {
   // Global ESC / P key to toggle Pause Menu
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (isOnboarding) return;
+      if (isOnboarding || isWorldLoading) return;
       if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') {
         // If other modals are open, close them first; otherwise toggle pause menu
         if (bookModalState.isOpen) {
@@ -92,15 +117,18 @@ export const Home: React.FC = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOnboarding, bookModalState.isOpen, infoTilesetState.isOpen, activeStationModal]);
+  }, [isOnboarding, isWorldLoading, bookModalState.isOpen, infoTilesetState.isOpen, activeStationModal]);
 
-  const isAnyModalOpen = isOnboarding || isPauseModalOpen || bookModalState.isOpen || infoTilesetState.isOpen || activeStationModal !== null;
+  const isAnyModalOpen = isWorldLoading || isOnboarding || isPauseModalOpen || bookModalState.isOpen || infoTilesetState.isOpen || activeStationModal !== null;
 
   useEffect(() => {
     if (p5SketchRef.current && typeof p5SketchRef.current.setModalActive === 'function') {
       p5SketchRef.current.setModalActive(isAnyModalOpen);
     }
   }, [isAnyModalOpen]);
+
+  // State tracking whether p5 canvas is initialized and ready
+  const [isCanvasReady, setIsCanvasReady] = useState<boolean>(false);
 
   const handleSketchReady = useCallback((instance: any) => {
     p5SketchRef.current = instance;
@@ -110,6 +138,9 @@ export const Home: React.FC = () => {
     if (typeof instance.setModalActive === 'function') {
       instance.setModalActive(isAnyModalOpen);
     }
+
+    // Canvas is ready
+    setIsCanvasReady(true);
   }, [characterId, isAnyModalOpen]);
 
   const handleOnboardingComplete = useCallback((selectedGender: Gender, selectedCharId: CharacterId, combatActive: boolean) => {
@@ -117,6 +148,23 @@ export const Home: React.FC = () => {
     setCharacterId(selectedCharId);
     setIsCombatActive(combatActive);
     setIsOnboarding(false);
+
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(
+          ONBOARDING_STORAGE_KEY,
+          JSON.stringify({
+            completed: true,
+            gender: selectedGender,
+            characterId: selectedCharId,
+            combatActive,
+            timestamp: Date.now(),
+          })
+        );
+      } catch (e) {
+        console.warn('Failed to save onboarding preferences to localStorage:', e);
+      }
+    }
 
     if (p5SketchRef.current) {
       if (typeof p5SketchRef.current.setGender === 'function') {
@@ -131,10 +179,18 @@ export const Home: React.FC = () => {
     }
   }, []);
 
+
   const handleSelectGender = useCallback((newGender: Gender) => {
     setGender(newGender);
     const newChar = newGender === 'male' ? 'Fighter' : 'Countess_claire';
     setCharacterId(newChar);
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem(ONBOARDING_STORAGE_KEY);
+        const data = saved ? JSON.parse(saved) : {};
+        localStorage.setItem(ONBOARDING_STORAGE_KEY, JSON.stringify({ ...data, gender: newGender, characterId: newChar }));
+      } catch (e) {}
+    }
     if (p5SketchRef.current && typeof p5SketchRef.current.setGender === 'function') {
       p5SketchRef.current.setGender(newGender);
     }
@@ -142,6 +198,13 @@ export const Home: React.FC = () => {
 
   const handleSelectCharacter = useCallback((newCharId: CharacterId) => {
     setCharacterId(newCharId);
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem(ONBOARDING_STORAGE_KEY);
+        const data = saved ? JSON.parse(saved) : {};
+        localStorage.setItem(ONBOARDING_STORAGE_KEY, JSON.stringify({ ...data, characterId: newCharId }));
+      } catch (e) {}
+    }
     if (p5SketchRef.current && typeof p5SketchRef.current.setCharacter === 'function') {
       p5SketchRef.current.setCharacter(newCharId);
     }
@@ -223,10 +286,19 @@ export const Home: React.FC = () => {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-[#0F0F0F] font-pixelify select-none">
-      {/* 1. START INTERFACE: Step 1 (Gender) -> Step 2 (Character) -> Step 3 (Open World) */}
-      {isOnboarding && (
+      {/* 1. INITIAL WORLD LOADING SCREEN (Full-screen game title screen shown first) */}
+      {isWorldLoading && (
+        <WorldLoadingScreen
+          isReady={isCanvasReady}
+          onStart={() => setIsWorldLoading(false)}
+        />
+      )}
+
+      {/* 1.5. ONBOARDING SCREEN (Shown after canvas finishes loading, before entering open world) */}
+      {!isWorldLoading && isOnboarding && (
         <CharacterOnboardingScreen onComplete={handleOnboardingComplete} />
       )}
+
 
       {/* 2. 2D WORLD CANVAS */}
       <World2DCanvas

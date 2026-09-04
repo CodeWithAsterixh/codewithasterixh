@@ -278,7 +278,9 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
                 : 'bg-[#10B981]'
                 }`}>
                 {playerHp <= 0 ? (
-                  <span className="text-lg">☠️</span>
+                  <svg className="w-5 h-5 text-white fill-current" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                    <path d="M4 1h8v2h2v4h-1v3h-2v3H9v-2H7v2H5v-3H3V7H2V3h2V1zm1 4v2h2V5H5zm4 0v2h2V5H9z" />
+                  </svg>
                 ) : (
                   <svg viewBox="0 0 9 9" className="w-4 h-4 sm:w-5 sm:h-5 text-white fill-current" style={{ shapeRendering: 'crispEdges' }}>
                     <rect x="1" y="1" width="2" height="2" />
@@ -345,7 +347,9 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
                   clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
                 }}
               >
-                <span className="text-xs">⚠️</span>
+                <svg className="w-4 h-4 text-red-400 fill-current" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                  <path d="M7 1h2v2H7V1zm-2 4h6v2H5V5zm-1 3h8v2H4V8zm-1 3h10v2H3v-2zm4-6h2v3H7V5zm0 4h2v1H7V9z" />
+                </svg>
                 <span className="text-[10px] sm:text-xs font-bold text-red-200 tracking-widest drop-shadow-[1px_1px_0_rgba(0,0,0,1)]">
                   RESPAWNING IN <span className="text-white ml-1">{respawnCountdown}</span>
                 </span>
@@ -481,7 +485,9 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
                   className="w-14 h-10 bg-[#DC2626] hover:bg-[#EF4444] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
                   title="Attack 1 [J]"
                 >
-                  <span>⚔️</span>
+                  <svg className="w-3 h-3 fill-current" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                    <path d="M1 1h2v2H1V1zm2 2h2v2H3V3zm2 2h2v2H5V5zm4 0h2v2H9V5zm2-2h2v2h-2V3zm2-2h2v2h-2V1zm-4 6h2v2H9V7zm-2 2h2v2H7V9zm-2 2h2v2H5v-2zm-2 2h2v2H3v-2zm-2 2h2v2H1v-2zm12-4h2v2h-2v-2zm-2 2h2v2h-2v-2zm-2 2h2v2h-2v-2zm-2 2h2v2H9v-2z" />
+                  </svg>
                   <span>ATK1</span>
                 </button>
 
@@ -494,7 +500,9 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
                   className="w-14 h-10 bg-[#2563EB] hover:bg-[#3B82F6] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
                   title="Attack 2 [K]"
                 >
-                  <span>🗡️</span>
+                  <svg className="w-3 h-3 fill-current" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                    <path d="M13 1h2v2h-2V1zm-2 2h2v2h-2V3zm-2 2h2v2H9V5zm-2 2h2v2H7V7zm-2 2h2v2H5V9zm-2 2h2v2H3v-2zm-2 2h2v2H1v-2z" />
+                  </svg>
                   <span>ATK2</span>
                 </button>
 
@@ -507,7 +515,9 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
                   className="w-14 h-10 bg-[#7C3AED] hover:bg-[#8B5CF6] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
                   title="Attack 3 [L]"
                 >
-                  <span>⚡</span>
+                  <svg className="w-3 h-3 fill-current" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                    <path d="M7 1h5v4H9v2h4L6 15v-5H3V7h4V1z" />
+                  </svg>
                   <span>ATK3</span>
                 </button>
 
@@ -520,7 +530,9 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
                   className="w-14 h-10 bg-[#EA580C] hover:bg-[#F97316] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border-t-2 border-l-2 border-t-white/40 border-l-white/40 border-b-2 border-r-2 border-b-black border-r-black active:translate-x-[2px] active:translate-y-[2px] shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer touch-none"
                   title="Attack 4 [U]"
                 >
-                  <span>🔥</span>
+                  <svg className="w-3 h-3 fill-current" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                    <path d="M7 1h2v3H7V1zm-2 3h6v2H5V4zm-2 3h10v3H3V7zm1 4h8v2H4v-2zm2 2h4v2H6v-2z" />
+                  </svg>
                   <span>ATK4</span>
                 </button>
               </>

@@ -355,8 +355,11 @@ export const WorldPauseMapModal: React.FC<
 
                     {onToggleCombat && (
                       <div className="pt-2 border-t border-[#363D46]/80 flex items-center justify-between">
-                        <span className="text-[10px] font-bold text-[#CAD1DB] flex items-center gap-1">
-                          <span>⚔️ Combat Mode</span>
+                        <span className="text-[10px] font-bold text-[#CAD1DB] flex items-center gap-1.5">
+                          <svg className="w-3.5 h-3.5 fill-current text-[#EF4444]" viewBox="0 0 16 16" style={{ shapeRendering: 'crispEdges' }}>
+                            <path d="M1 1h2v2H1V1zm2 2h2v2H3V3zm2 2h2v2H5V5zm4 0h2v2H9V5zm2-2h2v2h-2V3zm2-2h2v2h-2V1zm-4 6h2v2H9V7zm-2 2h2v2H7V9zm-2 2h2v2H5v-2zm-2 2h2v2H3v-2zm-2 2h2v2H1v-2zm12-4h2v2h-2v-2zm-2 2h2v2h-2v-2zm-2 2h2v2h-2v-2zm-2 2h2v2H9v-2z" />
+                          </svg>
+                          <span>Combat Mode</span>
                         </span>
                         <SwitchButton
                           small
