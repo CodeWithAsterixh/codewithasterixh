@@ -18,6 +18,7 @@ import {
   CaretRightIcon,
   ArrowsLeftRightIcon,
   GameControllerIcon,
+  SignOutIcon,
 } from '@phosphor-icons/react';
 
 interface WorldPauseMapModalProps {
@@ -29,6 +30,7 @@ interface WorldPauseMapModalProps {
   isCombatActive?: boolean;
   onToggleCombat?: () => void;
   onClose: () => void;
+  onExitWorld?: () => void;
   onNavigateToLocation: (x: number) => void;
   onSelectGender: (gender: Gender) => void;
   onSelectCharacter: (charId: CharacterId) => void;
@@ -108,6 +110,7 @@ export const WorldPauseMapModal: React.FC<
   isCombatActive = false,
   onToggleCombat,
   onClose,
+  onExitWorld,
   onNavigateToLocation,
   onSelectGender,
   onSelectCharacter,
@@ -471,22 +474,33 @@ export const WorldPauseMapModal: React.FC<
                       onOpenContact();
                     }}
                   />
+
+                  {onExitWorld && (
+                    <QuickAction
+                      icon={<SignOutIcon size={14} weight="duotone" className="text-[#E55B3C]" />}
+                      label="Exit World"
+                      onClick={() => {
+                        onClose();
+                        onExitWorld();
+                      }}
+                    />
+                  )}
                 </div>
               </ControlPanel>
             </div>
 
 
             {/* ============================================================ */}
-            {/* RESUME                                                        */}
+            {/* RESUME & EXIT ACTION BUTTONS                                 */}
             {/* ============================================================ */}
-            <div className="mt-3">
+            <div className="mt-3 flex items-center gap-2 sm:gap-3">
               <button
                 type="button"
                 onClick={onClose}
                 style={{
                   clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
                 }}
-                className="w-full flex items-center justify-center gap-2 bg-[#D9A441] hover:bg-[#E5B152] border-4 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] px-5 py-3 text-xs sm:text-sm font-black uppercase tracking-wider text-[#1A1D21] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-2 bg-[#D9A441] hover:bg-[#E5B152] border-4 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm font-black uppercase tracking-wider text-[#1A1D21] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer"
               >
                 <PlayIcon
                   size={17}
@@ -494,6 +508,27 @@ export const WorldPauseMapModal: React.FC<
                 />
                 <span>Resume Exploring</span>
               </button>
+
+              {onExitWorld && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    onExitWorld();
+                  }}
+                  style={{
+                    clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                  }}
+                  className="flex items-center justify-center gap-1.5 sm:gap-2 bg-[#C84B31] hover:bg-[#D95338] border-4 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] px-4 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-black uppercase tracking-wider text-[#F4EADA] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer shrink-0"
+                  title="Exit World and Return to Splash Screen"
+                >
+                  <SignOutIcon
+                    size={17}
+                    weight="duotone"
+                  />
+                  <span>Exit World</span>
+                </button>
+              )}
             </div>
           </div>
         </div>

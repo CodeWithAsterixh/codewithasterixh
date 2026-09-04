@@ -14,6 +14,7 @@ import {
   SunIcon,
   MoonIcon,
   CompassIcon,
+  SignOutIcon,
 } from '@phosphor-icons/react';
 import { ControlMode, VirtualInputAction, CharacterId } from '../../types';
 import { CHARACTER_DEFS } from '../../data/characterData';
@@ -30,6 +31,7 @@ interface CharacterSelectorHUDProps {
   isCombatActive?: boolean;
   onThemeModeChange?: (mode: 'light' | 'dark') => void;
   onOpenPauseMenu: () => void;
+  onExitWorld?: () => void;
   onInspectStation: () => void;
   onVirtualInput: (action: VirtualInputAction) => void;
 }
@@ -57,6 +59,7 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
   isCombatActive = false,
   onThemeModeChange,
   onOpenPauseMenu,
+  onExitWorld,
   onInspectStation,
   onVirtualInput,
 }) => {
@@ -216,19 +219,35 @@ export const CharacterSelectorHUD: React.FC<CharacterSelectorHUDProps> = ({
       <div className="pointer-events-auto flex flex-col gap-2.5 w-full">
         {/* Top Control Bar: Left Map Button + Right Theme Toggle */}
         <div className="flex items-center justify-between w-full">
-          {/* Left: Pixelated Pause / Map Button */}
-          <button
-            onClick={onOpenPauseMenu}
-            style={{
-              clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
-            }}
-            className="px-3 sm:px-5 py-1.5 sm:py-2 bg-[#D9A441] hover:bg-[#E5B152] active:translate-y-[2px] active:translate-x-[2px] text-[#1A1D24] font-black uppercase text-xs sm:text-sm flex items-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-transform shrink-0 cursor-pointer"
-            title="Open Map & Controls [ESC]"
-          >
-            <CompassIcon size={18} weight="fill" />
-            <span className="hidden sm:inline">Pause / Map</span>
-            <span className="sm:hidden">Map</span>
-          </button>
+          {/* Left: Pixelated Pause / Map & Exit Button Group */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <button
+              onClick={onOpenPauseMenu}
+              style={{
+                clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+              }}
+              className="px-3 sm:px-5 py-1.5 sm:py-2 bg-[#D9A441] hover:bg-[#E5B152] active:translate-y-[2px] active:translate-x-[2px] text-[#1A1D24] font-black uppercase text-xs sm:text-sm flex items-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-transform shrink-0 cursor-pointer"
+              title="Open Map & Controls [ESC]"
+            >
+              <CompassIcon size={18} weight="fill" />
+              <span className="hidden sm:inline">Pause / Map</span>
+              <span className="sm:hidden">Map</span>
+            </button>
+
+            {onExitWorld && (
+              <button
+                onClick={onExitWorld}
+                style={{
+                  clipPath: 'polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px))'
+                }}
+                className="px-2.5 sm:px-4 py-1.5 sm:py-2 bg-[#C84B31] hover:bg-[#D95338] active:translate-y-[2px] active:translate-x-[2px] text-[#F4EADA] font-black uppercase text-xs sm:text-sm flex items-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-transform shrink-0 cursor-pointer"
+                title="Exit World"
+              >
+                <SignOutIcon size={18} weight="duotone" />
+                <span>Exit</span>
+              </button>
+            )}
+          </div>
 
           {/* Right: Pixelated 2-Button Light / Dark Mode Toggle */}
           <div

@@ -148,17 +148,17 @@ export const Home: React.FC = () => {
 
   const handleStartEnterWorld = useCallback(() => {
     setIsEnteringWorld(true);
-  }, []);
-
-  // When world loading was triggered and canvas is fully ready, dismiss loading screen
-  useEffect(() => {
-    if (isEnteringWorld && isCanvasReady) {
-      const timer = setTimeout(() => {
-        setIsWorldLoading(false);
-      }, 350);
-      return () => clearTimeout(timer);
+    if (isCanvasReady) {
+      setIsWorldLoading(false);
     }
-  }, [isEnteringWorld, isCanvasReady]);
+  }, [isCanvasReady]);
+
+  // When world loading was triggered and canvas is fully ready, dismiss loading screen immediately
+  useEffect(() => {
+    if (isEnteringWorld && isCanvasReady && isWorldLoading) {
+      setIsWorldLoading(false);
+    }
+  }, [isEnteringWorld, isCanvasReady, isWorldLoading]);
 
   const handleOnboardingComplete = useCallback((selectedGender: Gender, selectedCharId: CharacterId, combatActive: boolean) => {
     setGender(selectedGender);
@@ -301,6 +301,15 @@ export const Home: React.FC = () => {
     });
   }, []);
 
+  const handleExitWorld = useCallback(() => {
+    setIsPauseModalOpen(false);
+    setBookModalState({ isOpen: false, mode: 'about' });
+    setInfoTilesetState({ isOpen: false, mode: 'project' });
+    setActiveStationModal(null);
+    setIsWorldLoading(true);
+    setIsEnteringWorld(false);
+  }, []);
+
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-[#0F0F0F] font-pixelify select-none">
       {/* 1. INITIAL WORLD LOADING SCREEN (Full-screen game title screen shown first) */}
@@ -350,6 +359,7 @@ export const Home: React.FC = () => {
           isCombatActive={isCombatActive}
           onThemeModeChange={handleThemeModeChange}
           onOpenPauseMenu={handleOpenPauseMenu}
+          onExitWorld={handleExitWorld}
           onInspectStation={() => handleInspectStation()}
           onVirtualInput={handleVirtualInput}
         />
@@ -373,6 +383,7 @@ export const Home: React.FC = () => {
           });
         }}
         onClose={() => setIsPauseModalOpen(false)}
+        onExitWorld={handleExitWorld}
         onNavigateToLocation={handleNavigateToLocation}
         onSelectGender={handleSelectGender}
         onSelectCharacter={handleSelectCharacter}
