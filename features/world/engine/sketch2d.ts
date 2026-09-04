@@ -54,19 +54,7 @@ export interface Sketch2DCallbacks {
 }
 
 const textureCache = new Map<string, HTMLImageElement>();
-function getTexture(src: string): HTMLImageElement {
-  if (textureCache.has(src)) {
-    return textureCache.get(src)!;
-  }
-  const img = new Image();
-  // Route all world asset images through our image-proxy API to reduce asset quality & graphics memory load
-  const proxiedUrl = (src.startsWith('/') || src.startsWith('http'))
-    ? `/api/image-proxy?url=${encodeURIComponent(src)}&q=35&w=480`
-    : src;
-  img.src = proxiedUrl;
-  textureCache.set(src, img);
-  return img;
-}
+
 
 
 
@@ -270,14 +258,44 @@ for (let x = WORLD_BOUNDS.minX + 50; x <= WORLD_BOUNDS.maxX - 50; x += 120) {
 
 export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
   return (p: p5) => {
-    p.createCanvas(p.windowWidth, p.windowHeight)
+    console.warn('[p5.js] SKETCH INSTANTIATED IN BROWSER');
+    p.createCanvas(p.windowWidth, p.windowHeight);
+
+    let currentThemeMode: 'light' | 'dark' = 'light';
+
+    function getTexture(src: string, forceDark?: boolean): HTMLImageElement {
+      let resolvedSrc = src;
+      const isDark = forceDark !== undefined ? forceDark : (currentThemeMode === 'dark');
+      if (isDark) {
+        if (resolvedSrc.startsWith('/objects/')) {
+          resolvedSrc = resolvedSrc.replace('/objects/', '/dark/objects/');
+        } else if (resolvedSrc.startsWith('/locations/')) {
+          resolvedSrc = resolvedSrc.replace('/locations/', '/dark/locations/');
+        } else if (resolvedSrc.includes('/objects/') && !resolvedSrc.includes('/dark/objects/')) {
+          resolvedSrc = resolvedSrc.replace('/objects/', '/dark/objects/');
+        } else if (resolvedSrc.includes('/locations/') && !resolvedSrc.includes('/dark/locations/')) {
+          resolvedSrc = resolvedSrc.replace('/locations/', '/dark/locations/');
+        }
+      }
+
+      if (textureCache.has(resolvedSrc)) {
+        return textureCache.get(resolvedSrc)!;
+      }
+      const img = new Image();
+      const proxiedUrl = (resolvedSrc.startsWith('/') || resolvedSrc.startsWith('http'))
+        ? `/api/image-proxy?url=${encodeURIComponent(resolvedSrc)}&q=35&w=480`
+        : resolvedSrc;
+      img.src = proxiedUrl;
+      textureCache.set(resolvedSrc, img);
+      return img;
+    }
+
     let playerGender: Gender = DEFAULT_GENDER;
 
     let playerCharacter: CharacterId = DEFAULT_CHARACTER;
     let playerAction: CharacterAction = 'idle';
     let attackTimer = 0;
 
-    let currentThemeMode: 'light' | 'dark' = 'light';
     let activeMoonSrc = '/locations/world/beige_moon.png';
     let isCombatActive = false;
     let controlMode: ControlMode = 'arrow';
@@ -851,39 +869,42 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
       });
     }
 
-    // Preload world assets exclusively from public/locations/world
+    // Preload light and dark mode world assets from public/locations/world and public/dark/
     if (typeof window !== 'undefined') {
       characterSpriteManager.preloadCharacter(DEFAULT_CHARACTER);
 
-      if (DEFAULT_ATMOSPHERE.background) getTexture(DEFAULT_ATMOSPHERE.background);
-      DEFAULT_ATMOSPHERE.clouds.forEach((c) => getTexture(c.src));
-      if (DEFAULT_ATMOSPHERE.floor?.image) getTexture(DEFAULT_ATMOSPHERE.floor.image);
+      [false, true].forEach((isDark) => {
+        if (DEFAULT_ATMOSPHERE.background) getTexture(DEFAULT_ATMOSPHERE.background, isDark);
+        DEFAULT_ATMOSPHERE.clouds.forEach((c) => getTexture(c.src, isDark));
+        if (DEFAULT_ATMOSPHERE.floor?.image) getTexture(DEFAULT_ATMOSPHERE.floor.image, isDark);
 
-      WORLD_LOCATIONS.forEach((loc) => {
-        if (loc.background) getTexture(loc.background);
-        loc.clouds?.forEach((c) => getTexture(c.src));
-        if (loc.floor?.image) getTexture(loc.floor.image);
-        loc.layers?.forEach((layerSrc) => getTexture(layerSrc));
+        WORLD_LOCATIONS.forEach((loc) => {
+          if (loc.background) getTexture(loc.background, isDark);
+          loc.clouds?.forEach((c) => getTexture(c.src, isDark));
+          if (loc.floor?.image) getTexture(loc.floor.image, isDark);
+          loc.layers?.forEach((layerSrc) => getTexture(layerSrc, isDark));
+        });
+
+        // Preload Night Mode assets
+        getTexture('/locations/world/bg_night.png', isDark);
+        getTexture('/locations/world/normal_moon.png', isDark);
+        getTexture('/locations/world/beige_moon.png', isDark);
+        getTexture('/locations/world/red_moon.png', isDark);
+
+        // Preload tree and bush decorations
+        WORLD_DECORATIONS.trees.forEach((t) => getTexture(t.src, isDark));
+        WORLD_DECORATIONS.bushes.forEach((b) => getTexture(b.src, isDark));
+
+        // Preload interactive work objects and home base
+        INTERACTIVE_OBJECTS.forEach((obj) => getTexture(obj.image, isDark));
+        getTexture('/objects/home.png', isDark);
+        getTexture('/objects/garage.png', isDark);
+        getTexture('/objects/mailbox.png', isDark);
+        getTexture('/objects/light_on.png', isDark);
+        getTexture('/objects/light_off.png', isDark);
       });
-
-      // Preload Night Mode assets
-      getTexture('/locations/world/bg_night.png');
-      getTexture('/locations/world/normal_moon.png');
-      getTexture('/locations/world/beige_moon.png');
-      getTexture('/locations/world/red_moon.png');
-
-      // Preload tree and bush decorations
-      WORLD_DECORATIONS.trees.forEach((t) => getTexture(t.src));
-      WORLD_DECORATIONS.bushes.forEach((b) => getTexture(b.src));
-
-      // Preload interactive work objects and home base
-      INTERACTIVE_OBJECTS.forEach((obj) => getTexture(obj.image));
-      getTexture('/objects/home.png');
-      getTexture('/objects/garage.png');
-      getTexture('/objects/mailbox.png');
-      getTexture('/objects/light_on.png');
-      getTexture('/objects/light_off.png');
     }
+
 
     function spawnDust(x: number, y: number, count: number = 2, maxSpeed: number = 1.5) {
       for (let i = 0; i < count; i++) {
@@ -1757,10 +1778,6 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         const drawY = GROUND_Y - targetH * groundSurfaceRatio;
 
 
-        if (currentThemeMode === 'dark') {
-          ctx.filter = 'brightness(0.65) saturate(0.90)';
-        }
-
         let layerX = Math.floor(viewLeft / layerW) * layerW;
         while (layerX < viewRight + layerW) {
           // Draw top ground crest with textured grass tufts and paths
@@ -1777,9 +1794,6 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
           layerX += layerW - 1;
         }
 
-        if (currentThemeMode === 'dark') {
-          ctx.filter = 'none';
-        }
       }
 
 
@@ -1877,19 +1891,12 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
         activeSlice.sort((a, b) => a.y - b.y);
 
         const ctx: CanvasRenderingContext2D = (p as any).drawingContext;
-        const isDark = currentThemeMode === 'dark';
-
-        if (isDark) {
-          ctx.filter = 'brightness(0.65) saturate(0.90)';
-        }
 
         for (let i = 0; i < count; i++) {
           const ent = activeSlice[i];
           if (ent.type === 10 || ent.type === 11) {
-            if (isDark) ctx.filter = 'none';
             if (ent.type === 10) renderPlayerCharacter();
             else if (activeEnemy) renderEnemyNinja(activeEnemy);
-            if (isDark) ctx.filter = 'brightness(0.65) saturate(0.90)';
           } else {
             switch (ent.type) {
               case 1: drawSingleTree(ALL_WORLD_TREES[ent.index]); break;
@@ -1905,9 +1912,6 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
           }
         }
 
-        if (isDark) {
-          ctx.filter = 'none';
-        }
       }
 
 
