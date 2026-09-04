@@ -67,11 +67,6 @@ function getP5Constructor(): Promise<any> {
   return p5Promise;
 }
 
-// Preload p5 in background immediately on browser load
-if (typeof window !== 'undefined') {
-  getP5Constructor().catch(() => {});
-}
-
 export const World2DCanvas: React.FC<World2DCanvasProps> = ({
   isModalActive = false,
   themeMode = 'dark',

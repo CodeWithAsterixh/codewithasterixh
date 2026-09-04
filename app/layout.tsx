@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Pixelify_Sans } from "next/font/google";
 import "./globals.css";
 import metaData from "@/data/meta.json";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -14,31 +14,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const pixelifySans = Pixelify_Sans({
+  variable: "--font-pixelify-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(metaData.site.url),
   title: {
-    default: "Asterixh | Software Engineer & Web Developer",
-    template: `%s | ${metaData.site.title}`,
+    default: metaData.site.title,
+    template: `%s | ${metaData.site.author}`,
   },
   description: metaData.site.description,
-  keywords: [
-    "Software Engineer",
-    "Website Developer",
-    "Fullstack Developer",
-    "Frontend Developer",
-    "Backend Developer",
-    "Next.js Developer",
-    "React Developer",
-    "TypeScript Developer",
-    "Node.js Developer",
-    "System Architecture",
-    "API Design",
-    "Custom Web Applications",
-    "Software Solutions",
-    "Lagos Developer",
-    "Nigeria Software Engineer",
-    ...metaData.site.keywords,
-  ],
+  applicationName: "Asterixh Portfolio",
+  authors: [{ name: metaData.site.author, url: metaData.site.url }],
+  creator: `${metaData.site.author} (${metaData.site.alias})`,
+  publisher: metaData.site.author,
+  category: "technology",
+  classification: "Software Engineering Portfolio",
+  keywords: metaData.site.keywords,
   alternates: {
     canonical: metaData.site.url,
   },
@@ -46,15 +41,25 @@ export const metadata: Metadata = {
     title: metaData.site.title,
     description: metaData.site.description,
     url: metaData.site.url,
-    siteName: "Asterixh",
-    type: "website",
-    images: [{ url: "/images/og-images/og-home.png", width: 1200, height: 630 }],
+    siteName: `${metaData.site.author} (${metaData.site.alias})`,
+    locale: "en_US",
+    type: "profile",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Paul Peter (Asterixh) - Fullstack Software Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: metaData.site.title,
     description: metaData.site.description,
-    images: ["/images/og-images/og-home.png"],
+    creator: "@paul_peter",
+    site: "@paul_peter",
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -67,9 +72,14 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: {
+    icon: "/icon",
+    apple: "/apple-icon",
+  },
+  manifest: "/manifest.webmanifest",
   other: {
-    "thumbnail": `${metaData.site.url}/icon`,
-  }
+    thumbnail: `${metaData.site.url}/icon`,
+  },
 };
 export default function RootLayout({
   children,
@@ -78,13 +88,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet" />
-      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} ${pixelifySans.variable} antialiased bg-background text-white`}
       >
         <JsonLd />
         <main id="scroll-container" className="relative isolate overflow-hidden h-dvh w-full">

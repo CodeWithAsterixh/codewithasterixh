@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -13,7 +12,7 @@
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
-  --font-pixelify: "Pixelify Sans", sans-serif;
+  --font-pixelify: var(--font-pixelify-sans), "Pixelify Sans", sans-serif;
 }
 
 :root {

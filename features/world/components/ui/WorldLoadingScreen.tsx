@@ -774,11 +774,11 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
               </motion.div>
 
               {/* PERSISTENT DOCKING ACTION BUTTONS (Start & Resume above, Socials below) */}
-              <div className="relative z-[60] flex flex-col items-center md:items-start gap-2 sm:gap-2.5 md:gap-3.5 mt-1.5 sm:mt-2 md:mt-4 w-full pointer-events-none">
+              <div className="relative z-[60] flex flex-col items-center md:items-start gap-1.5 sm:gap-2.5 md:gap-3.5 mt-1.5 sm:mt-2 md:mt-4 w-full max-w-full pointer-events-none">
                 {/* Row 1: ENTER WORLD & SEE RESUME */}
-                <div className="flex flex-wrap items-center justify-center md:justify-start gap-1.5 sm:gap-2 md:gap-2.5 pointer-events-none">
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-1.5 sm:gap-2 md:gap-2.5 max-w-full pointer-events-none">
                   {/* ENTER WORLD BUTTON */}
-                  <div ref={buttonAnchorRef} className="relative inline-block z-[60] pointer-events-none">
+                  <div ref={buttonAnchorRef} className="relative inline-block z-[60] pointer-events-none shrink-0">
                     <motion.button
                       onClick={isWorldCurrentlyLoading ? undefined : handlePlayClick}
                       disabled={isWorldCurrentlyLoading}
@@ -791,20 +791,20 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
                         boxShadow: buttonShadow,
                         transformPerspective: 1000,
                       }}
-                      className={`group relative z-[60] inline-flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 px-3 py-1.5 sm:px-5 sm:py-2.5 md:px-7 md:py-3.5 font-black text-[11px] sm:text-sm md:text-lg lg:text-xl tracking-wider md:tracking-widest uppercase border-2 md:border-4 border-[#3E2B1D] transition-colors select-none whitespace-nowrap pointer-events-auto ${isWorldCurrentlyLoading
+                      className={`group relative z-[60] inline-flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 px-2.5 py-1.5 sm:px-4 sm:py-2 md:px-7 md:py-3.5 font-black text-[10px] sm:text-xs md:text-base lg:text-lg tracking-wider md:tracking-widest uppercase border-2 md:border-4 border-[#3E2B1D] transition-colors select-none whitespace-nowrap pointer-events-auto ${isWorldCurrentlyLoading
                         ? 'bg-[#A89078] text-[#F4EADA]/90 cursor-wait'
                         : 'bg-[#8C6D53] hover:bg-[#72553E] active:bg-[#5C4033] text-[#F4EADA] cursor-pointer'
                         }`}
                       title={isWorldCurrentlyLoading ? 'Loading World...' : 'Enter World'}
                     >
                       {isWorldCurrentlyLoading ? (
-                        <span className="flex items-center gap-2 md:gap-2.5">
-                          <SpinnerIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#F4EADA] animate-spin" />
+                        <span className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5">
+                          <SpinnerIcon weight="duotone" className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#F4EADA] animate-spin" />
                           <span className="animate-pulse">LOADING WORLD...</span>
                         </span>
                       ) : (
                         <>
-                          <PlayIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#F4EADA] fill-current" />
+                          <PlayIcon weight="duotone" className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#F4EADA] fill-current" />
                           <span className="whitespace-nowrap">ENTER WORLD</span>
                         </>
                       )}
@@ -812,7 +812,7 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
                   </div>
 
                   {/* SEE RESUME BUTTON */}
-                  <div ref={resumeAnchorRef} className="relative inline-block z-[60] pointer-events-none">
+                  <div ref={resumeAnchorRef} className="relative inline-block z-[60] pointer-events-none shrink-0">
                     <motion.a
                       href="/resume/peterpaulresume.pdf"
                       target="_blank"
@@ -827,10 +827,10 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
                         boxShadow: resumeShadow,
                         transformPerspective: 1000,
                       }}
-                      className="group relative z-[60] inline-flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 sm:px-4 sm:py-2.5 md:px-5 md:py-3.5 bg-[#EADBCC] hover:bg-[#D8C2AA] text-[#3E2B1D] font-extrabold text-[10px] sm:text-xs md:text-sm lg:text-base tracking-wider uppercase border-2 md:border-4 border-[#3E2B1D] transition-colors cursor-pointer select-none whitespace-nowrap font-mono pointer-events-auto"
+                      className="group relative z-[60] inline-flex items-center gap-1 md:gap-2 px-2 py-1.5 sm:px-3.5 sm:py-2 md:px-5 md:py-3.5 bg-[#EADBCC] hover:bg-[#D8C2AA] text-[#3E2B1D] font-extrabold text-[9px] sm:text-[11px] md:text-sm lg:text-base tracking-wider uppercase border-2 md:border-4 border-[#3E2B1D] transition-colors cursor-pointer select-none whitespace-nowrap font-mono pointer-events-auto"
                       title="See Resume"
                     >
-                      <FilePdfIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#3E2B1D]" />
+                      <FilePdfIcon weight="duotone" className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#3E2B1D]" />
                       SEE RESUME
                     </motion.a>
                   </div>
@@ -845,7 +845,7 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
                       rotateZ: desktopSocialsRotateZ,
                       transformPerspective: 1000,
                     }}
-                    className="group relative z-[60] inline-flex items-center gap-1.5 sm:gap-2.5 pointer-events-none"
+                    className="group relative z-[60] inline-flex items-center gap-1 sm:gap-1.5 md:gap-2.5 pointer-events-none"
                   >
                     {profileData.socials.map((social, i) => (
                       <a
@@ -855,16 +855,16 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
                         rel="noopener noreferrer"
                         onClick={() => isSoundOn && playRetroSoundEffect('click')}
                         title={social.icon.toUpperCase()}
-                        className="p-1.5 sm:p-2 md:p-2.5 bg-[#EADBCC] hover:bg-[#D8C2AA] border border-[#3E2B1D] md:border-2 shadow-[2px_2px_0px_#3E2B1D] md:shadow-[3px_3px_0px_#3E2B1D] transition-transform active:translate-y-0.5 text-[#3E2B1D] flex items-center justify-center cursor-pointer pointer-events-auto"
+                        className="p-1 sm:p-1.5 md:p-2.5 bg-[#EADBCC] hover:bg-[#D8C2AA] border border-[#3E2B1D] md:border-2 shadow-[2px_2px_0px_#3E2B1D] md:shadow-[3px_3px_0px_#3E2B1D] transition-transform active:translate-y-0.5 text-[#3E2B1D] flex items-center justify-center cursor-pointer pointer-events-auto"
                       >
                         {social.icon === 'github' && (
-                          <GithubLogoIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5" />
+                          <GithubLogoIcon weight="duotone" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4.5 md:h-4.5" />
                         )}
                         {social.icon === 'linkedin' && (
-                          <LinkedinLogoIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5" />
+                          <LinkedinLogoIcon weight="duotone" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4.5 md:h-4.5" />
                         )}
                         {social.icon === 'twitter' && (
-                          <TwitterLogoIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5" />
+                          <TwitterLogoIcon weight="duotone" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4.5 md:h-4.5" />
                         )}
                       </a>
                     ))}
@@ -874,9 +874,9 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
                       href={`mailto:${profileData.email}`}
                       onClick={() => isSoundOn && playRetroSoundEffect('click')}
                       title="EMAIL"
-                      className="p-1.5 sm:p-2 md:p-2.5 bg-[#EADBCC] hover:bg-[#D8C2AA] border border-[#3E2B1D] md:border-2 shadow-[2px_2px_0px_#3E2B1D] md:shadow-[3px_3px_0px_#3E2B1D] transition-transform active:translate-y-0.5 text-[#3E2B1D] flex items-center justify-center cursor-pointer pointer-events-auto"
+                      className="p-1 sm:p-1.5 md:p-2.5 bg-[#EADBCC] hover:bg-[#D8C2AA] border border-[#3E2B1D] md:border-2 shadow-[2px_2px_0px_#3E2B1D] md:shadow-[3px_3px_0px_#3E2B1D] transition-transform active:translate-y-0.5 text-[#3E2B1D] flex items-center justify-center cursor-pointer pointer-events-auto"
                     >
-                      <EnvelopeSimpleIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5" />
+                      <EnvelopeSimpleIcon weight="duotone" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4.5 md:h-4.5" />
                     </a>
                   </motion.div>
                 </div>
@@ -1656,19 +1656,19 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
               </p>
 
               {/* Action Buttons Row with target slots for the animated ENTER WORLD and SEE RESUME buttons */}
-              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 mt-2 sm:mt-4 w-full">
+              <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-3 md:gap-4 mt-2 sm:mt-4 w-full max-w-full">
                 {/* Target Slot for the animated ENTER WORLD button */}
-                <div ref={thankYouButtonSlotRef} className="relative flex items-center pointer-events-none">
-                  <div className="invisible pointer-events-none inline-flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 px-3 py-1.5 sm:px-5 sm:py-2.5 md:px-7 md:py-3.5 font-black text-[11px] sm:text-sm md:text-lg lg:text-xl tracking-wider md:tracking-widest uppercase border-2 md:border-4 select-none whitespace-nowrap">
-                    <PlayIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                <div ref={thankYouButtonSlotRef} className="relative flex items-center pointer-events-none shrink-0">
+                  <div className="invisible pointer-events-none inline-flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 px-2.5 py-1.5 sm:px-4 sm:py-2 md:px-7 md:py-3.5 font-black text-[10px] sm:text-xs md:text-base lg:text-lg tracking-wider md:tracking-widest uppercase border-2 md:border-4 select-none whitespace-nowrap">
+                    <PlayIcon weight="duotone" className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
                     <span>ENTER WORLD</span>
                   </div>
                 </div>
 
                 {/* Target Slot for the animated SEE RESUME button */}
-                <div ref={thankYouResumeSlotRef} className="relative flex items-center pointer-events-none">
-                  <div className="invisible pointer-events-none inline-flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 sm:px-4 sm:py-2.5 md:px-5 md:py-3.5 font-extrabold text-[10px] sm:text-xs md:text-sm lg:text-base tracking-wider uppercase border-2 md:border-4 select-none whitespace-nowrap font-mono">
-                    <FilePdfIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                <div ref={thankYouResumeSlotRef} className="relative flex items-center pointer-events-none shrink-0">
+                  <div className="invisible pointer-events-none inline-flex items-center gap-1 md:gap-2 px-2 py-1.5 sm:px-3.5 sm:py-2 md:px-5 md:py-3.5 font-extrabold text-[9px] sm:text-[11px] md:text-sm lg:text-base tracking-wider uppercase border-2 md:border-4 select-none whitespace-nowrap font-mono">
+                    <FilePdfIcon weight="duotone" className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
                     <span>SEE RESUME</span>
                   </div>
                 </div>
@@ -1676,18 +1676,18 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
                 {/* CTA: Contact Me Button (Smooth scrolls back to Chapter 06 Contact Form) */}
                 <button
                   onClick={handleScrollToContact}
-                  className="px-3.5 py-1.5 sm:px-4 sm:py-2.5 md:px-6 md:py-3.5 bg-[#C84B31] hover:bg-[#B03E26] active:bg-[#96341F] text-[#F4EADA] font-black text-[11px] sm:text-sm md:text-lg lg:text-xl tracking-wider md:tracking-widest uppercase border-2 md:border-4 border-[#3E2B1D] shadow-[3px_3px_0px_#3E2B1D] md:shadow-[4px_4px_0px_#3E2B1D] transition-transform active:translate-y-0.5 cursor-pointer flex items-center gap-1.5 sm:gap-2 md:gap-3 font-pixelify"
+                  className="px-2.5 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-3.5 bg-[#C84B31] hover:bg-[#B03E26] active:bg-[#96341F] text-[#F4EADA] font-black text-[10px] sm:text-xs md:text-base lg:text-lg tracking-wider md:tracking-widest uppercase border-2 md:border-4 border-[#3E2B1D] shadow-[2px_2px_0px_#3E2B1D] md:shadow-[4px_4px_0px_#3E2B1D] transition-transform active:translate-y-0.5 cursor-pointer flex items-center gap-1 sm:gap-2 md:gap-3 font-pixelify whitespace-nowrap shrink-0"
                 >
-                  <EnvelopeSimpleIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#F4EADA]" />
+                  <EnvelopeSimpleIcon weight="duotone" className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-[#F4EADA]" />
                   <span>CONTACT ME</span>
                 </button>
 
                 {/* CTA: Scroll to Top Button */}
                 <button
                   onClick={handleScrollToTop}
-                  className="px-3 py-1.5 sm:px-4 sm:py-2.5 md:px-5 md:py-3.5 bg-[#E0CEBB] hover:bg-[#D4C0AB] active:bg-[#C8B29C] text-[#3E2B1D] font-extrabold text-[10px] sm:text-xs md:text-sm lg:text-base tracking-wider uppercase border-2 md:border-4 border-[#3E2B1D] shadow-[2px_2px_0px_#3E2B1D] md:shadow-[3px_3px_0px_#3E2B1D] transition-transform active:translate-y-0.5 cursor-pointer flex items-center gap-1.5 font-mono"
+                  className="px-2 py-1.5 sm:px-3.5 sm:py-2 md:px-5 md:py-3.5 bg-[#E0CEBB] hover:bg-[#D4C0AB] active:bg-[#C8B29C] text-[#3E2B1D] font-extrabold text-[9px] sm:text-[11px] md:text-sm lg:text-base tracking-wider uppercase border-2 md:border-4 border-[#3E2B1D] shadow-[2px_2px_0px_#3E2B1D] md:shadow-[3px_3px_0px_#3E2B1D] transition-transform active:translate-y-0.5 cursor-pointer flex items-center gap-1 sm:gap-1.5 font-mono whitespace-nowrap shrink-0"
                 >
-                  <ArrowFatUpIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3E2B1D]" />
+                  <ArrowFatUpIcon weight="duotone" className="w-3 h-3 sm:w-4 sm:h-4 text-[#3E2B1D]" />
                   <span>SCROLL TO TOP</span>
                 </button>
               </div>
@@ -1695,14 +1695,14 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
               {/* Target Slot for the animated Social Links */}
               <div className="flex items-center justify-center mt-2 sm:mt-3">
                 <div ref={thankYouSocialsSlotRef} className="relative flex items-center pointer-events-none">
-                  <div className="invisible pointer-events-none inline-flex items-center gap-1.5 sm:gap-2.5">
+                  <div className="invisible pointer-events-none inline-flex items-center gap-1 sm:gap-1.5 md:gap-2.5">
                     {profileData.socials.map((_, i) => (
-                      <div key={i} className="p-1.5 sm:p-2 md:p-2.5 border border-[#3E2B1D] md:border-2 shadow-[2px_2px_0px_#3E2B1D] md:shadow-[3px_3px_0px_#3E2B1D]">
-                        <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5" />
+                      <div key={i} className="p-1 sm:p-1.5 md:p-2.5 border border-[#3E2B1D] md:border-2 shadow-[2px_2px_0px_#3E2B1D] md:shadow-[3px_3px_0px_#3E2B1D]">
+                        <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4.5 md:h-4.5" />
                       </div>
                     ))}
-                    <div className="p-1.5 sm:p-2 md:p-2.5 border border-[#3E2B1D] md:border-2 shadow-[2px_2px_0px_#3E2B1D] md:shadow-[3px_3px_0px_#3E2B1D]">
-                      <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5" />
+                    <div className="p-1 sm:p-1.5 md:p-2.5 border border-[#3E2B1D] md:border-2 shadow-[2px_2px_0px_#3E2B1D] md:shadow-[3px_3px_0px_#3E2B1D]">
+                      <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4.5 md:h-4.5" />
                     </div>
                   </div>
                 </div>
@@ -1716,15 +1716,15 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
               opacity: footerOpacity,
               visibility: footerVisibility,
             }}
-            className="relative z-20 w-full max-w-6xl flex flex-col md:flex-row items-center md:justify-between gap-1.5 sm:gap-2 md:gap-0 text-[10px] sm:text-xs md:text-sm font-mono font-bold text-[#8C6D53] border-t border-[#3E2B1D]/20 md:border-t-2 pt-1 sm:pt-1.5 md:pt-3 pointer-events-none"
+            className="relative z-20 w-full max-w-6xl flex flex-row items-center justify-between gap-1 sm:gap-2 md:gap-0 text-[10px] sm:text-xs md:text-sm font-mono font-bold text-[#8C6D53] border-t border-[#3E2B1D]/20 md:border-t-2 pt-1 sm:pt-1.5 md:pt-3 pointer-events-none px-1 sm:px-2 md:px-0"
           >
             {/* Target Dock Slots for both ENTER WORLD and SEE RESUME buttons side-by-side */}
-            <div className="relative flex items-center justify-center md:justify-start gap-1.5 sm:gap-2 md:gap-2.5 pointer-events-none">
+            <div className="relative flex items-center justify-start gap-1 sm:gap-2 md:gap-2.5 pointer-events-none shrink-0">
               {/* Dock Slot 1: ENTER WORLD */}
               <div ref={targetSlotRef} className="relative flex items-center pointer-events-none">
                 {/* Invisible footprint matching exact docked dimensions of ENTER WORLD / LOADING WORLD */}
-                <div className="invisible pointer-events-none inline-flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 px-3 py-1.5 sm:px-6 sm:py-3 md:px-8 md:py-4 font-black text-[11px] sm:text-sm md:text-xl lg:text-2xl tracking-wider md:tracking-widest uppercase border-2 md:border-4 select-none whitespace-nowrap">
-                  <PlayIcon weight="duotone" className="w-3.5 h-3.5 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+                <div className="invisible pointer-events-none inline-flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 px-2.5 py-1.5 sm:px-4 sm:py-2 md:px-7 md:py-3.5 font-black text-[10px] sm:text-xs md:text-base lg:text-lg tracking-wider md:tracking-widest uppercase border-2 md:border-4 select-none whitespace-nowrap">
+                  <PlayIcon weight="duotone" className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
                   <span>{isWorldCurrentlyLoading ? 'LOADING WORLD...' : 'ENTER WORLD'}</span>
                 </div>
               </div>
@@ -1732,25 +1732,25 @@ export const WorldLoadingScreen: React.FC<WorldLoadingScreenProps> = ({
               {/* Dock Slot 2: SEE RESUME */}
               <div ref={resumeTargetSlotRef} className="relative flex items-center pointer-events-none">
                 {/* Invisible footprint matching exact docked dimensions of SEE RESUME */}
-                <div className="invisible pointer-events-none inline-flex items-center gap-1.5 md:gap-2.5 px-2.5 py-1.5 sm:px-5 sm:py-3 md:px-6 md:py-4 font-extrabold text-[10px] sm:text-xs md:text-sm lg:text-base tracking-wider uppercase border-2 md:border-4 select-none whitespace-nowrap font-mono">
-                  <FilePdfIcon weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                <div className="invisible pointer-events-none inline-flex items-center gap-1 md:gap-2 px-2 py-1.5 sm:px-3.5 sm:py-2 md:px-5 md:py-3.5 font-extrabold text-[9px] sm:text-[11px] md:text-sm lg:text-base tracking-wider uppercase border-2 md:border-4 select-none whitespace-nowrap font-mono">
+                  <FilePdfIcon weight="duotone" className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
                   <span>SEE RESUME</span>
                 </div>
               </div>
             </div>
 
             {/* Right Side: Dock Slot 3 for Social Links */}
-            <div className="flex items-center justify-center md:justify-end gap-2 sm:gap-4 md:gap-6 pointer-events-none">
+            <div className="flex items-center justify-end gap-1 sm:gap-1.5 md:gap-4 pointer-events-none shrink-0">
               {/* Dock Slot 3: Socials footprint matching exact dimensions of the animated social buttons */}
               <div ref={desktopSocialsTargetRef} className="relative flex items-center pointer-events-none">
-                <div className="invisible pointer-events-none inline-flex items-center gap-1.5 sm:gap-2.5">
+                <div className="invisible pointer-events-none inline-flex items-center gap-1 sm:gap-1.5 md:gap-2.5">
                   {profileData.socials.map((_, i) => (
-                    <div key={i} className="p-1.5 sm:p-2 md:p-2.5 border border-[#3E2B1D] md:border-2">
-                      <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5" />
+                    <div key={i} className="p-1 sm:p-1.5 md:p-2.5 border border-[#3E2B1D] md:border-2">
+                      <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4.5 md:h-4.5" />
                     </div>
                   ))}
-                  <div className="p-1.5 sm:p-2 md:p-2.5 border border-[#3E2B1D] md:border-2">
-                    <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5" />
+                  <div className="p-1 sm:p-1.5 md:p-2.5 border border-[#3E2B1D] md:border-2">
+                    <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4.5 md:h-4.5" />
                   </div>
                 </div>
               </div>

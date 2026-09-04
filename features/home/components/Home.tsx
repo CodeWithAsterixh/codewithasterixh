@@ -8,16 +8,40 @@ import { MapLocationEntry, getActiveMapLocation, getNearbyStationKiosk } from "@
 import { InteractiveWorldObject, getNearbyWorldObject } from "@/features/world/data/mapObjects";
 
 import { WorldLoadingScreen } from "@/features/world/components/ui/WorldLoadingScreen";
-import { CharacterSelectorHUD } from "@/features/world/components/ui/CharacterSelectorHUD";
-import { CharacterOnboardingScreen } from "@/features/world/components/ui/CharacterOnboardingScreen";
-import { WorldPauseMapModal } from "@/features/world/components/ui/WorldPauseMapModal";
-import { PortfolioStationModal } from "@/features/world/components/ui/PortfolioStationModal";
-import { BookModal } from "@/features/world/components/ui/BookModal";
-import { InfoTilesetModal } from "@/features/world/components/ui/InfoTilesetModal";
 import { PhysicsTelemetry, CurrentBiomeInfo } from "@/features/world/engine/sketch2d";
 
 const World2DCanvas = dynamic(
   () => import("@/features/world/components/World2DCanvas").then((mod) => mod.World2DCanvas),
+  { ssr: false }
+);
+
+const CharacterSelectorHUD = dynamic(
+  () => import("@/features/world/components/ui/CharacterSelectorHUD").then((mod) => mod.CharacterSelectorHUD),
+  { ssr: false }
+);
+
+const CharacterOnboardingScreen = dynamic(
+  () => import("@/features/world/components/ui/CharacterOnboardingScreen").then((mod) => mod.CharacterOnboardingScreen),
+  { ssr: false }
+);
+
+const WorldPauseMapModal = dynamic(
+  () => import("@/features/world/components/ui/WorldPauseMapModal").then((mod) => mod.WorldPauseMapModal),
+  { ssr: false }
+);
+
+const PortfolioStationModal = dynamic(
+  () => import("@/features/world/components/ui/PortfolioStationModal").then((mod) => mod.PortfolioStationModal),
+  { ssr: false }
+);
+
+const BookModal = dynamic(
+  () => import("@/features/world/components/ui/BookModal").then((mod) => mod.BookModal),
+  { ssr: false }
+);
+
+const InfoTilesetModal = dynamic(
+  () => import("@/features/world/components/ui/InfoTilesetModal").then((mod) => mod.InfoTilesetModal),
   { ssr: false }
 );
 

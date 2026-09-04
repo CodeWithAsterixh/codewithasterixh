@@ -1,20 +1,48 @@
 {
   "site": {
-    "title": "Asterixh | Software Engineer & Web Developer",
-    "description": "Asterixh (Paul Peter) is a Software Engineer and Web Developer building functional software systems and responsive web applications with Next.js, React, and TypeScript.",
-    "keywords": [
-      "Asterixh", "Paul Peter", "Software Engineer", "Web Developer", "Next.js Developer", "React Developer",
-      "TypeScript Developer", "Backend Engineer", "Frontend Developer", "System Architecture", "Web Applications",
-      "Nigeria Developer", "Lagos Developer"
-    ],
+    "title": "Paul Peter (Asterixh) | Fullstack Software Engineer",
+    "description": "Explore full-stack web applications, real-time backend systems, and frontend interfaces built with Next.js, React, TypeScript, and Node.js by Paul Peter (Asterixh).",
+    "shortTitle": "Asterixh Portfolio",
+    "tagline": "Fullstack Software Engineer building reliable web systems and real-time applications.",
     "url": "https://asterixh.vercel.app",
-    "logo": "Asterixh",
-    "copyright": "Asterixh"
+    "author": "Paul Peter",
+    "handle": "@asterixh",
+    "alias": "Asterixh",
+    "email": "peterpaultolulope@gmail.com",
+    "locale": "en_US",
+    "type": "website",
+    "themeColor": "#0F0F0F",
+    "keywords": [
+      "Paul Peter",
+      "Asterixh",
+      "CodeWithAsterixh",
+      "Fullstack Software Engineer",
+      "Fullstack Web Developer",
+      "Frontend Engineer",
+      "Backend Developer",
+      "Next.js Developer",
+      "React Engineer",
+      "TypeScript Developer",
+      "Node.js Engineer",
+      "Tailwind CSS Developer",
+      "Real-Time Web Applications",
+      "WebSocket Applications",
+      "REST API Design",
+      "System Architecture",
+      "Database Modeling",
+      "PostgreSQL Developer",
+      "MongoDB Developer",
+      "Interactive Web Portfolios",
+      "Software Engineer Lagos",
+      "Software Developer Nigeria",
+      "Freelance Web Developer",
+      "Web Performance Optimization"
+    ],
+    "copyright": "Paul Peter (Asterixh)",
+    "logo": "https://asterixh.vercel.app/icon"
   },
   "navigation": [
     { "label": "Home", "href": "/" },
-    { "label": "About", "href": "/about" },
-    { "label": "Works", "href": "/works" },
-    { "label": "Contact", "href": "/contact" }
+    { "label": "Resume", "href": "/resume" }
   ]
 }
