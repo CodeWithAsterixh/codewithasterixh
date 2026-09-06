@@ -7,7 +7,7 @@ import profileData from '@/data/profile.json';
 
 interface FooterDockProps {
   opacity: MotionValue<number>;
-  visibility: MotionValue<string>;
+  visibility: MotionValue<any>;
   targetSlotRef: React.RefObject<HTMLDivElement | null>;
   resumeTargetSlotRef: React.RefObject<HTMLDivElement | null>;
   desktopSocialsTargetRef: React.RefObject<HTMLDivElement | null>;

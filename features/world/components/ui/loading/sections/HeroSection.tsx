@@ -7,8 +7,8 @@ import profileData from '@/data/profile.json';
 interface HeroSectionProps {
   opacity: MotionValue<number>;
   y: MotionValue<number>;
-  pointerEvents: MotionValue<string>;
-  visibility: MotionValue<string>;
+  pointerEvents: MotionValue<any>;
+  visibility: MotionValue<any>;
   imgSrc: string;
   onImgError: () => void;
 }

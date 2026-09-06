@@ -1,65 +1,40 @@
+import {
+  LocationCategory,
+  LocationState,
+  PhysicsAttributes,
+  PhysicsWorldConfig,
+  Particle,
+  PlayerState,
+} from './types/entityTypes';
+
+export type {
+  LocationCategory,
+  LocationState,
+  PhysicsAttributes,
+  PhysicsWorldConfig,
+  Particle,
+  PlayerState,
+};
+
 export type Gender = 'male' | 'female';
 export type ControlMode = 'arrow' | 'joystick';
 
 export type VirtualInputAction =
-  | 'left_start'
-  | 'left_stop'
-  | 'right_start'
-  | 'right_stop'
-  | 'up_start'
-  | 'up_stop'
-  | 'down_start'
-  | 'down_stop'
-  | 'sprint_start'
-  | 'sprint_stop'
-  | 'sprint_toggle'
-  | 'joystick_vector'
-  | 'jump'
-  | 'jump_start'
-  | 'jump_stop'
-  | 'attack'
-  | 'attack1'
-  | 'attack2'
-  | 'attack3'
-  | 'attack4'
-  | 'stop';
+  | 'left_start' | 'left_stop' | 'right_start' | 'right_stop'
+  | 'up_start' | 'up_stop' | 'down_start' | 'down_stop'
+  | 'sprint_start' | 'sprint_stop' | 'sprint_toggle' | 'joystick_vector'
+  | 'jump' | 'jump_start' | 'jump_stop'
+  | 'attack' | 'attack1' | 'attack2' | 'attack3' | 'attack4' | 'stop';
 
 export type MaleCharacter = 'Fighter' | 'Samurai' | 'Shinobi' | 'Xavier';
 export type FemaleCharacter = 'Countess_claire' | 'bridget';
 export type CharacterId = MaleCharacter | FemaleCharacter;
-
 export type NinjaType = 'Kunoichi' | 'Ninja_Monk' | 'Ninja_Peasant';
 
 export type CharacterAction =
-  | 'idle'
-  | 'walk'
-  | 'run'
-  | 'jump'
-  | 'attack'
-  | 'attack1'
-  | 'attack2'
-  | 'attack3'
-  | 'attack4'
-  | 'shield'
-  | 'dead'
-  | 'hurt';
-
-export type LocationCategory = 'city' | 'nature';
-
-export interface LocationState {
-  category: LocationCategory;
-  variantId: number;
-}
-
-export interface PhysicsAttributes {
-  mass: number;
-  walkForce: number;
-  runForce: number;
-  jumpImpulse: number;
-  maxJumpHeight?: number; // Customizable max jump height in units/meters (e.g. 30m)
-  restitution: number;
-  dragCoefficient: number;
-}
+  | 'idle' | 'walk' | 'run' | 'jump'
+  | 'attack' | 'attack1' | 'attack2' | 'attack3' | 'attack4'
+  | 'shield' | 'dead' | 'hurt';
 
 export interface CharacterDef {
   id: CharacterId;
@@ -68,14 +43,6 @@ export interface CharacterDef {
   folderPath: string;
   actions: Record<CharacterAction, string>;
   physics: PhysicsAttributes;
-}
-
-export interface PhysicsWorldConfig {
-  gravity: number;
-  airDensity: number;
-  frictionGround: number;
-  terminalVelocity: number;
-  groundY: number;
 }
 
 export interface ProjectData {
@@ -117,26 +84,3 @@ export interface WorldStation {
   badge?: string;
   data?: ProjectData;
 }
-
-export interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;
-  alpha: number;
-  color: string;
-  life: number;
-  maxLife: number;
-}
-
-export interface PlayerState {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  facing: 'left' | 'right' | 'up' | 'down';
-  action: CharacterAction;
-}
-
-

@@ -1,120 +1,62 @@
-import { NextRequest, NextResponse } from "next/server";
-import { contactFormSchema } from "@/features/email/schema/contact";
-import { formatConfirmationMessage } from "@/features/email/lib/formatMail/confirmation";
-import { formatContactMessage } from "@/features/email/lib/formatMail/contact";
-import { sendMail } from "@/features/email/lib/sendMail";
-import { ZodError } from "zod";
-
-// Simple in-memory rate limiting (per IP, windowed count)
-const rateLimitMap = new Map<string, { windowStart: number; count: number }>();
-const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
-const MAX_REQUESTS = 3; // 3 requests per minute
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip);
-  if (!entry) {
-    rateLimitMap.set(ip, { windowStart: now, count: 1 });
-    return false;
-  }
-  const elapsed = now - entry.windowStart;
-  if (elapsed > RATE_LIMIT_WINDOW) {
-    rateLimitMap.set(ip, { windowStart: now, count: 1 });
-    return false;
-  }
-  entry.count += 1;
-  rateLimitMap.set(ip, entry);
-  return entry.count > MAX_REQUESTS;
-}
+import { NextRequest, NextResponse } from 'next/server';
+import { contactFormSchema } from '@/features/email/schema/contact';
+import { formatConfirmationMessage } from '@/features/email/lib/formatMail/confirmation';
+import { formatContactMessage } from '@/features/email/lib/formatMail/contact';
+import { sendMail } from '@/features/email/lib/sendMail';
+import { isRateLimited } from '@/features/email/lib/rateLimit';
+import { ZodError } from 'zod';
 
 export async function POST(request: NextRequest) {
   try {
-    // Rate Limiting
-    const ipHeader = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip");
-    const ip = ipHeader ? ipHeader.split(",")[0].trim() : "unknown";
+    const ipHeader = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip');
+    const ip = ipHeader ? ipHeader.split(',')[0].trim() : 'unknown';
     if (isRateLimited(ip)) {
-      return NextResponse.json(
-        { error: "Too many requests. Please try again later." },
-        { status: 429 }
-      );
+      return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 });
     }
 
-    // Parse request body
     const body = await request.json();
-
-    // Validate with Zod schema
     let validatedData;
     try {
       validatedData = contactFormSchema.parse(body);
     } catch (err) {
       if (err instanceof ZodError) {
         const fieldErrors: Record<string, string> = {};
-        err.issues.forEach((error) => {
-          const path = error.path[0] as string;
-          fieldErrors[path] = error.message;
-        });
-        return NextResponse.json(
-          { error: "Validation failed", fields: fieldErrors },
-          { status: 400 }
-        );
+        err.issues.forEach((error) => { fieldErrors[error.path[0] as string] = error.message; });
+        return NextResponse.json({ error: 'Validation failed', fields: fieldErrors }, { status: 400 });
       }
       throw err;
     }
 
     const { fullName, email, subject, message } = validatedData;
-
     const businessEmail = process.env.FROM_EMAIL;
     if (!businessEmail) {
-      return NextResponse.json(
-        { error: "Mail configuration error: FROM_EMAIL is not set." },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: 'Mail configuration error: FROM_EMAIL is not set.' }, { status: 500 });
     }
 
-    const mailSubject = `New Contact: ${subject} - from ${fullName}`;
-    const htmlMessage = formatContactMessage({ fullName, email, message });
-
-    // Send notification to business
     const businessMail = await sendMail({
-      subject: mailSubject,
-      html: htmlMessage,
+      subject: `New Contact: ${subject} - from ${fullName}`,
+      html: formatContactMessage({ fullName, email, message }),
       mailTo: businessEmail,
       replyTo: email,
     });
 
-    // Send confirmation to user
     const userMail = await sendMail({
-      subject: "We received your message, Asterixh",
-      html: formatConfirmationMessage({
-        name: fullName,
-      }),
+      subject: 'We received your message, Asterixh',
+      html: formatConfirmationMessage({ name: fullName }),
       mailTo: email,
     });
 
     if (!businessMail.ok && !userMail.ok) {
-       // If both fail, report error
-       console.error("Mail send error:", businessMail.error, userMail.error);
-       return NextResponse.json(
-        { error: "Failed to send emails" },
-        { status: 500 }
-      );
+      console.error('Mail send error:', businessMail.error, userMail.error);
+      return NextResponse.json({ error: 'Failed to send emails' }, { status: 500 });
     }
 
-    // Even if one fails, we can consider it a partial success or just success for the user
-    // Ideally we want both to succeed.
-
     return NextResponse.json(
-      {
-        success: true,
-        message: "Your message has been sent! We'll get back to you within 24 hours.",
-      },
+      { success: true, message: "Your message has been sent! We'll get back to you within 24 hours." },
       { status: 200 }
     );
   } catch (error) {
-    console.error("API Error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    console.error('API Error:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

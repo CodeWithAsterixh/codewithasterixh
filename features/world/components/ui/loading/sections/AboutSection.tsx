@@ -9,8 +9,8 @@ interface AboutSectionProps {
   y: MotionValue<number>;
   rotateX: MotionValue<number>;
   scale: MotionValue<number>;
-  pointerEvents: MotionValue<string>;
-  visibility: MotionValue<string>;
+  pointerEvents: MotionValue<any>;
+  visibility: MotionValue<any>;
   charCount: number;
 }
 

@@ -10,8 +10,8 @@ interface ServicesSectionProps {
   y: MotionValue<number>;
   scale: MotionValue<number>;
   rotateX: MotionValue<number>;
-  pointerEvents: MotionValue<string>;
-  visibility: MotionValue<string>;
+  pointerEvents: MotionValue<any>;
+  visibility: MotionValue<any>;
   activeServiceIdx: number;
   onSelectService: (idx: number) => void;
 }

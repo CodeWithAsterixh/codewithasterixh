@@ -7,7 +7,7 @@ import profileData from '@/data/profile.json';
 interface LeftAvatarFrameProps {
   opacity: MotionValue<number>;
   scale: MotionValue<number>;
-  visibility: MotionValue<string>;
+  visibility: MotionValue<any>;
   imgSrc: string;
   onImgError: () => void;
 }

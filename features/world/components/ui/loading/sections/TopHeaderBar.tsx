@@ -7,7 +7,7 @@ import profileData from '@/data/profile.json';
 
 interface TopHeaderBarProps {
   opacity: MotionValue<number>;
-  visibility: MotionValue<string>;
+  visibility: MotionValue<any>;
   isSoundOn: boolean;
   onToggleSound: () => void;
 }
