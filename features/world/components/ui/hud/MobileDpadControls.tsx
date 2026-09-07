@@ -20,27 +20,39 @@ export const MobileDpadControls: React.FC<MobileDpadControlsProps> = ({ handleVi
     });
   };
 
-  const handleDir = (action: VirtualInputAction) => (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    handleVirtualInput(action);
-  };
+  const createDirHandlers = (startAction: VirtualInputAction, stopAction: VirtualInputAction) => ({
+    onPointerDown: (e: React.SyntheticEvent) => {
+      e.preventDefault();
+      handleVirtualInput(startAction);
+    },
+    onPointerUp: (e: React.SyntheticEvent) => {
+      e.preventDefault();
+      handleVirtualInput(stopAction);
+    },
+    onPointerLeave: (e: React.SyntheticEvent) => {
+      e.preventDefault();
+      handleVirtualInput(stopAction);
+    },
+    onPointerCancel: (e: React.SyntheticEvent) => {
+      e.preventDefault();
+      handleVirtualInput(stopAction);
+    },
+  });
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 select-none touch-none">
       <div className="relative w-32 h-32 bg-[#0F141F] border-4 border-[#384252] shadow-[4px_4px_0px_rgba(0,0,0,1)] p-1.5 grid grid-cols-3 grid-rows-3 gap-1 touch-none select-none">
         <div />
         <button
-          onPointerDown={handleDir('up_start')}
-          onPointerUp={handleDir('up_stop')}
-          className="w-full h-full bg-[#2C3440] hover:bg-[#374151] text-white font-bold flex items-center justify-center border border-black cursor-pointer"
+          {...createDirHandlers('up_start', 'up_stop')}
+          className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#4B5563] text-white font-bold flex items-center justify-center border border-black cursor-pointer"
         >
           <ArrowUpIcon size={18} weight="bold" />
         </button>
         <div />
         <button
-          onPointerDown={handleDir('left_start')}
-          onPointerUp={handleDir('left_stop')}
-          className="w-full h-full bg-[#2C3440] hover:bg-[#374151] text-white font-bold flex items-center justify-center border border-black cursor-pointer"
+          {...createDirHandlers('left_start', 'left_stop')}
+          className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#4B5563] text-white font-bold flex items-center justify-center border border-black cursor-pointer"
         >
           <ArrowLeftIcon size={18} weight="bold" />
         </button>
@@ -48,17 +60,15 @@ export const MobileDpadControls: React.FC<MobileDpadControlsProps> = ({ handleVi
           <div className="w-2 h-2 bg-[#D9A441]" />
         </div>
         <button
-          onPointerDown={handleDir('right_start')}
-          onPointerUp={handleDir('right_stop')}
-          className="w-full h-full bg-[#2C3440] hover:bg-[#374151] text-white font-bold flex items-center justify-center border border-black cursor-pointer"
+          {...createDirHandlers('right_start', 'right_stop')}
+          className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#4B5563] text-white font-bold flex items-center justify-center border border-black cursor-pointer"
         >
           <ArrowRightIcon size={18} weight="bold" />
         </button>
         <div />
         <button
-          onPointerDown={handleDir('down_start')}
-          onPointerUp={handleDir('down_stop')}
-          className="w-full h-full bg-[#2C3440] hover:bg-[#374151] text-white font-bold flex items-center justify-center border border-black cursor-pointer"
+          {...createDirHandlers('down_start', 'down_stop')}
+          className="w-full h-full bg-[#2C3440] hover:bg-[#374151] active:bg-[#4B5563] text-white font-bold flex items-center justify-center border border-black cursor-pointer"
         >
           <ArrowDownIcon size={18} weight="bold" />
         </button>

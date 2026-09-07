@@ -94,13 +94,11 @@ export class WorldEngine {
     if (vec.dx !== 0 || vec.dy !== 0 || this.input.pendingAction || this.input.isJumping()) this.camera.cameraFollows = true;
     this.player.move(vec.dx, vec.dy, this.input.isSprinting());
 
-    if (this.input.pendingAction === 'jump' || this.input.isJumping()) {
+    if (this.input.isJumping() && this.player.jumpOffset === 0) {
       this.player.triggerJump();
-      this.input.pendingAction = null;
-    } else if (this.input.pendingAction && ['attack1', 'attack2', 'attack3', 'attack4'].includes(this.input.pendingAction)) {
-      this.player.triggerAttack(this.input.pendingAction as any);
-      this.input.pendingAction = null;
     }
+    const atk = this.input.getAttackAction();
+    if (atk) this.player.triggerAttack(atk);
   }
 
   private dispatchCallbacks(): void {

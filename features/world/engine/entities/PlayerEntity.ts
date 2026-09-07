@@ -54,8 +54,7 @@ export class PlayerEntity {
   public move(dx: number, dy: number, isSprinting: boolean): void {
     this.isSprinting = isSprinting;
     if (dx !== 0) this.facing = dx > 0 ? 'right' : 'left';
-    const maxX = isSprinting ? 11.0 : 6.8;
-    const maxY = isSprinting ? 5.5 : 3.6;
+    const maxX = isSprinting ? 11.0 : 6.8, maxY = isSprinting ? 5.5 : 3.6;
     if (dx !== 0) {
       if ((dx > 0 && this.body.vx < 0) || (dx < 0 && this.body.vx > 0)) this.body.vx = 0;
       this.body.vx = Math.max(-maxX, Math.min(maxX, this.body.vx + dx * (isSprinting ? 3.5 : 2.4)));
