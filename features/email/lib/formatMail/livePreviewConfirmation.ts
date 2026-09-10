@@ -36,20 +36,20 @@ export function formatLivePreviewConfirmation({
     <body>
       <div class="container">
         <div class="header">
-          <h1>Live Preview Request Received</h1>
-          <p>Asterixh | Project Preview Request</p>
+          <h1>Request Received</h1>
+          <p>Asterixh | Project Source Code Request</p>
         </div>
 
         <div class="content">
           <p>Hi there,</p>
-          <p>Thanks for requesting a live preview for <strong>${escapeHtml(projectTitle)}</strong>.</p>
+          <p>Thanks for your interest in the source code for <strong>${escapeHtml(projectTitle)}</strong>.</p>
 
           <div class="highlight">
-            I have received your request and I will reach back to you within <strong>2 days</strong> with the live preview link.
+            I have received your request and I will reach back to you within <strong>2 days</strong> with details about the repository.
           </div>
 
           <div class="privacy">
-            <strong>Privacy note:</strong> your email will only be contacted once for this live preview request. This is not a newsletter, and you will not receive recurring emails after that.
+            <strong>Privacy note:</strong> your email will only be contacted once for this request. This is not a newsletter, and you will not receive recurring emails after that.
           </div>
         </div>
 

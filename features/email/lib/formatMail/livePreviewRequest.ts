@@ -45,8 +45,8 @@ export function formatLivePreviewRequestMessage({
     <body>
       <div class="container">
         <div class="header">
-          <h1>Live Preview Requested</h1>
-          <p>A visitor requested access to a project preview</p>
+          <h1>Source Code Access Requested</h1>
+          <p>A visitor requested access to a project repository</p>
         </div>
 
         <div class="content">
@@ -69,7 +69,7 @@ export function formatLivePreviewRequestMessage({
             liveUrl
               ? `
           <div class="field">
-            <span class="label">Stored Live URL</span>
+            <span class="label">Repository URL</span>
             <div class="value"><a href="${escapeHtml(liveUrl)}" class="link">${escapeHtml(liveUrl)}</a></div>
           </div>
           `
@@ -77,7 +77,7 @@ export function formatLivePreviewRequestMessage({
           }
 
           <div class="note">
-            The visitor has already received an automatic acknowledgement telling them you will reply within 2 days with the live preview link. Their email should only be used for this request.
+            The visitor has already received an automatic acknowledgement telling them you will reply within 2 days with repository details. Their email should only be used for this request.
           </div>
         </div>
 

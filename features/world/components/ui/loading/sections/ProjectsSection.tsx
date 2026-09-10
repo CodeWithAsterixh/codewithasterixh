@@ -51,15 +51,15 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
             <span className="hidden sm:inline bg-[#F4EADA] px-1.5 py-0.5 border border-[#3E2B1D] text-[9px] font-bold">
               {currentProject.category.toUpperCase()}
             </span>
-            {currentProject.url && (
+            {(currentProject as any).github && (
               <a
-                href={currentProject.url}
+                href={(currentProject as any).github}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={onLinkClick}
                 className="px-1.5 py-0.5 bg-[#C84B31] hover:bg-[#A8321D] text-[#F4EADA] border border-[#3E2B1D] shadow-[1.5px_1.5px_0px_#3E2B1D] flex items-center gap-1 text-[8px] sm:text-[10px] cursor-pointer"
               >
-                <span>LIVE DEMO</span>
+                <span>VIEW ON GITHUB</span>
                 <ArrowSquareOutIcon weight="duotone" className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               </a>
             )}

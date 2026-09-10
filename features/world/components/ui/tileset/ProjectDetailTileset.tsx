@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowSquareOutIcon, ArrowRightIcon, CodeIcon } from '@phosphor-icons/react';
+import { ArrowSquareOutIcon, CodeIcon } from '@phosphor-icons/react';
 import projectsData from '@/data/projects.json';
 
 interface ProjectDetailTilesetProps {
@@ -29,21 +29,6 @@ export const ProjectDetailTileset: React.FC<ProjectDetailTilesetProps> = ({ proj
         </div>
 
         <div className="flex flex-col gap-2 w-full">
-          {project.url && (
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                clipPath:
-                  'polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px))',
-              }}
-              className="w-full py-2 px-3 bg-[#D9A441] hover:bg-[#E5B152] text-[#1A1D24] font-black uppercase text-xs flex items-center justify-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px"
-            >
-              <span>Live Demo</span>
-              <ArrowSquareOutIcon size={14} weight="bold" />
-            </a>
-          )}
           {(project as any).github && (
             <a
               href={(project as any).github}
@@ -55,8 +40,8 @@ export const ProjectDetailTileset: React.FC<ProjectDetailTilesetProps> = ({ proj
               }}
               className="w-full py-2 px-3 bg-[#2C3440] hover:bg-[#374151] text-white font-black uppercase text-xs flex items-center justify-center gap-1.5 border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px"
             >
-              <span>View Code</span>
-              <ArrowRightIcon size={13} weight="bold" />
+              <span>View on GitHub</span>
+              <ArrowSquareOutIcon size={14} weight="bold" />
             </a>
           )}
         </div>

@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        message: 'Request received. I will reach back to you within 2 days with the live preview link. Your email will only be used once for this request.',
+        message: 'Request received. I will reach back to you within 2 days with details about the source code. Your email will only be used once for this request.',
       },
       { status: 200 }
     );

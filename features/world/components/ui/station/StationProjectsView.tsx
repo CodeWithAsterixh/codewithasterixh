@@ -33,7 +33,7 @@ export const StationProjectsView: React.FC = () => {
                   {p.tags[0] || 'Project'}
                 </span>
                 <a
-                  href={p.url ?? undefined}
+                  href={(p as any).github ?? undefined}
                   target="_blank"
                   rel="noreferrer"
                   className="text-[#94a3b8] hover:text-white"

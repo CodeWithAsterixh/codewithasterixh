@@ -102,7 +102,7 @@ export function buildProjectsSchema(personId: string) {
         '@type': 'WebApplication',
         name: proj.title,
         description: proj.excerpt,
-        url: proj.url,
+        url: (proj as any).github || proj.url,
         applicationCategory: 'WebApplication',
         browserRequirements: 'Requires modern web browser with JavaScript enabled',
         creator: { '@id': personId },

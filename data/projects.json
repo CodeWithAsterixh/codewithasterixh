@@ -1,4 +1,36 @@
 [
+    {
+    "title": "UNIFIVE: Browser Pixel Game Studio",
+    "category": "Software Engineering",
+    "excerpt": "UNIFIVE is an in-browser editor for building 2D pixel games without installing any tools. The workspace supports both side-scrolling platformer and top-down perspective scenes, a visual block programming system, sprite animation with pose sheets, a single-file compressed project format, runtime play mode with mobile controls, and built-in sound generation.",
+    "thumbnail": null,
+    "tags": [
+      "Game Tools",
+      "No-Code Editor",
+      "Pixel Art"
+    ],
+    "tools": [
+      "Vanilla JavaScript",
+      "p5.js",
+      "HTML5 Canvas",
+      "Web Audio API",
+      "Compression Streams",
+      "Web Workers",
+      "Phosphor Icons",
+      "Google Fonts"
+    ],
+    "url": "https://github.com/CodeWithAsterixh/unifive",
+    "github": "https://github.com/CodeWithAsterixh/unifive",
+    "slug": "unifive-browser-pixel-game-studio",
+    "problem": "Most entry-level game tools require downloads, accounts, or lengthy setup before a learner can start building. Those that run in the browser usually lock projects into a platform or lack support for multiple game styles.",
+    "goal": "Build a fully client-side game editor that works directly in the browser with no installation, no build step, and no server dependency, while covering both platformer and top-down game styles.",
+    "architecture": "A static HTML shell hosts a p5.js canvas workspace with a split UI for scene editing, block code, and properties. Separate module trees handle scene rendering, block interpretation, sound synthesis, animation, and project serialization. A background worker compresses saved scenes into a single portable file.",
+    "challenges": "Running a full scene editor, code runtime, and animation system purely client-side while keeping scenes responsive and saved projects small enough to share as a single file.",
+    "solutions": "Isolated scene stores keep each perspective's state separate, canvas operations batch through a common draw loop, compressed streams handle save and load without a backend, and a step-threaded interpreter keeps block scripts from blocking the editor.",
+    "tradeOffs": "Running everything client-side simplifies deployment and privacy, but performance for very large scenes depends entirely on the visitor's browser and device.",
+    "lessons": "Creative editors benefit when rendering, scripting, and asset loading each have clear boundaries and communicate through small shared interfaces.",
+    "outcome": "A zero-dependency browser workspace for building, playing, and sharing pixel scenes with support for multiple camera perspectives, block-driven logic, animated sprites, and single-file project exports."
+  },
   {
     "title": "Quizeen: Secure Quiz Platform",
     "category": "Software Engineering",
@@ -19,7 +51,8 @@
       "Zod",
       "Jest"
     ],
-    "url": "https://quizeen.vercel.app",
+    "url": "https://github.com/CodeWithAsterixh/quizeen",
+    "github": "https://github.com/CodeWithAsterixh/quizeen",
     "slug": "quizeen-interactive-quiz-platform",
     "problem": "Most quiz experiences either feel clunky or fail to protect session state and account security properly. The product needed to support both learners taking quizzes and admins managing quiz content without sacrificing responsiveness.",
     "goal": "Build a modern quiz application with secure authentication, structured quiz state management, and clear result tracking for both learners and administrators.",
@@ -29,37 +62,6 @@
     "tradeOffs": "Using one Next.js codebase for UI and backend APIs simplifies deployment, but tightly couples frontend and server-side concerns.",
     "lessons": "Quiz products need strong state boundaries: auth, timing, answers, and result persistence all benefit from explicit ownership.",
     "outcome": "A production-style quiz platform with account flows, timed quiz sessions, result reporting, and admin quiz creation endpoints."
-  },
-  {
-    "title": "WorkUp Cards: Business Card Generator",
-    "category": "Web Development",
-    "excerpt": "WorkUp Cards is a template-driven business card generator that lets users browse designs, customize front and back card content, preview updates in real time, and download or share generated card images directly from the browser.",
-    "thumbnail": "/images/projects/workup-cards-business-card-generator.png",
-    "tags": [
-      "Design Tool",
-      "Template System",
-      "Image Export"
-    ],
-    "tools": [
-      "React Router 7",
-      "React 19",
-      "TypeScript",
-      "Tailwind CSS 4",
-      "React Hook Form",
-      "Zod",
-      "html2canvas",
-      "GSAP"
-    ],
-    "url": "https://workup-ashy.vercel.app/",
-    "slug": "workup-cards-business-card-generator",
-    "problem": "Professionals need a quick way to generate polished business cards without opening design software or relying on a backend image service.",
-    "goal": "Create a fast, browser-first card maker with reusable templates, live previews, and instant export for sharing or printing.",
-    "architecture": "React Router powers the app shell and template routes, template components define each card layout, and a preview pipeline renders editable cards into exportable images on the client.",
-    "challenges": "Keeping customizable templates interactive while still producing stable image previews for download and share actions.",
-    "solutions": "Used structured form state, a dedicated template renderer, and a debounced preview generation flow to keep the editing and export experience responsive.",
-    "tradeOffs": "The app stays lightweight by generating everything client-side, but export quality depends on browser rendering behavior.",
-    "lessons": "Template-based products become easier to scale when the design system and rendering pipeline are clearly separated.",
-    "outcome": "A lightweight business-card builder with multiple templates, live customization, and zero-server image generation."
   },
   {
     "title": "Anonfly: Private Real-Time Messaging Ecosystem",
@@ -81,7 +83,8 @@
       "Turborepo",
       "Changesets"
     ],
-    "url": "https://anonfly.vercel.app",
+    "url": "https://github.com/CodeWithAsterixh/anonfly",
+    "github": "https://github.com/CodeWithAsterixh/anonfly",
     "slug": "anonfly-anonymous-encrypted-messaging",
     "problem": "Anonymous communication products need strong privacy guarantees, reliable real-time delivery, and developer-friendly integration paths if they are going to be used beyond a single app.",
     "goal": "Build Anonfly as both an end-user messaging product and a reusable platform, with separate service, client, and SDK layers that support secure anonymous communication.",
@@ -91,6 +94,38 @@
     "tradeOffs": "The multi-repo setup makes the platform more flexible and reusable, but adds release coordination overhead between the app and SDK packages.",
     "lessons": "Security-heavy products benefit from strong boundaries between infrastructure, user-facing clients, and integration libraries.",
     "outcome": "A privacy-first messaging platform that works both as a finished product and as a developer platform for building anonymous real-time applications."
+  },
+    {
+    "title": "WorkUp Cards: Business Card Generator",
+    "category": "Web Development",
+    "excerpt": "WorkUp Cards is a template-driven business card generator that lets users browse designs, customize front and back card content, preview updates in real time, and download or share generated card images directly from the browser.",
+    "thumbnail": "/images/projects/workup-cards-business-card-generator.png",
+    "tags": [
+      "Design Tool",
+      "Template System",
+      "Image Export"
+    ],
+    "tools": [
+      "React Router 7",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "React Hook Form",
+      "Zod",
+      "html2canvas",
+      "GSAP"
+    ],
+    "url": "https://github.com/CodeWithAsterixh/workup-cards",
+    "github": "https://github.com/CodeWithAsterixh/workup-cards",
+    "slug": "workup-cards-business-card-generator",
+    "problem": "Professionals need a quick way to generate polished business cards without opening design software or relying on a backend image service.",
+    "goal": "Create a fast, browser-first card maker with reusable templates, live previews, and instant export for sharing or printing.",
+    "architecture": "React Router powers the app shell and template routes, template components define each card layout, and a preview pipeline renders editable cards into exportable images on the client.",
+    "challenges": "Keeping customizable templates interactive while still producing stable image previews for download and share actions.",
+    "solutions": "Used structured form state, a dedicated template renderer, and a debounced preview generation flow to keep the editing and export experience responsive.",
+    "tradeOffs": "The app stays lightweight by generating everything client-side, but export quality depends on browser rendering behavior.",
+    "lessons": "Template-based products become easier to scale when the design system and rendering pipeline are clearly separated.",
+    "outcome": "A lightweight business-card builder with multiple templates, live customization, and zero-server image generation."
   },
   {
     "title": "WorldTimeSage: Global Timezone Dashboard",
@@ -112,7 +147,8 @@
       "Recharts",
       "Framer Motion"
     ],
-    "url": "https://worldtime-sage.vercel.app",
+    "url": "https://github.com/CodeWithAsterixh/worldtimesage",
+    "github": "https://github.com/CodeWithAsterixh/worldtimesage",
     "slug": "worldtimesage",
     "problem": "People working across countries often need more than a single world clock. They need search, country-level details, offline access, and a simple way to compare multiple timezones.",
     "goal": "Build a practical timezone companion with searchable global data, country detail pages, saved clocks, and installable offline-friendly behavior.",
@@ -172,7 +208,8 @@
       "Vue TSC",
       "ESLint + Prettier"
     ],
-    "url": "https://geemex.vercel.app/",
+    "url": "https://github.com/CodeWithAsterixh/geemex",
+    "github": "https://github.com/CodeWithAsterixh/geemex",
     "slug": "geemex-gaming-landing-page-template"
   },
   {
@@ -192,7 +229,8 @@
       "Tailwind CSS 4",
       "React Icons"
     ],
-    "url": "https://school-portal-demo.vercel.app",
+    "url": "https://github.com/CodeWithAsterixh/asterixh-school",
+    "github": "https://github.com/CodeWithAsterixh/asterixh-school",
     "slug": "asterixh-school-portal-educational-hub"
   },
   {
@@ -246,6 +284,7 @@
       "Intersection Observer"
     ],
     "url": "https://github.com/CodeWithAsterixh/motion-lyte-js",
+    "github": "https://github.com/CodeWithAsterixh/motion-lyte-js",
     "slug": "motion-lyte-js-declarative-web-animation-library",
     "problem": "Many animation utilities are either too framework-specific or require imperative setup that becomes noisy across larger interfaces.",
     "goal": "Build a framework-agnostic animation library that lets developers attach expressive motion behavior directly through markup or helper utilities.",
@@ -305,7 +344,8 @@
       "WhatsApp Integration",
       "Instagram Section"
     ],
-    "url": "https://resinart-sak.vercel.app/",
+    "url": "https://github.com/CodeWithAsterixh/resin-art",
+    "github": "https://github.com/CodeWithAsterixh/resin-art",
     "slug": "resin-art-creative-portfolio-catalog",
     "problem": "Small creative businesses need more than a static gallery. They need a simple way to present products, communicate trust, and turn interest into direct inquiries or custom orders.",
     "goal": "Build a polished portfolio and catalog experience that highlights resin products while making it easy for customers to reach out by WhatsApp or contact form.",
