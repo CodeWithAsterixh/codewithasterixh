@@ -14,6 +14,14 @@ declare module 'p5' {
     HALF_PI: number;
     BOLD: string;
     CENTER: string;
+    CORNER: string;
+    CORNERS: string;
+    RADIUS: string;
+    BOTTOM: string;
+    TOP: string;
+    LEFT: string;
+    RIGHT: string;
+    NORMAL: string;
     
     setup(): void;
     draw(): void;
@@ -27,7 +35,9 @@ declare module 'p5' {
     createCanvas(w: number, h: number): any;
     resizeCanvas(w: number, h: number): void;
     frameRate(fps: number): void;
+    clear(r?: number, g?: number, b?: number, a?: number): void;
     background(r: number | string, g?: number, b?: number, a?: number): void;
+    [key: string]: any;
     fill(r: number | string, g?: number, b?: number, a?: number): void;
     noFill(): void;
     stroke(r: number | string, g?: number, b?: number, a?: number): void;

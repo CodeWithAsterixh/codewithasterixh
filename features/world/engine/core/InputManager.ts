@@ -87,6 +87,19 @@ export class InputManager {
     return null;
   }
 
+  public isInspectPressed(): boolean {
+    if (this.pendingAction === 'inspect') {
+      this.pendingAction = null;
+      return true;
+    }
+    const pressed = !!(this.keys['KeyE'] || this.keys['e'] || this.keys['E'] || this.keys['Enter']);
+    if (pressed) {
+      this.clearKeys(['KeyE', 'e', 'E', 'Enter']);
+      return true;
+    }
+    return false;
+  }
+
   private clearKeys(keyList: string[]): void { for (const k of keyList) this.keys[k] = false; }
 
   public clearAll(): void {

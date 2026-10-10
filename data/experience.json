@@ -5,10 +5,10 @@
     "role": "Freelance Web Developer",
     "workType": "Freelance",
     "stacks": ["Frontend", "UI/UX", "Responsive Design"],
-    "description": "Collaborated with the frontend team to build responsive layouts and improve usability across mobile and desktop screens.",
+    "description": "Built responsive frontend interfaces and refactored UI layouts for client websites, ensuring consistent performance across mobile and desktop viewports.",
     "achievements": [
-      "Built clean, accessible interface components matching design specifications.",
-      "Refactored layout styles to improve mobile responsiveness and usability."
+      "Translated Figma design specifications into accessible, pixel-accurate React components.",
+      "Refactored legacy CSS and grid layouts to eliminate mobile display bugs and improve load times."
     ]
   },
   {
@@ -16,12 +16,12 @@
     "name": "Estoyonline",
     "role": "Freelance Web Developer",
     "workType": "Freelance",
-    "stacks": ["React", "UI/UX", "Responsive Design", "Reusable Components"],
-    "description": "Collaborated with designers to deliver user-focused web interfaces with reusable React components and improved checkout flows.",
+    "stacks": ["React", "TypeScript", "Responsive Design", "Reusable Components"],
+    "description": "Developed modular frontend interfaces and improved checkout workflows for an e-commerce platform using React and TypeScript.",
     "achievements": [
-      "Developed modular React components for landing and product pages.",
-      "Helped increase conversion rates by 5% within one month through clearer page hierarchy.",
-      "Implemented responsive layouts tested across multiple browser viewports."
+      "Engineered reusable UI component libraries for high-traffic landing and product catalog pages.",
+      "Redesigned checkout page hierarchy, helping lift completed conversion rates by 5% in the first month.",
+      "Audited cross-browser compatibility to ensure uniform behavior on modern mobile and desktop browsers."
     ]
   },
   {
@@ -30,11 +30,11 @@
     "role": "Freelance Web Developer",
     "workType": "Freelance",
     "stacks": ["React", "SEO", "UI/UX", "Email Integration"],
-    "description": "Developed a fast, mobile-friendly brand website with React, structured SEO tags, and an automated contact form pipeline.",
+    "description": "Delivered a high-performance marketing website for Broome Services with React, automated email dispatch, and search engine optimization.",
     "achievements": [
-      "Built a mobile-first website using React with optimized asset delivery and fast load times.",
-      "Configured on-page SEO metadata and semantic markup to improve search rankings.",
-      "Integrated transactional contact forms with automated email dispatch."
+      "Built a mobile-first web presence with optimized asset delivery, achieving fast initial page loads.",
+      "Implemented structured JSON-LD data and semantic HTML tags to improve search index coverage.",
+      "Built transactional inquiry forms connected to an automated email dispatch pipeline."
     ]
   },
   {
@@ -43,10 +43,10 @@
     "role": "Programming Tutor",
     "workType": "Full-time",
     "stacks": ["Web Development", "Programming Fundamentals", "Frontend Concepts"],
-    "description": "Taught programming fundamentals and frontend web development with a focus on problem-solving, clean code, and practical projects.",
+    "description": "Instructed students in software development fundamentals, clean coding practices, and modern frontend web engineering.",
     "achievements": [
-      "Taught HTML, CSS, JavaScript, and programming basics through structured project assignments.",
-      "Guided students in debugging, algorithmic thinking, and building their first web applications."
+      "Structured project-based curriculums covering HTML5, CSS3, JavaScript ES6+, and foundational data structures.",
+      "Mentored students through hands-on code reviews, practical debugging strategies, and web application deployment."
     ]
   }
 ]

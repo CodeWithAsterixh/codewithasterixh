@@ -1,17 +1,17 @@
 [
   {
-    "label": "Software Engineering",
-    "description": "I build backend services and APIs designed for reliable data flow and security. From database schema modeling in PostgreSQL or MongoDB to auth workflows and background workers, I deliver production systems that handle user traffic without bottlenecks.",
-    "tags": ["System Architecture", "API Design", "Database Modeling", "Backend Optimization", "Clean Code"]
+    "label": "Full-Stack Software Engineering",
+    "description": "I build scalable backend services, secure REST and WebSocket APIs, and database architectures using Node.js, PostgreSQL, and MongoDB. From user authentication to background jobs and caching with Redis, I deliver dependable systems ready for production traffic.",
+    "tags": ["System Architecture", "REST & WebSocket APIs", "Database Modeling", "Node.js & Express", "Redis Caching"]
   },
   {
-    "label": "Web Development",
-    "description": "I develop responsive frontend applications using React, Next.js, and TypeScript. I focus on clean component structure, fast initial page loads, Core Web Vitals optimization, and consistent rendering across mobile and desktop viewports.",
-    "tags": ["React & Next.js", "Responsive Design", "UI/UX Development", "SEO Strategy", "Performance Focused"]
+    "label": "Frontend & Web Application Development",
+    "description": "I build responsive, high-performance web applications using React, Next.js, and TypeScript. I emphasize modular component structure, accessible UI design, and Core Web Vitals optimization to ensure rapid page load times across mobile and desktop devices.",
+    "tags": ["React & Next.js", "TypeScript", "Tailwind CSS", "UI/UX Engineering", "Web Performance"]
   },
   {
-    "label": "Website Management",
-    "description": "I maintain live web applications with regular dependency upgrades, security audits, database backups, and uptime monitoring, resolving performance regressions and bugs before they affect visitors.",
-    "tags": ["Updates", "Security Checks", "Backups", "Performance Monitoring"]
+    "label": "Maintenance & Performance Optimization",
+    "description": "I keep live web platforms secure, up to date, and fast. This includes routine dependency upgrades, database backups, security patches, uptime monitoring, and proactive bug fixing before issues affect users.",
+    "tags": ["Uptime Monitoring", "Security Audits", "Database Backups", "Bug Fixes", "Performance Audits"]
   }
 ]

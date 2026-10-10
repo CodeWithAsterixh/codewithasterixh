@@ -8,6 +8,8 @@ export interface World2DCanvasProps {
   themeMode?: 'light' | 'dark';
   moonType?: 'beige' | 'normal' | 'red';
   isCombatActive?: boolean;
+  characterId?: CharacterId;
+  gender?: Gender;
   onSketchReady?: (instance: any) => void;
   onPlayerPositionChange?: (x: number, y: number) => void;
   onPlayerHealthChange?: (hp: number, maxHp: number) => void;

@@ -1,7 +1,8 @@
 import type p5 from 'p5';
 import { Gender, CharacterId, CharacterAction, LocationCategory, ControlMode, VirtualInputAction } from '../types';
-import { MapLocationEntry } from '../data/mapLayout';
-import { InteractiveWorldObject } from '../data/mapObjects';
+import { MapLocationEntry, getNearbyStationKiosk } from '../data/mapLayout';
+import { InteractiveWorldObject, getNearbyWorldObject } from '../data/mapObjects';
+import { CHARACTER_DEFS } from '../data/characterData';
 import { WorldEngine } from './core/WorldEngine';
 import { characterSpriteManager } from './characterAnimator';
 
@@ -48,7 +49,9 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     let engine: WorldEngine;
 
     p.setup = () => {
-      (p as any).pixelDensity?.(1);
+      try {
+        (p as any).pixelDensity?.(1);
+      } catch {}
       const container = (p as any).canvas?.parentElement;
       p.createCanvas(container ? container.clientWidth : window.innerWidth, container ? container.clientHeight : window.innerHeight);
       p.frameRate(60);
@@ -62,12 +65,16 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     p.draw = () => { if (engine) engine.updateAndRender(); };
 
     p.windowResized = () => {
-      (p as any).pixelDensity?.(1);
+      if (!(p as any)._renderer && !(p as any).canvas) return;
       const container = (p as any).canvas?.parentElement;
-      p.resizeCanvas(container ? container.clientWidth : window.innerWidth, container ? container.clientHeight : window.innerHeight);
-      (p as any).noSmooth?.();
-      const ctx = (p as any).drawingContext;
-      if (ctx) ctx.imageSmoothingEnabled = false;
+      const w = container ? container.clientWidth : window.innerWidth;
+      const h = container ? container.clientHeight : window.innerHeight;
+      try {
+        p.resizeCanvas(w, h);
+        (p as any).noSmooth?.();
+        const ctx = (p as any).drawingContext;
+        if (ctx) ctx.imageSmoothingEnabled = false;
+      } catch {}
     };
 
     p.mousePressed = () => { if (!engine?.isModalActive) engine?.camera.onMousePressed(p.mouseX, p.mouseY); };
@@ -107,9 +114,43 @@ export function create2DSideViewSketch(callbacks?: Sketch2DCallbacks) {
     (p as any).cleanup = () => {
       if (typeof window !== 'undefined') window.removeEventListener('blur', onBlur);
     };
-    (p as any).setCharacter = (id: CharacterId) => { if (engine) { engine.player.characterId = id; characterSpriteManager.preloadCharacter(id); } };
-    (p as any).setGender = (g: Gender) => { if (engine) engine.player.gender = g; };
-    (p as any).setCombatActive = (a: boolean) => { if (engine) engine.combat.isCombatActive = a; };
+    (p as any).setCharacter = (id: CharacterId) => {
+      if (engine) {
+        engine.player.characterId = id;
+        engine.player.gender = CHARACTER_DEFS[id]?.gender || 'male';
+        if (CHARACTER_DEFS[id]?.physics) {
+          engine.player.body.setAttributes(CHARACTER_DEFS[id].physics);
+        }
+        characterSpriteManager.preloadCharacter(id);
+        callbacks?.onCharacterStateChange?.(engine.player.gender, engine.player.characterId, engine.player.action);
+      }
+    };
+    (p as any).setGender = (g: Gender) => {
+      if (engine) {
+        engine.player.gender = g;
+        callbacks?.onCharacterStateChange?.(engine.player.gender, engine.player.characterId, engine.player.action);
+      }
+    };
+    (p as any).inspectNearbyStation = () => {
+      if (!engine) return;
+      const nearbyObj = getNearbyWorldObject(engine.player.body.x);
+      if (nearbyObj) {
+        callbacks?.onInspectObject?.(nearbyObj);
+        return;
+      }
+      const nearbyKiosk = getNearbyStationKiosk(engine.player.body.x);
+      if (nearbyKiosk) {
+        callbacks?.onInspectStation?.(nearbyKiosk);
+      }
+    };
+    (p as any).setCombatActive = (a: boolean) => {
+      if (engine) {
+        engine.combat.isCombatActive = a;
+        if (!a) {
+          engine.combat.activeEnemy = null;
+        }
+      }
+    };
     (p as any).setThemeMode = (m: 'light' | 'dark') => { if (engine) engine.assetMgr.currentThemeMode = m; };
     (p as any).setMoonType = (t: 'beige' | 'normal' | 'red') => { if (engine) engine.environment.moonType = t; };
     (p as any).setModalActive = (a: boolean) => { if (engine) { engine.isModalActive = a; if (a) engine.input.clearAll(); } };

@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { Gender, CharacterId } from '../types';
-import { DEFAULT_GENDER, DEFAULT_CHARACTER } from '../data/characterData';
+import { DEFAULT_GENDER, DEFAULT_CHARACTER, CHARACTER_DEFS } from '../data/characterData';
 
 const ONBOARDING_STORAGE_KEY = 'codewithasterixh_onboarding_v1';
 
@@ -50,14 +50,40 @@ export const CharacterStateProvider: React.FC<{ children: React.ReactNode }> = (
     setGender(newGender);
     const newChar = newGender === 'male' ? 'Fighter' : 'Countess_claire';
     setCharacterId(newChar);
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem(ONBOARDING_STORAGE_KEY);
+        const data = saved ? JSON.parse(saved) : {};
+        localStorage.setItem(ONBOARDING_STORAGE_KEY, JSON.stringify({ ...data, gender: newGender, characterId: newChar }));
+      } catch {}
+    }
   }, []);
 
   const handleSelectCharacter = useCallback((newCharId: CharacterId) => {
     setCharacterId(newCharId);
+    const charGender = CHARACTER_DEFS[newCharId]?.gender || 'male';
+    setGender(charGender);
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem(ONBOARDING_STORAGE_KEY);
+        const data = saved ? JSON.parse(saved) : {};
+        localStorage.setItem(ONBOARDING_STORAGE_KEY, JSON.stringify({ ...data, characterId: newCharId, gender: charGender }));
+      } catch {}
+    }
   }, []);
 
   const handleToggleCombat = useCallback(() => {
-    setIsCombatActive((prev) => !prev);
+    setIsCombatActive((prev) => {
+      const next = !prev;
+      if (typeof window !== 'undefined') {
+        try {
+          const saved = localStorage.getItem(ONBOARDING_STORAGE_KEY);
+          const data = saved ? JSON.parse(saved) : {};
+          localStorage.setItem(ONBOARDING_STORAGE_KEY, JSON.stringify({ ...data, combatActive: next }));
+        } catch {}
+      }
+      return next;
+    });
   }, []);
 
   const handleOnboardingComplete = useCallback(

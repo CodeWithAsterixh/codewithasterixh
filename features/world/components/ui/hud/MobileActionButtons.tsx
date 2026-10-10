@@ -1,7 +1,14 @@
 'use client';
 
 import React from 'react';
-import { ArrowFatUpIcon, EyeIcon } from '@phosphor-icons/react';
+import {
+  TriangleIcon,
+  SquareIcon,
+  CircleIcon,
+  XIcon,
+  ArrowFatUpIcon,
+  EyeIcon,
+} from '@phosphor-icons/react';
 import { VirtualInputAction } from '../../../types';
 
 interface MobileActionButtonsProps {
@@ -21,54 +28,71 @@ export const MobileActionButtons: React.FC<MobileActionButtonsProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-1.5 select-none touch-none">
+    <div className="flex flex-col items-end gap-2 select-none touch-none pointer-events-auto bg-transparent">
+      {/* 1. XBOX CONTROLLER DIAMOND CLUSTER FOR COMBAT (NO CONTAINER BACKGROUND) */}
       {isCombatActive && (
-        <>
+        <div className="relative w-32 h-32 flex items-center justify-center bg-transparent">
+          {/* TOP (Triangle - Amber) */}
           <button
             onPointerDown={handleAction('attack1')}
-            className="w-14 h-10 bg-[#DC2626] active:bg-[#B91C1C] text-white font-black uppercase text-[9px] flex items-center justify-center border border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer"
+            className="absolute top-1.5 w-10 h-10 rounded-full bg-[#EAB308] hover:bg-[#FACC15] active:bg-[#CA8A04] text-[#1A1D24] flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer active:scale-95 transition-transform"
+            aria-label="Attack 1 Triangle"
           >
-            ATK1
+            <TriangleIcon size={18} weight="duotone" />
           </button>
+
+          {/* LEFT (Square - Blue) */}
           <button
             onPointerDown={handleAction('attack2')}
-            className="w-14 h-10 bg-[#2563EB] active:bg-[#1D4ED8] text-white font-black uppercase text-[9px] flex items-center justify-center border border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer"
+            className="absolute left-1.5 w-10 h-10 rounded-full bg-[#2563EB] hover:bg-[#3B82F6] active:bg-[#1D4ED8] text-white flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer active:scale-95 transition-transform"
+            aria-label="Attack 2 Square"
           >
-            ATK2
+            <SquareIcon size={18} weight="duotone" />
           </button>
+
+          {/* RIGHT (Circle - Red) */}
           <button
             onPointerDown={handleAction('attack3')}
-            className="w-14 h-10 bg-[#7C3AED] active:bg-[#6D28D9] text-white font-black uppercase text-[9px] flex items-center justify-center border border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer"
+            className="absolute right-1.5 w-10 h-10 rounded-full bg-[#DC2626] hover:bg-[#EF4444] active:bg-[#B91C1C] text-white flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer active:scale-95 transition-transform"
+            aria-label="Attack 3 Circle"
           >
-            ATK3
+            <CircleIcon size={18} weight="duotone" />
           </button>
+
+          {/* BOTTOM (X - Green) */}
           <button
             onPointerDown={handleAction('attack4')}
-            className="w-14 h-10 bg-[#EA580C] active:bg-[#C2410C] text-white font-black uppercase text-[9px] flex items-center justify-center border border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer"
+            className="absolute bottom-1.5 w-10 h-10 rounded-full bg-[#10B981] hover:bg-[#34D399] active:bg-[#059669] text-white flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer active:scale-95 transition-transform"
+            aria-label="Attack 4 X"
           >
-            ATK4
+            <XIcon size={18} weight="bold" />
           </button>
-        </>
+        </div>
       )}
 
-      <button
-        onPointerDown={handleAction('jump_start')}
-        onPointerUp={handleAction('jump_stop')}
-        onPointerLeave={handleAction('jump_stop')}
-        onPointerCancel={handleAction('jump_stop')}
-        className="w-14 h-10 bg-[#6366F1] active:bg-[#4F46E5] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer"
-      >
-        <ArrowFatUpIcon size={14} weight="fill" />
-        <span>JUMP</span>
-      </button>
+      {/* 2. JUMP & INSPECT BUTTONS (NO CONTAINER BACKGROUND) */}
+      <div className="flex items-center gap-1.5 bg-transparent">
+        <button
+          onPointerDown={handleAction('jump_start')}
+          onPointerUp={handleAction('jump_stop')}
+          onPointerLeave={handleAction('jump_stop')}
+          onPointerCancel={handleAction('jump_stop')}
+          className="px-3 py-1.5 rounded-sm bg-[#6366F1] active:bg-[#4F46E5] text-white font-black uppercase text-[10px] flex items-center justify-center gap-1 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer active:scale-95 transition-transform"
+          aria-label="Jump"
+        >
+          <ArrowFatUpIcon size={14} weight="fill" />
+          <span>JUMP</span>
+        </button>
 
-      <button
-        onClick={() => handleInspectStation()}
-        className="w-14 h-10 bg-[#0D9488] active:bg-[#0F766E] text-white font-black uppercase text-[9px] flex items-center justify-center gap-1 border border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer"
-      >
-        <EyeIcon size={14} weight="bold" />
-        <span>INSP</span>
-      </button>
+        <button
+          onClick={() => handleInspectStation()}
+          className="px-3 py-1.5 rounded-sm bg-[#0D9488] active:bg-[#0F766E] text-white font-black uppercase text-[10px] flex items-center justify-center gap-1 border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer active:scale-95 transition-transform"
+          aria-label="Inspect Station"
+        >
+          <EyeIcon size={14} weight="bold" />
+          <span>INSP</span>
+        </button>
+      </div>
     </div>
   );
 };

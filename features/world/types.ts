@@ -24,7 +24,7 @@ export type VirtualInputAction =
   | 'up_start' | 'up_stop' | 'down_start' | 'down_stop'
   | 'sprint_start' | 'sprint_stop' | 'sprint_toggle' | 'joystick_vector'
   | 'jump' | 'jump_start' | 'jump_stop'
-  | 'attack' | 'attack1' | 'attack2' | 'attack3' | 'attack4' | 'stop';
+  | 'attack' | 'attack1' | 'attack2' | 'attack3' | 'attack4' | 'inspect' | 'stop';
 
 export type MaleCharacter = 'Fighter' | 'Samurai' | 'Shinobi' | 'Xavier';
 export type FemaleCharacter = 'Countess_claire' | 'bridget';

@@ -3,8 +3,8 @@
   "role": "Software Engineer (Fullstack)",
   "handle": "@asterixh",
   "alias": "Asterixh",
-  "headline": "Fullstack Software Engineer focused on scalable web systems",
-  "marquee": "FULLSTACK SYSTEMS, REAL-TIME APPS, AND PRODUCTION WEB SOLUTIONS",
+  "headline": "Full-stack software engineer building reliable web systems",
+  "marquee": "FULL-STACK ARCHITECTURE, REAL-TIME APPS, AND PRODUCTION WEB SYSTEMS",
   "stats": [
     {
       "value": "04",
@@ -19,26 +19,26 @@
       "label": "Production\nProjects"
     }
   ],
-  "subtext": "I build full-stack web applications and backend systems with Next.js, TypeScript, and Node.js, focused on speed, reliable data architecture, and clear user workflows.",
+  "subtext": "I build full-stack web applications and backend services with Next.js, TypeScript, and Node.js, focusing on performance, data integrity, and clear user workflows.",
   "email": "peterpaultolulope@gmail.com",
   "phone": "+234 810 908 0838",
   "location": "Lagos, Nigeria",
   "about": {
-    "content": "I got into software engineering because I wanted to build tools that people actually use. Starting out, I wanted to understand how the web worked under the hood, which led me from building frontend layouts to designing backend services, database schemas, and real-time data pipelines.\\n\\nGood software isn't just about clean visuals; it has to be fast, reliable, and solve real problems without getting in the user's way. Whether I'm building real-time messaging, auth workflows, or API integrations, I focus on predictable state, solid performance, and maintainable code.",
+    "content": "I build web applications and backend systems designed for speed, reliability, and clear user workflows. My work spans the full stack: responsive user interfaces with Next.js and TypeScript, real-time messaging with WebSockets, and database modeling with PostgreSQL and MongoDB.\\n\\nI focus on predictable application state, well-documented APIs, and clean code that teams can maintain and scale with confidence.",
     "badgeIcon": "badge-check",
     "badgeLabel": "Fullstack Engineer",
     "topStatLabel": "Clients Served",
     "topStatValue": "06"
   },
   "hero": {
-    "quote": "Building fast, reliable full-stack applications with React, Next.js, TypeScript, and Node.js.",
+    "quote": "Building fast, dependable full-stack applications with React, Next.js, TypeScript, and Node.js.",
     "primaryCta": {
       "href": "https://github.com/CodeWithAsterixh",
-      "label": "View the Code"
+      "label": "Explore Code on GitHub"
     },
     "secondaryCta": {
       "href": "https://asterixh.vercel.app/contact",
-      "label": "Let's Collaborate"
+      "label": "Discuss a Project"
     },
     "badges": [
       {

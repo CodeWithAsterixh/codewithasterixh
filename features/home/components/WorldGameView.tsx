@@ -37,7 +37,7 @@ const InfoTilesetModal = dynamic(
 export const WorldGameView: React.FC = () => {
   const { isWorldLoading, isEnteringWorld, isOnboarding, isCanvasReady, setIsCanvasReady, handleStartEnterWorld } =
     useGameStateContext();
-  const { characterId, setPlayerHp, setMaxPlayerHp, setRespawnCountdown, isCombatActive } = useCharacterContext();
+  const { gender, characterId, setPlayerHp, setMaxPlayerHp, setRespawnCountdown, isCombatActive } = useCharacterContext();
   const { themeMode, moonType, p5SketchRef, playerXRef, setCurrentBiome } = useWorldContext();
   const { isAnyModalOpen, handleInspectStation, handleInspectObject } = useModalContext();
 
@@ -45,14 +45,15 @@ export const WorldGameView: React.FC = () => {
     (instance: any) => {
       p5SketchRef.current = instance;
       if (instance.setCharacter) instance.setCharacter(characterId);
+      if (instance.setGender) instance.setGender(gender);
       if (typeof instance.setModalActive === 'function') instance.setModalActive(isAnyModalOpen || isOnboarding);
       setIsCanvasReady(true);
     },
-    [characterId, isAnyModalOpen, isOnboarding, p5SketchRef, setIsCanvasReady]
+    [characterId, gender, isAnyModalOpen, isOnboarding, p5SketchRef, setIsCanvasReady]
   );
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-[#0F0F0F] font-pixelify select-none">
+    <div className="relative w-[100dvw] h-[100dvh] overflow-hidden bg-[#0F0F0F] font-pixelify select-none">
       {/* 1. INITIAL WORLD LOADING SCREEN */}
       {isWorldLoading && (
         <WorldLoadingScreen
@@ -71,6 +72,8 @@ export const WorldGameView: React.FC = () => {
           themeMode={themeMode}
           moonType={moonType}
           isCombatActive={isCombatActive}
+          characterId={characterId}
+          gender={gender}
           onSketchReady={handleSketchReady}
           onPlayerPositionChange={(x) => {
             playerXRef.current = x;

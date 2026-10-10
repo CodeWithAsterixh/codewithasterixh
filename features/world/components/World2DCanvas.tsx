@@ -13,6 +13,8 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
   themeMode = 'dark',
   moonType = 'beige',
   isCombatActive = false,
+  characterId,
+  gender,
   onSketchReady,
   onPlayerPositionChange,
   onPlayerHealthChange,
@@ -45,6 +47,12 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
   useEffect(() => { p5InstanceRef.current?.setThemeMode?.(themeMode); }, [themeMode]);
   useEffect(() => { p5InstanceRef.current?.setMoonType?.(moonType); }, [moonType]);
   useEffect(() => { p5InstanceRef.current?.setCombatActive?.(isCombatActive); }, [isCombatActive]);
+  useEffect(() => {
+    if (characterId) p5InstanceRef.current?.setCharacter?.(characterId);
+  }, [characterId]);
+  useEffect(() => {
+    if (gender) p5InstanceRef.current?.setGender?.(gender);
+  }, [gender]);
 
   useEffect(() => {
     async function initSketch() {
@@ -71,6 +79,11 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
         const p5Instance = new P5(sketch, containerRef.current);
         p5InstanceRef.current = p5Instance;
         p5Instance.setModalActive?.(isModalActive);
+        p5Instance.setCombatActive?.(isCombatActive);
+        p5Instance.setThemeMode?.(themeMode);
+        p5Instance.setMoonType?.(moonType);
+        if (characterId) p5Instance.setCharacter?.(characterId);
+        if (gender) p5Instance.setGender?.(gender);
         setIsReady(true);
         onSketchReady?.(p5Instance);
       } catch (err) {
@@ -89,10 +102,14 @@ export const World2DCanvas: React.FC<World2DCanvasProps> = ({
   useWorldCanvasStyles(containerRef, isReady);
 
   return (
-    <div className="fixed inset-0 z-0 w-full h-full min-h-screen overflow-hidden">
+    <div
+      className={`fixed inset-0 z-0 w-[100dvw] h-[100dvh] min-h-[100dvh] overflow-hidden transition-opacity duration-150 ${
+        isModalActive ? 'opacity-0 pointer-events-none' : 'opacity-100'
+      }`}
+    >
       <div
         ref={containerRef}
-        className={`absolute inset-0 z-0 w-full h-full min-h-screen overflow-hidden select-none [&>canvas]:absolute [&>canvas]:inset-0 [&>canvas]:w-full [&>canvas]:h-full [&>canvas]:block ${
+        className={`absolute inset-0 z-0 w-[100dvw] h-[100dvh] min-h-[100dvh] overflow-hidden select-none [&>canvas]:absolute [&>canvas]:inset-0 [&>canvas]:w-[100dvw] [&>canvas]:h-[100dvh] [&>canvas]:block ${
           isModalActive ? 'pointer-events-none' : 'cursor-grab active:cursor-grabbing'
         }`}
       />

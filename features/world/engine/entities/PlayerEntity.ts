@@ -13,12 +13,15 @@ export class PlayerEntity {
   public action: CharacterAction = 'idle';
   public isAttacking: boolean = false;
   public attackTimer: number = 0;
+  public attackPhase: number = 0;
   public isDead: boolean = false;
   public hitFlashTimer: number = 0;
   public isSprinting: boolean = false;
   public jumpOffset: number = 0;
   public jumpVelocity: number = 0;
+  public jumpPhase: number = 0;
   public walkPhase: number = 0;
+  public deadPhase: number = 0;
 
   constructor(initialY: number = 74) {
     this.body = new PhysicsBody2D(0, initialY);
@@ -28,15 +31,31 @@ export class PlayerEntity {
     if (this.hitFlashTimer > 0) this.hitFlashTimer = Math.max(0, this.hitFlashTimer - deltaTime);
     if (this.isAttacking) {
       this.attackTimer += deltaTime;
-      if (this.attackTimer > 0.45) { this.isAttacking = false; this.attackTimer = 0; }
+      this.attackPhase += 0.45;
+      if (this.attackTimer > 0.45) {
+        this.isAttacking = false;
+        this.attackTimer = 0;
+        this.attackPhase = 0;
+      }
     }
 
     if (this.jumpOffset < 0 || this.jumpVelocity !== 0) {
       this.jumpOffset += this.jumpVelocity;
       this.jumpVelocity += 0.95;
-      if (this.jumpOffset >= 0) { this.jumpOffset = 0; this.jumpVelocity = 0; this.body.isGrounded = true; }
+      const normalizedJumpProgress = ((this.jumpVelocity - (-10.2)) / 20.4) * 8;
+      this.jumpPhase = Math.max(0, Math.min(8, normalizedJumpProgress));
+      if (this.jumpOffset >= 0) {
+        this.jumpOffset = 0;
+        this.jumpVelocity = 0;
+        this.jumpPhase = 0;
+        this.body.isGrounded = true;
+      }
     } else {
       this.body.isGrounded = true;
+    }
+
+    if (this.isDead) {
+      this.deadPhase += deltaTime * 5.0;
     }
 
     this.body.x += this.body.vx;
@@ -71,24 +90,52 @@ export class PlayerEntity {
     }
   }
 
+  private resolveObstacleEllipse(ox: number, oy: number, rx: number, ry: number): void {
+    const prx = 16;
+    const pry = 10;
+    const Rx = rx + prx;
+    const Ry = ry + pry;
+    const dx = this.body.x - ox;
+    const dy = this.body.y - oy;
+    const u = dx / Rx;
+    const v = dy / Ry;
+    const dNormSq = u * u + v * v;
+    if (dNormSq < 1.0) {
+      const dist = Math.sqrt(dNormSq);
+      if (dist > 0.001) {
+        const un = u / dist;
+        const vn = v / dist;
+        this.body.x = ox + un * Rx;
+        this.body.y = oy + vn * Ry;
+      } else {
+        this.body.y = oy + Ry;
+      }
+    }
+  }
+
   public resolveObstacles(): void {
     this.body.y = Math.max(0, Math.min(110, this.body.y));
-    if (this.body.x >= -680 && this.body.x <= 360 && this.body.y < 66) {
-      this.body.y = 66;
-      if (this.body.vy < 0) this.body.vy = 0;
-    }
-    for (const obj of INTERACTIVE_OBJECTS) {
-      const hw = (obj.size || 140) * 0.36;
-      const bY = 68 + (obj.yOffset || 0);
-      if (this.body.x >= obj.x - hw && this.body.x <= obj.x + hw && this.body.y < bY) {
-        this.body.y = bY;
+    // Solid front wall of House Base and Garage: x: -680 to +360
+    if (this.body.x >= -680 && this.body.x <= 360) {
+      if (this.body.y < 70) {
+        this.body.y = 70;
         if (this.body.vy < 0) this.body.vy = 0;
       }
     }
+    // Mailbox post collision at x = 220
+    if (Math.abs(this.body.x - 220) < 30) {
+      this.resolveObstacleEllipse(220, 64, 14, 8);
+    }
+    // Interactive Landmark Objects (Chest, Briefcase, Vault, Chamber, Bag)
+    for (const obj of INTERACTIVE_OBJECTS) {
+      if (Math.abs(this.body.x - obj.x) < 70) {
+        this.resolveObstacleEllipse(obj.x, 68 + (obj.yOffset || 0), (obj.size || 140) * 0.24, 14);
+      }
+    }
+    // Street Lamp Posts
     for (const lp of WORLD_LAMP_POSTS) {
-      if (this.body.x >= lp.x - 22 && this.body.x <= lp.x + 22 && this.body.y < lp.yOffset) {
-        this.body.y = lp.yOffset;
-        if (this.body.vy < 0) this.body.vy = 0;
+      if (Math.abs(this.body.x - lp.x) < 25) {
+        this.resolveObstacleEllipse(lp.x, lp.yOffset, 12, 6);
       }
     }
   }
@@ -108,7 +155,10 @@ export class PlayerEntity {
 
   public triggerAttack(type: 'attack1' | 'attack2' | 'attack3' | 'attack4'): void {
     if (this.isDead) return;
-    this.isAttacking = true; this.attackTimer = 0; this.action = type;
+    this.isAttacking = true;
+    this.attackTimer = 0;
+    this.attackPhase = 0;
+    this.action = type;
   }
 
   public takeHit(): void {

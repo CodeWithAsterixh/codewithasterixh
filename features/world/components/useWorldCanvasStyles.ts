@@ -7,7 +7,7 @@ export function useWorldCanvasStyles(containerRef: RefObject<HTMLDivElement | nu
         const canvasElt = containerRef.current.querySelector('canvas');
         if (canvasElt) {
           canvasElt.style.cssText =
-            'width: 100% !important; height: 100% !important; position: absolute !important; top: 0px !important; left: 0px !important; display: block !important; z-index: 0 !important;';
+            'width: 100dvw !important; height: 100dvh !important; position: absolute !important; top: 0px !important; left: 0px !important; display: block !important; z-index: 0 !important;';
         }
       }
       if (typeof window !== 'undefined') {

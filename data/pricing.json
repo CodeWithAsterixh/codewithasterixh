@@ -1,23 +1,41 @@
 [
   {
-    "name": "Basic",
+    "name": "Starter",
     "price": "$150 to $300",
-    "duration": "Feature based",
+    "duration": "1 to 2 weeks",
     "highlight": false,
-    "features": ["1-page website", "Responsive layout", "Basic SEO setup", "1-2 weeks delivery", "Maximum 2 revisions"]
+    "features": [
+      "Single-page responsive website",
+      "Mobile and desktop layout optimization",
+      "Search engine metadata and OpenGraph setup",
+      "Functional contact form with email routing",
+      "2 revision rounds included"
+    ]
   },
   {
-    "name": "Standard",
-    "price": "$900 to $1800",
-    "duration": "Feature based",
+    "name": "Growth",
+    "price": "$900 to $1,800",
+    "duration": "2 to 4 weeks",
     "highlight": true,
-    "features": ["Up to 5 pages", "CMS integration", "Performance optimization", "Priority support", "maximum of 12 revisions"]
+    "features": [
+      "Multi-page web application (up to 5 pages)",
+      "Content management system (CMS) integration",
+      "Core Web Vitals and load speed optimization",
+      "Custom API integrations and automated workflows",
+      "Priority technical support and 4 revision rounds"
+    ]
   },
   {
-    "name": "Advanced",
-    "price": "$2500 to $5000",
-    "duration": "Task based",
+    "name": "Custom Full-Stack",
+    "price": "$2,500 to $5,000",
+    "duration": "4 to 8 weeks",
     "highlight": false,
-    "features": ["Full website design/redesign", "Dashboard & API setup", "SEO optimization", "Dedicated support", "3 months+ maintenance", "maximum of 3 revisions daily"]
+    "features": [
+      "Custom web application or complete platform rebuild",
+      "Database schema modeling, auth, and REST or WebSocket APIs",
+      "Administrative dashboard and operational analytics",
+      "Technical SEO, security audits, and automated backups",
+      "3 months of post-launch maintenance and uptime support"
+    ]
   }
 ]

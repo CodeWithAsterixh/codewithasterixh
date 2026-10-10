@@ -68,7 +68,7 @@ export const VirtualJoystick: React.FC<VirtualJoystickProps> = ({ onVirtualInput
       onPointerUp={handlePointerEnd}
       onPointerCancel={() => handlePointerEnd()}
       onContextMenu={(e) => e.preventDefault()}
-      className={`relative w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-[#15191F]/90 border-2 border-white/20 shadow-2xl flex items-center justify-center touch-none select-none ${className || ''}`}
+      className={`relative w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-[#15191F]/40 border-2 border-white/20 shadow-2xl flex items-center justify-center touch-none select-none ${className || ''}`}
       style={{ boxShadow: '0 10px 30px rgba(0, 0, 0, 0.7), inset 0 2px 8px rgba(255, 255, 255, 0.12)' }}
     >
       <CaretUpIcon size={18} weight="duotone" className={`absolute top-2 transition-colors ${dirState.current.yDir === 'up' ? 'text-[#5B9BF3]' : 'text-white/30'}`} />

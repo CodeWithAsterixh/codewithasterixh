@@ -5,15 +5,15 @@
       "title": "Projects"
     },
     "blogCard": {
-      "subtitle": "Blog",
-      "title": "My Blog"
+      "subtitle": "Writing",
+      "title": "Technical Articles"
     },
     "servicesCard": {
       "subtitle": "Specialization",
-      "title": "Services Offering"
+      "title": "Services & Capabilities"
     },
     "gitRollCard": {
-      "subtitle": "Technical Merit",
+      "subtitle": "Verified Analytics",
       "title": "GitRoll Profile"
     }
   },
@@ -27,19 +27,19 @@
       "highlight": "together."
     },
     "profilesCard": {
-      "subtitle": "Stay with me",
+      "subtitle": "Connect Online",
       "title": "Profiles"
     },
     "credentialsCard": {
-      "subtitle": "More About Me",
+      "subtitle": "Background & Skills",
       "title": "Credentials"
     }
   },
   "contact": {
     "info": {
-      "title": "Contact Info",
-      "mail": "MAIL US",
-      "contact": "CONTACT US",
+      "title": "Contact Details",
+      "mail": "DIRECT EMAIL",
+      "contact": "PHONE & WHATSAPP",
       "location": "LOCATION",
       "socialsTitle": "Social Info"
     },
@@ -52,8 +52,8 @@
       "placeholders": {
         "name": "Name *",
         "email": "Email *",
-        "subject": "Your Subject *",
-        "message": "Your Message *"
+        "subject": "Project Subject *",
+        "message": "Tell me about your project or inquiry *"
       },
       "button": "Send Message"
     }
@@ -100,19 +100,19 @@
   "blog": {
     "hero": {
       "title": "Blog",
-      "description": "Stay updated with the latest trends, insights, and stories from the world of design and development."
+      "description": "Engineering notes, architecture decisions, and lessons learned from shipping production web software."
     },
     "sidebar": {
       "search": {
         "title": "Search",
-        "placeholder": "Search..."
+        "placeholder": "Search articles..."
       },
       "recentPosts": {
         "title": "Recent Posts"
       },
       "recentComments": {
         "title": "Recent Comments",
-        "empty": "No comments to show."
+        "empty": "No comments yet. Be the first to share your thoughts."
       },
       "archives": {
         "title": "Archives",
@@ -120,18 +120,18 @@
       },
       "categories": {
         "title": "Categories",
-        "items": ["Uncategorized"]
+        "items": ["Engineering"]
       }
     },
     "comments": {
-      "count": "0 Comment",
+      "count": "0 Comments",
       "title": "Leave a Reply",
       "placeholders": {
-        "message": "Your Message",
-        "name": "Name",
-        "email": "Email"
+        "message": "Your comment...",
+        "name": "Your name",
+        "email": "Your email address"
       },
-      "button": "Send Message"
+      "button": "Post Comment"
     }
   }
 }

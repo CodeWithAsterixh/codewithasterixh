@@ -16,7 +16,7 @@ export class CharacterSpriteManager {
     if (!def) return null;
 
     const actionFile = def.actions[action] || def.actions.idle;
-    const fullPath = getOptimizedImageUrl(`${def.folderPath}/${actionFile}`, 45, 768);
+    const fullPath = `${def.folderPath}/${actionFile}`;
     const key = `${characterId}_${action}`;
     if (this.cache.has(key)) return this.cache.get(key)!;
 
@@ -37,7 +37,7 @@ export class CharacterSpriteManager {
     if (!def) return null;
 
     const actionFile = (def.actions as any)[action] || def.actions.idle;
-    const fullPath = getOptimizedImageUrl(`${def.folderPath}/${actionFile}`, 45, 768);
+    const fullPath = `${def.folderPath}/${actionFile}`;
     const key = `ninja_${type}_${action}`;
     if (this.cache.has(key)) return this.cache.get(key)!;
 
