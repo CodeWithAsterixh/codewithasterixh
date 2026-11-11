@@ -1,5 +1,38 @@
 [
   {
+  "title": "Skooland: Multi-Tenant School Operating System",
+  "category": "Software Engineering",
+  "excerpt": "Skooland runs a school's daily operations from one platform. Each school gets a public website and separate portals for students, staff, parents, and management. It covers attendance, CBT exams, broadsheets and report cards, fees, timetables, and admissions, and it syncs with the Queez CBT offline exam server.",
+  "thumbnail": null,
+  "tags": [
+    "EdTech",
+    "Multi-Tenant SaaS",
+    "Full-Stack",
+    "System Architecture"
+  ],
+  "tools": [
+    "Next.js (App Router)",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "NestJS",
+    "Prisma",
+    "PostgreSQL",
+    "Socket.io",
+    "pnpm Workspaces"
+  ],
+  "url": "-",
+  "slug": "skooland-multi-tenant-school-os",
+  "problem": "Many schools keep attendance, results, fees, and admissions in separate spreadsheets, paper files, and one-off tools. Their websites are often old and disconnected from everything else. Schools that run exams offline have no clean way to get those results into their records.",
+  "goal": "Build one platform where a school signs up, gets its own website and portals, and runs attendance, exams, results, and fees in one place, with each school's data kept separate.",
+  "architecture": "A Next.js frontend serves the marketing site, the school admin console, each school's public website, and the four portals. Middleware maps subdomains to the right school and portal. A NestJS backend serves the portal APIs and stores each school's data in its own PostgreSQL schema. A separate Prisma database holds accounts, subscriptions, and website content. Socket.io pushes live exam monitoring to management.",
+  "challenges": "Keeping school data isolated while sharing one codebase and one database server. Changing the database layout for schools that already exist. Letting an offline exam server talk to the platform without sharing a school's admin login.",
+  "solutions": "Gave each school its own PostgreSQL schema, with slugs sanitized before they reach any query, and created schemas on demand with idempotent DDL. Added column-level ALTER statements so existing schools pick up new fields. Built scoped API keys for the offline sync: up to five per school, stored as SHA-256 hashes, shown only once, and rotatable at any time.",
+  "tradeOffs": "A schema per school gives strong isolation and makes it easy to export or remove one school's data. The cost is that every database change has to run on every school's schema, not just once.",
+  "lessons": "CREATE TABLE IF NOT EXISTS does not change tables that already exist. Existing schools hit missing-column errors until I added explicit migrations that run on every school's schema.",
+  "outcome": "A working multi-tenant platform with a school admin console, four role-based portals, a website editor for each school, and a documented sync API that connects it to the Queez CBT offline exam suite."
+},
+  {
     "title": "UNIFIVE: Browser Pixel Game Studio",
     "category": "Software Engineering",
     "excerpt": "UNIFIVE is an in-browser studio for creating 2D pixel games without installing software. It provides side-scrolling and top-down scene editing, visual block programming, sprite animation timelines, compressed single-file project exports, and mobile-ready play testing.",
