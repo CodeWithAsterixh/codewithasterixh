@@ -1,5 +1,33 @@
 [
   {
+    "duration": { "from": 2026, "to": 2026 },
+    "name": "Chiko AI",
+    "role": "Founder & Full-Stack Developer",
+    "workType": "Founder",
+    "stacks": ["React", "Next.js", "FastAPI", "Chrome Extensions", "PostgreSQL"],
+    "description": "Building Chiko AI, a Chrome extension and web app that reads a webpage and returns key points, possible biases, open questions, and citations that link to the exact source sentence. I write the extension, the website and dashboard, and the backend.",
+    "achievements": [
+      "Built the Manifest V3 Chrome extension: a side panel, on-demand page extraction, and click-to-highlight citations.",
+      "Built a research workspace where users group saved pages into projects and ask questions across them.",
+      "Moved bring-your-own API keys out of the browser. They are now stored encrypted on the server only.",
+      "Set up the waitlist on its own subdomain and wrote the privacy policy and the Chrome Web Store permission justifications."
+    ]
+  },
+  {
+  "duration": { "from": 2026, "to": 2026 },
+  "name": "Skooland",
+  "role": "Founder & Full-Stack Developer",
+  "workType": "Founder",
+  "stacks": ["Next.js", "NestJS", "PostgreSQL", "Prisma", "Multi-Tenant Architecture"],
+  "description": "Building Skooland, a school operating system where each school gets its own website and separate portals for students, staff, parents, and management. I write the frontend, the backend, and the database layer.",
+  "achievements": [
+    "Designed multi-tenant storage where each school has its own PostgreSQL schema, so one school's data never mixes with another's.",
+    "Built subdomain routing so each school and each portal gets its own address, like management.school.skooland.com.",
+    "Built the school admin console: portal access codes, a block-based website editor, termly billing, and add-on licensing.",
+    "Wrote a sync API so schools running the Queez CBT offline exam server can pull students and exam papers and push results back. It uses scoped API keys that schools can rotate."
+  ]
+},
+  {
     "duration": { "from": 2024, "to": 2024 },
     "name": "Gerald Consultant",
     "role": "Freelance Web Developer",
@@ -48,33 +76,5 @@
       "Planned project-based courses covering HTML5, CSS3, modern JavaScript, and basic data structures.",
       "Went through students' code with them, showed practical debugging, and helped them deploy their own web apps."
     ]
-  },
-  {
-    "duration": { "from": 2026, "to": 2026 },
-    "name": "Chiko AI",
-    "role": "Founder & Full-Stack Developer",
-    "workType": "Founder",
-    "stacks": ["React", "Next.js", "FastAPI", "Chrome Extensions", "PostgreSQL"],
-    "description": "Building Chiko AI, a Chrome extension and web app that reads a webpage and returns key points, possible biases, open questions, and citations that link to the exact source sentence. I write the extension, the website and dashboard, and the backend.",
-    "achievements": [
-      "Built the Manifest V3 Chrome extension: a side panel, on-demand page extraction, and click-to-highlight citations.",
-      "Built a research workspace where users group saved pages into projects and ask questions across them.",
-      "Moved bring-your-own API keys out of the browser. They are now stored encrypted on the server only.",
-      "Set up the waitlist on its own subdomain and wrote the privacy policy and the Chrome Web Store permission justifications."
-    ]
-  },
-  {
-  "duration": { "from": 2026, "to": 2026 },
-  "name": "Skooland",
-  "role": "Founder & Full-Stack Developer",
-  "workType": "Founder",
-  "stacks": ["Next.js", "NestJS", "PostgreSQL", "Prisma", "Multi-Tenant Architecture"],
-  "description": "Building Skooland, a school operating system where each school gets its own website and separate portals for students, staff, parents, and management. I write the frontend, the backend, and the database layer.",
-  "achievements": [
-    "Designed multi-tenant storage where each school has its own PostgreSQL schema, so one school's data never mixes with another's.",
-    "Built subdomain routing so each school and each portal gets its own address, like management.school.skooland.com.",
-    "Built the school admin console: portal access codes, a block-based website editor, termly billing, and add-on licensing.",
-    "Wrote a sync API so schools running the Queez CBT offline exam server can pull students and exam papers and push results back. It uses scoped API keys that schools can rotate."
-  ]
-}
+  }
 ]
