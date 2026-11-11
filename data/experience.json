@@ -50,7 +50,7 @@
     ]
   },
   {
-    "duration": { "from": 2026, "to": "Present" },
+    "duration": { "from": 2026, "to": 2026 },
     "name": "Chiko AI",
     "role": "Founder & Full-Stack Developer",
     "workType": "Founder",
@@ -64,7 +64,7 @@
     ]
   },
   {
-  "duration": { "from": 2026, "to": "Present" },
+  "duration": { "from": 2026, "to": 2026 },
   "name": "Skooland",
   "role": "Founder & Full-Stack Developer",
   "workType": "Founder",
