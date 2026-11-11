@@ -5,10 +5,10 @@
     "role": "Freelance Web Developer",
     "workType": "Freelance",
     "stacks": ["Frontend", "UI/UX", "Responsive Design"],
-    "description": "Built responsive frontend interfaces and refactored UI layouts for client websites, ensuring consistent performance across mobile and desktop viewports.",
+    "description": "Built and fixed frontend interfaces for client websites, mainly making sure they worked properly on both phones and desktops.",
     "achievements": [
-      "Translated Figma design specifications into accessible, pixel-accurate React components.",
-      "Refactored legacy CSS and grid layouts to eliminate mobile display bugs and improve load times."
+      "Turned Figma designs into accessible React components that matched the specs closely.",
+      "Rewrote old CSS and grid layouts that broke on mobile. Pages also loaded faster afterwards."
     ]
   },
   {
@@ -17,11 +17,11 @@
     "role": "Freelance Web Developer",
     "workType": "Freelance",
     "stacks": ["React", "TypeScript", "Responsive Design", "Reusable Components"],
-    "description": "Developed modular frontend interfaces and improved checkout workflows for an e-commerce platform using React and TypeScript.",
+    "description": "Built frontend pages and reworked the checkout flow for an e-commerce site, using React and TypeScript.",
     "achievements": [
-      "Engineered reusable UI component libraries for high-traffic landing and product catalog pages.",
-      "Redesigned checkout page hierarchy, helping lift completed conversion rates by 5% in the first month.",
-      "Audited cross-browser compatibility to ensure uniform behavior on modern mobile and desktop browsers."
+      "Wrote a reusable component library for the landing and product catalog pages, which get a lot of traffic.",
+      "Reorganized the checkout page layout. Completed checkouts rose 5% in the first month.",
+      "Tested across browsers so the site behaved the same on current mobile and desktop browsers."
     ]
   },
   {
@@ -30,11 +30,11 @@
     "role": "Freelance Web Developer",
     "workType": "Freelance",
     "stacks": ["React", "SEO", "UI/UX", "Email Integration"],
-    "description": "Delivered a high-performance marketing website for Broome Services with React, automated email dispatch, and search engine optimization.",
+    "description": "Built the marketing site for Broome Services in React, with automatic email sending and SEO set up from the start.",
     "achievements": [
-      "Built a mobile-first web presence with optimized asset delivery, achieving fast initial page loads.",
-      "Implemented structured JSON-LD data and semantic HTML tags to improve search index coverage.",
-      "Built transactional inquiry forms connected to an automated email dispatch pipeline."
+      "Designed mobile first and optimized the assets so the first load is fast.",
+      "Added JSON-LD structured data and semantic HTML so search engines index the pages properly.",
+      "Connected the inquiry forms to an email pipeline, so every submission sends an email without anyone touching it."
     ]
   },
   {
@@ -43,10 +43,38 @@
     "role": "Programming Tutor",
     "workType": "Full-time",
     "stacks": ["Web Development", "Programming Fundamentals", "Frontend Concepts"],
-    "description": "Instructed students in software development fundamentals, clean coding practices, and modern frontend web engineering.",
+    "description": "Taught students programming basics, clean coding habits, and modern frontend development.",
     "achievements": [
-      "Structured project-based curriculums covering HTML5, CSS3, JavaScript ES6+, and foundational data structures.",
-      "Mentored students through hands-on code reviews, practical debugging strategies, and web application deployment."
+      "Planned project-based courses covering HTML5, CSS3, modern JavaScript, and basic data structures.",
+      "Went through students' code with them, showed practical debugging, and helped them deploy their own web apps."
     ]
-  }
+  },
+  {
+    "duration": { "from": 2026, "to": "Present" },
+    "name": "Chiko AI",
+    "role": "Founder & Full-Stack Developer",
+    "workType": "Founder",
+    "stacks": ["React", "Next.js", "FastAPI", "Chrome Extensions", "PostgreSQL"],
+    "description": "Building Chiko AI, a Chrome extension and web app that reads a webpage and returns key points, possible biases, open questions, and citations that link to the exact source sentence. I write the extension, the website and dashboard, and the backend.",
+    "achievements": [
+      "Built the Manifest V3 Chrome extension: a side panel, on-demand page extraction, and click-to-highlight citations.",
+      "Built a research workspace where users group saved pages into projects and ask questions across them.",
+      "Moved bring-your-own API keys out of the browser. They are now stored encrypted on the server only.",
+      "Set up the waitlist on its own subdomain and wrote the privacy policy and the Chrome Web Store permission justifications."
+    ]
+  },
+  {
+  "duration": { "from": 2026, "to": "Present" },
+  "name": "Skooland",
+  "role": "Founder & Full-Stack Developer",
+  "workType": "Founder",
+  "stacks": ["Next.js", "NestJS", "PostgreSQL", "Prisma", "Multi-Tenant Architecture"],
+  "description": "Building Skooland, a school operating system where each school gets its own website and separate portals for students, staff, parents, and management. I write the frontend, the backend, and the database layer.",
+  "achievements": [
+    "Designed multi-tenant storage where each school has its own PostgreSQL schema, so one school's data never mixes with another's.",
+    "Built subdomain routing so each school and each portal gets its own address, like management.school.skooland.com.",
+    "Built the school admin console: portal access codes, a block-based website editor, termly billing, and add-on licensing.",
+    "Wrote a sync API so schools running the Queez CBT offline exam server can pull students and exam papers and push results back. It uses scoped API keys that schools can rotate."
+  ]
+}
 ]
