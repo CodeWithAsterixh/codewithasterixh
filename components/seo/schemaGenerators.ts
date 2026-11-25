@@ -1,6 +1,7 @@
 import profile from '@/data/profile.json';
 import metaData from '@/data/meta.json';
 import projects from '@/data/projects.json';
+import { siteUrl } from '@/config/site';
 
 export interface Breadcrumb {
   name: string;
@@ -25,8 +26,8 @@ export function buildPersonSchema(personId: string) {
     alternateName: ['Asterixh', 'CodeWithAsterixh', profile.alias],
     jobTitle: profile.role,
     headline: profile.headline,
-    url: metaData.site.url,
-    image: `${metaData.site.url}/images/me.png`,
+    url: siteUrl,
+    image: `${siteUrl}/images/me.png`,
     email: `mailto:${profile.email}`,
     telephone: profile.phone,
     sameAs: profile.socials.map((s) => s.href),
@@ -54,7 +55,7 @@ export function buildWebsiteAndProfileSchema(websiteId: string, personId: string
     {
       '@type': 'WebSite',
       '@id': websiteId,
-      url: metaData.site.url,
+      url: siteUrl,
       name: metaData.site.title,
       alternateName: metaData.site.shortTitle,
       description: metaData.site.description,
@@ -65,7 +66,7 @@ export function buildWebsiteAndProfileSchema(websiteId: string, personId: string
     {
       '@type': 'ProfilePage',
       '@id': profilePageId,
-      url: metaData.site.url,
+      url: siteUrl,
       name: metaData.site.title,
       isPartOf: { '@id': websiteId },
       about: { '@id': personId },
@@ -74,9 +75,9 @@ export function buildWebsiteAndProfileSchema(websiteId: string, personId: string
     },
     {
       '@type': 'ProfessionalService',
-      '@id': `${metaData.site.url}/#service`,
+      '@id': `${siteUrl}/#service`,
       name: `${profile.name} (${profile.alias}) - Software Engineering`,
-      url: metaData.site.url,
+      url: siteUrl,
       provider: { '@id': personId },
       description: 'Custom fullstack web development, frontend engineering, backend API design, and performance optimization services.',
       serviceType: [

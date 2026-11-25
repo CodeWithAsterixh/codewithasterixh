@@ -1,10 +1,10 @@
 import { MetadataRoute } from 'next'
 import posts from '@/data/posts.json'
 import projects from '@/data/projects.json'
-import metaData from '@/data/meta.json'
+import { siteUrl } from '@/config/site'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = metaData.site.url
+  const baseUrl = siteUrl
 
   return [
     {

@@ -1,6 +1,7 @@
 import { Home as HomePage } from "@/features/home/components/Home";
 import { Metadata } from "next";
 import metaData from "@/data/meta.json";
+import { siteUrl } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Asterixh | Expert Software Engineer & Fullstack Web Developer",
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     ...metaData.site.keywords,
   ],
   alternates: {
-    canonical: metaData.site.url,
+    canonical: siteUrl,
   },
   openGraph: {
     title: "Asterixh | Expert Software Engineer & Fullstack Web Developer",

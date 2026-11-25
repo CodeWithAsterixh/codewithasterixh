@@ -1,3 +1,5 @@
+import { siteDomain, siteUrl } from "@/config/site";
+
 export function formatContactMessage(formData: {
   fullName: string
   email: string
@@ -57,7 +59,7 @@ export function formatContactMessage(formData: {
         
         <div class="footer">
           <p style="margin: 0;">Asterixh - Full Stack Developer</p>
-          <p style="margin: 4px 0 0 0;"><a href="https://asterixh.vercel.app" class="link">asterixh.vercel.app</a></p>
+          <p style="margin: 4px 0 0 0;"><a href="${siteUrl}" class="link">${siteDomain}</a></p>
         </div>
       </div>
     </body>

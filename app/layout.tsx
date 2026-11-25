@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Pixelify_Sans } from "next/font/google";
 import "./globals.css";
 import metaData from "@/data/meta.json";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { siteUrl } from "@/config/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,26 +22,26 @@ const pixelifySans = Pixelify_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(metaData.site.url),
+  metadataBase: new URL(siteUrl),
   title: {
     default: metaData.site.title,
     template: `%s | ${metaData.site.author}`,
   },
   description: metaData.site.description,
   applicationName: "Asterixh Portfolio",
-  authors: [{ name: metaData.site.author, url: metaData.site.url }],
+  authors: [{ name: metaData.site.author, url: siteUrl }],
   creator: `${metaData.site.author} (${metaData.site.alias})`,
   publisher: metaData.site.author,
   category: "technology",
   classification: "Software Engineering Portfolio",
   keywords: metaData.site.keywords,
   alternates: {
-    canonical: metaData.site.url,
+    canonical: siteUrl,
   },
   openGraph: {
     title: metaData.site.title,
     description: metaData.site.description,
-    url: metaData.site.url,
+    url: siteUrl,
     siteName: `${metaData.site.author} (${metaData.site.alias})`,
     locale: "en_US",
     type: "profile",
@@ -78,7 +79,7 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.webmanifest",
   other: {
-    thumbnail: `${metaData.site.url}/icon`,
+    thumbnail: `${siteUrl}/icon`,
   },
 };
 export default function RootLayout({

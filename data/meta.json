@@ -4,7 +4,7 @@
     "description": "Full-stack web applications, real-time backend systems, and interactive interfaces built with Next.js, React, TypeScript, and Node.js by Paul Peter (Asterixh).",
     "shortTitle": "Asterixh Portfolio",
     "tagline": "Full-stack software engineer building fast, reliable web systems and real-time applications.",
-    "url": "https://asterixh.vercel.app",
+    "url": "https://www.codewithasterixh.site",
     "author": "Paul Peter",
     "handle": "@asterixh",
     "alias": "Asterixh",
@@ -39,7 +39,7 @@
       "Web Performance Optimization"
     ],
     "copyright": "Paul Peter (Asterixh)",
-    "logo": "https://asterixh.vercel.app/icon"
+    "logo": "https://www.codewithasterixh.site/icon"
   },
   "navigation": [
     { "label": "Home", "href": "/" },

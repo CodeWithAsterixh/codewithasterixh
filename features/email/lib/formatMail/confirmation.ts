@@ -1,3 +1,5 @@
+import { siteUrl } from "@/config/site";
+
 export function formatConfirmationMessage({
   name,
 }: {
@@ -45,7 +47,7 @@ export function formatConfirmationMessage({
           <p>In the meantime, feel free to check out my latest projects.</p>
           
           <div style="text-align: center;">
-            <a href="https://asterixh.vercel.app/works" class="cta-button">View My Works</a>
+            <a href="${siteUrl}/works" class="cta-button">View My Works</a>
           </div>
         </div>
         

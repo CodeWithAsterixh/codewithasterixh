@@ -1,5 +1,5 @@
 import profile from '@/data/profile.json';
-import metaData from '@/data/meta.json';
+import { siteUrl } from '@/config/site';
 import {
   Breadcrumb,
   ArticleData,
@@ -16,9 +16,9 @@ interface JsonLdProps {
 }
 
 export const JsonLd = ({ breadcrumbs, article }: JsonLdProps) => {
-  const personId = `${metaData.site.url}/#person`;
-  const websiteId = `${metaData.site.url}/#website`;
-  const profilePageId = `${metaData.site.url}/#profilepage`;
+  const personId = `${siteUrl}/#person`;
+  const websiteId = `${siteUrl}/#website`;
+  const profilePageId = `${siteUrl}/#profilepage`;
 
   const personSchema = buildPersonSchema(personId);
   const [websiteSchema, profilePageSchema, serviceSchema] = buildWebsiteAndProfileSchema(websiteId, personId, profilePageId);
@@ -31,7 +31,7 @@ export const JsonLd = ({ breadcrumbs, article }: JsonLdProps) => {
           '@type': 'ListItem',
           position: index + 1,
           name: crumb.name,
-          item: crumb.item.startsWith('http') ? crumb.item : `${metaData.site.url}${crumb.item}`,
+          item: crumb.item.startsWith('http') ? crumb.item : `${siteUrl}${crumb.item}`,
         })),
       }
     : null;
@@ -44,7 +44,7 @@ export const JsonLd = ({ breadcrumbs, article }: JsonLdProps) => {
         image: article.image,
         datePublished: article.datePublished,
         dateModified: article.dateModified || article.datePublished,
-        author: { '@type': 'Person', name: article.authorName || profile.name, url: metaData.site.url },
+        author: { '@type': 'Person', name: article.authorName || profile.name, url: siteUrl },
         publisher: { '@id': personId },
         url: article.url,
       }

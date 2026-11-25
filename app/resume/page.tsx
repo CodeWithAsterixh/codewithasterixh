@@ -2,6 +2,7 @@ import { ResumeViewer } from "@/features/resume/components/ResumeViewer";
 import { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
 import metaData from "@/data/meta.json";
+import { siteUrl } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Resume & Engineering Experience | Paul Peter (Asterixh)",
@@ -17,12 +18,12 @@ export const metadata: Metadata = {
     "Hire Fullstack Developer",
   ],
   alternates: {
-    canonical: `${metaData.site.url}/resume`,
+    canonical: `${siteUrl}/resume`,
   },
   openGraph: {
     title: "Resume & Engineering Experience | Paul Peter (Asterixh)",
     description: "Inspect the resume and technical background of Paul Peter (Asterixh), a Fullstack Software Engineer with 4+ years building Next.js, React, and Node.js systems.",
-    url: `${metaData.site.url}/resume`,
+    url: `${siteUrl}/resume`,
     type: "profile",
     images: [
       {

@@ -7,7 +7,7 @@
   "marquee": "FULL-STACK ARCHITECTURE, REAL-TIME APPS, AND PRODUCTION WEB SYSTEMS",
   "stats": [
     {
-      "value": "04",
+      "value": "5+",
       "label": "Years\nBuilding Web Systems"
     },
     {
@@ -37,7 +37,7 @@
       "label": "Explore Code on GitHub"
     },
     "secondaryCta": {
-      "href": "https://asterixh.vercel.app/contact",
+      "href": "https://www.codewithasterixh.site/contact",
       "label": "Discuss a Project"
     },
     "badges": [
