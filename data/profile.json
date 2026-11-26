@@ -3,47 +3,47 @@
   "role": "Software Engineer (Fullstack)",
   "handle": "@asterixh",
   "alias": "Asterixh",
-  "headline": "Full-stack software engineer building reliable web systems",
-  "marquee": "FULL-STACK ARCHITECTURE, REAL-TIME APPS, AND PRODUCTION WEB SYSTEMS",
+  "headline": "Full-stack engineer who ships web products that work",
+  "marquee": "FULL-STACK WEB APPS, REAL-TIME FEATURES, AND DEPENDABLE BACKENDS",
   "stats": [
     {
-      "value": "5+",
-      "label": "Years\nBuilding Web Systems"
+      "value": "Full-Stack",
+      "label": "Frontend to\nBackend"
     },
     {
-      "value": "06",
-      "label": "Clients\nServed"
+      "value": "Reliable",
+      "label": "systems"
     },
     {
-      "value": "15+",
-      "label": "Production\nProjects"
+      "value": "Production",
+      "label": "Built, Shipped\nand Maintained"
     }
   ],
-  "subtext": "I build full-stack web applications and backend services with Next.js, TypeScript, and Node.js, focusing on performance, data integrity, and clear user workflows.",
+  "subtext": "I build web apps and backend services with Next.js, TypeScript, and Node.js. I care about speed, clean data, and workflows people can use without thinking twice.",
   "email": "peterpaultolulope@gmail.com",
   "phone": "+234 810 908 0838",
   "location": "Lagos, Nigeria",
   "about": {
-    "content": "I build web applications and backend systems designed for speed, reliability, and clear user workflows. My work spans the full stack: responsive user interfaces with Next.js and TypeScript, real-time messaging with WebSockets, and database modeling with PostgreSQL and MongoDB.\\n\\nI focus on predictable application state, well-documented APIs, and clean code that teams can maintain and scale with confidence.",
+    "content": "I'm a full-stack engineer based in Lagos. I build web applications from the interface down to the database: responsive UIs in Next.js and TypeScript, real-time features over WebSockets, and data models in PostgreSQL and MongoDB.\n\nI like code that stays readable, APIs that are documented, and apps that behave the same way every time. I work with clients and teams who want something that ships and keeps running.",
     "badgeIcon": "badge-check",
     "badgeLabel": "Fullstack Engineer",
-    "topStatLabel": "Clients Served",
-    "topStatValue": "06"
+    "topStatLabel": "Focus",
+    "topStatValue": "Full-Stack"
   },
   "hero": {
-    "quote": "Building fast, dependable full-stack applications with React, Next.js, TypeScript, and Node.js.",
+    "quote": "Fast, dependable web apps built with React, Next.js, TypeScript, and Node.js.",
     "primaryCta": {
       "href": "https://github.com/CodeWithAsterixh",
-      "label": "Explore Code on GitHub"
+      "label": "See My Code on GitHub"
     },
     "secondaryCta": {
       "href": "https://www.codewithasterixh.site/contact",
-      "label": "Discuss a Project"
+      "label": "Start a Project"
     },
     "badges": [
       {
         "items": [
-          "Fullstack Systems",
+          "Fullstack Development",
           "Web Applications",
           "API Design"
         ]
@@ -51,13 +51,13 @@
       {
         "items": [
           "Real-time Apps",
-          "System Architecture"
+          "System Design"
         ]
       },
       {
         "items": [
           "Responsive UI",
-          "Performance Optimization"
+          "Performance"
         ]
       }
     ]
