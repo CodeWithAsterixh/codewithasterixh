@@ -3,7 +3,7 @@
     "title": "Skooland: Multi-Tenant School Operating System",
     "category": "Software Engineering",
     "excerpt": "Skooland runs a school's daily operations from one platform. Each school gets a public website and separate portals for students, staff, parents, and management. It covers attendance, CBT exams, broadsheets and report cards, fees, timetables, and admissions, and it syncs with the Queez CBT offline exam server.",
-    "thumbnail": null,
+    "thumbnail": "/images/projects/skooland-home.png",
     "tags": [
       "EdTech",
       "Multi-Tenant SaaS",
@@ -21,7 +21,7 @@
       "Socket.io",
       "pnpm Workspaces"
     ],
-    "url": "https://skooland.com",
+    "url": "https://skooland.vercel.app",
     "github": null,
     "slug": "skooland-multi-tenant-school-os",
     "problem": "Many schools keep attendance, results, fees, and admissions in separate spreadsheets, paper files, and one-off tools. Their websites are often old and disconnected from everything else. Schools that run exams offline have no clean way to get those results into their records.",
@@ -37,7 +37,7 @@
     "title": "Chiko AI: Research Assistant with Citations & Bias Check",
     "category": "Software Engineering",
     "excerpt": "Chiko AI is a Chrome extension and web app that reads the page you are on and gives you the key points, possible biases, open questions, and numbers it found. Every point links to the sentence it came from. Saved pages can be grouped into research projects and questioned together.",
-    "thumbnail": null,
+    "thumbnail": "/images/projects/chikoai-home.png",
     "tags": [
       "Chrome Extension",
       "AI Research",
@@ -71,7 +71,7 @@
     "title": "UNIFIVE: Browser Pixel Game Studio",
     "category": "Software Engineering",
     "excerpt": "UNIFIVE lets you make 2D pixel games in the browser with nothing to install. It has side-scrolling and top-down scene editors, visual block programming, a sprite animation timeline, single-file project export, and play testing on mobile.",
-    "thumbnail": null,
+    "thumbnail": "/images/projects/unifive-home.png",
     "tags": [
       "Game Tools",
       "No-Code Editor",
@@ -326,39 +326,6 @@
     "tradeOffs": "File-based routing makes pages load quickly. A feature like looking up a student's grades would need an admin backend.",
     "lessons": "On a school site, the main actions, like sending an admission inquiry or checking term dates, should be within two clicks of the homepage.",
     "outcome": "A mobile-friendly school site with fast pages, clear admission steps, and organized academic information for families."
-  },
-  {
-    "title": "SMS: School Management System",
-    "category": "Software Engineering",
-    "excerpt": "SMS is a full-stack school management platform with a separate frontend and backend. It covers role-based access, attendance, student profiles, conduct records, and fee workflows, on Express, PostgreSQL, and Supabase.",
-    "thumbnail": "/images/projects/sms-fe.png",
-    "tags": [
-      "Full-stack",
-      "RBAC",
-      "EdTech Ops",
-      "PostgreSQL"
-    ],
-    "tools": [
-      "React Router 7",
-      "React Query",
-      "Zustand",
-      "Express 5",
-      "PostgreSQL & Supabase",
-      "TypeScript",
-      "Zod",
-      "Multer & Sharp"
-    ],
-    "url": "https://asterixh-sms-frontend.vercel.app/",
-    "github": null,
-    "slug": "sms-comprehensive-school-management",
-    "problem": "School administrators often keep student records, attendance, fees, and staff duties in separate spreadsheets and paper files. That leads to mistakes and slow audits.",
-    "goal": "Build one system where administrators, teachers, and bursars work in the same platform, each with strict limits on what they can see and do.",
-    "architecture": "The frontend uses React Router, React Query, and Zustand to cache state across the admin screens. The backend is a set of Express services for authentication, student rosters, attendance, conduct records, and fee receipts, writing to PostgreSQL on Supabase.",
-    "challenges": "Enforcing fine-grained permissions across many screens while keeping the frontend routes in step with the backend's authorization checks.",
-    "solutions": "Added role-based route guards on the client, checked tokens and role claims on every API route, and tuned the database queries with foreign keys and indexes.",
-    "tradeOffs": "Keeping the frontend and backend in separate repositories means the API contract has to be kept in sync. It also lets each side scale and deploy on its own.",
-    "lessons": "Permissions hold up better when they are rules in the database, not just conditions in the UI.",
-    "outcome": "A school operations system that handles student enrolment, daily attendance, fee verification, and role-based staff administration."
   },
   {
     "title": "motion-lyte.js: Declarative Web Animation Library",

@@ -46,7 +46,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     >
       <div className="w-full max-h-[calc(100dvh-175px)] md:max-h-[460px] flex flex-col bg-[#EADBCC] border-2 md:border-4 border-[#3E2B1D] shadow-[4px_4px_0px_#3E2B1D] md:shadow-[8px_8px_0px_#3E2B1D] overflow-hidden text-left pointer-events-auto">
         <div className="flex items-center justify-between px-2.5 py-1 sm:px-4 sm:py-2 bg-[#D4A373] text-[#3E2B1D] border-b-2 md:border-b-4 border-[#3E2B1D] font-mono text-[9px] sm:text-xs md:text-sm font-black tracking-wider uppercase">
-          <span>CHAPTER 05: FEATURED PROJECTS</span>
+          <span>FEATURED PROJECTS</span>
           <div className="flex items-center gap-2">
             <span className="hidden sm:inline bg-[#F4EADA] px-1.5 py-0.5 border border-[#3E2B1D] text-[9px] font-bold">
               {currentProject.category.toUpperCase()}

@@ -53,7 +53,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         </div>
 
         <div className="flex items-center border-b-2 border-[#3E2B1D] bg-[#DFCEBA] font-mono text-[9px] sm:text-xs font-bold">
-          {experienceData.map((exp, idx) => {
+          {experienceData.slice(0,4).map((exp, idx) => {
             const yearLabel = exp.duration.from === exp.duration.to ? `${exp.duration.from}` : `${exp.duration.from}-${exp.duration.to}`;
             return (
               <button
