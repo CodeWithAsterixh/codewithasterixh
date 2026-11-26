@@ -4,6 +4,7 @@ import "./globals.css";
 import metaData from "@/data/meta.json";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { siteUrl } from "@/config/site";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -93,6 +94,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${pixelifySans.variable} antialiased bg-background text-white`}
       >
         <JsonLd />
+        <Analytics/>
         <main id="scroll-container" className="relative isolate overflow-hidden h-dvh w-full">
           {children}
         </main>
