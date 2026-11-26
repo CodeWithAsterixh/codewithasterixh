@@ -4,7 +4,7 @@ import "./globals.css";
 import metaData from "@/data/meta.json";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { siteUrl } from "@/config/site";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
